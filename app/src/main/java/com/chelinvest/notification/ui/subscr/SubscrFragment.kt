@@ -1,7 +1,6 @@
 package com.chelinvest.notification.ui.subscr
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -20,6 +19,7 @@ import com.afollestad.materialdialogs.GravityEnum
 import com.afollestad.materialdialogs.MaterialDialog
 import com.chelinvest.notification.Preferences
 import com.chelinvest.notification.R
+import com.chelinvest.notification.additional.BRANCH_ID
 import com.chelinvest.notification.additional.BRANCH_NAME
 import com.chelinvest.notification.model.DeliveSubscriptionForBranch
 import com.chelinvest.notification.model.ObjAny
@@ -32,6 +32,9 @@ import kotlinx.android.synthetic.main.fragment_subscr.*
 import com.chelinvest.notification.ui.subscr.dialog.FieldValuesAdapter
 import java.util.*
 
+// Сохранение состояния фрагментов (Fragment)
+// https://habr.com/ru/post/280586/
+
 class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
 
     var map = HashMap<String, ObjParam>()
@@ -41,15 +44,26 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
     private var mLayoutManager: RecyclerView.LayoutManager? = null
     private var mAdapter: SubscrAdapter? = null
 
-    /*
+    ///*
     companion object {
+        /*
+        // Вариант передачи параметров в активити
         fun getStartIntent(context: Context, branchId: String, branchName: String): Intent {
-            return Intent(context, SubscrFragment::class.java)
+            return Intent(context, SubscrActivity::class.java)
                 .putExtra(BRANCH_ID, branchId)
                 .putExtra(BRANCH_NAME, branchName)
         }
+        */
+
+        // Вариант передачи параметров во фрагмент
+        fun getBundleArguments(branchId: String, branchName: String): Bundle {
+            return Bundle().apply {
+                this.putString(BRANCH_ID, branchId)
+                this.putString(BRANCH_NAME, branchName)
+            }
+        }
     }
-     */
+    //*/
 
     override fun createPresenter(): SubscrPresenter = SubscrPresenter()
 
@@ -60,13 +74,18 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
+        Log.wtf("SUBSCRFRAGMENT", "OnCreate")
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_subscr, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log.wtf("SUBSCRFRAGMENT", "onCreateView")
+        return inflater.inflate(R.layout.fragment_subscr, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Log.wtf("SUBSCRFRAGMENT", "onViewCreated")
 
         vBackButton.setOnClickListener { findNavController().popBackStack() }
         vAddButton.setOnClickListener{ startToCreateSubscr() }
@@ -169,7 +188,7 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
         branchNameTextView.setText(nameBranch)
 
         // Обновить список
-        doRequest{}
+        doRequest {}
     }
 
 
@@ -185,6 +204,7 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
                 else
                     array
             )
+            Log.wtf("SUBSCRFRAGMENT", "doRequest -> notifyDataSetChanged()")
             mAdapter?.notifyDataSetChanged()
             setPosition()
         }
@@ -254,7 +274,7 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
         // Получить список входящих полей подписки, доступных для уведомления конкретного типа
         getPresenter().getInputFields(this.view?.context!!, this, idSession!!, branchShort!!) {
             if (it.size == 0) {
-                Log.wtf("InputFields", "[SubscrActivity] get_input_fields_for_branch вернул пустой массив obj_any")
+                Log.wtf("InputFields", "[SubscrFragment] get_input_fields_for_branch вернул пустой массив obj_any")
                 Toast.makeText(view?.context, "Список входящих полей для уведомления $branchShort пуст!", Toast.LENGTH_LONG).show()
             } else {
                 // Показать диалоги для всех атрибутов с выбором значения для каждого атрибута
@@ -329,15 +349,6 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
         }
     }
 
-    // TODO!
-    /*
-    fun onError(context: Context, view: IView, exception: Exception) {
-        if (exception is PasswordException) {
-            view.showResponseError(R.string.invalid_login_or_password_error)
-            return
-        }
-    }
-    */
 
     // Для прокрутки до нужного пункта
     fun RecyclerView.smoothSnapToPosition(position: Int, snapMode: Int = LinearSmoothScroller.SNAP_TO_START) {
@@ -354,4 +365,14 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
         layoutManager?.startSmoothScroll(smoothScroller)
     }
 
+
+    override fun onPause() {
+        super.onPause()
+        Log.wtf("SUBSCRFRAGMENT", "onPause")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.wtf("SUBSCRFRAGMENT", "onDestroyView")
+    }
 }

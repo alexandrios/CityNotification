@@ -18,6 +18,7 @@ import com.chelinvest.notification.ui.presenter.Presenter
 
 class SubscrPresenter: Presenter() {
 
+    // Получить список входящих полей подписки, доступных для уведомления конкретного типа (Начало процедуры создания подписки)
     fun getInputFields(context: Context, view: ISubscrView, idSession: String, branchShort: String, onGetInputFields: (ArrayList<ObjAny>) -> Unit) = resolvedLaunch(block = {
 
         //view.showProgressDialog()
@@ -30,6 +31,7 @@ class SubscrPresenter: Presenter() {
     })
 
 
+    // Прочитать значения для текущего поля (Процедура создания подписки)
     fun getFieldValues(context: Context, view: ISubscrView, idSession: String, branchShort: String, idField: String, onGetFieldValue: (ArrayList<ObjParam>) -> Unit) = resolvedLaunch(block = {
 
         view.showProgressDialog()
@@ -42,6 +44,7 @@ class SubscrPresenter: Presenter() {
     })
 
 
+    // Создать новую подписку со значениями по умолчанию -> 1.5. create_delivery_subscription_for_branch
     fun createSubscr(context: Context,
                      view: ISubscrView,
                      idSession: String,
@@ -59,7 +62,7 @@ class SubscrPresenter: Presenter() {
     })
 
 
-    // Выполнить get_delivery_subscription_for_branch
+    // Получить список подписок: get_delivery_subscription_for_branch
     fun getSubscript(context: Context, view: ISubscrView, onGetSubscription: (ArrayList<DeliveSubscriptionForBranch>) -> Unit) = resolvedLaunch(block = {
 
         val idSession = Preferences.getInstance().getSessionId(context)
@@ -82,6 +85,7 @@ class SubscrPresenter: Presenter() {
         view.hideProgressDialog()
         onError(context, view, ex)
     })
+
 
     // Выполнить 1.6. delete_delivery_subscription_for_branch
     fun delSubscript(context: Context, view: ISubscrView, idSubscription: String, onDelSubscription: (errorNote: String) -> Unit) = resolvedLaunch(block = {
@@ -107,19 +111,19 @@ class SubscrPresenter: Presenter() {
         onError(context, view, ex)
     })
 
+
     // Перейти в настройку адресов конкретного агента
     fun moveToTypesForSubscription (context: Context, idSubscription: String, nameSubscription: String) {
         //val intent = AddressActivity.getStartIntent(context, idSubscription, nameSubscription)
         //context.startActivity(intent)
     }
 
+
     // Редактирование подписки (описание, активность)
     fun editSubscription(context: Context, view: ISubscrView, subscrInfo: DeliveSubscriptionForBranch) {
         val bundle = Bundle()
         bundle.putSerializable(SUBSCR_INFO, subscrInfo)
         findNavController(view as CustomFragment<*>).navigate(R.id.action_subscrFragment_to_editSubscrFragment, bundle)
-        //val intent = EditSubscrActivity.getStartIntent(context, subscrInfo)
-        //view.startActivityForResult(intent, EDITSUBSCRACTIVITY_CODE)
     }
 
 }

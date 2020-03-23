@@ -15,6 +15,7 @@ import com.chelinvest.notification.additional.BRANCH_NAME
 import com.chelinvest.notification.additional.LIMIT_VALUE
 import com.chelinvest.notification.model.ObjParam
 import com.chelinvest.notification.ui.CustomFragment
+import com.chelinvest.notification.ui.subscr.SubscrFragment
 
 
 class BranchFragment : CustomFragment<BranchPresenter>(), IBranchView {
@@ -62,7 +63,10 @@ class BranchFragment : CustomFragment<BranchPresenter>(), IBranchView {
                                 findNavController().navigate(R.id.action_branchFragment_to_limitFragment, bundle)
                             }
                             else -> {
-                                findNavController().navigate(R.id.action_branchFragment_to_subscrFragment, bundle)
+                                //findNavController().navigate(R.id.action_branchFragment_to_subscrFragment, bundle)
+                                // Вариант передачи параметров во фрагмент
+                                findNavController().navigate(R.id.action_branchFragment_to_subscrFragment,
+                                    SubscrFragment.getBundleArguments(branch.id, branch.name))
                             }
                         }
                     }

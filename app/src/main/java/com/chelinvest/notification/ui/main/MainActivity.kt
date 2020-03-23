@@ -6,6 +6,8 @@ import com.chelinvest.notification.Preferences
 import com.chelinvest.notification.R
 import com.chelinvest.notification.ui.CustomActivity
 
+// Работа с Github
+// https://metanit.com/java/android/22.1.php
 
 class MainActivity : CustomActivity<MainPresenter>() {
 

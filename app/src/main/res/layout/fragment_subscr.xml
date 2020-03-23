@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vParentLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/vTitlePanel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+            android:id="@+id/branchNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorLightBrown"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="short"
+            android:textColor="@color/text_bright"
+            android:textSize="@dimen/branch_titel"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/buttonTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/vCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="4dp"
+            android:padding="4dp"
+            android:paddingEnd="8dp"
+            android:text="Только активные подписки"
+            android:background="@drawable/border"
+            android:typeface="sans"
+            android:textColor="@color/colorPrimaryBrown" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/subscriptRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:scrollbars="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/vTitlePanel"
+        style="@style/AppTheme.TitleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="26dp">
+
+        <ImageView
+            android:id="@+id/vBackButton"
+            style="@style/AppTheme.BackButtonImageView" />
+
+        <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+            android:id="@+id/vTitleTextView"
+            style="@style/AppTheme.TitleTextView"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/vAddButton"
+            style="@style/AppTheme.AddButtonImageView"
+            android:layout_alignParentEnd="true"
+            android:layout_toStartOf="@+id/vTitleTextView" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

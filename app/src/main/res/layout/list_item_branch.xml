@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:paddingBottom="8dp" >
+
+        <com.chelinvest.notification.ui.custom.CardItem
+            android:id="@+id/cardItem"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:text="Оплатить"
+            app:text_size="21sp"
+            app:background_drawable="@drawable/background_money_color" />
+
+</FrameLayout>

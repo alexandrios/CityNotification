@@ -1,0 +1,331 @@
+<resources>
+    <string name="app_name">Город: настройка уведомлений</string>
+    <string name="xgate_post_login_pass_whereid_request"><![CDATA[<?xml version=\"1.0\" encoding=\"windows-1251\"?><xgate_request><datasource>INV_PLAT</datasource><maxrows>1000</maxrows><login_pass><where_id>-1028</where_id><user>{USER}</user><password>{PASS}</password></login_pass></xgate_request>]]></string>
+    <string name="xgate_post_login_pass_request"><![CDATA[<?xml version=\"1.0\" encoding=\"windows-1251\"?><xgate_request><datasource>INV_PLAT</datasource><maxrows>1000</maxrows><login_pass><user>{USER}</user><password>{PASS}</password></login_pass></xgate_request>]]></string>
+    <string name="user_mask">{USER}</string>
+    <string name="pass_mask">{PASS}</string>
+    <string name="login_loading">загрузка данных</string>
+    <string name="login_check_input_user">Укажите логин</string>
+    <string name="login_check_input_pass">Укажите пароль</string>
+
+    <string name="data_not_exists_error">Данные не найдены</string>
+    <string name="empty_login_error">Email не может быть пустым</string>
+    <string name="empty_password_error">Минимальная длина пароля - 5 символов</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="fcm_message">FCM Message</string>
+
+    <string name="ruble">₽</string>
+    <string name="ok">OK</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="warning">Внимание</string>
+    <string name="del_subs">Удалить подписку:</string>
+    <string name="error">Ошибка</string>
+    <string name="close">Закрыть</string>
+    <string name="cancel">Отмена</string>
+    <string name="next">Далее</string>
+    <string name="done">Готово</string>
+    <string name="good">Хорошо</string>
+    <string name="please_wait">Пожалуйста, подождите</string>
+    <string name="please_wait_session_update">Пожалуйста, подождите\nИдет обновление сессии</string>
+    <string name="choose_program">Выберите программу</string>
+    <string name="esia_card">Карта ЕСИА</string>
+    <string name="debt">Долг</string>
+    <string name="overpayment">Переплата</string>
+    <string name="are_you_sure">Вы уверены?</string>
+
+    <string name="authorization_required">Требуется повторная авторизация карты</string>
+    <string name="about_authorization_required">Без авторизации информация по данной карте будет ограничена\n\nНомер карты\n%s</string>
+    <string name="session_updated">Сессия обновлена. Пожалуйста, повторите предыдущее действие</string>
+    <string name="authorize">Авторизоваться</string>
+    <string name="skip">Пропустить</string>
+    <string name="enter_password">Введите пароль вашей карты</string>
+    <string name="enter_later">Ввести позже</string>
+    <string name="password">Пароль</string>
+
+    <string name="field_necessary_error">Поле обязательно для заполнения</string>
+
+    <string name="android_restriction_message">Уважаемые пользователи, в связи с повышением требований Совета стандартов безопасности индустрии платежных карт (PCI) и федеральных стандартов обработки информации , с 7 декабря приложение \"Город 74\" не будет работать на операционных системах Android с версией ниже 4.4. Надеемся на Ваше понимание.</string>
+
+    <!-- messages -->
+    <string name="service_added_in_cart_message">Услуга добавлена в корзину</string>
+    <string name="services_added_in_cart_message">Услуги добавлены в корзину</string>
+
+    <!-- errors -->
+    <string name="session_error">Ошибка авторизации</string>
+    <string name="internal_server_error">Ошибка сервера</string>
+    <string name="network_error">Проверьте соединение с интернетом</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
+    <string name="program_not_found_error">Программа не найдена</string>
+    <string name="invalid_login_or_password_error">Неверный логин или пароль</string>
+    <string name="invalid_card_number_error">Неверный номер карты</string>
+    <string name="enter_password_error">Введите пароль</string>
+    <string name="card_not_found_error">Карта не найдена</string>
+    <string name="invalid_passport_error">Неверные паспортные данные</string>
+    <string name="enter_fio_error">Введите фамилию</string>
+    <string name="XGATE_error">Неизвестная ошибка. Перезайдите в аккаунт</string>
+    <string name="ORA1_error">Неизвестная ошибка. Перезайдите в аккаунт</string>
+    <string name="ORA2_error">Неизвестная ошибка. Перезайдите в аккаунт</string>
+    <string name="shopping_cart_authorized_error">Корзина авторизована. Вы не можете добавлять услуги</string>
+    <string name="shopping_cart_error">Ошибка формирования корзины. Корзина очищена</string>
+    <string name="cards_not_same_error">Карты не совпадают</string>
+    <string name="you_cannot_add_service_to_cart_error">Вы не можете добавить эту услугу в корзину</string>
+    <string name="payment_error">Не удалось сформировать платеж</string>
+    <string name="add_payer_contacts_error">Не удалось добавить контактные данные плательщика</string>
+    <string name="esia_version_error">Вход через ЕСИА поддерживается только начиная с Android 4.4</string>
+
+    <!-- splash screen -->
+    <string name="splash_screen_title">Моя Карта</string>
+
+    <!-- tutorial screen -->
+    <string name="tutorial_screen_title">Система \'\'Город\'\'</string>
+    <string name="tutorial_screen_complete">Завершить обучение</string>
+    <string-array name="tutorial_titles">
+        <item>Все услуги в одном месте</item>
+        <item>Быстрая оплата</item>
+        <item>Персонализация</item>
+    </string-array>
+    <string-array name="tutorial_descriptions">
+        <item>Войдите в приложение по своей карте Системы Город, чтобы отслеживать и оплачивать свои услуги в одном месте</item>
+        <item>Быстро и удобно вводите все необходимые данные о платежах и управляйте корзиной с услугами</item>
+        <item>Настраивайте ваши услуги так, как будет удобно вам</item>
+    </string-array>
+
+    <!-- main screen -->
+    <string name="main_screen_my_card">Моя Карта</string>
+    <string name="main_screen_shopping_cart">Корзина</string>
+    <string name="main_screen_profile">Профиль</string>
+
+    <!-- login -->
+    <string name="login_name_titel">Логин</string>
+    <string name="login_pass_titel">Пароль</string>
+    <string name="login_button">Войти</string>
+    <string name="login_checking">проверка</string>
+    <string name="login_title">Добро пожаловать!</string>
+    <string name="login_subtitle">Выберите способ входа:</string>
+
+    <!--string name="login_loading">Идет загрузка данных</string-->
+    <string name="login_by_card">по Карте</string>
+    <string name="login_by_passport">по Паспорту</string>
+    <string name="login_card_number">Номер карты</string>
+    <string name="login_password">Пароль</string>
+    <string name="login_forgot_password">Забыли пароль?</string>
+    <string name="login_passport_series">Серия</string>
+    <string name="login_passport_number">Номер</string>
+    <string name="login_last_name">Фамилия</string>
+    <string name="login_login">Войти</string>
+    <string name="login_login_by">Войти с помощью:</string>
+    <string name="login_or">или</string>
+    <string name="login_phone_number">Номера телефона</string>
+
+    <!-- card -->
+    <string name="card_title">Моя Карта</string>
+    <string name="card_search">Поиск</string>
+    <string name="card_list">Список</string>
+    <string name="card_grid">Сетка</string>
+    <string name="card_express_payment">Экспресс\nоплата</string>
+    <string name="card_search2">Поиск по услугам и значениям</string>
+    <string name="card_not_found_title">Услуги отсутствуют</string>
+    <string name="card_not_found_subtitle">На данной карте ни одной\nуслуги не найдено</string>
+    <string name="card_sliding_panel_title">Параметры отображения:</string>
+    <string name="card_sliding_panel_filter1">Все услуги</string>
+    <string name="card_sliding_panel_filter2">Только долги</string>
+    <string name="card_sliding_panel_filter3">Долги не в корзине</string>
+    <string name="card_sliding_panel_filter4">Не в корзине</string>
+    <string name="card_sliding_panel_favourite">Избранное</string>
+    <string name="card_no_debts_message">Отсутствуют долги для добавления в корзину</string>
+    <string name="card_pay_samples">ШАБЛОНЫ ОПЛАТЫ</string>
+    <string name="card_logout">Выйти</string>
+
+    <!-- shopping cart -->
+    <string name="shopping_cart_title">Корзина</string>
+    <string name="shopping_cart_clear">Очистить</string>
+    <string name="shopping_cart_authorized">Корзина авторизована, оплатите её, либо очистите</string>
+    <string name="shopping_cart_total">Всего:</string>
+    <string name="shopping_cart_pay">Оплатить</string>
+    <string name="shopping_cart_empty_title">Корзина пуста</string>
+    <string name="shopping_cart_empty_subtitle">Добавьте услуги</string>
+    <string name="shopping_cart_sliding_panel_title">Оплатить услуги:</string>
+    <string name="shopping_cart_sliding_panel_email">Email:</string>
+    <string name="shopping_cart_sliding_panel_send_voucher">Отправить электронный чек по email</string>
+    <string name="shopping_cart_sliding_panel_commission1">Для карт Челябинвестбанка комиссия составит</string>
+    <string name="shopping_cart_sliding_panel_commission2">Для других карт комиссия составит</string>
+    <string name="shopping_cart_item_payer">Плательщик:</string>
+    <string name="shopping_cart_item_pu">Поставщик:</string>
+    <string name="shopping_cart_item_inn">ИНН:</string>
+    <string name="shopping_cart_item_acc_pu">Лицевой счет:</string>
+    <string name="shopping_cart_will_be_cleared">Корзина будет очищена</string>
+    <string name="shopping_cart_will_be_deleted">Услуга будет удалена</string>
+    <string name="shopping_cart_payment">Оплата</string>
+    <string name="shopping_cart_invalid_email_error">Некорректный email</string>
+    <string name="shopping_cart_service_changed">Услуга изменена в корзине</string>
+
+    <!-- profile -->
+    <string name="profile_title">Профиль</string>
+    <string name="profile_change">Изменить</string>
+    <string name="profile_main_card">Основная карта</string>
+    <string name="profile_card_not_found">Карта отсутствует</string>
+    <string name="profile_saved_forms">Сохраненные анкеты</string>
+    <string name="profile_tutorial">Обучение</string>
+    <string name="profile_logout">Выйти из аккаунта</string>
+    <string name="profile_version">Версия приложения: %1$s (%2$d)</string>
+
+
+    <!-- esia -->
+    <string name="esia_title">Вход через ЕСИА</string>
+
+    <!-- edit screen -->
+    <string name="edit_subscr_descr_display">Описание подписки</string>
+    <string name="edit_subscr_descr_settings">Придумайте описание подписки</string>
+
+    <string name="edit_subscr_active_display">Активность подписки</string>
+    <string name="edit_subscr_active_settings">Подписка активна</string>
+
+    <string name="edit_email_descr_display">Email</string>
+    <string name="edit_email_descr_settings">Введите адрес электронной почты</string>
+    <string name="edit_email_verify">Необходимо указать правильный Email</string>
+    <string name="edit_sms_descr_display">SMS</string>
+    <string name="edit_sms_descr_settings">Введите номер телефона в формате +79999999999</string>
+    <string name="edit_sms_verify">Необходимо указать правильный номер телефона</string>
+    <string name="edit_push_descr_display">APP_PUSH</string>
+    <string name="edit_push_descr_settings">Токен регистрации FCM для устройства</string>
+    <string name="edit_push_descr_settings_name">Наименование устройства</string>
+    <string name="edit_push_verify">Токен регистрации FCM для устройства не определен</string>
+
+    <string name="create_notificaion">Создание уведомления</string>
+    <string name="choose_notificaion_type">Выберите тип уведомления</string>
+
+    <string name="edit_time_period">Предпочтительный период рассылки сообщений</string>
+    <string name="edit_start_hour_descr_settings">Введите час начала предпочтительного периода рассылки сообщения</string>
+    <string name="edit_finish_hour_descr_settings">Введите час окончания предпочтительного периода рассылки сообщения</string>
+    <string name="edit_time_zone_descr_settings">Введите часовой пояс, по которому рассчитывается период рассылки</string>
+    <string name="edit_time_start_more_then_finish_hour">Час начала периода должен быть меньше часа конца периода</string>
+    <string name="edit_title_panel_save">Сохранить</string>
+
+    <string name="edit_screen_type">Тип объекта</string>
+    <string name="edit_screen_type_service">Привязанная услуга</string>
+    <string name="edit_screen_type_pay_sample">Шаблон оплаты</string>
+    <string name="edit_screen_payer">Плательщик</string>
+    <string name="edit_screen_acc_pu">Лицевой счет</string>
+    <string name="edit_screen_address">Адрес</string>
+    <string name="edit_screen_to_pay">К оплате:</string>
+    <string name="edit_screen_background_settings">Выберите фоновую заливку иконки</string>
+    <string name="edit_screen_background_settings_disabled">Не доступно</string>
+    <string name="edit_screen_icon_settings">Выберите пиктограмму для иконки</string>
+    <string name="edit_screen_recreate_pay_sample_error_title">Ошибка обновления шаблона</string>
+    <string name="edit_screen_recreate_pay_sample_error_subtitle">Попробовать еще раз?</string>
+    <string name="edit_screen_empty_name_error">Название не может быть пустым</string>
+
+    <!-- edit screen -->
+    <string name="edit_screen_abonent">Абонент</string>
+    <string name="edit_screen_operations">Посмотреть выписку</string>
+
+
+    <!-- xmlui -->
+    <string name="xmlui_title">Данные платежа</string>
+    <string name="xmlui_next">Продолжить</string>
+    <string name="xmlui_max_length_error">Превышена максимальная длина %d</string>
+    <string name="xmlui_data_error">Проверьте правильность заполненных данных</string>
+    <string name="xmlui_field_necessary_error">Поле обязательно для заполнения</string>
+
+    <!-- sub services -->
+    <string name="sub_services_title">Сформировать перевод</string>
+    <string name="sub_services_next">Продолжить</string>
+    <string name="sub_services_period">Период оплаты</string>
+    <string name="sub_services_sum">Сумма</string>
+    <string name="sub_services_sum_hint">0.00 P</string>
+    <string name="sub_services_commission">Комиссия в соответствии с тарифами банка</string>
+    <string name="sub_services_commission_on">Комиссия из суммы</string>
+    <string name="sub_services_item_sum">К оплате</string>
+    <string name="sub_services_sum_error">Введите правильно сумму</string>
+    <string name="sub_services_sum_not_positive_error">Сумма должна быть больше 0</string>
+    <string name="sub_services_dates_error">Дата начала периода должна быть меньше даты окончания</string>
+
+    <!-- data input -->
+    <string name="data_input_title">Сформировать перевод</string>
+    <string name="data_input_next">Продолжить</string>
+    <string name="data_input_payer">Плательщик</string>
+    <string name="data_input_abonent">Абонент</string>
+    <string name="data_input_forms">Анкеты</string>
+    <string name="data_input_fio">ФИО</string>
+    <string name="data_input_phone">Телефон</string>
+    <string name="data_input_mobile_phone">Мобильный телефон</string>
+    <string name="data_input_email">Email</string>
+    <string name="data_input_region">Регион</string>
+    <string name="data_input_city">Город</string>
+    <string name="data_input_sub_city">Поселок</string>
+    <string name="data_input_street">Улица</string>
+    <string name="data_input_building">Дом</string>
+    <string name="data_input_apartment">Квартира</string>
+    <string name="data_input_save">Сохранить</string>
+    <string name="data_input_abonent_fio_error">Введите ФИО абонента</string>
+    <string name="data_input_abonent_address_error">Введите адрес абонента</string>
+    <string name="data_input_payer_fio_error">Введите ФИО плательщика</string>
+    <string name="data_input_payer_email_error">Введите email плательщика</string>
+    <string name="data_input_payer_phone_error">Введите телефон плательщика</string>
+    <string name="data_input_payer_mobile_phone_error">Введите мобильный телефон плательщика</string>
+    <string name="data_input_payer_address_error">Введите адрес плательщика</string>
+    <string name="form_saved_message">Анкета сохранена</string>
+    <string name="form_already_exists_error">Анкета уже существует</string>
+
+    <!-- identification -->
+    <string name="identification_title">Идентификация</string>
+    <string name="identification_next">Продолжить</string>
+    <string name="identification_subtitle">Для формирования перевода просим указать реквизиты одного из документов плательщика</string>
+    <string name="identification_choose_document">Выберите документ</string>
+    <string name="identification_fill_sub_documents">Заполните дополнительные документы</string>
+    <string name="identification_choose_document_error">Выберите документ</string>
+    <string name="identification_enter_data_error">Введите данные</string>
+
+    <!-- data templates -->
+    <string name="data_templates_title">Сохраненные анкеты</string>
+    <string name="data_templates_payer">Плательщик</string>
+    <string name="data_templates_abonent">Абонент</string>
+    <string name="data_templates_not_found">Отсутствуют сохраненные анкеты</string>
+    <string name="data_templates_form_will_be_deleted">Анкета будет удалена</string>
+
+    <!-- pay all -->
+    <string name="pay_all_title">Добавление услуг</string>
+    <string name="pay_all_service_count">%1$d из %2$d</string>
+    <string name="pay_all_subscription">Происходит добавление услуг для быстрой оплаты. Это может занять некоторое время.</string>
+    <string name="pay_all_cancel">Остановить</string>
+    <string name="pay_all_will_be_canceled">Экспресс оплата будет остановлена</string>
+
+    <!-- pay all result -->
+    <string name="pay_all_result_title">Недобавленные услуги</string>
+    <string name="pay_all_result_service_count">Недобавленных услуг: %d</string>
+    <string name="pay_all_result_subscription">Вы можете добавить их вручную</string>
+
+
+    <!-- commission info -->
+    <string name="commission_info_title">Информация о комиссии</string>
+    <string name="commission_info_text">0% - оплата любых услуг по картам Челябинвестбанка;\n\n2,5% - оплата услуг сотовой связи по картам сторонних банков;\n\n1% - оплата прочих услуг по картам сторонних банков.</string>
+
+    <!-- forgot password -->
+    <string name="forgot_password_title">Если вы забыли пароль</string>
+    <string name="forgot_password_subtitle">На какие цифры начинается ваша карта?</string>
+    <string name="forgot_password_card1">990001 – Карта InvestPay</string>
+    <string name="forgot_password_card1_description">Cмена пароля производится на сайте investpay.ru посредством SMS-сообщения</string>
+    <string name="forgot_password_card2">990002 – Карта Системы Город Челябинской обл.</string>
+    <string name="forgot_password_card2_description">Для смены пароля подойдите в кассу ПАО «Челбинвестбанк» с паспортом</string>
+    <string name="forgot_password_card3">990004 – Карта Системы Город от Интерсвязи</string>
+    <string name="forgot_password_card3_description">Для смены пароля обратитесь в поддержку компании «Интерсвязь»</string>
+    <string name="forgot_password_card_other">Для других карт – обратитесь в компанию, которая выпустила данную карту</string>
+
+    <!-- voucher email -->
+    <string name="voucher_email_title">Чек по email:</string>
+    <string name="voucher_email_subtitle">Введите адрес электронной почты, чтобы получить электронный чек</string>
+    <string name="voucher_email_input_email">Введите email</string>
+    <string name="voucher_email_remember_email">Запомнить email</string>
+
+    <!-- choose card dialog -->
+    <string name="choose_card_dialog_title">Выбрать карту:</string>
+
+
+    <!-- card -->
+    <string name="card_no_password">Не указан пароль</string>
+
+    <string name="welcome">Welcome!</string>
+
+</resources>

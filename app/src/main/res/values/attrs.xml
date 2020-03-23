@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ServiceIconView">
+        <attr name="serviceIconColorInd" format="integer"/>
+        <attr name="serviceIconIconInd" format="integer"/>
+        <attr name="serviceIconIconSize" format="dimension"/>
+        <attr name="serviceIconIconMarginTop" format="dimension"/>
+        <attr name="serviceIconImageSize" format="dimension"/>
+        <attr name="serviceIconIconColor" format="color"/>
+        <attr name="serviceIconType" format="enum">
+            <enum name="oval" value="0" />
+            <enum name="transparent" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CustomTextView">
+        <attr name="customTypefaceStyle" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="bold" value="1" />
+            <enum name="light" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="MoneyTextView">
+        <attr name="moneyTextViewMode" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="LoginEditText">
+        <attr name="let_hint" format="string" />
+        <attr name="let_text" format="string" />
+        <attr name="let_inputType" format="enum">
+            <enum name="text" value="0" />
+            <enum name="password" value="1" />
+            <enum name="cardNumber1" value="2" />
+            <enum name="cardNumber2" value="3" />
+            <enum name="passportSeries" value="4" />
+            <enum name="passportNumber" value="5" />
+        </attr>
+        <attr name="let_imeOptions" format="enum">
+            <enum name="actionDone" value="0" />
+            <enum name="actionNext" value="1" />
+        </attr>
+        <attr name="let_paddingEnd" format="dimension" />
+        <attr name="let_maxLength" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="CheckItemView">
+        <attr name="civ_text" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomEditText">
+        <attr name="cet_isNecessary" format="boolean" />
+        <attr name="cet_paddingStart" format="dimension" />
+        <attr name="cet_hint" format="string" />
+        <attr name="cet_text" format="string" />
+        <attr name="cet_textSize" format="dimension" />
+        <attr name="cet_textColor" format="color" />
+        <attr name="cet_hintTextColor" format="color" />
+        <attr name="cet_imeOption" format="enum">
+            <enum name="actionDone" value="0" />
+            <enum name="actionNext" value="1" />
+        </attr>
+        <attr name="cet_inputType" format="enum">
+            <enum name="text" value="0" />
+            <enum name="number" value="1" />
+            <enum name="email" value="2" />
+            <enum name="phone" value="3" />
+            <enum name="decimal" value="4" />
+            <enum name="numberSigned" value="5" />
+            <enum name="password" value="6" />
+        </attr>
+        <attr name="cet_label" format="string" />
+        <attr name="cet_description" format="string" />
+    </declare-styleable>
+
+    <!-- RoundedImageView -->
+    <declare-styleable name="RoundedImageView">
+        <attr name="radius" format="dimension" />
+        <attr name="radius_top_left" format="dimension" />
+        <attr name="radius_top_right" format="dimension" />
+        <attr name="radius_bottom_left" format="dimension" />
+        <attr name="radius_bottom_right" format="dimension" />
+    </declare-styleable>
+
+    <!-- MenuItem -->
+    <declare-styleable name="CardItem">
+        <attr name="text" format="string" />
+        <attr name="background_drawable" format="reference" />
+        <attr name="icon_drawable" format="reference" />
+        <attr name="text_size" format="dimension" />
+    </declare-styleable>
+
+
+</resources>

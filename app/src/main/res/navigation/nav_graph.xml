@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.chelinvest.notification.ui.login.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_branchFragment"
+            app:destination="@id/branchFragment"
+            app:enterAnim="@anim/item_animation_waterfall" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/branchFragment"
+        android:name="com.chelinvest.notification.ui.branch.BranchFragment"
+        android:label="BranchFragment" >
+        <action
+            android:id="@+id/action_branchFragment_to_limitFragment"
+            app:destination="@id/limitFragment" />
+        <action
+            android:id="@+id/action_branchFragment_to_subscrFragment"
+            app:destination="@id/subscrFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/limitFragment"
+        android:name="com.chelinvest.notification.ui.limit.LimitFragment"
+        android:label="LimitFragment" />
+    <fragment
+        android:id="@+id/subscrFragment"
+        android:name="com.chelinvest.notification.ui.subscr.SubscrFragment"
+        android:label="SubscrFragment" >
+        <action
+            android:id="@+id/action_subscrFragment_to_editSubscrFragment"
+            app:destination="@id/editSubscrFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editSubscrFragment"
+        android:name="com.chelinvest.notification.ui.subscr.edit.EditSubscrFragment"
+        android:label="EditSubscrFragment" />
+
+</navigation>

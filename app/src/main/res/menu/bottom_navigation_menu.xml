@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_branches"
+        android:icon="@drawable/favourites"
+        android:title="1"/>
+    <item
+        android:id="@+id/action_types_for_branch"
+        android:icon="@drawable/favourites"
+        android:title="2"/>
+    <item
+        android:id="@+id/action_subscriptions"
+        android:icon="@drawable/favourites"
+        android:title="3" />
+    <item
+        android:id="@+id/action_history"
+        android:icon="@drawable/favourites"
+        android:title="4" />
+    <item
+        android:id="@+id/action_profile"
+        android:icon="@drawable/service_icon_11"
+        android:title="5" />
+</menu>

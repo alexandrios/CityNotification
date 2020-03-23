@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+        android:id="@+id/vLabelTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:textSize="10sp"
+        android:textColor="@color/text"
+        app:customTypefaceStyle="bold"
+        android:visibility="gone"/>
+
+    <com.chelinvest.notification.ui.custom.stylable.CustomEditText
+        android:id="@+id/vEditText"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:background="@drawable/bg_modified_edit_text"
+        android:inputType="text"
+        android:textColor="@color/text"
+        android:textSize="14sp"/>
+
+    <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+        android:id="@+id/vDescriptionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:textSize="10sp"
+        android:textColor="@color/text"
+        android:visibility="gone"/>
+
+    <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+        android:id="@+id/vErrorTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:textSize="10sp"
+        android:textColor="@color/errorMessage"
+        android:visibility="gone"/>
+
+</LinearLayout>

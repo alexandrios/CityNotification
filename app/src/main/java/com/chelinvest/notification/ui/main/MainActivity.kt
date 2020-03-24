@@ -15,6 +15,9 @@ import com.chelinvest.notification.ui.CustomActivity
 // Путь до gitLab родительского проекта pushNot
 // https://git.chelinvest.ru/aspn/mobile/android/app/pushnot
 
+// Взаимодействие между фрагментами и активностью в Android Studio
+// http://blog.harrix.org/article/7521
+
 class MainActivity : CustomActivity<MainPresenter>() {
 
     override fun createPresenter(): MainPresenter = MainPresenter()

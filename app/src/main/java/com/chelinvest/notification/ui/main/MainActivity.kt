@@ -9,6 +9,9 @@ import com.chelinvest.notification.ui.CustomActivity
 // Работа с Github
 // https://metanit.com/java/android/22.1.php
 
+// Введение в системы контроля версий
+// http://all-ht.ru/inf/prog/p_0_0.html
+
 class MainActivity : CustomActivity<MainPresenter>() {
 
     override fun createPresenter(): MainPresenter = MainPresenter()

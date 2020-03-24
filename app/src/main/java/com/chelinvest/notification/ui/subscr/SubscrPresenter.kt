@@ -66,7 +66,7 @@ class SubscrPresenter: Presenter() {
     fun getSubscript(context: Context, view: ISubscrView, onGetSubscription: (ArrayList<DeliveSubscriptionForBranch>) -> Unit) = resolvedLaunch(block = {
 
         val idSession = Preferences.getInstance().getSessionId(context)
-        Log.wtf("idSession", "[SubscrPresenter] idSession=$idSession")
+        Log.wtf("idSession", "[SubscrPresenter] getSubscript() idSession=$idSession")
 
         val branchShort = Preferences.getInstance().getBranchShort(context) ?: return@resolvedLaunch
 

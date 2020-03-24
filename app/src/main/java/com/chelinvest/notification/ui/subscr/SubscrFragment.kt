@@ -86,12 +86,13 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
         super.onViewCreated(view, savedInstanceState)
 
         Log.wtf("SUBSCRFRAGMENT", "onViewCreated")
+        Log.wtf("SUBSCRFRAGMENT", if(savedInstanceState == null) "savedInstanceState=null" else "savedInstanceState!=null")
 
         vBackButton.setOnClickListener { findNavController().popBackStack() }
         vAddButton.setOnClickListener{ startToCreateSubscr() }
-        //buttonTest.setOnClickListener { vRecyclerView?.smoothSnapToPosition(10, LinearSmoothScroller.SNAP_TO_END ) }
-        vCheckBox.setOnCheckedChangeListener { _, _ ->
+        vCheckBox.setOnClickListener{
             // Обновить список
+            Log.wtf("SUBSCRFRAGMENT", "vCheckBox")
             doRequest{}
         }
 
@@ -374,5 +375,15 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
     override fun onDestroyView() {
         super.onDestroyView()
         Log.wtf("SUBSCRFRAGMENT", "onDestroyView")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.wtf("SUBSCRFRAGMENT", "onSaveInstanceState")
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        Log.wtf("SUBSCRFRAGMENT", "onViewStateRestored")
     }
 }

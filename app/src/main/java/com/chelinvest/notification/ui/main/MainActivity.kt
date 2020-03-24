@@ -12,6 +12,9 @@ import com.chelinvest.notification.ui.CustomActivity
 // Введение в системы контроля версий
 // http://all-ht.ru/inf/prog/p_0_0.html
 
+// Путь до gitLab родительского проекта pushNot
+// https://git.chelinvest.ru/aspn/mobile/android/app/pushnot
+
 class MainActivity : CustomActivity<MainPresenter>() {
 
     override fun createPresenter(): MainPresenter = MainPresenter()

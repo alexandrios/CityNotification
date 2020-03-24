@@ -27,13 +27,8 @@ class MainActivity : CustomActivity<MainPresenter>() {
 
         Log.wtf("MAINACTIVITY", "onCreate start")
 
-        // Обнулить сессию
-        // TODO Сколько хранится сессия?
-        var sId = Preferences.getInstance().getSessionId(this)
+        val sId = Preferences.getInstance().getSessionId(this)
         Log.wtf("session_id", "[MainActivity] session_id=" + sId)
-        //Preferences.getInstance().saveSessionId(this, null)
-        //sId = Preferences.getInstance().getSessionId(this)
-        //Log.wtf("session_id", "[MainActivity] session_id=" + sId)
 
         setContentView(R.layout.activity_main)
 

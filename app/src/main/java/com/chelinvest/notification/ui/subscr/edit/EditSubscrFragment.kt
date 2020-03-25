@@ -53,6 +53,8 @@ class EditSubscrFragment : CustomFragment<EditSubscrPresenter>(), ISubscrView {
         activeSwitch.isChecked = subscrInfo.value == "Y"
 
         backImageView.setOnClickListener {
+            Log.wtf("EDITSUBSCRFRAGMENT", "model.save(false)")
+            model.save(false)
             findNavController().popBackStack() //navigate(R.id.action_subscrFragment_to_editSubscrFragment, bundle)
         }
         //backImageView.setOnClickListener {
@@ -64,6 +66,7 @@ class EditSubscrFragment : CustomFragment<EditSubscrPresenter>(), ISubscrView {
             getPresenter().updateSubscr(view.context, this) { list: ArrayList<DeliveSubscriptionForBranch> ->
                 Log.wtf("EDITSUBSCRFRAGMENT", "list.size=" + list.size)
                 if (list.size > 0) {
+                    Log.wtf("EDITSUBSCRFRAGMENT", "model.save(true)")
                     model.save(true)
                 }
                 findNavController().popBackStack()

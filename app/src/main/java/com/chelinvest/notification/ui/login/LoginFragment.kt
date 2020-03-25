@@ -111,8 +111,8 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
     private fun loginPass(view: View) {
         Preferences.getInstance().saveIsTestServer(view.context, true)
 
-        val user: String = userEditText.getText()
-        val pass: String = passEditText.getText()
+        val user: String = "pam" // userEditText.getText()
+        val pass: String = "ceramica1" // passEditText.getText()
 
         hideSoftKeyboard(activity)
 

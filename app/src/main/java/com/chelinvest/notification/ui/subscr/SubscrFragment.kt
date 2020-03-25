@@ -85,6 +85,7 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
         retainInstance = true
         Log.wtf("SUBSCRFRAGMENT", "OnCreate")
 
+
         //if (savedInstanceState != null) {
         //    Log.wtf("SUBSCRFRAGMENT", "OnCreate restore mAdapter")
         //    mAdapter = savedInstanceState.getParcelable(STATE_ADAPTER)
@@ -98,6 +99,13 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        model.saved.observe(viewLifecycleOwner, androidx.lifecycle.Observer<Boolean> {
+            if (it) {
+                Log.wtf("SUBSCRFRAGMENT", "onViewCreated observe = " + it.toString())
+                doRequest {}
+            }
+        })
 
         launchCount = Preferences.getInstance().getLaunchCount(view.context)
         launchCount?.let {
@@ -119,12 +127,8 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
         vRecyclerView = view.findViewById(R.id.subscriptRecyclerView)
         mLayoutManager = LinearLayoutManager(view.context)
 
-
-        model.saved.observe(viewLifecycleOwner, androidx.lifecycle.Observer<Boolean> {
-            needLoad = it
-        })
-
         if (mAdapter == null) {
+            needLoad = true
             Log.wtf("SUBSCRFRAGMENT", "onViewCreated new mAdapter")
             mAdapter = SubscrAdapter(isFirst) { elementSubscr, id, pos, press ->
                 when (press) {
@@ -187,11 +191,9 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
                 }
             } // адаптер
 
-            needLoad = true
+            // Обновить список
+            doRequest {}
         }
-        //else {
-        //    needLoad = false
-        //}
 
         val animator = RefactoredDefaultItemAnimator()
         animator.supportsChangeAnimations = false
@@ -225,10 +227,10 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
         val nameBranch = arguments?.getString(BRANCH_NAME)
         branchNameTextView.setText(nameBranch)
 
-        if (needLoad) {
+        //if (needLoad) {
             // Обновить список
-            doRequest {}
-        }
+            //doRequest {}
+        //}
     }
 
 
@@ -409,6 +411,8 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
     override fun onPause() {
         super.onPause()
         Log.wtf("SUBSCRFRAGMENT", "onPause")
+        needLoad = false
+        Log.wtf("SUBSCRFRAGMENT", "onPause needLoad = " + needLoad.toString())
     }
 
     override fun onDestroyView() {

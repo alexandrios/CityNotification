@@ -18,6 +18,9 @@ import com.chelinvest.notification.ui.CustomActivity
 // Взаимодействие между фрагментами и активностью в Android Studio
 // http://blog.harrix.org/article/7521
 
+// Книга про git
+// https://git-scm.com/book/ru/v2
+
 class MainActivity : CustomActivity<MainPresenter>() {
 
     override fun createPresenter(): MainPresenter = MainPresenter()

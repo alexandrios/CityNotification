@@ -21,6 +21,9 @@ import com.chelinvest.notification.ui.CustomActivity
 // Книга про git
 // https://git-scm.com/book/ru/v2
 
+// Share data between fragments
+// https://developer.android.com/topic/libraries/architecture/viewmodel.html#sharing
+
 class MainActivity : CustomActivity<MainPresenter>() {
 
     override fun createPresenter(): MainPresenter = MainPresenter()

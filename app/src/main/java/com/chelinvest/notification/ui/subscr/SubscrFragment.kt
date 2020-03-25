@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
@@ -37,12 +38,20 @@ import java.util.*
 
 class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
 
+    //val STATE_ADAPTER = "SUBSCRADAPTER"
     var map = HashMap<String, ObjParam>()
     var index = 0
 
     private var vRecyclerView: RecyclerView? = null
     private var mLayoutManager: RecyclerView.LayoutManager? = null
     private var mAdapter: SubscrAdapter? = null
+
+    private var launchCount: Int? = null
+    private var isFirst = false
+
+    private val model: SubscrViewModel by activityViewModels()
+    private var needLoad: Boolean = false
+
 
     ///*
     companion object {
@@ -75,6 +84,11 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
         super.onCreate(savedInstanceState)
         retainInstance = true
         Log.wtf("SUBSCRFRAGMENT", "OnCreate")
+
+        //if (savedInstanceState != null) {
+        //    Log.wtf("SUBSCRFRAGMENT", "OnCreate restore mAdapter")
+        //    mAdapter = savedInstanceState.getParcelable(STATE_ADAPTER)
+        //}
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -84,6 +98,11 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        launchCount = Preferences.getInstance().getLaunchCount(view.context)
+        launchCount?.let {
+            isFirst = it in 1..2
+        }
 
         Log.wtf("SUBSCRFRAGMENT", "onViewCreated")
         Log.wtf("SUBSCRFRAGMENT", if(savedInstanceState == null) "savedInstanceState=null" else "savedInstanceState!=null")
@@ -100,42 +119,54 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
         vRecyclerView = view.findViewById(R.id.subscriptRecyclerView)
         mLayoutManager = LinearLayoutManager(view.context)
 
-        val launchCount = Preferences.getInstance().getLaunchCount(view.context)
-        val isFirst = launchCount in 1..2
 
-        mAdapter = SubscrAdapter(isFirst) {elementSubscr, id, pos, press ->
-            when (press) {
-                0 -> {
-                    // Перейти в настройку адресов конкретного агента
-                    getPresenter().moveToTypesForSubscription(view.context, elementSubscr.id, elementSubscr.name)
-                }
-                1 -> {
-                    // Редактирование подписки (описание, активность)
-                    getPresenter().editSubscription(view.context, this as ISubscrView, elementSubscr)
-                }
-                2 -> {
-                    // Удаление подписки
-                    showDialogDelete(view.context, elementSubscr.name + " ?") {
+        model.saved.observe(viewLifecycleOwner, androidx.lifecycle.Observer<Boolean> {
+            needLoad = it
+        })
 
-                        // получить позицию списка, на которую позиционировать список в случае удаления элемента
-                        //val nextPos = mAdapter?.getNextId(id)
+        if (mAdapter == null) {
+            Log.wtf("SUBSCRFRAGMENT", "onViewCreated new mAdapter")
+            mAdapter = SubscrAdapter(isFirst) { elementSubscr, id, pos, press ->
+                when (press) {
+                    0 -> {
+                        // Перейти в настройку адресов конкретного агента
+                        getPresenter().moveToTypesForSubscription(
+                            view.context,
+                            elementSubscr.id,
+                            elementSubscr.name
+                        )
+                    }
+                    1 -> {
+                        // Редактирование подписки (описание, активность)
+                        getPresenter().editSubscription(
+                            view.context,
+                            this as ISubscrView,
+                            elementSubscr
+                        )
+                    }
+                    2 -> {
+                        // Удаление подписки
+                        showDialogDelete(view.context, elementSubscr.name + " ?") {
 
-                        // выполнить операцию удаления
-                        getPresenter().delSubscript(view.context, this as ISubscrView, id) {
-                            if (!it.equals("")) {
-                                Toast.makeText(view.context, it, Toast.LENGTH_SHORT).show()
-                            } else {
-                                // Обновить список
-                                doRequest {}
-                                /*
+                            // получить позицию списка, на которую позиционировать список в случае удаления элемента
+                            //val nextPos = mAdapter?.getNextId(id)
+
+                            // выполнить операцию удаления
+                            getPresenter().delSubscript(view.context, this as ISubscrView, id) {
+                                if (!it.equals("")) {
+                                    Toast.makeText(view.context, it, Toast.LENGTH_SHORT).show()
+                                } else {
+                                    // Обновить список
+                                    doRequest {}
+                                    /*
                                     // позиционирование на элемент списка с индексом nextPos
                                     nextPos?.let {
                                         vRecyclerView?.smoothSnapToPosition(nextPos, LinearSmoothScroller.SNAP_TO_END)
                                     }
                                 }
                                 */
-                                // Удалить из списка адаптера
-                                /*
+                                    // Удалить из списка адаптера
+                                    /*
                                 vRecyclerView?.adapter?.notifyItemRemoved(pos)
                                 vRecyclerView.invalidate()
                                 vRecyclerView?.adapter?.notifyItemRangeChanged(
@@ -146,15 +177,21 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
                                 vRecyclerView?.adapter?.notifyDataSetChanged()
                                 updateRecyclerView()
                                 */
+                                }
                             }
                         }
                     }
+                    else -> {
+                        Toast.makeText(view.context, press.toString(), Toast.LENGTH_SHORT).show()
+                    }
                 }
-                else -> {
-                    Toast.makeText(view.context, press.toString(), Toast.LENGTH_SHORT).show()
-                }
-            }
-        } // адаптер
+            } // адаптер
+
+            needLoad = true
+        }
+        //else {
+        //    needLoad = false
+        //}
 
         val animator = RefactoredDefaultItemAnimator()
         animator.supportsChangeAnimations = false
@@ -188,8 +225,10 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
         val nameBranch = arguments?.getString(BRANCH_NAME)
         branchNameTextView.setText(nameBranch)
 
-        // Обновить список
-        doRequest {}
+        if (needLoad) {
+            // Обновить список
+            doRequest {}
+        }
     }
 
 
@@ -378,6 +417,7 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
+        //outState.putParcelable(STATE_ADAPTER, mAdapter)
         super.onSaveInstanceState(outState)
         Log.wtf("SUBSCRFRAGMENT", "onSaveInstanceState")
     }

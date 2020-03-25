@@ -1,5 +1,7 @@
 package com.chelinvest.notification.ui.subscr
 
+import android.os.Parcel
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +24,9 @@ import kotlin.random.Random
 class SubscrAdapter(
     private var isFirst: Boolean,
     private val goToSubscription: (DeliveSubscriptionForBranch, id: String, pos: Int, press: Int) -> Unit
-) : RecyclerView.Adapter<SubscrAdapter.ViewHolder>(), SwipeableItemAdapter<SubscrAdapter.ViewHolder> {
+) : RecyclerView.Adapter<SubscrAdapter.ViewHolder>(), SwipeableItemAdapter<SubscrAdapter.ViewHolder>
+    //, Parcelable
+{
     //
     // Использование ItemTouchHelper для перетаскивания пунктов списка и свайпа для удаления
     //, ItemTouchHelperAdapter {
@@ -41,6 +45,13 @@ class SubscrAdapter(
     private var layoutManager: RecyclerView.LayoutManager? = null
     // Определяет, у какого элемента открыто "засвайпленное" меню
     private var pinnedPosition = -1
+
+    constructor(parcel: Parcel) : this(
+        parcel.readByte() != 0.toByte(),
+        TODO("goToSubscription")
+    ) {
+        pinnedPosition = parcel.readInt()
+    }
 
     init {
         // this is required for swiping feature
@@ -415,9 +426,7 @@ class SubscrAdapter(
         }
     }
 
-    //
     // Использование ItemTouchHelper для перетаскивания пунктов списка и свайпа для удаления
-    //
     /*
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
         if (fromPosition < toPosition) {
@@ -435,6 +444,27 @@ class SubscrAdapter(
     override fun onItemDismiss(position: Int) {
         subscripts.removeAt(position)
         notifyItemRemoved(position)
+    }
+    */
+
+    /* -- Parcelable interface implementation
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeByte(if (isFirst) 1 else 0)
+        parcel.writeInt(pinnedPosition)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<SubscrAdapter> {
+        override fun createFromParcel(parcel: Parcel): SubscrAdapter {
+            return SubscrAdapter(parcel)
+        }
+
+        override fun newArray(size: Int): Array<SubscrAdapter?> {
+            return arrayOfNulls(size)
+        }
     }
     */
 

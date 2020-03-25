@@ -9,17 +9,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.chelinvest.notification.R
 import com.chelinvest.notification.additional.SUBSCR_INFO
 import com.chelinvest.notification.model.DeliveSubscriptionForBranch
 import com.chelinvest.notification.ui.CustomFragment
 import com.chelinvest.notification.ui.subscr.ISubscrView
+import com.chelinvest.notification.ui.subscr.SubscrViewModel
 import kotlinx.android.synthetic.main.fragment_edit_subscr.*
 
 class EditSubscrFragment : CustomFragment<EditSubscrPresenter>(), ISubscrView {
 
     lateinit var id: String
+
+    private val model: SubscrViewModel by activityViewModels()
 
     /*
     companion object {
@@ -58,7 +62,10 @@ class EditSubscrFragment : CustomFragment<EditSubscrPresenter>(), ISubscrView {
         saveTextView.setOnClickListener {
             // Выполнить команду 1.7. update_delivery_subscription_for_branch
             getPresenter().updateSubscr(view.context, this) { list: ArrayList<DeliveSubscriptionForBranch> ->
-                Log.wtf("list", "[EditSubscrFragment] list.size=" + list.size)
+                Log.wtf("EDITSUBSCRFRAGMENT", "list.size=" + list.size)
+                if (list.size > 0) {
+                    model.save(true)
+                }
                 findNavController().popBackStack()
                 //val intent = Intent()
                 //intent.putExtra("SAVED", if (list.size > 0) "YES" else "NO")

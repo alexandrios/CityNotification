@@ -1,7 +1,7 @@
 package com.chelinvest.notification.ui.subscr
 
-import android.os.Parcel
-import android.os.Parcelable
+//import android.os.Parcel
+//import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,12 +46,13 @@ class SubscrAdapter(
     // Определяет, у какого элемента открыто "засвайпленное" меню
     private var pinnedPosition = -1
 
+    /*
     constructor(parcel: Parcel) : this(
         parcel.readByte() != 0.toByte(),
-        TODO("goToSubscription")
     ) {
         pinnedPosition = parcel.readInt()
     }
+    */
 
     init {
         // this is required for swiping feature
@@ -381,7 +382,7 @@ class SubscrAdapter(
                 SwipeResultActionDefault()
             }
             else -> {
-                if (position != RecyclerView.NO_POSITION) {
+                if (position != NO_POSITION) {
                     UnpinResultAction(
                         this,
                         position
@@ -392,7 +393,6 @@ class SubscrAdapter(
             }
         }
     }
-
 
     override fun onGetSwipeReactionType(holder: ViewHolder, position: Int, x: Int, y: Int): Int {
         // Make swipeable to LEFT direction
@@ -426,8 +426,8 @@ class SubscrAdapter(
         }
     }
 
-    // Использование ItemTouchHelper для перетаскивания пунктов списка и свайпа для удаления
     /*
+    // Использование ItemTouchHelper для перетаскивания пунктов списка и свайпа для удаления
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
         if (fromPosition < toPosition) {
             for (i in fromPosition until toPosition) {
@@ -447,7 +447,8 @@ class SubscrAdapter(
     }
     */
 
-    /* -- Parcelable interface implementation
+    /*
+    -- Parcelable interface implementation (для того, чтобы сохранять адаптер в savedInstanceState)
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeByte(if (isFirst) 1 else 0)
         parcel.writeInt(pinnedPosition)

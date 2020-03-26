@@ -31,14 +31,11 @@ import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeMana
 import kotlinx.android.synthetic.main.dialog_field_values.view.*
 import kotlinx.android.synthetic.main.fragment_subscr.*
 import com.chelinvest.notification.ui.subscr.dialog.FieldValuesAdapter
+import kotlinx.android.synthetic.main.fragment_subscr.view.*
 import java.util.*
-
-// Сохранение состояния фрагментов (Fragment)
-// https://habr.com/ru/post/280586/
 
 class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
 
-    //val STATE_ADAPTER = "SUBSCRADAPTER"
     var map = HashMap<String, ObjParam>()
     var index = 0
 
@@ -48,10 +45,9 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
 
     private var launchCount: Int? = null
     private var isFirst = false
-
     private val model: SubscrViewModel by activityViewModels()
-    private var needLoad: Boolean = false
 
+    //val STATE_ADAPTER = "SUBSCRADAPTER"
 
     ///*
     companion object {
@@ -76,16 +72,20 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
 
     override fun createPresenter(): SubscrPresenter = SubscrPresenter()
 
-    private fun compare(element: DeliveSubscriptionForBranch): Boolean {
-        return element.value.equals("YES")
-    }
+    //private fun compare(element: DeliveSubscriptionForBranch): Boolean {
+    //    return element.value.equals("YES")
+    //}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Не удалять фрагмент (onDestroy) при пересоздании активити.
+        // Важно для сохранения состояния экрана при повороте устройства
         retainInstance = true
+
         Log.wtf("SUBSCRFRAGMENT", "OnCreate")
 
-
+        // Восстановление mAdapter из savedInstanceState (не актуально, так как mAdapter и так никуда не пропадает)
         //if (savedInstanceState != null) {
         //    Log.wtf("SUBSCRFRAGMENT", "OnCreate restore mAdapter")
         //    mAdapter = savedInstanceState.getParcelable(STATE_ADAPTER)
@@ -100,13 +100,22 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        model.saved.observe(viewLifecycleOwner, androidx.lifecycle.Observer<Boolean> {
+        // Заголовок фрагмента
+        branchNameTextView.setText(arguments?.getString(BRANCH_NAME))
+
+        // Наблюдатель за изменением LiveData editSaved (сохранение элемента списка агентов)
+        model.editSaved.observe(viewLifecycleOwner, androidx.lifecycle.Observer<Boolean> {
             if (it) {
                 Log.wtf("SUBSCRFRAGMENT", "onViewCreated observe = " + it.toString())
+                // Обновить список
                 doRequest {}
             }
         })
 
+        // Получить значение CheckBox "Только активные подписки" из ViewModel
+        vCheckBox.isChecked = model.activeOnly.value ?: false
+
+        // Получить число стартов приложения. Если первый или второй старт, то показать анимацию списка
         launchCount = Preferences.getInstance().getLaunchCount(view.context)
         launchCount?.let {
             isFirst = it in 1..2
@@ -115,11 +124,16 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
         Log.wtf("SUBSCRFRAGMENT", "onViewCreated")
         Log.wtf("SUBSCRFRAGMENT", if(savedInstanceState == null) "savedInstanceState=null" else "savedInstanceState!=null")
 
+        // Кнопка "Назад"
         vBackButton.setOnClickListener { findNavController().popBackStack() }
+
+        // Кнопка - вызов диалога создания нового элемента списка (агента)
         vAddButton.setOnClickListener{ startToCreateSubscr() }
+
+        // CheckBox "Только активные подписки"
         vCheckBox.setOnClickListener{
+            model.setActiveOnly(vCheckBox.isChecked)
             // Обновить список
-            Log.wtf("SUBSCRFRAGMENT", "vCheckBox")
             doRequest{}
         }
 
@@ -128,7 +142,6 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
         mLayoutManager = LinearLayoutManager(view.context)
 
         if (mAdapter == null) {
-            needLoad = true
             Log.wtf("SUBSCRFRAGMENT", "onViewCreated new mAdapter")
             mAdapter = SubscrAdapter(isFirst) { elementSubscr, id, pos, press ->
                 when (press) {
@@ -162,26 +175,24 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
                                 } else {
                                     // Обновить список
                                     doRequest {}
-                                    /*
+                                }
+
+                                /*
                                     // позиционирование на элемент списка с индексом nextPos
                                     nextPos?.let {
                                         vRecyclerView?.smoothSnapToPosition(nextPos, LinearSmoothScroller.SNAP_TO_END)
                                     }
-                                }
-                                */
                                     // Удалить из списка адаптера
-                                    /*
-                                vRecyclerView?.adapter?.notifyItemRemoved(pos)
-                                vRecyclerView.invalidate()
-                                vRecyclerView?.adapter?.notifyItemRangeChanged(
-                                    pos,
-                                    elementSubscr.size
-                                )
-                                vRecyclerView?.invalidate()
-                                vRecyclerView?.adapter?.notifyDataSetChanged()
-                                updateRecyclerView()
+                                    vRecyclerView?.adapter?.notifyItemRemoved(pos)
+                                    vRecyclerView.invalidate()
+                                    vRecyclerView?.adapter?.notifyItemRangeChanged(
+                                        pos,
+                                        elementSubscr.size
+                                    )
+                                    vRecyclerView?.invalidate()
+                                    vRecyclerView?.adapter?.notifyDataSetChanged()
+                                    updateRecyclerView()
                                 */
-                                }
                             }
                         }
                     }
@@ -208,7 +219,7 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
             setHasFixedSize(false)
         }
 
-        swipeManager.attachRecyclerView(vRecyclerView!!)
+        swipeManager.attachRecyclerView(vRecyclerView ?: return)
 
         // Использование ItemTouchHelper для перетаскивания пунктов списка и свайпа для удаления
         //val callback : ItemTouchHelper.Callback = SimpleItemTouchHelperCallback(adapter)
@@ -223,20 +234,11 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
             onSwipeRefresh()
         }
         */
-
-        val nameBranch = arguments?.getString(BRANCH_NAME)
-        branchNameTextView.setText(nameBranch)
-
-        //if (needLoad) {
-            // Обновить список
-            //doRequest {}
-        //}
     }
-
 
     // Обновить список
     fun doRequest(setPosition : () -> Unit) {
-        // Получить список подписок
+        // Получить список подписок: get_delivery_subscription_for_branch
         getPresenter().getSubscript(this.view?.context!!, this)  {array->
             mAdapter?.update(
                 if (vCheckBox.isChecked)  // если только активные - отфильтровать
@@ -267,7 +269,7 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
     }
     */
 
-    /* --
+    /* -- осталось с тех времен, когда SubscrFragment был SubscrActivity...
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
@@ -286,6 +288,7 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
     }
     --  */
 
+    // Диалог удаления элемента списка
     fun showDialogDelete(context: Context, text: String, onPositive: (() -> Unit)) {
         MaterialDialog.Builder(context)
             .title(R.string.del_subs)
@@ -302,7 +305,6 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
             .build()
             .show()
     }
-
 
     // Начало процедуры создания подписки
     private fun startToCreateSubscr() {
@@ -374,7 +376,6 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
                 showDialogsRecourse(objAnyList)
             }
 
-            //--
             // Фильтрация
             val searchEditText = contentView.findViewById<EditText>(R.id.searchEditText)
             searchEditText.addTextChangedListener(object : TextWatcher {
@@ -385,12 +386,10 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
                     (recyclerView.adapter as FieldValuesAdapter).updateList(objParamList.filter { it.name.contains(filterText, ignoreCase = true) } as ArrayList<ObjParam>)
                 }
             })
-            //--
 
             dialog.show()
         }
     }
-
 
     // Для прокрутки до нужного пункта
     fun RecyclerView.smoothSnapToPosition(position: Int, snapMode: Int = LinearSmoothScroller.SNAP_TO_START) {
@@ -407,12 +406,10 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
         layoutManager?.startSmoothScroll(smoothScroller)
     }
 
-
     override fun onPause() {
         super.onPause()
         Log.wtf("SUBSCRFRAGMENT", "onPause")
-        needLoad = false
-        Log.wtf("SUBSCRFRAGMENT", "onPause needLoad = " + needLoad.toString())
+        model.setEditSave(false)
     }
 
     override fun onDestroyView() {

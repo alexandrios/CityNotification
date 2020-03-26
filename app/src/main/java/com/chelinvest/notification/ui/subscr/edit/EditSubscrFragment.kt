@@ -1,9 +1,5 @@
 package com.chelinvest.notification.ui.subscr.edit
 
-import android.app.Activity
-import android.app.Activity.RESULT_OK
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -54,7 +50,7 @@ class EditSubscrFragment : CustomFragment<EditSubscrPresenter>(), ISubscrView {
 
         backImageView.setOnClickListener {
             Log.wtf("EDITSUBSCRFRAGMENT", "model.save(false)")
-            model.save(false)
+            model.setEditSave(false)
             findNavController().popBackStack() //navigate(R.id.action_subscrFragment_to_editSubscrFragment, bundle)
         }
         //backImageView.setOnClickListener {
@@ -67,7 +63,7 @@ class EditSubscrFragment : CustomFragment<EditSubscrPresenter>(), ISubscrView {
                 Log.wtf("EDITSUBSCRFRAGMENT", "list.size=" + list.size)
                 if (list.size > 0) {
                     Log.wtf("EDITSUBSCRFRAGMENT", "model.save(true)")
-                    model.save(true)
+                    model.setEditSave(true)
                 }
                 findNavController().popBackStack()
                 //val intent = Intent()

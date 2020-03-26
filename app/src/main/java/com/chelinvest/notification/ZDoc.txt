@@ -1,0 +1,27 @@
+// Работа с Github
+// https://metanit.com/java/android/22.1.php
+
+// Введение в системы контроля версий
+// http://all-ht.ru/inf/prog/p_0_0.html
+
+// Путь до gitLab родительского проекта pushNot
+// https://git.chelinvest.ru/aspn/mobile/android/app/pushnot
+
+// Взаимодействие между фрагментами и активностью в Android Studio
+// http://blog.harrix.org/article/7521
+
+// Книга про git
+// https://git-scm.com/book/ru/v2
+
+// Share data between fragments
+// https://developer.android.com/topic/libraries/architecture/viewmodel.html#sharing
+
+// Сохранение состояния фрагментов (Fragment)
+// https://habr.com/ru/post/280586/
+
+// ---- for swiping feature ----
+// https://advancedrecyclerview.h6ah4i.com/swipeable/tutorial/
+// for swipe with buttons
+// https://github.com/h6ah4i/android-advancedrecyclerview/blob/develop/example/src/main/java/com/h6ah4i/android/example/advrecyclerview/demo_s_button/SwipeableWithButtonExampleAdapter.java
+// swipe with buttons
+// https://codeburst.io/android-swipe-menu-with-recyclerview-8f28a235ff28

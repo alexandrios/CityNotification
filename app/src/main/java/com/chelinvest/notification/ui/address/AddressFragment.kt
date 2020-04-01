@@ -94,9 +94,9 @@ class AddressFragment : CustomFragment<AddressPresenter>(), IAddressView {
         vRecyclerView = view.findViewById(R.id.vRecyclerView)
         mLayoutManager = LinearLayoutManager(view.context)
 
-        val eimSavedState = savedInstanceState?.getParcelable<Parcelable>(SAVED_STATE_EXPANDABLE_ITEM_MANAGER)
-        recyclerViewExpandableItemManager = RecyclerViewExpandableItemManager(eimSavedState)
-        recyclerViewExpandableItemManager!!.defaultGroupsExpandedState = true // false
+        //val eimSavedState = savedInstanceState?.getParcelable<Parcelable>(SAVED_STATE_EXPANDABLE_ITEM_MANAGER)
+        //recyclerViewExpandableItemManager = RecyclerViewExpandableItemManager(eimSavedState)
+        //recyclerViewExpandableItemManager!!.defaultGroupsExpandedState = true // false
 
         if (mAdapter == null) {
             mAdapter = AddressAdapter { delivetypeAddrs, deliveAddrBranch ->
@@ -106,9 +106,12 @@ class AddressFragment : CustomFragment<AddressPresenter>(), IAddressView {
             }
 
             doRequest()
-        }
 
-        mWrappedAdapter = recyclerViewExpandableItemManager!!.createWrappedAdapter(mAdapter!!)
+            recyclerViewExpandableItemManager = RecyclerViewExpandableItemManager(null)
+            recyclerViewExpandableItemManager!!.defaultGroupsExpandedState = true
+
+            mWrappedAdapter = recyclerViewExpandableItemManager!!.createWrappedAdapter(mAdapter!!)
+        }
 
         val animator = RefactoredDefaultItemAnimator()
         animator.supportsChangeAnimations = false
@@ -120,7 +123,7 @@ class AddressFragment : CustomFragment<AddressPresenter>(), IAddressView {
             setHasFixedSize(false)
         }
 
-        recyclerViewExpandableItemManager!!.attachRecyclerView(vRecyclerView!!)
+        recyclerViewExpandableItemManager!!.attachRecyclerView(vRecyclerView ?: return)
 
         vSwipeRefreshLayout.setColorSchemeResources(R.color.tangelo)
         vSwipeRefreshLayout.setOnRefreshListener {

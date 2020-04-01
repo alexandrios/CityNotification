@@ -26,22 +26,21 @@ class MainActivity : CustomActivity<MainPresenter>() {
         setContentView(R.layout.activity_main)
 
         // Инициализация Firebase
+        // https://console.firebase.google.com/project/city-agent-notification/settings/general/android:com.chelinvest.notification
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
         mInAppMessaging = FirebaseInAppMessaging.getInstance()
         if (mInAppMessaging != null) {
             mInAppMessaging!!.isAutomaticDataCollectionEnabled = true
             mInAppMessaging!!.setMessagesSuppressed(false)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        Log.wtf("MAINACTIVITY", "onResume")
 
         // Получить токен устройства для FireBase
         getPresenter().getFCMToken(this)
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.wtf("MAINACTIVITY", "onResume")
+    }
 
 }

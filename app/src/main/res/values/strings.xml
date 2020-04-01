@@ -177,7 +177,7 @@
 
     <!-- edit screen -->
     <string name="edit_subscr_descr_display">Описание подписки</string>
-    <string name="edit_subscr_descr_settings">Придумайте описание подписки</string>
+    <string name="edit_subscr_descr_settings">Укажите описание подписки</string>
 
     <string name="edit_subscr_active_display">Активность подписки</string>
     <string name="edit_subscr_active_settings">Подписка активна</string>

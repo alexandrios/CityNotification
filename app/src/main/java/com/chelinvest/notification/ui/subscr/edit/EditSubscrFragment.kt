@@ -51,7 +51,7 @@ class EditSubscrFragment : CustomFragment<EditSubscrPresenter>(), ISubscrView {
         backImageView.setOnClickListener {
             Log.wtf("EDITSUBSCRFRAGMENT", "model.save(false)")
             model.setEditSave(false)
-            findNavController().popBackStack() //navigate(R.id.action_subscrFragment_to_editSubscrFragment, bundle)
+            findNavController().popBackStack()
         }
         //backImageView.setOnClickListener {
         //    finish()

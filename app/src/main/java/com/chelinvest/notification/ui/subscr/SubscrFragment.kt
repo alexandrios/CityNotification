@@ -147,19 +147,11 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
                 when (press) {
                     0 -> {
                         // Перейти в настройку адресов конкретного агента
-                        getPresenter().moveToTypesForSubscription(
-                            view.context,
-                            elementSubscr.id,
-                            elementSubscr.name
-                        )
+                        getPresenter().moveToTypesForSubscription(this as ISubscrView, elementSubscr.id, elementSubscr.name)
                     }
                     1 -> {
                         // Редактирование подписки (описание, активность)
-                        getPresenter().editSubscription(
-                            view.context,
-                            this as ISubscrView,
-                            elementSubscr
-                        )
+                        getPresenter().editSubscription(this as ISubscrView, elementSubscr)
                     }
                     2 -> {
                         // Удаление подписки
@@ -239,7 +231,7 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
     // Обновить список
     fun doRequest(setPosition : () -> Unit) {
         // Получить список подписок: get_delivery_subscription_for_branch
-        getPresenter().getSubscript(this.view?.context!!, this)  {array->
+        getPresenter().getSubscript(view?.context!!, this)  {array->
             mAdapter?.update(
                 if (vCheckBox.isChecked)  // если только активные - отфильтровать
                     array.filter {

@@ -129,7 +129,6 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
         Log.wtf("sessionId", "[LOGINFRAGMENT] sessionId=$sessionId")
 
         if(!session.error_note.isNullOrEmpty()) {
-            // TODO: вывести session.error_note
             showExpandableError(session.error_note.toString())
         }
 
@@ -144,22 +143,11 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
             Preferences.getInstance().saveLaunchCount(activity?.baseContext!!, launchCount + 1)
 
             Handler().postDelayed({
-                //saveTryAndFinish()
                 findNavController().navigate(R.id.action_loginFragment_to_branchFragment)
             }, 500)
 
         }
     }
-
-    /*
-    override fun saveTryAndFinish() {
-        // Записать флаг, что была попытка авторизации
-        Preferences.getInstance().saveTryLogin(activity?.baseContext!!, true)
-        //activity?.finish()
-        findNavController().navigate(R.id.action_loginFragment_to_menuFragment)
-    }
-    */
-
 
     override fun showProgressDialog() {
         vProgressLayout.visibility = View.VISIBLE

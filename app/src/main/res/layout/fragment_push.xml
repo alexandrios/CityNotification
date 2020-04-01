@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/inputAddrLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/edit_push_descr_display"
+        android:textColor="@color/darkJungleGreen"
+        android:textSize="17sp"
+        app:customTypefaceStyle="bold" />
+
+    <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+        android:id="@+id/vLabelTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="2dp"
+        android:textSize="10sp"
+        android:textColor="@color/text"
+        android:text="@string/edit_push_descr_settings_name"
+        app:customTypefaceStyle="bold"
+        android:visibility="visible"/>
+
+    <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+        android:id="@+id/addressTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="2dp"
+        android:textSize="16sp"
+        android:lines="1"
+        android:textColor="@color/text"
+        app:customTypefaceStyle="normal"
+        android:visibility="visible"/>
+
+    <com.chelinvest.notification.ui.custom.ModifiedEditText
+        android:id="@+id/addressEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:cet_imeOption="actionDone"
+        app:cet_inputType="text"
+        android:textIsSelectable="true"
+        android:focusable="false"
+        app:cet_label="@string/edit_push_descr_settings"
+        app:cet_textSize="16sp"
+        android:visibility="gone" />
+
+</LinearLayout>

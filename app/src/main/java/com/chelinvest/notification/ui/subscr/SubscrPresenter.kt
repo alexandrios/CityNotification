@@ -14,6 +14,7 @@ import com.chelinvest.notification.model.DeliveSubscriptionForBranch
 import com.chelinvest.notification.model.ObjAny
 import com.chelinvest.notification.model.ObjParam
 import com.chelinvest.notification.ui.CustomFragment
+import com.chelinvest.notification.ui.address.AddressFragment
 import com.chelinvest.notification.ui.presenter.Presenter
 
 class SubscrPresenter: Presenter() {
@@ -113,14 +114,14 @@ class SubscrPresenter: Presenter() {
 
 
     // Перейти в настройку адресов конкретного агента
-    fun moveToTypesForSubscription (context: Context, idSubscription: String, nameSubscription: String) {
-        //val intent = AddressActivity.getStartIntent(context, idSubscription, nameSubscription)
-        //context.startActivity(intent)
+    fun moveToTypesForSubscription (view: ISubscrView, idSubscription: String, nameSubscription: String) {
+        val bundle = AddressFragment.getBundleArguments(idSubscription, nameSubscription)
+        findNavController(view as CustomFragment<*>).navigate(R.id.action_subscrFragment_to_addressFragment, bundle)
     }
 
 
     // Редактирование подписки (описание, активность)
-    fun editSubscription(context: Context, view: ISubscrView, subscrInfo: DeliveSubscriptionForBranch) {
+    fun editSubscription(view: ISubscrView, subscrInfo: DeliveSubscriptionForBranch) {
         val bundle = Bundle()
         bundle.putSerializable(SUBSCR_INFO, subscrInfo)
         findNavController(view as CustomFragment<*>).navigate(R.id.action_subscrFragment_to_editSubscrFragment, bundle)

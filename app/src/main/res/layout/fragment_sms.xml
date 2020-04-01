@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/inputAddrLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/edit_sms_descr_display"
+            android:textColor="@color/darkJungleGreen"
+            android:textSize="17sp"
+            app:customTypefaceStyle="bold" />
+
+        <com.chelinvest.notification.ui.custom.ModifiedEditText
+            android:id="@+id/addressEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:cet_imeOption="actionDone"
+            app:cet_inputType="phone"
+            app:cet_label="@string/edit_sms_descr_settings"
+            app:cet_textSize="16sp" />
+
+</LinearLayout>

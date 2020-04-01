@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/whiteSmoke"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp" >
+
+            <ImageView
+                android:id="@+id/vImageView"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="6dp"
+                android:src="@drawable/ic_email"
+                android:tint="@color/colorPrimaryBrown" />
+
+            <ImageView
+                android:id="@+id/periodImageView"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@id/vCountTextView"
+                android:src="@drawable/ic_period"
+                android:tint="@color/dark_gray" />
+
+            <ImageView
+                android:id="@+id/vExpandedImageView"
+                android:layout_width="16dp"
+                android:layout_height="14dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/expand"
+                android:tint="@color/dark_gray"
+                android:scaleType="fitXY" />
+
+            <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+                android:id="@+id/vCountTextView"
+                android:layout_width="20dp"
+                android:layout_height="14dp"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/vExpandedImageView"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/bg_service_binding_button"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:textColor="@color/tangelo"
+                android:textSize="12sp" />
+
+            <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+                android:id="@+id/shortTextView"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/vImageView"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/text"
+                android:text="short"
+                android:textSize="@dimen/address_list_group_item_text_size"/>
+
+            <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+                android:id="@+id/valueTextView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_toEndOf="@id/shortTextView"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/text"
+                android:text="v"
+                android:textSize="@dimen/address_list_group_item_text_size"/>
+
+            <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+                android:id="@+id/nameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/periodImageView"
+                android:layout_toEndOf="@id/shortTextView"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/text"
+                app:customTypefaceStyle="bold"
+                android:textSize="@dimen/address_list_group_item_text_size"
+                android:text="name" />
+
+
+
+
+        </RelativeLayout>
+
+    </LinearLayout>

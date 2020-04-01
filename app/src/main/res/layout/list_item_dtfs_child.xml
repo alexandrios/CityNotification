@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingBottom="8dp"
+    android:paddingStart="14dp"
+    android:paddingEnd="14dp">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/light_blue"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:id="@+id/vClickableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3" >
+
+                    <TextView
+                        android:id="@+id/addrIdTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text"
+                        android:text="addrId"
+                        android:textSize="@dimen/address_list_child_item_text_size"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/addrDeliveTypeIdTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/text"
+                        android:text="deliveType"
+                        android:textSize="@dimen/address_list_child_item_text_size"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/addrAddressTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text"
+                        android:text="address"
+                        android:layout_weight="1"
+                        android:textSize="@dimen/address_list_child_item_text_size"/>
+
+                    <TextView
+                        android:id="@+id/addrIsValidTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/text"
+                        android:text="isValid"
+                        android:textSize="@dimen/address_list_child_item_text_size"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/addrIsConfirmedTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/text"
+                        android:text="isConfirmed"
+                        android:textSize="@dimen/address_list_child_item_text_size"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/addrPeriod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/text"
+                        android:text="startHour"
+                        android:textSize="@dimen/address_list_child_item_text_size" />
+
+                    <TextView
+                        android:id="@+id/addrStartHourTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/text"
+                        android:text="startHour"
+                        android:textSize="@dimen/address_list_child_item_text_size"
+                        android:layout_weight="1"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/addrFinishHourTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/text"
+                        android:text="finish"
+                        android:textSize="@dimen/address_list_child_item_text_size"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/addrTimezoneTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/text"
+                        android:text="timezone"
+                        android:textSize="@dimen/address_list_child_item_text_size"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

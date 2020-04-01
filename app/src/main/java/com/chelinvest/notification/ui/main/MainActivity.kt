@@ -5,34 +5,33 @@ import android.util.Log
 import com.chelinvest.notification.Preferences
 import com.chelinvest.notification.R
 import com.chelinvest.notification.ui.CustomActivity
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.inappmessaging.FirebaseInAppMessaging
 
 class MainActivity : CustomActivity<MainPresenter>() {
 
     override fun createPresenter(): MainPresenter = MainPresenter()
 
-    //var mFirebaseAnalytics: FirebaseAnalytics? = null
-    //var mInAppMessaging: FirebaseInAppMessaging? = null
+    var mFirebaseAnalytics: FirebaseAnalytics? = null
+    var mInAppMessaging: FirebaseInAppMessaging? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Log.wtf("MAINACTIVITY", "onCreate start")
+        Log.wtf("MAINACTIVITY", "onCreate")
 
         val sId = Preferences.getInstance().getSessionId(this)
         Log.wtf("session_id", "[MainActivity] session_id=" + sId)
 
         setContentView(R.layout.activity_main)
 
-        /*
+        // Инициализация Firebase
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
         mInAppMessaging = FirebaseInAppMessaging.getInstance()
         if (mInAppMessaging != null) {
             mInAppMessaging!!.isAutomaticDataCollectionEnabled = true
             mInAppMessaging!!.setMessagesSuppressed(false)
         }
-        */
-
-        Log.wtf("MAINACTIVITY", "onCreate end")
     }
 
     override fun onResume() {
@@ -40,29 +39,8 @@ class MainActivity : CustomActivity<MainPresenter>() {
 
         Log.wtf("MAINACTIVITY", "onResume")
 
-        /*
-        // Если уже была попытка авторизации
-        if (Preferences.getInstance().getTryLogin(this)) {
-            Preferences.getInstance().saveTryLogin(this, false)
-            // и session_id тем не менее пуст
-            if (Preferences.getInstance().getSessionId(this) == null) {
-                // выйти из приложения
-                finish()
-            }
-        */
-/*
-            val sId = Preferences.getInstance().getSessionId(this)
-            Log.wtf("session_id", "[MainActivity] session_id=" + sId)
-
-            // Увеличить счетчик успешных входов в приложение
-            var launchCount = Preferences.getInstance().getLaunchCount(this)
-            if (launchCount < 0)
-                launchCount = 0
-            Preferences.getInstance().saveLaunchCount(this, launchCount + 1)
-*/
-            // Получить токен устройства для FireBase
-            //getPresenter().getFCMToken(this)
-        //}
+        // Получить токен устройства для FireBase
+        getPresenter().getFCMToken(this)
     }
 
 

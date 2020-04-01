@@ -43,6 +43,9 @@ const val EMAIL = "EMAIL"
 const val SMS = "SMS"
 const val APP_PUSH = "APP_PUSH"
 
+const val FRAGMENT_TAG = "FRAGMENT_TAG"
+const val ADDRESS_DATA = "ADDRESS_DATA"
+
 const val LIMIT_VALUE = "LIMIT_VALUE"
 
 // parameter requestCode in the startActivityForResult(intent, requestCode)

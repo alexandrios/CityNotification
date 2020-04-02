@@ -15,6 +15,7 @@ import com.chelinvest.notification.ui.subscr.ISubscrView
 import com.chelinvest.notification.ui.subscr.SubscrViewModel
 import kotlinx.android.synthetic.main.fragment_edit_subscr.*
 
+
 class EditSubscrFragment : CustomFragment<EditSubscrPresenter>(), ISubscrView {
 
     lateinit var id: String
@@ -53,9 +54,6 @@ class EditSubscrFragment : CustomFragment<EditSubscrPresenter>(), ISubscrView {
             model.setEditSave(false)
             findNavController().popBackStack()
         }
-        //backImageView.setOnClickListener {
-        //    finish()
-        //}
 
         saveTextView.setOnClickListener {
             // Выполнить команду 1.7. update_delivery_subscription_for_branch
@@ -66,10 +64,6 @@ class EditSubscrFragment : CustomFragment<EditSubscrPresenter>(), ISubscrView {
                     model.setEditSave(true)
                 }
                 findNavController().popBackStack()
-                //val intent = Intent()
-                //intent.putExtra("SAVED", if (list.size > 0) "YES" else "NO")
-                //setResult(if (list.size > 0) RESULT_OK else Activity.RESULT_CANCELED, intent)
-                //finish()
             }
         }
     }

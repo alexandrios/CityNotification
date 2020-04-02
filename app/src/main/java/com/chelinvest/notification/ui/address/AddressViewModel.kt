@@ -1,5 +1,6 @@
 package com.chelinvest.notification.ui.address
 
+import android.os.Parcelable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
@@ -11,6 +12,11 @@ class AddressViewModel : ViewModel() {
     val editSaved = MutableLiveData<Boolean>()
     fun setEditSave(result: Boolean) {
         editSaved.value = result
+    }
+
+    val recyclerViewExpandableItemManagerState = MutableLiveData<Parcelable?>()
+    fun setStateSave(result: Parcelable?) {
+        recyclerViewExpandableItemManagerState.value = result
     }
 
 }

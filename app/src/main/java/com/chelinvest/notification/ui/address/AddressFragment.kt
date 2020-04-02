@@ -94,9 +94,10 @@ class AddressFragment : CustomFragment<AddressPresenter>(), IAddressView {
         vRecyclerView = view.findViewById(R.id.vRecyclerView)
         mLayoutManager = LinearLayoutManager(view.context)
 
-        val eimSavedState = savedInstanceState?.getParcelable<Parcelable>(SAVED_STATE_EXPANDABLE_ITEM_MANAGER)
+        //val eimSavedState = savedInstanceState?.getParcelable<Parcelable>(SAVED_STATE_EXPANDABLE_ITEM_MANAGER)
+        val eimSavedState = model.recyclerViewExpandableItemManagerState.value
         recyclerViewExpandableItemManager = RecyclerViewExpandableItemManager(eimSavedState)
-        recyclerViewExpandableItemManager!!.defaultGroupsExpandedState = true // false
+        recyclerViewExpandableItemManager!!.defaultGroupsExpandedState = true
 
         if (mAdapter == null) {
             mAdapter = AddressAdapter { delivetypeAddrs, deliveAddrBranch ->
@@ -141,7 +142,19 @@ class AddressFragment : CustomFragment<AddressPresenter>(), IAddressView {
     override fun onPause() {
         super.onPause()
         model.setEditSave(false)
+        model.setStateSave(recyclerViewExpandableItemManager?.savedState)
     }
+
+    //override fun onSaveInstanceState(outState: Bundle) {
+    //    outState.putParcelable(SAVED_STATE_EXPANDABLE_ITEM_MANAGER, recyclerViewExpandableItemManager?.savedState)
+    //    super.onSaveInstanceState(outState)
+    //    Log.wtf("ADDRESSFRAGMENT", "onSaveInstanceState")
+    //}
+
+    //override fun onViewStateRestored(savedInstanceState: Bundle?) {
+    //    super.onViewStateRestored(savedInstanceState)
+    //    Log.wtf("ADDRESSFRAGMENT", "onViewStateRestored")
+    //}
 
     override fun showProgressDialog() {
         vSwipeRefreshLayout.isRefreshing = true

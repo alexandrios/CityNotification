@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:inputType="phone"
             app:cet_imeOption="actionDone"
             app:cet_inputType="phone"
             app:cet_label="@string/edit_sms_descr_settings"

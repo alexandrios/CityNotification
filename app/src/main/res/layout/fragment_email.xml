@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:inputType="textEmailAddress"
         app:cet_inputType="email"
         app:cet_imeOption="actionDone"
         app:cet_label="@string/edit_email_descr_settings"

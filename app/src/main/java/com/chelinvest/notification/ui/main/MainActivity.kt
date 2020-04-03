@@ -7,12 +7,15 @@ import com.chelinvest.notification.R
 import com.chelinvest.notification.ui.CustomActivity
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.inappmessaging.FirebaseInAppMessaging
+import javax.inject.Inject
 
 class MainActivity : CustomActivity<MainPresenter>() {
 
     override fun createPresenter(): MainPresenter = MainPresenter()
 
+    //@Inject
     var mFirebaseAnalytics: FirebaseAnalytics? = null
+    //@Inject
     var mInAppMessaging: FirebaseInAppMessaging? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +30,7 @@ class MainActivity : CustomActivity<MainPresenter>() {
 
         // Инициализация Firebase
         // https://console.firebase.google.com/project/city-agent-notification/settings/general/android:com.chelinvest.notification
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(applicationContext)
         mInAppMessaging = FirebaseInAppMessaging.getInstance()
         if (mInAppMessaging != null) {
             mInAppMessaging!!.isAutomaticDataCollectionEnabled = true

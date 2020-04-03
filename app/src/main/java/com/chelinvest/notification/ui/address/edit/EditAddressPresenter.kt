@@ -1,11 +1,12 @@
 package com.chelinvest.notification.presentation.screens.address.edit
 
 import android.content.Context
+import android.util.Patterns
 import com.chelinvest.notification.Preferences
 import com.chelinvest.notification.R
+import com.chelinvest.notification.additional.*
 import com.chelinvest.notification.additional.resolvedLaunch
 import com.chelinvest.notification.interactor.SetDeliveryAddressInteractor
-import com.chelinvest.notification.additional.*
 import com.chelinvest.notification.ui.address.IAddressView
 import com.chelinvest.notification.ui.presenter.Presenter
 
@@ -24,7 +25,7 @@ class EditAddressPresenter : Presenter() {
                 }
             }
             SMS_ID -> {
-                if (!isPhoneValid(address) || !address.contains("+7")) {
+                if (!isValidPhoneNumber(address) || !address.contains("+7")) {
                     //Toast.makeText(context,"Необходимо указать правильный номер телефона", Toast.LENGTH_LONG).show()
                     view.showExpandableError(context.resources.getString(R.string.edit_sms_verify))
                     return false
@@ -39,6 +40,14 @@ class EditAddressPresenter : Presenter() {
         }
 
         return true
+    }
+
+    fun isValidPhoneNumber(target: String?): Boolean {
+        if (target == null || target.length < 12 || target.length > 12) {
+            return false
+        } else {
+            return Patterns.PHONE.matcher(target).matches()
+        }
     }
 
     fun verifyTimeRange(context: Context, view: IAddressView, startHour: String, finishHour: String, timeZone: String): Boolean {

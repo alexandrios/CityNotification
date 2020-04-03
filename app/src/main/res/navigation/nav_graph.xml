@@ -12,7 +12,9 @@
         <action
             android:id="@+id/action_loginFragment_to_branchFragment"
             app:destination="@id/branchFragment"
-            app:enterAnim="@anim/item_animation_waterfall" />
+            app:enterAnim="@anim/item_animation_waterfall"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

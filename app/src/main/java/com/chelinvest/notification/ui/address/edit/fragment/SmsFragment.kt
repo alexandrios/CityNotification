@@ -19,13 +19,6 @@ class SmsFragment : Fragment() {
 
     var addressData: DeliveAddrBranch? = null
 
-    /*
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        model = (context as EditAddressFragment).model
-    }
-     */
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_sms, container, false)
 

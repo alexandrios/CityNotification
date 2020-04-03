@@ -23,12 +23,9 @@ import java.io.StringWriter
 open class Interactor {
 
     private fun getServerUrl(context: Context): String {
-        val isTestServer = Preferences.getInstance().isTestServer(context)
-        //return if (isTestServer) TEST_SERVER_URL else RELEASE_SERVER_URL
-        //return if (isTestServer) URL_XGATE_MOBILE_OUTER else URL_XGATE_MOBILE_INNER
-
-        val xGateType = Preferences.getInstance().getXgateType(context)
-        val url = if (xGateType == "dvv") URL_XGATE_MOBILE_INNER_DVV else URL_XGATE_MOBILE_INNER_JEV
+        //val xGateType = Preferences.getInstance().getXgateType(context)
+        //val url = if (xGateType == "dvv") URL_XGATE_MOBILE_INNER_DVV else URL_XGATE_MOBILE_INNER_JEV
+        val url = URL_XGATE_MOBILE_INNER_DVV  //URL_XGATE_MOBILE_INNER_JEV
         if (BuildConfig.DEBUG) {
             Log.wtf("xGate", url)
         }

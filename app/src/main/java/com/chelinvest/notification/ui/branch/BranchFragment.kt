@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,15 +17,10 @@ import com.chelinvest.notification.additional.LIMIT_VALUE
 import com.chelinvest.notification.model.ObjParam
 import com.chelinvest.notification.ui.CustomFragment
 import com.chelinvest.notification.ui.subscr.SubscrFragment
+import kotlinx.android.synthetic.main.fragment_branch.*
 
 
 class BranchFragment : CustomFragment<BranchPresenter>(), IBranchView {
-
-    /*
-    companion object {
-        fun create() = BranchFragment()
-    }
-     */
 
     override fun createPresenter(): BranchPresenter = BranchPresenter()
 
@@ -38,6 +34,15 @@ class BranchFragment : CustomFragment<BranchPresenter>(), IBranchView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        /* кнопка-тест, иллюстрирующая, как можно снова вызвать LoginFragment
+        buttonTest.setOnClickListener {
+            findNavController().navigate(R.id.action_branchFragment_to_loginFragment
+                ,null, NavOptions.Builder().setPopUpTo(R.id.branchFragment,true).build())
+            // это можно настроить в дизайнере в nav_graph.xml для action_branchFragment_to_loginFragment -> Pop Behavior: PopUpTo, PopUpToInclusive
+            // Это сделано для того, чтобы по кнопке назад не возвращаться по этой action
+        }
+        */
 
         view.context?.let {
             // запрос доступных бранчей
@@ -64,7 +69,7 @@ class BranchFragment : CustomFragment<BranchPresenter>(), IBranchView {
                             }
                             else -> {
                                 //findNavController().navigate(R.id.action_branchFragment_to_subscrFragment, bundle)
-                                // Вариант передачи параметров во фрагмент
+                                // Вариант передачи параметров во фрагмент с использованием статического метода
                                 findNavController().navigate(R.id.action_branchFragment_to_subscrFragment,
                                     SubscrFragment.getBundleArguments(branch.id, branch.name))
                             }

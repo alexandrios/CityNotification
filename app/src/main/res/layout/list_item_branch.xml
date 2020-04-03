@@ -11,7 +11,7 @@
         <com.chelinvest.notification.ui.custom.CardItem
             android:id="@+id/cardItem"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="120dp"
             app:text="Оплатить"
             app:text_size="21sp"
             app:background_drawable="@drawable/background_money_color" />

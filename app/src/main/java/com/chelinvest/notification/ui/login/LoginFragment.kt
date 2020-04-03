@@ -24,8 +24,6 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
     override fun createPresenter(): LoginPresenter = LoginPresenter()
 
     var passVisible = false
-    var user: String? = null
-    var pass: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,11 +43,12 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.wtf("LOGINFRAGMENT", "onViewCreated start")
+        Log.wtf("LOGINFRAGMENT", "onViewCreated")
 
         vProgressLayout.visibility = View.INVISIBLE
         viewPassImageView.setColorRes(R.color.colorLightBrown)
 
+        /*
         // установить сохранённую настройку, с каким шлюзом соединяемся
         val xGateType = Preferences.getInstance().getXgateType(view.context)
         if (xGateType == "dvv") xGateNewRB.isChecked = true else xGateMobRB.isChecked = true
@@ -63,6 +62,7 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
             Preferences.getInstance().saveXgateType(it.context, "dvv")
         }
         // --------------------------------------------------------
+        */
 
         loginButton.setOnClickListener {
             loginPass(it)
@@ -87,32 +87,22 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
                 viewPassImageView.alpha = 0.4f
             }
         }
-
-        Log.wtf("LOGINFRAGMENT", "onViewCreated end")
     }
 
     override fun onResume() {
         super.onResume()
 
-        userEditText.setText(user ?: "")
-        passEditText.setText(pass ?: "")
+        userEditText.setText("")
+        passEditText.setText("")
         Log.wtf("LOGINFRAGMENT", "onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        user = userEditText.getText()
-        pass = passEditText.getText()
-        Log.wtf("LOGINFRAGMENT", "onPause")
     }
 
     // Запрос на сервер об авторизации пользователя
     private fun loginPass(view: View) {
         Preferences.getInstance().saveIsTestServer(view.context, true)
 
-        val user: String = "pam" // userEditText.getText()
-        val pass: String = "ceramica1" // passEditText.getText()
+        val user: String = userEditText.getText()
+        val pass: String = passEditText.getText()
 
         hideSoftKeyboard(activity)
 

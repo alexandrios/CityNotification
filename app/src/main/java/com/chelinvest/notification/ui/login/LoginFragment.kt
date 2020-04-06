@@ -65,7 +65,13 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
         */
 
         loginButton.setOnClickListener {
+            loginButton.isEnabled = false
             loginPass(it)
+            Handler().postDelayed({
+                if (loginButton != null) {
+                    loginButton.isEnabled = true
+                }
+            }, 2000)
         }
 
         viewPassImageView.setOnClickListener {
@@ -116,7 +122,7 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
         // Сохранить session_id
         Preferences.getInstance().saveSessionId(activity?.baseContext!!, session.session_id)
         val sessionId = Preferences.getInstance().getSessionId(activity?.baseContext!!)
-        Log.wtf("sessionId", "[LOGINFRAGMENT] sessionId=$sessionId")
+        Log.wtf("LOGINFRAGMENT", "sessionId=$sessionId")
 
         if(!session.error_note.isNullOrEmpty()) {
             showExpandableError(session.error_note.toString())

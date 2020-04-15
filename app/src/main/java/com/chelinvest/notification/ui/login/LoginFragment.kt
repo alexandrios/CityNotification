@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.change_xgate_fragment.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_menu.loginButton
 import com.chelinvest.notification.additional.logger.Logger
+import org.jetbrains.annotations.TestOnly
 
 class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
 
@@ -65,6 +66,7 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
         */
 
         loginButton.setOnClickListener {
+            // Предотвращение повторного нажатия на кнопку
             loginButton.isEnabled = false
             loginPass(it)
             Handler().postDelayed({
@@ -103,7 +105,6 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
         Log.wtf("LOGINFRAGMENT", "onResume")
     }
 
-    // Запрос на сервер об авторизации пользователя
     private fun loginPass(view: View) {
         Preferences.getInstance().saveIsTestServer(view.context, true)
 
@@ -112,16 +113,15 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
 
         hideSoftKeyboard(activity)
 
+        // Запрос на сервер об авторизации пользователя
         getPresenter().loginByPassword(view.context, this, user, pass)
     }
 
     override fun onGetSessionId(session: Session) {
 
-        Logger.Log(session.toString())
-
         // Сохранить session_id
-        Preferences.getInstance().saveSessionId(activity?.baseContext!!, session.session_id)
-        val sessionId = Preferences.getInstance().getSessionId(activity?.baseContext!!)
+        Preferences.getInstance().saveSessionId(this.context!!, session.session_id)
+        val sessionId = Preferences.getInstance().getSessionId(this.context!!)
         Log.wtf("LOGINFRAGMENT", "sessionId=$sessionId")
 
         if(!session.error_note.isNullOrEmpty()) {
@@ -133,10 +133,10 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
         if (session.session_id != null) {
 
             // Увеличить счетчик успешных входов в приложение
-            var launchCount = Preferences.getInstance().getLaunchCount(activity?.baseContext!!)
+            var launchCount = Preferences.getInstance().getLaunchCount(this.context!!)
             if (launchCount < 0)
                 launchCount = 0
-            Preferences.getInstance().saveLaunchCount(activity?.baseContext!!, launchCount + 1)
+            Preferences.getInstance().saveLaunchCount(this.context!!, launchCount + 1)
 
             Handler().postDelayed({
                 findNavController().navigate(R.id.action_loginFragment_to_branchFragment)

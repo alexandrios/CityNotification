@@ -1,5 +1,6 @@
 package com.chelinvest.notification.ui.login
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.text.InputType
@@ -119,9 +120,13 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
 
     override fun onGetSessionId(session: Session) {
 
+        // getContext can return null when fragment isn’t attached to its host
+        // https://medium.com/@shafran/fragment-getcontext-vs-requirecontext-ffc9157d6bbe
+        val context: Context = this.context ?: this.requireContext()
+
         // Сохранить session_id
-        Preferences.getInstance().saveSessionId(this.context!!, session.session_id)
-        val sessionId = Preferences.getInstance().getSessionId(this.context!!)
+        Preferences.getInstance().saveSessionId(context, session.session_id)
+        val sessionId = Preferences.getInstance().getSessionId(context)
         Log.wtf("LOGINFRAGMENT", "sessionId=$sessionId")
 
         if(!session.error_note.isNullOrEmpty()) {
@@ -133,10 +138,10 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
         if (session.session_id != null) {
 
             // Увеличить счетчик успешных входов в приложение
-            var launchCount = Preferences.getInstance().getLaunchCount(this.context!!)
+            var launchCount = Preferences.getInstance().getLaunchCount(context)
             if (launchCount < 0)
                 launchCount = 0
-            Preferences.getInstance().saveLaunchCount(this.context!!, launchCount + 1)
+            Preferences.getInstance().saveLaunchCount(context, launchCount + 1)
 
             Handler().postDelayed({
                 findNavController().navigate(R.id.action_loginFragment_to_branchFragment)

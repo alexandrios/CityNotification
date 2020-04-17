@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +16,6 @@ import com.chelinvest.notification.additional.LIMIT_VALUE
 import com.chelinvest.notification.model.ObjParam
 import com.chelinvest.notification.ui.CustomFragment
 import com.chelinvest.notification.ui.subscr.SubscrFragment
-import kotlinx.android.synthetic.main.fragment_branch.*
 
 
 class BranchFragment : CustomFragment<BranchPresenter>(), IBranchView {
@@ -51,7 +49,7 @@ class BranchFragment : CustomFragment<BranchPresenter>(), IBranchView {
                 arrayList.add(ObjParam("0", "Просмотр остатка лимита по своему агенту", LIMIT_VALUE))
 
                 // связь с адаптером
-                view.findViewById<RecyclerView>(R.id.vRecyclerView)?.apply {
+                view.findViewById<RecyclerView>(R.id.branchRecyclerView)?.apply {
                     // Указать ему LayoutManager
                     layoutManager = LinearLayoutManager(view.context)
                     // Передать список данных

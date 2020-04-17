@@ -1,8 +1,6 @@
 package com.chelinvest.notification.ui.address
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -38,7 +36,7 @@ class AddressFragment : CustomFragment<AddressPresenter>(), IAddressView {
     //private val expandedIds = HashSet<String>()
     //private var selectedCardMode = -1
 
-    private var vRecyclerView: RecyclerView? = null
+    private var mRecyclerView: RecyclerView? = null
     private var mLayoutManager: RecyclerView.LayoutManager? = null
     private var mAdapter: AddressAdapter? = null
     private var mWrappedAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>? = null
@@ -91,7 +89,7 @@ class AddressFragment : CustomFragment<AddressPresenter>(), IAddressView {
         subsNameTextView.setText(nameSubscription)
 
         //------------------------------------------------------------------
-        vRecyclerView = view.findViewById(R.id.vRecyclerView)
+        mRecyclerView = view.findViewById(R.id.addressRecyclerView)
         mLayoutManager = LinearLayoutManager(view.context)
 
         //val eimSavedState = savedInstanceState?.getParcelable<Parcelable>(SAVED_STATE_EXPANDABLE_ITEM_MANAGER)
@@ -114,14 +112,14 @@ class AddressFragment : CustomFragment<AddressPresenter>(), IAddressView {
         val animator = RefactoredDefaultItemAnimator()
         animator.supportsChangeAnimations = false
 
-        vRecyclerView?.apply {
+        mRecyclerView?.apply {
             layoutManager = mLayoutManager
             adapter = mWrappedAdapter
             itemAnimator = animator
             setHasFixedSize(false)
         }
 
-        recyclerViewExpandableItemManager!!.attachRecyclerView(vRecyclerView ?: return)
+        recyclerViewExpandableItemManager!!.attachRecyclerView(mRecyclerView ?: return)
 
         vSwipeRefreshLayout.setColorSchemeResources(R.color.tangelo)
         vSwipeRefreshLayout.setOnRefreshListener {

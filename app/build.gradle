@@ -10,12 +10,12 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.chelinvest.notification"
+        //applicationId "com.chelinvest.notification"
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
-        project.ext.set("archivesBaseName", "cityNotification-" + defaultConfig.versionName)
+        //versionName "1.0"
+        //project.ext.set("archivesBaseName", "cityNotification-" + defaultConfig.versionName)
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,6 +26,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
+        }
+    }
+
+    flavorDimensions "version"
+    productFlavors {
+        jev {
+            dimension "version"
+            //applicationId "com.chelinvest.notification.jev"
+            versionName "1.0-jev"
+        }
+        dvv {
+            dimension "version"
+            //applicationId "com.chelinvest.notification.dvv"
+            versionName "1.0-dvv"
         }
     }
 
@@ -54,6 +68,7 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
 
     //Navigation
+    def nav_version = "2.2.2"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
@@ -65,11 +80,11 @@ dependencies {
     //annotationProcessor "com.github.bumptech.glide:compiler:$glide
 
     // FireBase
-    implementation 'com.google.firebase:firebase-messaging:20.1.3'
-    implementation 'com.google.firebase:firebase-inappmessaging:19.0.4'
-    implementation 'com.google.firebase:firebase-analytics:17.2.3'
-    implementation 'com.google.firebase:firebase-core:17.2.3'
-    implementation 'com.google.firebase:firebase-iid:20.1.2'
+    implementation 'com.google.firebase:firebase-messaging:20.1.5'
+    implementation 'com.google.firebase:firebase-inappmessaging:19.0.5'
+    implementation 'com.google.firebase:firebase-analytics:17.3.0'
+    implementation 'com.google.firebase:firebase-core:17.3.0'
+    implementation 'com.google.firebase:firebase-iid:20.1.5'
 
 
     implementation 'com.android.support:multidex:1.0.3'
@@ -98,5 +113,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    // There is the class RecyclerViewActions here.
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
 
 }

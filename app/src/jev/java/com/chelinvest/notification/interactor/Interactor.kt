@@ -2,11 +2,11 @@ package com.chelinvest.notification.interactor
 
 import android.content.Context
 import android.util.Log
+import androidx.multidex.BuildConfig
 import okhttp3.Call
 import org.simpleframework.xml.Serializer
 import org.simpleframework.xml.core.Persister
 import org.simpleframework.xml.stream.Format
-import com.chelinvest.notification.BuildConfig
 import com.chelinvest.notification.Preferences
 import com.chelinvest.notification.R
 import com.chelinvest.notification.additional.*
@@ -25,7 +25,8 @@ open class Interactor {
     private fun getServerUrl(context: Context): String {
         //val xGateType = Preferences.getInstance().getXgateType(context)
         //val url = if (xGateType == "dvv") URL_XGATE_MOBILE_INNER_DVV else URL_XGATE_MOBILE_INNER_JEV
-        val url = URL_XGATE_MOBILE_INNER_DVV  //URL_XGATE_MOBILE_INNER_JEV
+
+        val url = URL_XGATE_MOBILE_INNER_JEV
         if (BuildConfig.DEBUG) {
             Log.wtf("xGate", url)
         }

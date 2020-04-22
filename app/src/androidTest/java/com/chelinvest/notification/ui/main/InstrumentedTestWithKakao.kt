@@ -25,7 +25,7 @@ class InstrumentedTestWithKakao {
 
 
     @Test
-    fun changeText_sameActivity() {
+    fun authentificationTest() {
 
         Thread.sleep(2000)
 
@@ -55,18 +55,6 @@ class InstrumentedTestWithKakao {
 
             Thread.sleep(2000)
         }
-
-        //val view = activityActivityTestRule.activity.findViewById(R.id.userEditText) as com.chelinvest.notification.ui.custom.ModifiedEditText
-        //view.setText("pam")
-
-        // Type text and then press the button.
-        // -- onView(withId(R.id.userEditText)).perform(pressKey(65))
-        //onView(withId(R.id.userEditText)).perform(typeText("pam"), closeSoftKeyboard())
-
-        //onView(withId(R.id.changeTextBt)).perform(click())
-
-        // Check that the text was changed.
-        //onView(withId(R.id.textToBeChanged)).check(matches(withText(STRING_TO_BE_TYPED)))
     }
 
 }

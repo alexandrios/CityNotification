@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.NavigationViewActions
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.RootMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -51,7 +52,6 @@ class ExampleInstrumentedTest {
         fun setup() {
             launchFragmentInContainer<LoginFragment>(themeResId = R.style.AppTheme)
         }
-
      */
 
     @Test
@@ -70,6 +70,7 @@ class ExampleInstrumentedTest {
     //@Test(timeout = 3000)
     @Test
     fun authentificationTestBase() {
+
         onView(withId(R.id.userEditText)).perform(click())
         onView(allOf(withId(R.id.vEditText), hasFocus())).perform(typeText("pam"), closeSoftKeyboard())
         onView(withId(R.id.passEditText)).perform(click())
@@ -77,7 +78,7 @@ class ExampleInstrumentedTest {
         onView(withId(R.id.viewPassImageView)).perform(click())
         Thread.sleep(1000)
         onView(withId(R.id.loginButton)).perform(click())
-        Thread.sleep(2000)
+        Thread.sleep(5000)
         onView(withId(R.id.branchRecyclerView)).check(matches(isDisplayed()))
 
         // To get our recyclerVew
@@ -107,8 +108,7 @@ class ExampleInstrumentedTest {
             .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
 
         Thread.sleep(2000)
-        pressBack()
-
+        //pressBack()
     }
 
     private fun childAtPosition(parentMatcher: Matcher<View>, position: Int): Matcher<View> {
@@ -139,7 +139,7 @@ class ExampleInstrumentedTest {
             .perform(typeText("ceramica1"))
         onView(withId(R.id.loginButton)).perform(click())
         Thread.sleep(5000)
-        pressBack()
+        //pressBack()
     }
 
     fun modifiedEditTextMatcher(idParent: Int): Matcher<View> {

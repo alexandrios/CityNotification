@@ -57,7 +57,7 @@ class RecordedMainActivityTest {
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
         Thread.sleep(2000)
 
-        pressBack()
+        //pressBack()  // with single activity it pressed back and killed the app
     }
 
     private fun childAtPosition(parentMatcher: Matcher<View>, position: Int): Matcher<View> {

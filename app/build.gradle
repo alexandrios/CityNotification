@@ -41,6 +41,11 @@ android {
             //applicationId "com.chelinvest.notification.dvv"
             versionName "1.0-dvv"
         }
+        stub {
+            dimension "version"
+            //applicationId "com.chelinvest.notification.stub"
+            versionName "1.0-stub"
+        }
     }
 
     compileOptions {

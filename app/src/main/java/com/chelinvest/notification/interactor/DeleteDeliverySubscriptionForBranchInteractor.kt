@@ -37,6 +37,7 @@ class DeleteDeliverySubscriptionForBranchInteractor private constructor(): Inter
 
         } catch (ex: Exception) {
             Log.wtf("DeleteDeliverySubscriptionForBranchInteractor->delete", ex.message)
+            throw ex
         }
 
         Log.wtf("errorNote:", errorNote)

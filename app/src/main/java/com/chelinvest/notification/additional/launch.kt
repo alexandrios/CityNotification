@@ -4,6 +4,7 @@ import android.accounts.NetworkErrorException
 import com.chelinvest.notification.exception.*
 import kotlinx.coroutines.*
 import java.io.IOException
+import java.lang.IllegalArgumentException
 import java.net.ConnectException
 import java.net.SocketException
 import java.net.SocketTimeoutException
@@ -55,6 +56,10 @@ fun resolvedLaunchWithJob(block: suspend CoroutineScope.() -> Unit,
             is ResponseException -> {
                 onError(ex)
             }
+            is IllegalArgumentException -> {
+                onError(InternalServerException())
+            }
+
             else -> onError(UnknownException())
         }
     }

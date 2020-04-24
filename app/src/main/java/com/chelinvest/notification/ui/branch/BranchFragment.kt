@@ -33,7 +33,7 @@ class BranchFragment : CustomFragment<BranchPresenter>(), IBranchView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /* кнопка-тест, иллюстрирующая, как можно снова вызвать LoginFragment
+        /* TODO кнопка-тест, иллюстрирующая, как можно снова вызвать LoginFragment
         buttonTest.setOnClickListener {
             findNavController().navigate(R.id.action_branchFragment_to_loginFragment
                 ,null, NavOptions.Builder().setPopUpTo(R.id.branchFragment,true).build())

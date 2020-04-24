@@ -163,7 +163,8 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
                             // выполнить операцию удаления
                             getPresenter().delSubscript(view.context, this as ISubscrView, id) {
                                 if (!it.equals("")) {
-                                    Toast.makeText(view.context, it, Toast.LENGTH_SHORT).show()
+                                    //Toast.makeText(view.context, it, Toast.LENGTH_SHORT).show()
+                                    showExpandableError(it)
                                 } else {
                                     // Обновить список
                                     doRequest {}
@@ -189,7 +190,8 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
                         }
                     }
                     else -> {
-                        Toast.makeText(view.context, press.toString(), Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(view.context, press.toString(), Toast.LENGTH_SHORT).show()
+                        showExpandableError(press.toString())
                     }
                 }
             } // адаптер
@@ -304,14 +306,15 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
         index = 0
         map.clear()
 
-        val idSession = Preferences.getInstance().getSessionId(this.view?.context!!)
-        val branchShort = Preferences.getInstance().getBranchShort(this.view?.context!!)
+        val idSession = Preferences.getInstance().getSessionId(view?.context!!)
+        val branchShort = Preferences.getInstance().getBranchShort(view?.context!!)
 
         // Получить список входящих полей подписки, доступных для уведомления конкретного типа
-        getPresenter().getInputFields(this.view?.context!!, this, idSession!!, branchShort!!) {
+        getPresenter().getInputFields(view?.context!!, this, idSession!!, branchShort!!) {
             if (it.size == 0) {
                 Log.wtf("InputFields", "[SubscrFragment] get_input_fields_for_branch вернул пустой массив obj_any")
-                Toast.makeText(view?.context, "Список входящих полей для уведомления $branchShort пуст!", Toast.LENGTH_LONG).show()
+                //Toast.makeText(view?.context, "Список входящих полей для уведомления $branchShort пуст!", Toast.LENGTH_LONG).show()
+                showExpandableError("Список входящих полей для уведомления $branchShort пуст!")
             } else {
                 // Показать диалоги для всех атрибутов с выбором значения для каждого атрибута
                 showDialogsRecourse(it)
@@ -321,15 +324,16 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
 
     private fun showDialogsRecourse(objAnyList: ArrayList<ObjAny>) {
 
-        val idSession = Preferences.getInstance().getSessionId(this.view?.context!!)
-        val branchShort = Preferences.getInstance().getBranchShort(this.view?.context!!)
+        val idSession = Preferences.getInstance().getSessionId(view?.context!!)
+        val branchShort = Preferences.getInstance().getBranchShort(view?.context!!)
 
         // Если все списки атрибутов исчерпаны, выполнить создание подписки, используя map выбранных атрибутов
         if (index > objAnyList.size - 1) {
             // Создать новую подписку со значениями по умолчанию -> 1.5. create_delivery_subscription_for_branch
-            getPresenter().createSubscr(this.view?.context!!, this, idSession!!, branchShort!!, map) {
+            getPresenter().createSubscr(view?.context!!, this, idSession!!, branchShort!!, map) {
                 if (!it.isNullOrEmpty()) {
-                    Toast.makeText(this.view?.context!!, it, Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(view?.context!!, it, Toast.LENGTH_SHORT).show()
+                    showExpandableError(it)
                 } else {
                     // Обновить список
                     doRequest {
@@ -344,13 +348,13 @@ class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {
         val field: ObjAny = objAnyList[index]
 
         // Прочитать значения для текущего поля
-        getPresenter().getFieldValues(this.view?.context!!, this, idSession!!, branchShort!!, field.id) { objParamList ->
+        getPresenter().getFieldValues(view?.context!!, this, idSession!!, branchShort!!, field.id) { objParamList ->
             // Вызвать диалог(и) для выбора агента (или чего-то ещё)
-            val contentView = LayoutInflater.from(this.view?.context!!).inflate(R.layout.dialog_field_values, null)
+            val contentView = LayoutInflater.from(view?.context!!).inflate(R.layout.dialog_field_values, null)
             contentView.headerTextView.text = "Выберите значение атрибута '${field.name}'"
 
             val dialog: MaterialDialog
-            dialog = MaterialDialog.Builder(this.view?.context!!)
+            dialog = MaterialDialog.Builder(view?.context!!)
                 .title("Создание подписки")
                 .titleGravity(GravityEnum.CENTER)
                 .customView(contentView, false)

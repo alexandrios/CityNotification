@@ -1,6 +1,7 @@
 package com.chelinvest.notification.additional
 
 // --- XGate ---
+const val URL_XGATE_MOBILE_STUB = "url-xgate-mobile-stub"
 const val URL_XGATE_MOBILE_INNER_JEV = "https://xgate-xml-mob.chelinvest.ru:2843/xgate-mob-test/process-post"
 const val URL_XGATE_MOBILE_INNER_DVV = "https://xgate-xml-mob.chelinvest.ru:12345/request/xml"
 //const val URL_XGATE_MOBILE_INNER_DVV = "https://xgate-xml-mob.chelinvest.ru:7843/request/xml" // ссылка на рабочий шлюз

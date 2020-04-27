@@ -96,8 +96,6 @@
         ]]>
     </string>
 
-
-
     <string name="response_for_getinputfieldsforbranchrequest">
         <![CDATA[
         <xgate_result><datasource>INV_PLAT</datasource><row_num>1</row_num><session_id>799015700838348</session_id><class_name>X_OBJ_ANY</class_name><error_note /><obj_any><id>32</id><name>AGENT</name></obj_any></xgate_result>

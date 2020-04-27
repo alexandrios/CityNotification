@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "9077211321",
+    "firebase_url": "https://city-agent-notification.firebaseio.com",
+    "project_id": "city-agent-notification",
+    "storage_bucket": "city-agent-notification.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9077211321:android:01f15f7f3acf628087db68",
+        "android_client_info": {
+          "package_name": "com.chelinvest.notification.stub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9077211321-954ee1c0hgjjlhsahchnfqtvjm2dtqc1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcSefBs60jpKfrz4GY1ipPT6qaB0zJUMo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9077211321-954ee1c0hgjjlhsahchnfqtvjm2dtqc1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -10,7 +10,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        //applicationId "com.chelinvest.notification"
+        applicationId "com.chelinvest.notification"
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
@@ -43,7 +43,7 @@ android {
         }
         stub {
             dimension "version"
-            //applicationId "com.chelinvest.notification.stub"
+            applicationId "com.chelinvest.notification.stub"
             versionName "1.0-stub"
         }
     }
@@ -56,7 +56,18 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
+
+/*
+// to remove JUnit tests
+configurations {
+    compile.exclude group: "junit", module: "junit"
+}
+*/
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -107,21 +118,26 @@ dependencies {
 
     // Тестирование
     testImplementation 'junit:junit:4.12'
-    testImplementation "org.mockito:mockito-core:1.9.5"
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation 'androidx.test:core-ktx:1.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     
     def fragment_version = "1.2.4"
     debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
 
-    //https://www.github.com/agoda-com/Kakao
-    androidTestImplementation 'com.agoda.kakao:kakao:2.0.0'
-
-    //The three dependencies are part of Android’s standard testing libraries.
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test:rules:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     // There is the class RecyclerViewActions here.
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
+    // This class is used as in android test as in app (google recommends so)
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.2.0'
+    //androidTestImplementation "com.android.support.test.espresso.idling:idling-concurrent:3.2.0"
 
+    //https://www.github.com/agoda-com/Kakao
+    androidTestImplementation 'com.agoda.kakao:kakao:2.0.0'
 
+    androidTestImplementation "org.mockito:mockito-core:1.9.5"
+    testImplementation "org.mockito:mockito-core:1.9.5"
+
+    androidTestImplementation 'org.awaitility:awaitility:3.0.0'
 }

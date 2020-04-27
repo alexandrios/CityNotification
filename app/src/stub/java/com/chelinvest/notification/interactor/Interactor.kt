@@ -76,6 +76,23 @@ open class Interactor {
             request.element is GetDeliverySubscriptionForBranchRequest ->
                 res.body = context.resources.getString(R.string.response_for_getdeliverysubscriptionforbranchrequest)
 
+            request.element is GetInputFieldsForBranchRequest ->
+                res.body = context.resources.getString(R.string.response_for_getinputfieldsforbranchrequest)
+
+            request.element is GetFieldValuesForFieldRequest ->
+                res.body = context.resources.getString(R.string.response_for_getfieldvaluesforfieldrequest)
+
+            request.element is UpdateDeliverySubscriptionForBranchRequest ->
+                res.body = context.resources.getString(R.string.response_for_updatedeliverysubscriptionforbranchrequest)
+
+            request.element is DeleteDeliverySubscriptionForBranchRequest ->
+                res.body = context.resources.getString(R.string.response_for_deletedeliverysubscriptionforbranchrequest)
+
+            request.element is GetDeliveryTypesForSubscriptionRequest ->
+                res.body = context.resources.getString(R.string.response_for_getdeliverytypesforsubscriptionrequest)
+
+            request.element is SetDeliveryAddressRequest ->
+                res.body = context.resources.getString(R.string.response_for_setdeliveryaddressrequest)
 
             else ->
                 res = OkRequest.getInstance().request(getServerUrl(context), str, onCallCreated, isLong)

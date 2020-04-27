@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.chelinvest.notification.Preferences
 import com.chelinvest.notification.R
+import com.chelinvest.notification.additional.EspressoIdlingResource
 import com.chelinvest.notification.additional.hideSoftKeyboard
 import com.chelinvest.notification.additional.setColorRes
 import com.chelinvest.notification.model.session.Session
@@ -67,12 +68,14 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
         */
 
         loginButton.setOnClickListener {
+            //EspressoIdlingResource.increment()
             // Предотвращение повторного нажатия на кнопку
             loginButton.isEnabled = false
             loginPass(it)
             Handler().postDelayed({
                 if (loginButton != null) {
                     loginButton.isEnabled = true
+                    //EspressoIdlingResource.decrement()
                 }
             }, 2000)
         }
@@ -106,7 +109,7 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
         Log.wtf("LOGINFRAGMENT", "onResume")
     }
 
-    private fun loginPass(view: View) {
+    fun loginPass(view: View) {
         Preferences.getInstance().saveIsTestServer(view.context, true)
 
         val user: String = userEditText.getText()
@@ -122,7 +125,8 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
 
         // getContext can return null when fragment isn’t attached to its host
         // https://medium.com/@shafran/fragment-getcontext-vs-requirecontext-ffc9157d6bbe
-        val context: Context = this.context ?: this.requireContext()
+        //val context: Context = this.context ?: this.requireContext()
+        val context: Context = this.activity?.applicationContext ?: return
 
         // Сохранить session_id
         Preferences.getInstance().saveSessionId(context, session.session_id)

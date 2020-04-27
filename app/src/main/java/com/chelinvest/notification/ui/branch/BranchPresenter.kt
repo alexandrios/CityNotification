@@ -3,6 +3,7 @@ package com.chelinvest.notification.ui.branch
 import android.content.Context
 import android.util.Log
 import com.chelinvest.notification.Preferences
+import com.chelinvest.notification.additional.EspressoIdlingResource
 import com.chelinvest.notification.additional.resolvedLaunch
 import com.chelinvest.notification.interactor.GetDeliveryBranchInteractor
 import com.chelinvest.notification.model.ObjParam

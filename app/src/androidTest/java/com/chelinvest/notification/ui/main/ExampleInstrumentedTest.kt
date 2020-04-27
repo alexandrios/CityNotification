@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.NavigationViewActions
@@ -15,6 +16,7 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import com.chelinvest.notification.R
+import com.chelinvest.notification.additional.EspressoIdlingResource
 import com.chelinvest.notification.ui.custom.stylable.CustomEditText
 import junit.framework.Assert.assertEquals
 import org.hamcrest.Description
@@ -23,6 +25,8 @@ import org.hamcrest.Matchers
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.instanceOf
 import org.hamcrest.TypeSafeMatcher
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -33,7 +37,7 @@ import org.junit.runner.RunWith
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 
-@LargeTest
+//@LargeTest
 @RunWith(AndroidJUnit4ClassRunner::class)
 class ExampleInstrumentedTest {
 
@@ -47,12 +51,17 @@ class ExampleInstrumentedTest {
         ActivityTestRule(MainActivity::class.java)
 
 
-    /*
-        @Before
-        fun setup() {
-            launchFragmentInContainer<LoginFragment>(themeResId = R.style.AppTheme)
-        }
-     */
+
+    @Before
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+    }
+
 
     @Test
     fun test_isActivityInView() {
@@ -76,9 +85,9 @@ class ExampleInstrumentedTest {
         onView(withId(R.id.passEditText)).perform(click())
         onView(allOf(withId(R.id.vEditText), hasFocus())).perform(typeText("ceramica1"), closeSoftKeyboard())
         onView(withId(R.id.viewPassImageView)).perform(click())
-        Thread.sleep(1000)
+        //Thread.sleep(1000)
         onView(withId(R.id.loginButton)).perform(click())
-        Thread.sleep(5000)
+        //Thread.sleep(2000)
         onView(withId(R.id.branchRecyclerView)).check(matches(isDisplayed()))
 
         // To get our recyclerVew
@@ -95,19 +104,19 @@ class ExampleInstrumentedTest {
         onView(withId(R.id.agentTextView)).check(matches(isDisplayed()))
         onView(withId(R.id.limitTextView)).check(matches(isDisplayed()))
 
-        Thread.sleep(2000)
+        //Thread.sleep(2000)
 
         val vBack = onView(allOf(withId(R.id.vBackButton),
             childAtPosition(childAtPosition(withId(R.id.limitParent), 3), 0),
             isDisplayed()))
         vBack.perform(click())
-        Thread.sleep(2000)
+        //Thread.sleep(2000)
 
         // Click at the first item
         onView(withId(R.id.branchRecyclerView))
             .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
 
-        Thread.sleep(2000)
+        //Thread.sleep(2000)
         //pressBack()
     }
 

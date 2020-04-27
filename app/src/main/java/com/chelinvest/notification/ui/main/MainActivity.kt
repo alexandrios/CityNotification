@@ -11,12 +11,14 @@ import javax.inject.Inject
 
 class MainActivity : CustomActivity<MainPresenter>() {
 
-    override fun createPresenter(): MainPresenter = MainPresenter()
-
-    //@Inject
+    @Inject
+    @JvmField
     var mFirebaseAnalytics: FirebaseAnalytics? = null
-    //@Inject
+    @Inject
+    @JvmField
     var mInAppMessaging: FirebaseInAppMessaging? = null
+
+    override fun createPresenter(): MainPresenter = MainPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +32,8 @@ class MainActivity : CustomActivity<MainPresenter>() {
 
         // Инициализация Firebase
         // https://console.firebase.google.com/project/city-agent-notification/settings/general/android:com.chelinvest.notification
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(applicationContext)
-        mInAppMessaging = FirebaseInAppMessaging.getInstance()
+//        mFirebaseAnalytics = FirebaseAnalytics.getInstance(applicationContext)
+//        mInAppMessaging = FirebaseInAppMessaging.getInstance()
         if (mInAppMessaging != null) {
             mInAppMessaging!!.isAutomaticDataCollectionEnabled = true
             mInAppMessaging!!.setMessagesSuppressed(false)

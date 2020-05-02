@@ -21,27 +21,29 @@ class LoginInteractor private constructor(): Interactor() {
         }
     }
 
-    fun loginByPasswordAsync(context: Context, user: String, pass: String) = async {
+    fun loginByPasswordAsync(context: Context, user: String, pass: String) =
 
-        val session = Session()
+        async {
 
-        try {
-            val request = MainRequest(LoginRequest().apply {
-                this.user = user
-                this.password = pass
-            })
+            val session = Session()
 
-            val response = send(context, request)
+            try {
+                val request = MainRequest(LoginRequest().apply {
+                    this.user = user
+                    this.password = pass
+                })
 
-            session.setResponse(response)
+                val response = send(context, request)
 
-        } catch (ex: Exception) {
-            Log.wtf("loginByPasswordAsync", ex.message)
-            throw ex
-        }
+                session.setResponse(response)
 
-        session
-    }
+            } catch (ex: Exception) {
+                Log.wtf("loginByPasswordAsync", ex.message)
+                throw ex
+            }
+
+            session
+        } // async
 
 
     fun getAgentInfoAsync(context: Context, idSession: String, resultType: ResultTypeAgentInfo) = async {

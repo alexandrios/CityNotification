@@ -39,7 +39,7 @@ class InstrumentedTestWithKakao {
     @Test
     fun authentificationTest() {
 
-        Thread.sleep(2000)
+        //Thread.sleep(2000)
 
         val screen = TestActivityScreen()
         screen {
@@ -65,7 +65,7 @@ class InstrumentedTestWithKakao {
                 click()
             }
 
-            Thread.sleep(2000)
+            //Thread.sleep(2000)
         }
     }
 

@@ -3,6 +3,7 @@ package com.chelinvest.notification.additional
 import android.accounts.NetworkErrorException
 import com.chelinvest.notification.exception.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.produce
 import java.io.IOException
 import java.lang.IllegalArgumentException
 import java.net.ConnectException
@@ -12,7 +13,8 @@ import java.net.UnknownHostException
 import javax.xml.stream.XMLStreamException
 
 fun resolvedLaunchWithJob(block: suspend CoroutineScope.() -> Unit,
-                          onError: (ex: Exception) -> Unit) = GlobalScope.launch(Dispatchers.Main) {
+                          onError: (ex: Exception) -> Unit) =
+    GlobalScope.launch(Dispatchers.Main) {
     try {
         block()
     }
@@ -65,9 +67,8 @@ fun resolvedLaunchWithJob(block: suspend CoroutineScope.() -> Unit,
     }
 }
 
-fun resolvedLaunch(block: suspend CoroutineScope.() -> Unit,
-                   onError: (ex: Exception) -> Unit) {
+fun resolvedLaunch(block: suspend CoroutineScope.() -> Unit, onError: (ex: Exception) -> Unit) =
     resolvedLaunchWithJob(block, onError)
-}
+
 
 fun <T> async(block: suspend CoroutineScope.() -> T): Deferred<T> = GlobalScope.async(block = block)

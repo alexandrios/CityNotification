@@ -6,6 +6,7 @@ import org.junit.runners.Suite
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
     ExampleInstrumentedTest::class,
-    InstrumentedTestWithKakao::class
+    InstrumentedTestWithKakao::class,
+    DialogListTest::class
 )
 class UITestSuite

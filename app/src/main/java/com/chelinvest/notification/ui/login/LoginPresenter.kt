@@ -13,28 +13,32 @@ enum class ResultTypeAgentInfo {
 
 class LoginPresenter : Presenter() {
 
-    fun loginByPassword(context: Context, view: ILoginView, user: String, pass: String) =
-        resolvedLaunch(block = {
+    fun loginByPassword(context: Context, view: ILoginView, user: String, pass: String) {
 
-            if (user.isEmpty()) {
-                view.showExpandableMessage(context.getString(R.string.login_check_input_user))
-                return@resolvedLaunch
+        if (user.isEmpty()) {
+            view.showExpandableMessage(context.getString(R.string.login_check_input_user))
+            return
+            //return@resolvedLaunch
+        }
+
+        if (pass.isEmpty()) {
+            view.showExpandableMessage(context.getString(R.string.login_check_input_pass))
+            return
+        }
+
+        resolvedLaunch(
+            block = {
+                view.showProgressDialog()
+                val session =
+                    LoginInteractor.getInstance().loginByPasswordAsync(context, user, pass).await()
+                view.hideProgressDialog()
+                view.onGetSessionId(session)
+            },
+
+            onError = { ex ->
+                view.hideProgressDialog()
+                onError(context, view, ex)
             }
-
-            if (pass.isEmpty()) {
-                view.showExpandableMessage(context.getString(R.string.login_check_input_pass))
-                return@resolvedLaunch
-            }
-
-            view.showProgressDialog()
-            val session =
-                LoginInteractor.getInstance().loginByPasswordAsync(context, user, pass).await()
-            view.hideProgressDialog()
-
-            view.onGetSessionId(session)
-
-        }, onError = { ex ->
-            view.hideProgressDialog()
-            onError(context, view, ex)
-        })
+        )
+    }
 }

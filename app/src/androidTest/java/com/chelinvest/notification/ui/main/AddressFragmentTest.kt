@@ -7,6 +7,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.swipeDown
@@ -25,9 +26,11 @@ import com.chelinvest.notification.ui.IView
 import com.chelinvest.notification.ui.address.AddressFragment
 import com.chelinvest.notification.ui.login.LoginFragment
 import com.chelinvest.notification.ui.subscr.SubscrFragment
+import org.awaitility.Awaitility
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.concurrent.TimeUnit
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class AddressFragmentTest {
@@ -36,6 +39,13 @@ class AddressFragmentTest {
     @JvmField
     var activityActivityTestRule: ActivityTestRule<MainActivity> =
         ActivityTestRule(MainActivity::class.java)
+
+    private fun awaitMS(timeout: Long, assertion: (() -> Unit)) {
+        Awaitility.await()
+            .atMost(timeout, TimeUnit.MILLISECONDS)
+            .ignoreExceptions()
+            .untilAsserted(assertion)
+    }
 
     @Test
     fun test_AddressFragment() {
@@ -49,58 +59,39 @@ class AddressFragmentTest {
         val scenario =
             launchFragmentInContainer<AddressFragment>(fragmentArgs, themeResId = R.style.AppTheme)
 
-        /*
-        var addressRecyclerView: RecyclerView?
-        var itemCount: Int = 0
-        scenario.onFragment {
-            addressRecyclerView = it.view?.findViewById(R.id.addressRecyclerView)
-            addressRecyclerView?.let { rv: RecyclerView ->
-                //Log.wtf("ADDRESS_FRAGMENT_TEST", "childCount = ${rv.childCount}")
-                val addressAdapter = rv.adapter
-                if (addressAdapter != null) {
-                    itemCount = (addressAdapter as AddressAdapter).groupCount ?: -1
-                    Log.wtf("ADDRESS_FRAGMENT_TEST", "groupCount = $itemCount")
-                }
-            }
+        awaitMS(5000) {
+            onView(withId(R.id.addressRecyclerView)).check(matches(ViewMatchers.isDisplayed()))
         }
-*/
-        Thread.sleep(5000)
-
-        onView(withId(R.id.addressRecyclerView)).check(matches(ViewMatchers.isDisplayed()))
 
         // Свернуть первую группу списка
         onView(withId(R.id.addressRecyclerView)).perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 0,
                 click()))
-        Thread.sleep(500)
         // Развернуть первую группу списка
         onView(withId(R.id.addressRecyclerView)).perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 0,
                 click()))
-        Thread.sleep(500)
         // Потянуть вниз - для обновления
         onView(withId(R.id.addressRecyclerView)).perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 0,
                 swipeDown()))
-        Thread.sleep(500)
-
-        //scenario.moveToState(Lifecycle.State.DESTROYED)
 
         activityActivityTestRule.run {
             var view: IView? = null
-            launchFragmentInContainer<SubscrFragment>(null, themeResId = R.style.AppTheme)
-                .onFragment {
+            launchFragmentInContainer<SubscrFragment>(null,
+                themeResId = R.style.AppTheme).onFragment {
                     view = it
                 }
-                val bundle =
-                    AddressFragment.getBundleArguments("185", "Noch eine Teste eins, zwei, drei")
+            val bundle =
+                AddressFragment.getBundleArguments("185", "Noch eine Teste eins, zwei, drei")
             launchFragment<NavHostFragment>().onFragment {
-                //it.findNavController()  //view as CustomFragment<*>
+                //it.findNavController()
                 //    .navigate(R.id.action_subscrFragment_to_addressFragment, bundle)
+                // it doesn't work: java.lang.RuntimeException: java.lang.IllegalStateException: no current navigation node
             }
         }
-        Thread.sleep(1000)
-        //onView(withId(R.id.text)).check(matches(withText("Hello World!")))
+
+        scenario.moveToState(Lifecycle.State.DESTROYED)
     }
 
 }

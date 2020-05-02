@@ -30,6 +30,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.awaitility.Awaitility.await
+import java.util.concurrent.TimeUnit
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -72,7 +74,8 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.chelinvest.notification", appContext.packageName)
+        assertEquals("com.chelinvest.notification.stub", appContext.packageName)
+        //assertEquals("com.chelinvest.notification", appContext.packageName)
     }
 
 
@@ -88,7 +91,12 @@ class ExampleInstrumentedTest {
         //Thread.sleep(1000)
         onView(withId(R.id.loginButton)).perform(click())
         //Thread.sleep(2000)
-        onView(withId(R.id.branchRecyclerView)).check(matches(isDisplayed()))
+        await()
+            .atMost(5, TimeUnit.SECONDS)
+            .ignoreExceptions()
+            .untilAsserted {
+                onView(withId(R.id.branchRecyclerView)).check(matches(isDisplayed()))
+            }
 
         // To get our recyclerVew
         val branchRecyclerView = activityActivityTestRule.activity.findViewById<RecyclerView>(R.id.branchRecyclerView)

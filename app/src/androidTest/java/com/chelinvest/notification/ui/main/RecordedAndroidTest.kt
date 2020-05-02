@@ -34,7 +34,7 @@ class RecordedAndroidTest {
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
-        Thread.sleep(3000)
+        //Thread.sleep(3000)
 
         val customEditText = onView(allOf(withId(R.id.vEditText),
             childAtPosition(childAtPosition(withId(R.id.userEditText), 0), 1),

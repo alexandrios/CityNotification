@@ -1,13 +1,16 @@
 package com.chelinvest.notification
 
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.platform.app.InstrumentationRegistry
+import com.chelinvest.notification.model.ObjParam
 import com.chelinvest.notification.model.session.Session
 import com.chelinvest.notification.ui.login.LoginFragment
 import com.chelinvest.notification.ui.login.LoginPresenter
 import com.chelinvest.notification.ui.main.MainActivity
+import com.chelinvest.notification.ui.subscr.SubscrFragment
 import io.grpc.Context
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
+import junit.framework.Assert
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -35,6 +38,12 @@ class ExampleUnitTest {
 
         val loginFragment: LoginFragment = LoginFragment()
         assertFalse("Must be false", loginFragment.passVisible)
+
+        val subscrFragment: SubscrFragment = SubscrFragment()
+        assertTrue("Must be 0", subscrFragment.index == 0)
+        assertTrue("Must be java.util.HashMap",
+            subscrFragment.map::class.qualifiedName == "java.util.HashMap")
+
     }
 
 

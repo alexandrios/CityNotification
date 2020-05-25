@@ -2,8 +2,10 @@ package com.chelinvest.notification.model
 
 import java.io.Serializable
 
-class ObjParam() : Serializable {
+class ObjParam(var id: String, var name: String, var value: String) : Serializable {
 
+    /*
+class ObjParam() : Serializable {
     lateinit var id: String
     lateinit var name: String
     lateinit var value: String
@@ -13,6 +15,7 @@ class ObjParam() : Serializable {
         this.name = name
         this.value = value
     }
+    */
 
     override fun toString(): String {
         val result = StringBuilder("")

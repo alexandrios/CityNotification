@@ -13,7 +13,7 @@ import org.junit.runner.RunWith
 // https://medium.com/stepstone-tech/better-tests-with-androidxs-activityscenario-in-kotlin-part-1-6a6376b713ea
 
 @RunWith (AndroidJUnit4ClassRunner::class)
-class AcrivityScenarioTest2 {
+class ActivityScenarioTest2 {
 
     lateinit var scenario: ActivityScenario<MainActivity>
 

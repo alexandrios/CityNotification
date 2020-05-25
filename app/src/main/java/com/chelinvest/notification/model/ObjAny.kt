@@ -2,7 +2,7 @@ package com.chelinvest.notification.model
 
 import java.io.Serializable
 
-class ObjAny : Serializable {
+open class ObjAny : Serializable {
 
     lateinit var id: String
     lateinit var name: String

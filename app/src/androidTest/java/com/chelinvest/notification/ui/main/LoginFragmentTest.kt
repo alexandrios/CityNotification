@@ -3,6 +3,7 @@ package com.chelinvest.notification.ui.main
 import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
+import android.util.Log
 import androidx.fragment.app.testing.launchFragment
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
@@ -17,18 +18,19 @@ import androidx.test.rule.ActivityTestRule
 import com.chelinvest.notification.Preferences
 import com.chelinvest.notification.R
 import com.chelinvest.notification.additional.EspressoIdlingResource
+import com.chelinvest.notification.model.ObjAny
 import com.chelinvest.notification.ui.CustomFragment
 import com.chelinvest.notification.ui.login.LoginFragment
 import com.chelinvest.notification.ui.login.LoginPresenter
 import org.hamcrest.Matchers
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 import org.awaitility.Awaitility.await
+import org.junit.*
+import org.mockito.Mock
+import org.mockito.Mockito
 import java.util.concurrent.TimeUnit
 
 
@@ -78,12 +80,39 @@ class LoginFragmentTest {
                 Espresso.onView(ViewMatchers.withId(R.id.branchRecyclerView))
                     .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
             }
-
-        //Thread.sleep(5000)
-        //Espresso.onView(ViewMatchers.withId(R.id.branchRecyclerView))
-        //    .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        //pressBack()
     }
 
+    @Test
+    fun FirstTestMockito() {
 
+/*
+        // Mockito cannot mock/spy because :  - final class
+        val mocktivity = Mockito.mock(activityActivityTestRule.activity::class.java)
+        Log.wtf("TEST", activityActivityTestRule.activity.packageName)
+        Mockito.`when`(mocktivity.packageName).thenReturn("world.must.live.in.piece")
+        Log.wtf("TEST", mocktivity.packageName)
+*/
+
+        val o = ObjAny()
+        o.id = "1"
+        o.name = "Ping"
+        Log.wtf("TEST", o.toString())
+        Assert.assertEquals("id=1; name=Ping", o.toString())
+
+        val mockObjAny = Mockito.mock(ObjAny::class.java)
+        mockObjAny.id = "2"
+        mockObjAny.name = "Courses"
+        Log.wtf("TEST", mockObjAny.toString())
+        `when`(mockObjAny.toString()).thenReturn("Something else")
+        Log.wtf("TEST", mockObjAny.toString())
+
+/*
+        // Mockito cannot mock/spy because :  - final class
+        val preferences = mock(Preferences::class.java)
+        `when`(preferences.getAgentName(activityActivityTestRule.activity)).thenReturn("Superagent")
+        Assert.assertEquals("Superagent",
+            preferences.getAgentName(activityActivityTestRule.activity))
+*/
+
+    }
 }

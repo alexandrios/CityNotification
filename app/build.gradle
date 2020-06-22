@@ -24,14 +24,19 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.chelinvest.notification"
+        //applicationId "com.chelinvest.notification"
+        applicationId "ru.chelinvest.android.gorod74notify"
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
-        //versionName "1.0"
-        //project.ext.set("archivesBaseName", "cityNotification-" + defaultConfig.versionName)
+        versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        //def date = new Date();
+        //def formattedDate = date.format('yyyy-MM-dd-HHmmss')
+        //setProperty("archivesBaseName", "gorod74notify" + versionName + "_" + formattedDate)
+        setProperty("archivesBaseName", "gorod74notify")
     }
 
     buildTypes {
@@ -48,18 +53,17 @@ android {
     productFlavors {
         jev {
             dimension "version"
-            //applicationId "com.chelinvest.notification.jev"
-            versionName "1.0-jev"
+            //versionName "1.0"
         }
         dvv {
             dimension "version"
-            //applicationId "com.chelinvest.notification.dvv"
-            versionName "1.0-dvv"
+            //versionName "1.0"
         }
         stub {
             dimension "version"
             applicationId "com.chelinvest.notification.stub"
-            versionName "1.0-stub"
+            //versionName "1.0-stub"
+            //versionNameSuffix "-stub"
         }
     }
 
@@ -75,6 +79,22 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = archivesBaseName; //applicationId;
+            outputFileName += "-" + android.defaultConfig.versionName;
+            if (variant.productFlavors[0].name.equals("stub")) {
+                outputFileName += "-stub";
+            }
+            if (variant.buildType.name == "release") {
+                outputFileName += ".apk";
+            } else {
+                outputFileName += "-debug.apk";
+            }
+        }
+    }
+
 }
 
 /*

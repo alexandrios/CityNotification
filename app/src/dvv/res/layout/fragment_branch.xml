@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="@color/colorLightBrown"
         android:textColor="@color/text_bright"
-        android:text="dvv"
+        android:text=""
         android:textSize="@dimen/branch_titel"/>
 
     <androidx.recyclerview.widget.RecyclerView

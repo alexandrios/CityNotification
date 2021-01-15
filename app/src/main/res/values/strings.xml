@@ -9,6 +9,12 @@
     <string name="login_check_input_user">Укажите логин</string>
     <string name="login_check_input_pass">Укажите пароль</string>
 
+    <!--Failure messages-->
+    <string name="empty_input">Введите слово</string>
+    <string name="error_404">Нет соединения, оффлайн режим</string>
+    <string name="error_host">Сервер недоступен, оффлайн режим</string>
+    <string name="error_no_word">Слово не найдено</string>
+
     <string name="data_not_exists_error">Данные не найдены</string>
     <string name="empty_login_error">Email не может быть пустым</string>
     <string name="empty_password_error">Минимальная длина пароля - 5 символов</string>

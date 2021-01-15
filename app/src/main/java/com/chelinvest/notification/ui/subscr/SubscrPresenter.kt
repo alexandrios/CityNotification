@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.chelinvest.notification.Preferences
-import androidx.navigation.fragment.findNavController
 import com.chelinvest.notification.R
-import com.chelinvest.notification.additional.SUBSCR_INFO
 import com.chelinvest.notification.additional.resolvedLaunch
 import com.chelinvest.notification.interactor.*
 import com.chelinvest.notification.model.DeliveSubscriptionForBranch
@@ -16,6 +14,7 @@ import com.chelinvest.notification.model.ObjParam
 import com.chelinvest.notification.ui.CustomFragment
 import com.chelinvest.notification.ui.address.AddressFragment
 import com.chelinvest.notification.ui.presenter.Presenter
+import com.chelinvest.notification.utils.Constants.SUBSCR_INFO
 
 class SubscrPresenter: Presenter() {
 

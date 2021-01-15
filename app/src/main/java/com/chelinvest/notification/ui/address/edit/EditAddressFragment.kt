@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.chelinvest.notification.R
-import com.chelinvest.notification.additional.*
 import com.chelinvest.notification.model.DeliveAddrBranch
 import com.chelinvest.notification.model.DelivetypeAddrs
 import com.chelinvest.notification.presentation.screens.address.edit.EditAddressPresenter
@@ -18,8 +17,14 @@ import com.chelinvest.notification.ui.address.AddressViewModel
 import com.chelinvest.notification.ui.address.IAddressView
 import com.chelinvest.notification.ui.address.edit.fragment.EmailFragment
 import com.chelinvest.notification.ui.custom.ModifiedEditText
-import kotlinx.android.synthetic.main.fragment_edit_address.*
-import kotlinx.android.synthetic.main.fragment_edit_address.vBackButton
+import com.chelinvest.notification.utils.Constants.ADDRESS_DATA
+import com.chelinvest.notification.utils.Constants.ADDRESS_MODEL
+import com.chelinvest.notification.utils.Constants.APP_PUSH_ID
+import com.chelinvest.notification.utils.Constants.DELIVERY_TYPE
+import com.chelinvest.notification.utils.Constants.EMAIL_ID
+import com.chelinvest.notification.utils.Constants.FRAGMENT_TAG
+import com.chelinvest.notification.utils.Constants.SMS_ID
+import com.chelinvest.notification.utils.Constants.SUBSCRIPTION
 
 
 class EditAddressFragment : CustomFragment<EditAddressPresenter>(), IAddressView {

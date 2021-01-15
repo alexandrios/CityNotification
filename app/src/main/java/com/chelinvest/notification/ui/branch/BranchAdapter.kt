@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.chelinvest.notification.R
 import com.chelinvest.notification.model.ObjParam
-import com.chelinvest.notification.additional.LIMIT_VALUE
 import com.chelinvest.notification.ui.custom.CardItem
+import com.chelinvest.notification.utils.Constants.LIMIT_VALUE
 import kotlinx.android.synthetic.main.card_item_layout.view.*
 
 class BranchAdapter(private val branches: ArrayList<ObjParam>,

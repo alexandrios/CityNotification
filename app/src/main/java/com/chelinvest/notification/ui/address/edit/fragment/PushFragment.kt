@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_push.*
 import com.chelinvest.notification.Preferences
 import com.chelinvest.notification.R
-import com.chelinvest.notification.additional.ADDRESS_DATA
 import com.chelinvest.notification.model.DeliveAddrBranch
+import com.chelinvest.notification.utils.Constants.ADDRESS_DATA
 
 
 class PushFragment : Fragment() {

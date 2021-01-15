@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.chelinvest.notification.R
-import com.chelinvest.notification.additional.SUBSCR_INFO
 import com.chelinvest.notification.model.DeliveSubscriptionForBranch
 import com.chelinvest.notification.ui.CustomFragment
 import com.chelinvest.notification.ui.subscr.ISubscrView
 import com.chelinvest.notification.ui.subscr.SubscrViewModel
+import com.chelinvest.notification.utils.Constants.SUBSCR_INFO
 import kotlinx.android.synthetic.main.fragment_edit_subscr.*
 
 

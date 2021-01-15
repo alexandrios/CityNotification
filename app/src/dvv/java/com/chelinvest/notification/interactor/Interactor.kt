@@ -16,13 +16,14 @@ import com.chelinvest.notification.api.response.MainResponse
 import com.chelinvest.notification.exception.PasswordException
 import com.chelinvest.notification.exception.ResponseException
 import com.chelinvest.notification.exception.SessionException
+import com.chelinvest.notification.utils.Constants.URL_XGATE_MOBILE_INNER_DVV
 
 import java.io.StringReader
 import java.io.StringWriter
 
 open class Interactor {
 
-    private fun getServerUrl(context: Context): String {
+    private fun getServerUrl(): String {
         //val xGateType = Preferences.getInstance().getXgateType(context)
         //val url = if (xGateType == "dvv") URL_XGATE_MOBILE_INNER_DVV else URL_XGATE_MOBILE_INNER_JEV
 
@@ -52,14 +53,14 @@ open class Interactor {
         serializer.write(request, stringWriter)
         val str = stringWriter.toString().replace("+", "%2B")
         if (BuildConfig.DEBUG) {
-            Log.wtf("request", str)
+            Log.d("request", str)
         }
 
-        val res = OkRequest.getInstance().request(getServerUrl(context), str, onCallCreated, isLong)
+        val res = OkRequest.getInstance().request(getServerUrl(), str, onCallCreated, isLong)
 
         var body = res.body
         if (BuildConfig.DEBUG) {
-            Log.wtf("response", body)
+            Log.d("response", body)
         }
 
         //--
@@ -74,7 +75,7 @@ open class Interactor {
 
         body = beforeResponse(body)
         if (BuildConfig.DEBUG) {
-            Log.wtf("response", body)
+            Log.d("response", body)
         }
 
         val stringReader = StringReader(body ?: "")

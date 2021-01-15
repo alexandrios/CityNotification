@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.chelinvest.notification.R
-import com.chelinvest.notification.additional.ADDRESS_DATA
 import com.chelinvest.notification.model.DeliveAddrBranch
 import com.chelinvest.notification.ui.custom.ModifiedEditText
+import com.chelinvest.notification.utils.Constants.ADDRESS_DATA
 
 
 class EmailFragment : Fragment() {

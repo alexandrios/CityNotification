@@ -12,9 +12,9 @@ import com.h6ah4i.android.widget.advrecyclerview.expandable.ExpandableItemConsta
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractExpandableItemAdapter
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractExpandableItemViewHolder
 import com.chelinvest.notification.R
-import com.chelinvest.notification.additional.APP_PUSH
-import com.chelinvest.notification.additional.EMAIL
-import com.chelinvest.notification.additional.SMS
+import com.chelinvest.notification.utils.Constants.APP_PUSH
+import com.chelinvest.notification.utils.Constants.EMAIL
+import com.chelinvest.notification.utils.Constants.SMS
 
 
 class AddressAdapter(

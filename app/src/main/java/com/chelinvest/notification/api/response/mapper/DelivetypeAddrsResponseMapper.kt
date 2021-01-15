@@ -1,8 +1,8 @@
 package com.chelinvest.notification.api.response.mapper
 
-import com.chelinvest.notification.additional.APP_PUSH
 import com.chelinvest.notification.api.response.*
 import com.chelinvest.notification.model.*
+import com.chelinvest.notification.utils.Constants.APP_PUSH
 
 class DelivetypeAddrsResponseMapper {
 

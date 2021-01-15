@@ -38,7 +38,7 @@ class LoginInteractor private constructor(): Interactor() {
                 session.setResponse(response)
 
             } catch (ex: Exception) {
-                Log.wtf("loginByPasswordAsync", ex.message)
+                Log.d("loginByPasswordAsync", ex.message)
                 throw ex
             }
 

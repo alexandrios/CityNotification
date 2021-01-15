@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.chelinvest.notification.R
-import com.chelinvest.notification.additional.BRANCH_NAME
 import com.chelinvest.notification.ui.CustomFragment
+import com.chelinvest.notification.utils.Constants.BRANCH_NAME
 import kotlinx.android.synthetic.main.fragment_limit.*
 import kotlinx.android.synthetic.main.fragment_limit.branchNameTextView
 import kotlinx.android.synthetic.main.fragment_limit.vAddButton

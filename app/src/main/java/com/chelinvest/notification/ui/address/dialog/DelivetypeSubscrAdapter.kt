@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.chelinvest.notification.model.DelivetypeAddrs
 import com.chelinvest.notification.R
-import com.chelinvest.notification.additional.APP_PUSH
-import com.chelinvest.notification.additional.EMAIL
-import com.chelinvest.notification.additional.SMS
+import com.chelinvest.notification.utils.Constants.APP_PUSH
+import com.chelinvest.notification.utils.Constants.EMAIL
+import com.chelinvest.notification.utils.Constants.SMS
 
 class DelivetypeSubscrAdapter(
     private val delivetypeAddrs: ArrayList<DelivetypeAddrs>,

@@ -9,6 +9,9 @@ import com.chelinvest.notification.additional.resolvedLaunch
 import com.chelinvest.notification.interactor.SetDeliveryAddressInteractor
 import com.chelinvest.notification.ui.address.IAddressView
 import com.chelinvest.notification.ui.presenter.Presenter
+import com.chelinvest.notification.utils.Constants.APP_PUSH_ID
+import com.chelinvest.notification.utils.Constants.EMAIL_ID
+import com.chelinvest.notification.utils.Constants.SMS_ID
 
 
 class EditAddressPresenter : Presenter() {

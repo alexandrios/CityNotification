@@ -2,19 +2,21 @@ package com.chelinvest.notification.api
 
 import android.os.Build
 import okhttp3.*
-import com.chelinvest.notification.additional.REQUEST_BODY
-import com.chelinvest.notification.api.OkResponse
+import com.chelinvest.notification.utils.Constants.REQUEST_BODY
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.net.URLEncoder
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.net.ssl.SSLContext
+import javax.net.ssl.X509ExtendedTrustManager
 
 @Suppress("DEPRECATION")
 class OkRequest private constructor() {
 
     companion object {
         private const val ENCODING = "windows-1251"
-        private val mediaType = MediaType.parse("application/x-www-form-urlencoded; charset=" + ENCODING)
+        private val mediaType =
+            ("application/x-www-form-urlencoded; charset=$ENCODING").toMediaTypeOrNull()
 
         private var INSTANCE: OkRequest? = null
         fun getInstance(): OkRequest {
@@ -38,6 +40,7 @@ class OkRequest private constructor() {
             .writeTimeout(70, TimeUnit.SECONDS)
             .hostnameVerifier { _, _ -> true }
     ).build()
+
 
     private fun enableTls12OnPreLollipop(client: OkHttpClient.Builder): OkHttpClient.Builder {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1) {

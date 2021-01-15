@@ -11,6 +11,8 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import com.chelinvest.notification.R
+import com.chelinvest.notification.utils.Constants.GROUP_LOGOS_DIRECTORY_NAME
+import com.chelinvest.notification.utils.Constants.SERVICE_LOGOS_DIRECTORY_NAME
 import java.io.File
 import java.util.*
 

@@ -21,6 +21,9 @@ import com.chelinvest.notification.model.DelivetypeAddrs
 import com.chelinvest.notification.ui.address.dialog.DelivetypeSubscrAdapter
 import com.chelinvest.notification.ui.address.edit.EditAddressFragment
 import com.chelinvest.notification.ui.CustomFragment
+import com.chelinvest.notification.utils.Constants.APP_PUSH
+import com.chelinvest.notification.utils.Constants.SUBSCRIPTION_ID
+import com.chelinvest.notification.utils.Constants.SUBSCRIPTION_NAME
 import kotlinx.android.synthetic.main.fragment_address.*
 
 

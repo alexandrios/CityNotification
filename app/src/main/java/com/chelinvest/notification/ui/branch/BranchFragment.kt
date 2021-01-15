@@ -10,13 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chelinvest.notification.Preferences
 import com.chelinvest.notification.R
-import com.chelinvest.notification.additional.BRANCH_ID
-import com.chelinvest.notification.additional.BRANCH_NAME
-import com.chelinvest.notification.additional.EspressoIdlingResource
-import com.chelinvest.notification.additional.LIMIT_VALUE
 import com.chelinvest.notification.model.ObjParam
 import com.chelinvest.notification.ui.CustomFragment
 import com.chelinvest.notification.ui.subscr.SubscrFragment
+import com.chelinvest.notification.utils.Constants.BRANCH_ID
+import com.chelinvest.notification.utils.Constants.BRANCH_NAME
+import com.chelinvest.notification.utils.Constants.LIMIT_VALUE
 
 
 class BranchFragment : CustomFragment<BranchPresenter>(), IBranchView {

@@ -16,90 +16,105 @@ import com.chelinvest.notification.additional.hideSoftKeyboard
 import com.chelinvest.notification.additional.setColorRes
 import com.chelinvest.notification.model.session.Session
 import com.chelinvest.notification.ui.CustomFragment
-import kotlinx.android.synthetic.main.change_xgate_fragment.*
-import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_menu.loginButton
 import com.chelinvest.notification.additional.logger.Logger
+import com.chelinvest.notification.di.injectViewModel
+import com.chelinvest.notification.ui.BaseFragment
+import com.chelinvest.notification.utils.Constants.LOG_TAG
+import com.chelinvest.notification.databinding.FragmentLoginBinding
 import org.jetbrains.annotations.TestOnly
 
-class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
+class LoginFragment : BaseFragment() {
+    private lateinit var viewModel: LoginViewModel
+    private lateinit var binding: FragmentLoginBinding
 
-    override fun createPresenter(): LoginPresenter = LoginPresenter()
+//class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
+//
+//    override fun createPresenter(): LoginPresenter = LoginPresenter()
 
     var passVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Log.wtf("LOGINFRAGMENT", "onCreate")
-        retainInstance = true
+        Log.d(LOG_TAG, "LoginFragment -> onCreate")
+        viewModel = injectViewModel(viewModelFactory)
+
+        //retainInstance = true
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_login, container, false)
 
-        Log.wtf("LOGINFRAGMENT", "onCreateView")
-
-        return view
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        return FragmentLoginBinding.inflate(inflater, container, false).apply {
+            Log.d(LOG_TAG, "onCreateView")
+            viewmodel = viewModel
+            binding = this
+        }.root
     }
+//    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+//        val view = inflater.inflate(R.layout.fragment_login, container, false)
+//
+//        Log.wtf("LOGINFRAGMENT", "onCreateView")
+//
+//        return view
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         Log.wtf("LOGINFRAGMENT", "onViewCreated")
 
-        vProgressLayout.visibility = View.INVISIBLE
-        viewPassImageView.setColorRes(R.color.colorLightBrown)
+        binding.vProgressLayout.visibility = View.INVISIBLE
+        binding.viewPassImageView.setColorRes(R.color.colorLightBrown)
 
-        /*
-        // установить сохранённую настройку, с каким шлюзом соединяемся
-        val xGateType = Preferences.getInstance().getXgateType(view.context)
-        if (xGateType == "dvv") xGateNewRB.isChecked = true else xGateMobRB.isChecked = true
+//        // установить сохранённую настройку, с каким шлюзом соединяемся
+//        val xGateType = Preferences.getInstance().getXgateType(view.context)
+//        if (xGateType == "dvv") xGateNewRB.isChecked = true else xGateMobRB.isChecked = true
+//
+//        // С каким шлюзом соединяемся ----------------------------
+//        xGateMobRB.setOnClickListener {
+//            Preferences.getInstance().saveXgateType(it.context, "jev")
+//        }
+//
+//        xGateNewRB.setOnClickListener {
+//            Preferences.getInstance().saveXgateType(it.context, "dvv")
+//        }
+//        // --------------------------------------------------------
 
-        // С каким шлюзом соединяемся ----------------------------
-        xGateMobRB.setOnClickListener {
-            Preferences.getInstance().saveXgateType(it.context, "jev")
-        }
-
-        xGateNewRB.setOnClickListener {
-            Preferences.getInstance().saveXgateType(it.context, "dvv")
-        }
-        // --------------------------------------------------------
-        */
-
-        loginButton.setOnClickListener {
+        binding.loginButton.setOnClickListener {
             //EspressoIdlingResource.increment()
             // Предотвращение повторного нажатия на кнопку
-            loginButton.isEnabled = false
-            loginPass(it)
+            binding.loginButton.isEnabled = false
+                //TODO: loginPass(it)
             Handler().postDelayed({
-                if (loginButton != null) {
-                    loginButton.isEnabled = true
+                if (binding.loginButton != null) {
+                    binding.loginButton.isEnabled = true
                     //EspressoIdlingResource.decrement()
                 }
             }, 2000)
         }
 
-        viewPassImageView.setOnClickListener {
+        binding.viewPassImageView.setOnClickListener {
             if (!passVisible) {
-                passEditText.getEditText().inputType =
+                binding.passEditText.getEditText().inputType =
                     InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                viewPassImageView.alpha = 1.0f
+                binding.viewPassImageView.alpha = 1.0f
             } else {
-                passEditText.getEditText().inputType =
+                binding.passEditText.getEditText().inputType =
                     InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                viewPassImageView.alpha = 0.4f
+                binding.viewPassImageView.alpha = 0.4f
             }
             passVisible = !passVisible
-            passEditText.getEditText().setSelection(passEditText.getEditText().length());
+            binding.passEditText.getEditText().setSelection(binding.passEditText.getEditText().length());
         }
 
-        passEditText.setOnFocusChangeListener { _, b ->
+        binding.passEditText.setOnFocusChangeListener { _, b ->
             if (!b) {
-                viewPassImageView.alpha = 0.4f
+                binding.viewPassImageView.alpha = 0.4f
             }
         }
     }
+/*
 
     override fun onResume() {
         super.onResume()
@@ -161,6 +176,7 @@ class LoginFragment: CustomFragment<LoginPresenter>(), ILoginView {
     override fun hideProgressDialog() {
         vProgressLayout.visibility = View.INVISIBLE
     }
+*/
 
 }
 

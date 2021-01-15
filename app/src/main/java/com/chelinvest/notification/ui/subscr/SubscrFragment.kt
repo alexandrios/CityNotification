@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -20,8 +19,6 @@ import com.afollestad.materialdialogs.GravityEnum
 import com.afollestad.materialdialogs.MaterialDialog
 import com.chelinvest.notification.Preferences
 import com.chelinvest.notification.R
-import com.chelinvest.notification.additional.BRANCH_ID
-import com.chelinvest.notification.additional.BRANCH_NAME
 import com.chelinvest.notification.model.DeliveSubscriptionForBranch
 import com.chelinvest.notification.model.ObjAny
 import com.chelinvest.notification.model.ObjParam
@@ -31,7 +28,8 @@ import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeMana
 import kotlinx.android.synthetic.main.dialog_field_values.view.*
 import kotlinx.android.synthetic.main.fragment_subscr.*
 import com.chelinvest.notification.ui.subscr.dialog.FieldValuesAdapter
-import kotlinx.android.synthetic.main.fragment_subscr.view.*
+import com.chelinvest.notification.utils.Constants.BRANCH_ID
+import com.chelinvest.notification.utils.Constants.BRANCH_NAME
 import java.util.*
 
 class SubscrFragment : CustomFragment<SubscrPresenter>(), ISubscrView {

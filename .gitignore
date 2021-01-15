@@ -7,3 +7,5 @@
 /captures
 .externalNativeBuild
 .cxx
+/keysCitiNotification.jks
+/keystore.properties

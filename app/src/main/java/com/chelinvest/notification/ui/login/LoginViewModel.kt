@@ -35,16 +35,17 @@ class LoginViewModel @Inject constructor(
             return
         }
 
-        repository.getSession(user, pass).enqueue(object : Callback<Session> {
-            override fun onFailure(call: Call<Session>, t: Throwable) {
+        repository.getSession(user, pass).enqueue(object : Callback<String> {
+            override fun onFailure(call: Call<String>, t: Throwable) {
                 //navigator?.finishProgress()
                 handleRequestFailure(t)
             }
 
-            override fun onResponse(call: Call<Session>, response: Response<Session>) {
-                Log.d(LOG_TAG, "--- onResponse ---")
+            override fun onResponse(call: Call<String>, response: Response<String>) {
                 if (response.isSuccessful) {
-                    sessionLiveEvent.postValue(response.body())
+                    Log.d(LOG_TAG, "LoginViewModel onResponse: ${response.body()}")
+                    val result = response.body()
+                    sessionLiveEvent.postValue(Session())
                 }
                 //navigator?.finishProgress()
             }

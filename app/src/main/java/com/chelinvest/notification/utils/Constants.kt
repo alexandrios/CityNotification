@@ -26,7 +26,7 @@ object Constants {
 
     const val REQUEST_BODY = "request_xml=%s"
 
-    const val BASE_URL = ""
+    const val BASE_URL = "https://xgate-xml-mob.chelinvest.ru:12345/request/xml"
 
     const val SUBSCRIPTION_ID = "SUBSCRIPTION_ID"
     const val SUBSCRIPTION_NAME = "SUBSCRIPTION_NAME"

@@ -7,12 +7,12 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.net.URLEncoder
 import java.util.*
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 import javax.net.ssl.SSLContext
 import javax.net.ssl.X509ExtendedTrustManager
 
 @Suppress("DEPRECATION")
 class OkRequest private constructor() {
-
     companion object {
         private const val ENCODING = "windows-1251"
         private val mediaType =
@@ -47,7 +47,7 @@ class OkRequest private constructor() {
             try {
                 val sc = SSLContext.getInstance("TLSv1.2")
                 sc.init(null, null, null)
-                client.sslSocketFactory(TLSSocketFactory(sc.socketFactory))
+//                client.sslSocketFactory(TLSSocketFactory(sc.socketFactory))
 
                 val cs = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
                         .tlsVersions(TlsVersion.TLS_1_2)
@@ -66,9 +66,9 @@ class OkRequest private constructor() {
         return client
     }
 
-    fun reset() {
-        client.dispatcher().cancelAll()
-    }
+//    fun reset() {
+//        client.dispatcher().cancelAll()
+//    }
 
     fun request(serverUrl: String, query: String, onCallCreated: (call: Call) -> Unit, isLong: Boolean): OkResponse {
         val body = String.format(REQUEST_BODY, URLEncoder.encode(query, ENCODING))
@@ -82,12 +82,13 @@ class OkRequest private constructor() {
         onCallCreated(call)
         val response = call.execute()
 
-        return OkResponse().apply {
+        return OkResponse()
+/*        return OkResponse().apply {
             this.errorCode = response.code()
             this.errorMessage = response.message()
             this.isSuccessful = response.isSuccessful
             this.body = response.body()?.string()
-        }
+        }*/
     }
 
     fun get(url: String): OkResponse {
@@ -98,6 +99,8 @@ class OkRequest private constructor() {
 
         val response = client.newCall(request).execute()
 
+        return OkResponse()
+/*
         return OkResponse().apply {
             this.errorCode = response.code()
             this.errorMessage = response.message()
@@ -105,6 +108,7 @@ class OkRequest private constructor() {
             this.body = response.body()?.string()
             this.cookies = response.headers("Set-Cookie")
         }
+*/
     }
 
 }

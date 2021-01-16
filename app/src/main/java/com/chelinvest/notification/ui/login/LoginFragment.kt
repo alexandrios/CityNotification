@@ -85,12 +85,11 @@ class LoginFragment : BaseFragment() {
             //EspressoIdlingResource.increment()
             // Предотвращение повторного нажатия на кнопку
             binding.loginButton.isEnabled = false
-                //TODO: loginPass(it)
+
+            loginPass(it)
+
             Handler().postDelayed({
-                if (binding.loginButton != null) {
-                    binding.loginButton.isEnabled = true
-                    //EspressoIdlingResource.decrement()
-                }
+                binding.loginButton.isEnabled = true
             }, 2000)
         }
 
@@ -114,69 +113,71 @@ class LoginFragment : BaseFragment() {
             }
         }
     }
-/*
 
-    override fun onResume() {
-        super.onResume()
-
-        userEditText.setText("")
-        passEditText.setText("")
-        Log.wtf("LOGINFRAGMENT", "onResume")
-    }
-
-    fun loginPass(view: View) {
+    private fun loginPass(view: View) {
         Preferences.getInstance().saveIsTestServer(view.context, true)
 
-        val user: String = userEditText.getText()
-        val pass: String = passEditText.getText()
+        val user: String = binding.userEditText.getText()
+        val pass: String = binding.passEditText.getText()
 
         hideSoftKeyboard(activity)
 
         // Запрос на сервер об авторизации пользователя
-        getPresenter().loginByPassword(view.context, this, user, pass)
+        //getPresenter().loginByPassword(view.context, this, user, pass)
+        viewModel.login(binding.userEditText.getText(), binding.passEditText.getText())
     }
 
-    override fun onGetSessionId(session: Session) {
+    /*
 
-        // getContext can return null when fragment isn’t attached to its host
-        // https://medium.com/@shafran/fragment-getcontext-vs-requirecontext-ffc9157d6bbe
-        //val context: Context = this.context ?: this.requireContext()
-        val context: Context = this.activity?.applicationContext ?: return
+        override fun onResume() {
+            super.onResume()
 
-        // Сохранить session_id
-        Preferences.getInstance().saveSessionId(context, session.session_id)
-        val sessionId = Preferences.getInstance().getSessionId(context)
-        Log.wtf("LOGINFRAGMENT", "sessionId=$sessionId")
-
-        if(!session.error_note.isNullOrEmpty()) {
-            showExpandableError(session.error_note.toString())
+            userEditText.setText("")
+            passEditText.setText("")
+            Log.wtf("LOGINFRAGMENT", "onResume")
         }
 
-        vProgressLayout.visibility = View.INVISIBLE
+        override fun onGetSessionId(session: Session) {
 
-        if (session.session_id != null) {
+            // getContext can return null when fragment isn’t attached to its host
+            // https://medium.com/@shafran/fragment-getcontext-vs-requirecontext-ffc9157d6bbe
+            //val context: Context = this.context ?: this.requireContext()
+            val context: Context = this.activity?.applicationContext ?: return
 
-            // Увеличить счетчик успешных входов в приложение
-            var launchCount = Preferences.getInstance().getLaunchCount(context)
-            if (launchCount < 0)
-                launchCount = 0
-            Preferences.getInstance().saveLaunchCount(context, launchCount + 1)
+            // Сохранить session_id
+            Preferences.getInstance().saveSessionId(context, session.session_id)
+            val sessionId = Preferences.getInstance().getSessionId(context)
+            Log.wtf("LOGINFRAGMENT", "sessionId=$sessionId")
 
-            Handler().postDelayed({
-                findNavController().navigate(R.id.action_loginFragment_to_branchFragment)
-            }, 500)
+            if(!session.error_note.isNullOrEmpty()) {
+                showExpandableError(session.error_note.toString())
+            }
 
+            vProgressLayout.visibility = View.INVISIBLE
+
+            if (session.session_id != null) {
+
+                // Увеличить счетчик успешных входов в приложение
+                var launchCount = Preferences.getInstance().getLaunchCount(context)
+                if (launchCount < 0)
+                    launchCount = 0
+                Preferences.getInstance().saveLaunchCount(context, launchCount + 1)
+
+                Handler().postDelayed({
+                    findNavController().navigate(R.id.action_loginFragment_to_branchFragment)
+                }, 500)
+
+            }
         }
-    }
 
-    override fun showProgressDialog() {
-        vProgressLayout.visibility = View.VISIBLE
-    }
+        override fun showProgressDialog() {
+            vProgressLayout.visibility = View.VISIBLE
+        }
 
-    override fun hideProgressDialog() {
-        vProgressLayout.visibility = View.INVISIBLE
-    }
-*/
+        override fun hideProgressDialog() {
+            vProgressLayout.visibility = View.INVISIBLE
+        }
+    */
 
 }
 

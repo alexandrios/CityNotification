@@ -1,6 +1,7 @@
 package com.chelinvest.notification.di
 
 import android.app.Application
+import com.chelinvest.notification.data.remote.RemoteService
 import com.chelinvest.notification.utils.Constants
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.inappmessaging.FirebaseInAppMessaging
@@ -13,12 +14,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 class AppModule {
-//    @Provides
-//    @Singleton
-//    fun getUserName(): String {
-//        val retval = "Vasja"
-//        return retval
-//    }
 
     @Provides
     @Singleton
@@ -27,9 +22,13 @@ class AppModule {
             .client(okHttpClient)
             .baseUrl(Constants.BASE_URL)
             //.addConverterFactory(GsonConverterFactory.create())
-            //            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            //.addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
 
+
+
+    @Provides
+    fun provideRemoteService(r: Retrofit) = r.create(RemoteService::class.java)
 
     @Provides
     @Singleton

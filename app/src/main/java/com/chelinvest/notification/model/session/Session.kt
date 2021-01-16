@@ -80,15 +80,13 @@ class Session() : Serializable {
 
     // Пpeoбpaзyem cтpoky вo вхoднoй пoтok
     private fun stringToInputStream(s: String): InputStream {
-
-        val inputStream: InputStream = ByteArrayInputStream(s.toByteArray(Charset.forName("windows-1251")))
-        return inputStream
+        return ByteArrayInputStream(s.toByteArray(Charset.forName("windows-1251")))
     }
 
     /**
      * Инициализация объекта Session из объекта MainResponse
      */
-    fun setResponse(response: MainResponse): Unit {
+    fun setResponse(response: MainResponse) {
         datasource = response.dataSource
         row_num = response.rowNum.toString()
         session_id = response.sessionId

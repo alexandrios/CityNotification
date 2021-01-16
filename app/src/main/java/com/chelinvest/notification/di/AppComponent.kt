@@ -13,7 +13,8 @@ import javax.inject.Singleton
     modules = [
         AndroidSupportInjectionModule::class,
         MainActivityModule::class,
-        AppModule::class
+        AppModule::class,
+                okhttp3.OkHttpClient::class
     ]
 )
 

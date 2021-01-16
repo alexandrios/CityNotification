@@ -47,7 +47,7 @@ class Repository @Inject constructor(
     /**
      * Remote
      */
-    fun getSession(user: String, pass: String): Call<Session> = remoteDataSource.getSession(user, pass)
+    fun getSession(user: String, pass: String): Call<String> = remoteDataSource.getSession(user, pass)
 
 //
 //    fun getChanges(changeId: Int): Call<List<ChangeInfo>> = remoteDataSource.getChanges(changeId)

@@ -7,9 +7,9 @@ import com.chelinvest.notification.R
 
 open class CustomTextView : AppCompatTextView {
 
-    constructor(context: Context?) : super(context) { init(null) }
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) { init(attrs) }
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) { init(attrs) }
+    constructor(context: Context) : super(context) { init(null) }
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) { init(attrs) }
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) { init(attrs) }
 
     private fun init(attrs: AttributeSet?) {
         if (attrs != null && !isInEditMode) {

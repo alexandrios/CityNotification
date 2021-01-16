@@ -11,6 +11,8 @@ import retrofit2.http.*
 interface RemoteService {
 
     @POST("login_pass")
-    fun getSession(@Body requestBody: RequestBody): Call<String>
+    fun getSession(@Body requestBody: RequestBody): Call<A>
 
 }
+
+class A(val xml: String)

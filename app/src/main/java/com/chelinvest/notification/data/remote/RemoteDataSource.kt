@@ -18,7 +18,7 @@ import java.io.StringWriter
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(private val remoteService: RemoteService) {
-    fun getSession(user: String, pass: String): Call<String> {
+    fun getSession(user: String, pass: String): Call<A> {
 
         val serverUrl = Constants.URL_XGATE_MOBILE_INNER_DVV
         val request = MainRequest(LoginRequest().apply {

@@ -25,6 +25,7 @@ import com.chelinvest.notification.utils.Constants.EMAIL_ID
 import com.chelinvest.notification.utils.Constants.FRAGMENT_TAG
 import com.chelinvest.notification.utils.Constants.SMS_ID
 import com.chelinvest.notification.utils.Constants.SUBSCRIPTION
+import kotlinx.android.synthetic.main.fragment_edit_address.*
 
 
 class EditAddressFragment : CustomFragment<EditAddressPresenter>(), IAddressView {

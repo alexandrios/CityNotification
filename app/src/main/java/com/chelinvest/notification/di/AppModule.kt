@@ -8,12 +8,23 @@ import com.google.firebase.inappmessaging.FirebaseInAppMessaging
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
-import javax.inject.Singleton
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
+
 
 @Module
 class AppModule {
+
+    @Provides
+    fun provideHttpClient(app: Application): OkHttpClient {
+        val logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BODY
+        val httpClient = OkHttpClient.Builder()
+        httpClient.addInterceptor(logging)
+        return httpClient.build()
+    }
 
     @Provides
     @Singleton
@@ -21,7 +32,7 @@ class AppModule {
         Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(Constants.BASE_URL)
-            //.addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             //.addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
 

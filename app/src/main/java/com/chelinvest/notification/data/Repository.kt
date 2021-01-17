@@ -1,10 +1,9 @@
 package com.chelinvest.notification.data
 
-import android.os.Build
-import com.chelinvest.notification.data.remote.A
+import com.chelinvest.notification.api.response.MainResponse
 import com.chelinvest.notification.data.remote.RemoteDataSource
-import com.chelinvest.notification.model.session.Session
 import retrofit2.Call
+import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -48,7 +47,7 @@ class Repository @Inject constructor(
     /**
      * Remote
      */
-    fun getSession(user: String, pass: String): Call<A> = remoteDataSource.getSession(user, pass)
+    fun getSession(user: String, pass: String): Call<MainResponse> = remoteDataSource.getSession(user, pass)
 
 //
 //    fun getChanges(changeId: Int): Call<List<ChangeInfo>> = remoteDataSource.getChanges(changeId)

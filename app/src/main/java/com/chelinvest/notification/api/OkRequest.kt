@@ -1,15 +1,14 @@
 package com.chelinvest.notification.api
 
 import android.os.Build
-import okhttp3.*
 import com.chelinvest.notification.utils.Constants.REQUEST_BODY
+import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.net.URLEncoder
+import java.security.KeyStore
 import java.util.*
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
-import javax.net.ssl.SSLContext
-import javax.net.ssl.X509ExtendedTrustManager
+import javax.net.ssl.*
 
 @Suppress("DEPRECATION")
 class OkRequest private constructor() {
@@ -28,17 +27,17 @@ class OkRequest private constructor() {
     }
 
     private val client = enableTls12OnPreLollipop(OkHttpClient.Builder()
-            .connectTimeout(20, TimeUnit.SECONDS)
-            .readTimeout(20, TimeUnit.SECONDS)
-            .writeTimeout(20, TimeUnit.SECONDS)
-            .hostnameVerifier { _, _ -> true }
+        .connectTimeout(20, TimeUnit.SECONDS)
+        .readTimeout(20, TimeUnit.SECONDS)
+        .writeTimeout(20, TimeUnit.SECONDS)
+        .hostnameVerifier { _, _ -> true }
     ).build()
 
     private val longClient = enableTls12OnPreLollipop(OkHttpClient.Builder()
-            .connectTimeout(70, TimeUnit.SECONDS)
-            .readTimeout(70, TimeUnit.SECONDS)
-            .writeTimeout(70, TimeUnit.SECONDS)
-            .hostnameVerifier { _, _ -> true }
+        .connectTimeout(70, TimeUnit.SECONDS)
+        .readTimeout(70, TimeUnit.SECONDS)
+        .writeTimeout(70, TimeUnit.SECONDS)
+        .hostnameVerifier { _, _ -> true }
     ).build()
 
 
@@ -47,7 +46,7 @@ class OkRequest private constructor() {
             try {
                 val sc = SSLContext.getInstance("TLSv1.2")
                 sc.init(null, null, null)
-//                client.sslSocketFactory(TLSSocketFactory(sc.socketFactory))
+                client.sslSocketFactory(TLSSocketFactory(sc.socketFactory), trustedCertificate())
 
                 val cs = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
                         .tlsVersions(TlsVersion.TLS_1_2)
@@ -66,11 +65,16 @@ class OkRequest private constructor() {
         return client
     }
 
-//    fun reset() {
-//        client.dispatcher().cancelAll()
-//    }
+    fun reset() {
+        client.dispatcher.cancelAll()
+    }
 
-    fun request(serverUrl: String, query: String, onCallCreated: (call: Call) -> Unit, isLong: Boolean): OkResponse {
+    fun request(
+        serverUrl: String,
+        query: String,
+        onCallCreated: (call: Call) -> Unit,
+        isLong: Boolean
+    ): OkResponse {
         val body = String.format(REQUEST_BODY, URLEncoder.encode(query, ENCODING))
 
         val request = okhttp3.Request.Builder()
@@ -82,13 +86,12 @@ class OkRequest private constructor() {
         onCallCreated(call)
         val response = call.execute()
 
-        return OkResponse()
-/*        return OkResponse().apply {
-            this.errorCode = response.code()
-            this.errorMessage = response.message()
+        return OkResponse().apply {
+            this.errorCode = response.code
+            this.errorMessage = response.message
             this.isSuccessful = response.isSuccessful
-            this.body = response.body()?.string()
-        }*/
+            this.body = response.body?.string()
+        }
     }
 
     fun get(url: String): OkResponse {
@@ -99,16 +102,29 @@ class OkRequest private constructor() {
 
         val response = client.newCall(request).execute()
 
-        return OkResponse()
-/*
         return OkResponse().apply {
-            this.errorCode = response.code()
-            this.errorMessage = response.message()
+            this.errorCode = response.code
+            this.errorMessage = response.message
             this.isSuccessful = response.isSuccessful
-            this.body = response.body()?.string()
+            this.body = response.body?.string()
             this.cookies = response.headers("Set-Cookie")
         }
-*/
+    }
+
+    private fun trustedCertificate(): X509TrustManager {
+        val trustManagerFactory: TrustManagerFactory =
+            TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm())
+        trustManagerFactory.init(null as KeyStore?)
+        val trustManagers: Array<TrustManager> = trustManagerFactory.getTrustManagers()
+        check(!(trustManagers.size != 1 || trustManagers[0] !is X509TrustManager)) {
+            "Unexpected default trust managers:" + Arrays.toString(
+                trustManagers
+            )
+        }
+        val trustManager: X509TrustManager = trustManagers[0] as X509TrustManager
+        val sslContext = SSLContext.getInstance("SSL")
+        sslContext.init(null, arrayOf(trustManager), null)
+        return trustManager
     }
 
 }

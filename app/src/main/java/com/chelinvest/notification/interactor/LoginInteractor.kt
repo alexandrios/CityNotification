@@ -21,7 +21,7 @@ class LoginInteractor private constructor(): Interactor() {
         }
     }
 
-    fun loginByPasswordAsync(context: Context, user: String, pass: String) = async {
+    fun loginByPasswordAsync(/*context: Context,*/ user: String, pass: String) = async {
         val session = Session()
         try {
             val request = MainRequest(LoginRequest().apply {
@@ -29,7 +29,7 @@ class LoginInteractor private constructor(): Interactor() {
                 this.password = pass
             })
 
-            val response = send(context, request)
+            val response = send(/*context,*/ request)
             session.setResponse(response)
 
         } catch (ex: Exception) {
@@ -54,7 +54,7 @@ class LoginInteractor private constructor(): Interactor() {
                 }
             })
 
-            val response = send(context, request)
+            val response = send(/*context,*/ request)
             // TODO: проверить response.errorNote
 
             if (response.org_name != null) {

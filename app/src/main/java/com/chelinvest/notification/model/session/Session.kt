@@ -9,23 +9,21 @@ import java.io.Serializable
 import java.lang.StringBuilder
 import java.nio.charset.Charset
 
-class Session() : Serializable {
+class Session (
+    var datasource: String? = null,
+    var row_num: String? = null,
+    var session_id: String? = null,
+    var class_name: String? = null,
+    var org_id: String? = null,
+    var org_name: String? = null,
+    var error_note: String? = null
+) : Serializable {
 
     constructor(xml: String) : this() {
-        if (!xml.isEmpty()) {
+        if (xml.isNotEmpty()) {
             parsing(xml)
         }
     }
-
-    var datasource: String? = null
-    var row_num: String? = null
-    var session_id: String? = null
-    var class_name: String? = null
-    var org_id: String? = null
-    var org_name: String? = null
-    var error_note: String? = null
-
-    init {}
 
     /**
      * Инициализация объекта Session из XML
@@ -78,7 +76,7 @@ class Session() : Serializable {
         }
     }
 
-    // Пpeoбpaзyem cтpoky вo вхoднoй пoтok
+    // Пpeoбpaзyem cтpoкy вo вхoднoй пoтoк
     private fun stringToInputStream(s: String): InputStream {
         return ByteArrayInputStream(s.toByteArray(Charset.forName("windows-1251")))
     }

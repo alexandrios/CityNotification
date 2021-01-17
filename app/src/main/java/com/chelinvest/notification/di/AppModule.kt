@@ -5,12 +5,14 @@ import com.chelinvest.notification.data.remote.RemoteService
 import com.chelinvest.notification.utils.Constants
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.inappmessaging.FirebaseInAppMessaging
+//import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import javax.inject.Singleton
 
 
@@ -32,7 +34,9 @@ class AppModule {
         Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(Constants.BASE_URL)
+            .addConverterFactory(SimpleXmlConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
+            //.addConverterFactory(TikXmlConverterFactory.create())
             //.addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
 

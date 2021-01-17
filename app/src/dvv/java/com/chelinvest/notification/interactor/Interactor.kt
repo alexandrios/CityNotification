@@ -16,6 +16,7 @@ import com.chelinvest.notification.api.response.MainResponse
 import com.chelinvest.notification.exception.PasswordException
 import com.chelinvest.notification.exception.ResponseException
 import com.chelinvest.notification.exception.SessionException
+import com.chelinvest.notification.utils.Constants.LOG_TAG
 import com.chelinvest.notification.utils.Constants.URL_XGATE_MOBILE_INNER_DVV
 
 import java.io.StringReader
@@ -34,14 +35,17 @@ open class Interactor {
         return url
     }
 
+    protected fun send(/*context: Context,*/ request: MainRequest) =
+        send(/*context,*/ request, {}, false, {x-> x} )
+
     protected fun send(context: Context, request: MainRequest) =
-        send(context, request, {}, false, {x-> x} )
+        send(/*context,*/ request, {}, false, {x-> x} )
 
     protected fun send(context: Context, request: MainRequest, beforeResponse: (String?) -> String?) =
-        send(context, request, {}, false, beforeResponse)
+        send(/*context,*/ request, {}, false, beforeResponse)
 
     protected fun send(
-        context: Context,
+       /* context: Context,*/
         request: MainRequest,
         onCallCreated: (call: Call) -> Unit,
         isLong: Boolean,
@@ -52,19 +56,20 @@ open class Interactor {
         val stringWriter = StringWriter()
         serializer.write(request, stringWriter)
         val str = stringWriter.toString().replace("+", "%2B")
-        if (BuildConfig.DEBUG) {
-            Log.d("request", str)
-        }
+        //if (BuildConfig.DEBUG) {
+            Log.d(LOG_TAG, "str = $str")
+        //}
 
         val res = OkRequest.getInstance().request(getServerUrl(), str, onCallCreated, isLong)
 
         var body = res.body
-        if (BuildConfig.DEBUG) {
-            Log.d("response", body)
-        }
+        //if (BuildConfig.DEBUG) {
+            Log.d(LOG_TAG, "body = ${body ?: "body is null"}")
+        //}
 
         //--
         if (res.errorCode != 200) {
+            Log.d(LOG_TAG, "Response code=" + res.errorCode.toString() + "/n" + res.errorMessage)
             throw ResponseException("Response code=" + res.errorCode.toString() + "/n" + res.errorMessage )
         } else {
             if (res.body.isNullOrEmpty()) {
@@ -74,16 +79,14 @@ open class Interactor {
         //--
 
         body = beforeResponse(body)
-        if (BuildConfig.DEBUG) {
-            Log.d("response", body)
-        }
+        //Log.d(LOG_TAG, body ?: "body is null")
 
         val stringReader = StringReader(body ?: "")
         serializer = Persister()
         val response = serializer.read(MainResponse::class.java, stringReader)
 
         // Проверить response на наличие ошибок
-        checkResponse(context, response)
+        //checkResponse(context, response)
 
         return response
     }

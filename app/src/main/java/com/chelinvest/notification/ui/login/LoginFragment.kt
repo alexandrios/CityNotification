@@ -123,8 +123,9 @@ class LoginFragment : BaseFragment() {
         hideSoftKeyboard(activity)
 
         // Запрос на сервер об авторизации пользователя
-        //getPresenter().loginByPassword(view.context, this, user, pass)
-        viewModel.login(binding.userEditText.getText(), binding.passEditText.getText())
+        //viewModel.login(binding.userEditText.getText(), binding.passEditText.getText())
+        viewModel.login("pam", "ceramica1")
+        viewModel.loginByPassword("pam", "ceramica1")
     }
 
     /*

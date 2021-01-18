@@ -1,17 +1,18 @@
 package com.chelinvest.notification.ui.login
 
 import android.app.Application
-import android.util.Log
+import android.content.res.Resources
 import com.chelinvest.notification.BaseApplication
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.chelinvest.notification.R
-import com.chelinvest.notification.additional.resolvedLaunch
 import com.chelinvest.notification.api.response.MainResponse
 import com.chelinvest.notification.data.Repository
-import com.chelinvest.notification.interactor.LoginInteractor
 import com.chelinvest.notification.model.session.Session
 import com.chelinvest.notification.ui.BaseViewModel
 import com.chelinvest.notification.utils.Constants.LOG_TAG
 import com.chelinvest.notification.utils.SingleLiveEvent
+import com.google.gson.JsonSyntaxException
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +27,16 @@ class LoginViewModel @Inject constructor(
     val errorLiveEvent = SingleLiveEvent<String>()
     val sessionLiveEvent = SingleLiveEvent<Session>()
 
+    val userInput = MutableLiveData<String>()
+    val passInput = MutableLiveData<String>()
+
+//    val startNavigateToBranch = SingleLiveEvent<Nothing>()
+
+//    fun loginBtnClick() {
+//    }
+
     fun login(user: String, pass: String) {
+//    fun login() {
 
         if (user.isEmpty()) {
             errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.login_check_input_user))
@@ -38,36 +48,82 @@ class LoginViewModel @Inject constructor(
             return
         }
 
+/*
+        if (userInput.value.isNullOrEmpty()) {
+            errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.login_check_input_user))
+            //errorLiveEvent.postValue(Resources.getSystem().getString(R.string.login_check_input_user))
+            return
+        }
+
+        if (passInput.value.isNullOrEmpty()) {
+            errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.login_check_input_pass))
+            return
+        }
+*/
+
         repository.getSession(user, pass).enqueue(object : Callback<MainResponse> {
+//        repository.getSession(userInput.value!!, passInput.value!!).enqueue(object : Callback<MainResponse> {
             override fun onFailure(call: Call<MainResponse>, t: Throwable) {
                 Log.d(LOG_TAG, "LoginViewModel onFailure: ${t.message}")
-                //navigator?.finishProgress()
                 handleRequestFailure(t)
+                errorLiveEvent.postValue(t.message)
             }
 
             override fun onResponse(call: Call<MainResponse>, response: Response<MainResponse>) {
                 if (response.isSuccessful) {
-                    //Log.d(LOG_TAG, "LoginViewModel onResponse: ${response.body()}")
                     val result = response.body()
                     Log.d(LOG_TAG, "LoginViewModel onResponse: sessionId=${result?.sessionId}")
-                    Log.d(LOG_TAG, "LoginViewModel onResponse: org_name=${result?.org_name}")
-                    sessionLiveEvent.postValue(Session())
+                    Log.d(LOG_TAG, "LoginViewModel onResponse: errorNote=${result?.errorNote}")
+
+                    if (result != null) {
+                        if (!result.errorNote.isNullOrEmpty()) {
+                            errorLiveEvent.postValue(result.errorNote)
+                        }
+
+                        val session = Session()
+                        session.setResponse(result)
+                        getSessionId(session)
+                    }
                 }
-                //navigator?.finishProgress()
             }
         })
     }
 
-    fun loginByPassword(user: String, pass: String) {
+    fun getSessionId(session: Session) {
+
+        // Сохранить session_id
+        repository.setSessionId(session.session_id ?: "")
+        val sessionId = repository.getSessionId()
+        Log.d(LOG_TAG, "sessionId=$sessionId")
+
+        //if(!session.error_note.isNullOrEmpty()) {
+        //    showExpandableError(session.error_note.toString())
+        //}
+
+        //vProgressLayout.visibility = View.INVISIBLE
+
+        if (session.session_id != null) {
+
+            // Увеличить счетчик успешных входов в приложение
+            var launchCount = repository.getLaunchCount()
+            if (launchCount < 0)
+                launchCount = 0
+            repository.setLaunchCount(launchCount + 1)
+
+            sessionLiveEvent.postValue(session)
+        }
+    }
+
+/*    fun loginByPassword(user: String, pass: String) {
         resolvedLaunch(
             block = {
                 val session =
-                    LoginInteractor.getInstance().loginByPasswordAsync(/*context,*/ user, pass)
+                    LoginInteractor.getInstance().loginByPasswordAsync(*//*context,*//* user, pass)
                         .await()
             },
             onError = {
             }
         )
-    }
+    }*/
 
 }

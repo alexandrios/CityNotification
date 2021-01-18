@@ -24,9 +24,6 @@ object Constants {
     const val TEST_SERVER_URL =
         "https://xgate-xml-mob.chelinvest.ru:2843/xgate-mob-test/process-post"
 
-    const val REQUEST_BODY = "request_xml=%s"
-
-    const val BASE_URL = "https://xgate-xml-mob.chelinvest.ru:12345/request/xml/"
 
     const val SUBSCRIPTION_ID = "SUBSCRIPTION_ID"
     const val SUBSCRIPTION_NAME = "SUBSCRIPTION_NAME"
@@ -62,12 +59,14 @@ object Constants {
 
     //--------------------------------------------------------------------------------------------
 
-    const val LOG_TAG = "myLog"
+    const val LOG_TAG = "myLogs"
 
-    // Http requests
-    const val GET_WORD_HTTP_REQUEST = "getwordjson.php"
-    const val GET_CHANGES_HTTP_REQUEST = "getnchanges.php"
-    const val POST_MESSAGE_HTTP_REQUEST = "postmessage.php"
+    const val REQUEST_BODY = "request_xml=%s"
+    const val BASE_URL = "https://xgate-xml-mob.chelinvest.ru:12345/request/xml/"
 
+    //preferences
+    const val COMMON_PREFERENCES = "COMMON_PREFERENCES"
+    const val SESSION_ID = "SESSION_ID"
+    const val LAUNCH_COUNT = "LAUNCH_COUNT"
 
 }

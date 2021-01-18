@@ -71,6 +71,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:hint="@string/login_name_titel" />
+<!--                android:text="@={viewmodel.userInput}" />-->
 
             <com.chelinvest.notification.ui.custom.stylable.CustomTextView
                 android:id="@+id/passTextView"
@@ -108,8 +109,9 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="8dp"
                     android:layout_toStartOf="@+id/viewPassImageView"
-                    android:hint="password"
+                    android:hint="@string/login_pass_titel"
                     app:cet_inputType="password" />
+<!--                    android:text="@={viewmodel.passInput}" />-->
 
             </RelativeLayout>
 
@@ -126,6 +128,8 @@
                 android:text="@string/login_button"
                 android:textColor="@color/whiteSmoke"
                 android:textSize="16sp" />
+<!--            android:onClick="@{() -> viewmodel.loginBtnClick()}"-->
+
 
         </LinearLayout>
 

@@ -1,11 +1,13 @@
 package com.chelinvest.notification.di
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import com.chelinvest.notification.data.remote.RemoteService
 import com.chelinvest.notification.utils.Constants
+import com.chelinvest.notification.utils.Constants.COMMON_PREFERENCES
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.inappmessaging.FirebaseInAppMessaging
-//import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -40,10 +42,12 @@ class AppModule {
             //.addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
 
-
-
     @Provides
     fun provideRemoteService(r: Retrofit) = r.create(RemoteService::class.java)
+
+    @Provides
+    fun provideCommonPreferences(application: Application): SharedPreferences =
+        application.getSharedPreferences(COMMON_PREFERENCES, Context.MODE_PRIVATE)
 
     @Provides
     @Singleton

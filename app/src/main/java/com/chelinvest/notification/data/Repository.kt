@@ -1,5 +1,6 @@
 package com.chelinvest.notification.data
 
+import android.content.SharedPreferences
 import com.chelinvest.notification.api.response.MainResponse
 import com.chelinvest.notification.data.remote.RemoteDataSource
 import retrofit2.Call
@@ -9,23 +10,18 @@ import javax.inject.Singleton
 
 @Singleton
 class Repository @Inject constructor(
-//    private val favouritesDao: FavouritesDao,
-//    private val wordDao: WordDao,
-//    private val rusWordDao: RusWordDao,
-//    private val historyDao: HistoryDao,
-//    private val changesDao: ChangesDao,
-    private val remoteDataSource: RemoteDataSource
-//    private val wordDataSourfce: WordDataSource,
-//    private val preferencesDataSource: PreferencesDataSource
+    private val remoteDataSource: RemoteDataSource,
+    private val preferencesDataSource: PreferencesDataSource
 ) {
     /**
      * Preferences
      */
-//    fun getLanguage() = preferencesDataSource.getLanguage()
-//    fun setLanguage(value: Boolean) = preferencesDataSource.setLanguage(value)
-//
-//    fun getTouchEvent() = preferencesDataSource.getTouchEvent()
-//    fun setTouchEvent(value: Boolean) = preferencesDataSource.setTouchEvent(value)
+    fun getSessionId() = preferencesDataSource.getSessionId()
+    fun setSessionId(value: String) = preferencesDataSource.setSessionId(value)
+
+    fun getLaunchCount() = preferencesDataSource.getLaunchCount()
+    fun setLaunchCount(value: Int) = preferencesDataSource.setLaunchCount(value)
+
 //
 //    // Настройка "Оффлайн-режим"
 //    //fun setOfflineModeSetting(value: Boolean) = putBoolean(OFFLINE_MODE, value)

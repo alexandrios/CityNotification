@@ -48,36 +48,6 @@ class MainResponse {
             ElementList(inline = true, type = DelivetypeAddrsResponse::class, required = false),
             ElementList(inline = true, type = DeliveAddrBranchResponse::class, required = false),
             ElementList(inline = true, type = DeliveTypeResponse::class, required = false)
-
-            //ElementList(inline = true, type = OrgIdResponse::class, required = false)
-        /*
-            ElementList(inline = true, type = XmlTemplateResponse::class, required = false),
-            ElementList(inline = true, type = XmlTemplateSumResponse::class, required = false),
-            ElementList(inline = true, type = QueryPayExpResponse::class, required = false),
-            ElementList(inline = true, type = QueryPayBaseResponse::class, required = false),
-            ElementList(inline = true, type = UnsExpResponse::class, required = false),
-            ElementList(inline = true, type = PaySampleExpResponse::class, required = false),
-            ElementList(inline = true, type = CityNameResponse::class, required = false),
-            ElementList(inline = true, type = StreetNameResponse::class, required = false),
-            ElementList(inline = true, type = UncSumResponse::class, required = false),
-            ElementList(inline = true, type = AbonentCheckResponse::class, required = false),
-
-            ElementList(inline = true, type = IAlgoIModesResponse::class, required = false),
-            ElementList(inline = true, type = IModeExpResponse::class, required = false),
-            ElementList(inline = true, type = ServiceLogoResponse::class, required = false),
-            ElementList(inline = true, type = GsrvLogoResponse::class, required = false),
-            ElementList(inline = true, type = ObjAnyResponse::class, required = false),
-
-            ElementList(inline = true, type = QuerySrvAddResponse::class, required = false),
-            ElementList(inline = true, type = ServiceFullViewResponse::class, required = false),
-            ElementList(inline = true, type = GSrvNameResponse::class, required = false),
-            ElementList(inline = true, type = ServicePugSrvExpResponse::class, required = false),
-            ElementList(inline = true, type = QueryExtreqResponse::class, required = false),
-            ElementList(inline = true, type = AbOperResponse::class, required = false),
-            ElementList(inline = true, type = AbOperUnitDebtResponse::class, required = false),
-
-            ElementList(inline = true, type = PersonNameResponse::class, required = false)
-            */
     )
     var elements: List<IResponseElement>? = null
 

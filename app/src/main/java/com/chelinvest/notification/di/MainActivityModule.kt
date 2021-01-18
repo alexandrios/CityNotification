@@ -1,5 +1,6 @@
 package com.chelinvest.notification.di
 
+import com.chelinvest.notification.ui.branch.BranchFragment
 import com.chelinvest.notification.ui.login.LoginFragment
 import com.chelinvest.notification.ui.main.MainActivity
 import dagger.android.ContributesAndroidInjector
@@ -13,11 +14,10 @@ abstract class MainActivityModule {
     @ContributesAndroidInjector
     abstract fun contributeLoginFragment(): LoginFragment
 
-/*
-
     @ContributesAndroidInjector
-    abstract fun contributeHistoryFragment(): HistoryFragment
+    abstract fun contributeBranchFragment(): BranchFragment
 
+/*
     @ContributesAndroidInjector
     abstract fun contributeFavouritesFragment(): FavouritesFragment
 

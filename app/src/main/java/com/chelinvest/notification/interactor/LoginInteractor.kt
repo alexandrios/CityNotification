@@ -8,7 +8,11 @@ import com.chelinvest.notification.api.request.LoginRequest
 import com.chelinvest.notification.api.request.MainRequest
 import com.chelinvest.notification.model.OrgName
 import com.chelinvest.notification.model.session.Session
-import com.chelinvest.notification.ui.login.ResultTypeAgentInfo
+
+// Возможные типы возвращаемых данных метода get_agent_info
+enum class ResultTypeAgentInfo {
+    X_ORG_ID, X_ORG_NAME, X_ORG_INN, X_ORG_CONTACT
+}
 
 class LoginInteractor private constructor(): Interactor() {
 

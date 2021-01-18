@@ -30,13 +30,13 @@ class LoginFragment : BaseFragment() {
         Log.d(LOG_TAG, "LoginFragment -> onCreate")
         viewModel = injectViewModel(viewModelFactory)
 
-        retainInstance = true
+        //retainInstance = true
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         return FragmentLoginBinding.inflate(inflater, container, false).apply {
-            Log.d(LOG_TAG, "onCreateView")
+            Log.d(LOG_TAG, "LoginFragment -> onCreateView")
             viewmodel = viewModel
             binding = this
         }.root
@@ -44,35 +44,23 @@ class LoginFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Log.d(LOG_TAG, "onViewCreated")
+        Log.d(LOG_TAG, "LoginFragment -> onViewCreated")
 
         binding.vProgressLayout.visibility = View.INVISIBLE
         binding.viewPassImageView.setColorRes(R.color.colorLightBrown)
-
-//        // установить сохранённую настройку, с каким шлюзом соединяемся
-//        val xGateType = Preferences.getInstance().getXgateType(view.context)
-//        if (xGateType == "dvv") xGateNewRB.isChecked = true else xGateMobRB.isChecked = true
-//
-//        // С каким шлюзом соединяемся ----------------------------
-//        xGateMobRB.setOnClickListener {
-//            Preferences.getInstance().saveXgateType(it.context, "jev")
-//        }
-//
-//        xGateNewRB.setOnClickListener {
-//            Preferences.getInstance().saveXgateType(it.context, "dvv")
-//        }
-//        // --------------------------------------------------------
 
         binding.loginButton.setOnClickListener {
             // Предотвращение повторного нажатия на кнопку
             binding.loginButton.isEnabled = false
 
-            loginPass(it)
+            hideSoftKeyboard(activity)
+            binding.vProgressLayout.visibility = View.VISIBLE
 
-            Handler().postDelayed({
-                binding.loginButton.isEnabled = true
-            }, 2000)
+            // Запрос на сервер об авторизации пользователя
+            viewModel.login(binding.userEditText.getText(), binding.passEditText.getText())
+            //viewModel.login("pam", "ceramica1")
+            //viewModel.login()
+            //viewModel.loginByPassword("pam", "ceramica1")
         }
 
         binding.viewPassImageView.setOnClickListener {
@@ -98,11 +86,12 @@ class LoginFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.d(LOG_TAG, "onActivityCreated")
+        Log.d(LOG_TAG, "LoginFragment -> onActivityCreated")
 
         viewModel.sessionLiveEvent.observeEvent(viewLifecycleOwner, Observer {
 
             binding.vProgressLayout.visibility = View.INVISIBLE
+            binding.loginButton.isEnabled = true
 
             if(!it.error_note.isNullOrEmpty()) {
                 showExpandableError(it.error_note.toString())
@@ -118,29 +107,13 @@ class LoginFragment : BaseFragment() {
 
         viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
             binding.vProgressLayout.visibility = View.INVISIBLE
+            binding.loginButton.isEnabled = true
             showExpandableError(it)
         })
     }
 
-    private fun loginPass(view: View) {
-        //Preferences.getInstance().saveIsTestServer(view.context, true)
-
-//        val user: String = binding.userEditText.getText()
-//        val pass: String = binding.passEditText.getText()
-
-        hideSoftKeyboard(activity)
-
-        binding.vProgressLayout.visibility = View.VISIBLE
-
-        // Запрос на сервер об авторизации пользователя
-        viewModel.login(binding.userEditText.getText(), binding.passEditText.getText())
-        //viewModel.login("pam", "ceramica1")
-        //viewModel.login()
-        //viewModel.loginByPassword("pam", "ceramica1")
-    }
 
     /*
-
         override fun onResume() {
             super.onResume()
 

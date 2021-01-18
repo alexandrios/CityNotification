@@ -27,9 +27,8 @@ class LoginViewModel @Inject constructor(
     val errorLiveEvent = SingleLiveEvent<String>()
     val sessionLiveEvent = SingleLiveEvent<Session>()
 
-    val userInput = MutableLiveData<String>()
-    val passInput = MutableLiveData<String>()
-
+//    val userInput = MutableLiveData<String>()
+//    val passInput = MutableLiveData<String>()
 //    val startNavigateToBranch = SingleLiveEvent<Nothing>()
 
 //    fun loginBtnClick() {

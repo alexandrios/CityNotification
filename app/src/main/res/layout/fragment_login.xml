@@ -71,7 +71,6 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:hint="@string/login_name_titel" />
-<!--                android:text="@={viewmodel.userInput}" />-->
 
             <com.chelinvest.notification.ui.custom.stylable.CustomTextView
                 android:id="@+id/passTextView"

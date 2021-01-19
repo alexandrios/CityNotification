@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chelinvest.notification.Preferences
 import com.chelinvest.notification.R
+import com.chelinvest.notification.data.Repository
 import com.chelinvest.notification.databinding.FragmentBranchBinding
 import com.chelinvest.notification.databinding.FragmentLoginBinding
 import com.chelinvest.notification.di.injectViewModel
@@ -25,12 +26,9 @@ import com.chelinvest.notification.utils.Constants.LIMIT_VALUE
 import com.chelinvest.notification.utils.Constants.LOG_TAG
 
 
-//class BranchFragment : CustomFragment<BranchPresenter>(), IBranchView {
 class BranchFragment : BaseFragment() {
     private lateinit var viewModel: BranchViewModel
     private lateinit var binding: FragmentBranchBinding
-
-    //override fun createPresenter(): BranchPresenter = BranchPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +38,6 @@ class BranchFragment : BaseFragment() {
 
         //retainInstance = true
     }
-
-//    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-//            inflater.inflate(R.layout.fragment_branch, container, false)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -65,49 +60,7 @@ class BranchFragment : BaseFragment() {
             // Это сделано для того, чтобы по кнопке назад не возвращаться по этой action
         //}
 
-
-        viewModel.getDelivetypeExp {
-
-        }
-/*
-
-        view.context?.let {
-            // запрос доступных бранчей
-            getPresenter().getDelivetypeExp(it, this) { arrayList ->
-                // Добавить в список бранчей пункт "Просмотр остатка лимита по своему агенту"
-                arrayList.add(ObjParam("0", "Просмотр остатка лимита по своему агенту", LIMIT_VALUE))
-
-                //EspressoIdlingResource.decrement()
-                // связь с адаптером
-                view.findViewById<RecyclerView>(R.id.branchRecyclerView)?.apply {
-                    // Указать ему LayoutManager
-                    layoutManager = LinearLayoutManager(view.context)
-                    // Передать список данных
-                    adapter = BranchAdapter(arrayList) { branch ->
-
-                        Log.d(LOG_TAG, "branchShort=${branch.value}")
-                        Preferences.getInstance().saveBranchShort(it, branch.value)
-
-                        val bundle = Bundle()
-                        bundle.putString(BRANCH_ID, branch.id)
-                        bundle.putString(BRANCH_NAME, branch.name)
-                        when (branch.value) {
-                            LIMIT_VALUE -> {
-                                findNavController().navigate(R.id.action_branchFragment_to_limitFragment, bundle)
-                            }
-                            else -> {
-                                //findNavController().navigate(R.id.action_branchFragment_to_subscrFragment, bundle)
-                                // Вариант передачи параметров во фрагмент с использованием статического метода
-                                findNavController().navigate(R.id.action_branchFragment_to_subscrFragment,
-                                    SubscrFragment.getBundleArguments(branch.id, branch.name))
-                            }
-                        }
-                    }
-                }
-            }
-        }
- */
-
+        viewModel.getDelivetypeExp()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -116,6 +69,42 @@ class BranchFragment : BaseFragment() {
 
         viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
             showExpandableError(it)
+        })
+
+        viewModel.branchesLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+            Log.d(LOG_TAG, "arrayList.Count=${it.count()}")
+            if (it.count() == 0) {
+                // TODO сообщение
+                showExpandableError("список бранчей пуст")
+                return@Observer
+            }
+            // связь с адаптером
+            view?.findViewById<RecyclerView>(R.id.branchRecyclerView)?.apply {
+                // Указать ему LayoutManager
+                layoutManager = LinearLayoutManager(view?.context)
+                // Передать список данных
+                adapter = BranchAdapter(it) { branch ->
+
+                    Log.d(LOG_TAG, "branchShort=${branch.value}")
+                    viewModel.saveBranchShort(branch.value)
+
+                    val bundle = Bundle()
+                    bundle.putString(BRANCH_ID, branch.id)
+                    bundle.putString(BRANCH_NAME, branch.name)
+                    //findNavController().navigate(R.id.action_branchFragment_to_subscrFragment, bundle)
+                    // Вариант передачи параметров во фрагмент с использованием статического метода
+                    findNavController().navigate(R.id.action_branchFragment_to_subscrFragment,
+                        SubscrFragment.getBundleArguments(branch.id, branch.name))
+                }
+            }
+        })
+
+        viewModel.ownLimitsLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+            val bundle = Bundle()
+            //arrayList.add(ObjParam("0", "Просмотр остатка лимита по своему агенту", LIMIT_VALUE))
+            bundle.putString(BRANCH_ID, "0")
+            bundle.putString(BRANCH_NAME, "Просмотр остатка лимита по своему агенту")
+            findNavController().navigate(R.id.action_branchFragment_to_limitFragment, bundle)
         })
     }
 

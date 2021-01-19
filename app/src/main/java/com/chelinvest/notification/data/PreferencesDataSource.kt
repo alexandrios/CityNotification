@@ -36,4 +36,10 @@ class PreferencesDataSource @Inject constructor(
     fun getLaunchCount() = getInt(Constants.LAUNCH_COUNT, 0)
     fun setLaunchCount(value: Int) = putInt(Constants.LAUNCH_COUNT, value)
 
+    fun getBranchShort() = getString(Constants.BRANCH_SHORT, "")
+    fun setBranchShort(value: String) = putString(Constants.BRANCH_SHORT, value)
+
+    fun getFCMToken() = getString(Constants.FCM_TOKEN, "")
+    fun setFCMToken(value: String?) = putString(Constants.FCM_TOKEN, value)
+
 }

@@ -8,10 +8,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
-import com.androidadvance.topsnackbar.TSnackbar
 import com.chelinvest.notification.R
 import com.chelinvest.notification.additional.color
 import com.chelinvest.notification.utils.Constants
+//import com.androidadvance.topsnackbar.TSnackbar
+import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -36,7 +37,7 @@ abstract class BaseFragment : DaggerFragment(), RequestListener {
     fun showExpandableMessage(msg: String) {
         context?.let { context ->
             view?.let { view ->
-                val snackBar = TSnackbar.make(view.findViewById(R.id.vParentLayout), msg, TSnackbar.LENGTH_LONG)
+                val snackBar = Snackbar.make(view.findViewById(R.id.vParentLayout), msg, Snackbar.LENGTH_LONG)
                 snackBar.view.setBackgroundColor(context.color(R.color.goodMessage))
                 snackBar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text).setTextColor(
                     Color.WHITE)
@@ -49,7 +50,7 @@ abstract class BaseFragment : DaggerFragment(), RequestListener {
     fun showExpandableError(error: String) {
         context?.let { context ->
             view?.let { view ->
-                val snackBar = TSnackbar.make(view.findViewById(R.id.vParentLayout), error, TSnackbar.LENGTH_LONG)
+                val snackBar = Snackbar.make(view.findViewById(R.id.vParentLayout), error, Snackbar.LENGTH_LONG)
                 snackBar.view.setBackgroundColor(context.color(R.color.errorMessage))
                 snackBar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text).setTextColor(
                     Color.WHITE)

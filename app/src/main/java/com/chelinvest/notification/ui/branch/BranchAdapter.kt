@@ -42,7 +42,7 @@ class BranchAdapter(private val branches: ArrayList<ObjParam>,
             holder.cardItem.background_image_view.setImageResource(R.drawable.background_calculator_color)
 
         holder.clickableLayout.setOnClickListener {
-            onBranchClick(branches.get(position))
+            onBranchClick(branches[position])
         }
     }
 

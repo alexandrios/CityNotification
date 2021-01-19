@@ -18,7 +18,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-
 class LoginViewModel @Inject constructor(
     application: Application,
     private val repository: Repository
@@ -60,8 +59,8 @@ class LoginViewModel @Inject constructor(
         }
 */
 
+        //repository.getSession(userInput.value!!, passInput.value!!).enqueue(object : Callback<MainResponse> {
         repository.getSession(user, pass).enqueue(object : Callback<MainResponse> {
-//        repository.getSession(userInput.value!!, passInput.value!!).enqueue(object : Callback<MainResponse> {
             override fun onFailure(call: Call<MainResponse>, t: Throwable) {
                 Log.d(LOG_TAG, "LoginViewModel onFailure: ${t.message}")
                 handleRequestFailure(t)

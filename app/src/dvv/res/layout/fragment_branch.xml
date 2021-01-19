@@ -28,6 +28,17 @@
         android:text=""
         android:textSize="@dimen/branch_titel"/>
 
+    <TextView
+        android:id="@+id/limitTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:padding="8dp"
+        android:text="Лимит"
+        android:textSize="@dimen/branch_titel"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="@{() -> viewmodel.limitOnClick()}" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/branchRecyclerView"
         android:layout_width="match_parent"

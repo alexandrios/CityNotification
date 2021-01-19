@@ -61,6 +61,7 @@ object Constants {
 
     const val LOG_TAG = "myLogs"
 
+    const val ENCODING = "windows-1251"
     const val REQUEST_BODY = "request_xml=%s"
     const val BASE_URL = "https://xgate-xml-mob.chelinvest.ru:12345/request/xml/"
 
@@ -68,5 +69,7 @@ object Constants {
     const val COMMON_PREFERENCES = "COMMON_PREFERENCES"
     const val SESSION_ID = "SESSION_ID"
     const val LAUNCH_COUNT = "LAUNCH_COUNT"
+    const val BRANCH_SHORT = "BRANCH_SHORT"
+    const val FCM_TOKEN = "FCM_TOKEN"
 
 }

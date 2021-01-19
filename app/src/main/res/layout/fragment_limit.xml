@@ -1,66 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/limitParent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-        android:id="@+id/branchNameTextView"
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.chelinvest.notification.ui.limit.LimitViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/limitParent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="8dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/colorLightBrown"
-        android:textColor="@color/text_bright"
-        android:text="short"
-        android:textSize="@dimen/branch_titel"/>
-
-    <TextView
-        android:id="@+id/agentTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textColor="@color/colorPrimaryBrown"
-        app:layout_constraintTop_toBottomOf="@+id/branchNameTextView" />
-
-    <TextView
-        android:id="@+id/limitTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textColor="@color/colorPrimaryBrown"
-        app:layout_constraintTop_toBottomOf="@id/agentTextView" />
-
-    <RelativeLayout
-        android:id="@+id/vTitlePanel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        style="@style/AppTheme.TitleLayout" >
-
-        <ImageView
-            android:id="@+id/vBackButton"
-            style="@style/AppTheme.BackButtonImageView"/>
+        android:layout_height="match_parent">
 
         <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-            android:id="@+id/vTitleTextView"
-            style="@style/AppTheme.TitleTextView"/>
+            android:id="@+id/branchNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorLightBrown"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="short"
+            android:textColor="@color/text_bright"
+            android:textSize="@dimen/branch_titel"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/vAddButton"
-            style="@style/AppTheme.AddButtonImageView"
-            android:layout_alignParentEnd="true"
-            android:layout_toStartOf="@+id/vTitleTextView" />
+        <TextView
+            android:id="@+id/agentTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryBrown"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@+id/branchNameTextView" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/limitTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryBrown"
+            android:textSize="24sp"
+            app:layout_constraintTop_toBottomOf="@id/agentTextView" />
 
+        <RelativeLayout
+            android:id="@+id/vTitlePanel"
+            style="@style/AppTheme.TitleLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/vBackButton"
+                style="@style/AppTheme.BackButtonImageView" />
+
+            <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+                android:id="@+id/vTitleTextView"
+                style="@style/AppTheme.TitleTextView" />
+
+            <ImageView
+                android:id="@+id/vAddButton"
+                style="@style/AppTheme.AddButtonImageView"
+                android:layout_alignParentEnd="true"
+                android:layout_toStartOf="@+id/vTitleTextView" />
+
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

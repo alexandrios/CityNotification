@@ -1,45 +1,79 @@
 package com.chelinvest.notification.ui.limit
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.chelinvest.notification.R
-import com.chelinvest.notification.ui.CustomFragment
+import com.chelinvest.notification.databinding.FragmentLimitBinding
+import com.chelinvest.notification.di.injectViewModel
+import com.chelinvest.notification.ui.BaseFragment
+import com.chelinvest.notification.utils.Constants
 import com.chelinvest.notification.utils.Constants.BRANCH_NAME
-import kotlinx.android.synthetic.main.fragment_limit.*
-import kotlinx.android.synthetic.main.fragment_limit.branchNameTextView
-import kotlinx.android.synthetic.main.fragment_limit.vAddButton
-import kotlinx.android.synthetic.main.fragment_limit.vBackButton
 
+class LimitFragment : BaseFragment() {
+    private lateinit var viewModel: LimitViewModel
+    private lateinit var binding: FragmentLimitBinding
 
-class LimitFragment : CustomFragment<LimitPresenter>(), ILimitView {
+//    companion object {
+//        fun create() = LimitFragment()
+//    }
 
-    companion object {
-        fun create() = LimitFragment()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        Log.d(Constants.LOG_TAG, "LimitFragment -> onCreate")
+        viewModel = injectViewModel(viewModelFactory)
+
+        //retainInstance = true
     }
 
-    override fun createPresenter(): LimitPresenter = LimitPresenter()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_limit, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        return FragmentLimitBinding.inflate(inflater, container, false).apply {
+            Log.d(Constants.LOG_TAG, "LimitFragment -> onCreateView")
+            viewmodel = viewModel
+            binding = this
+        }.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d(Constants.LOG_TAG, "LimitFragment -> onViewCreated")
 
-        vBackButton.setOnClickListener { findNavController().popBackStack() }
-        vAddButton.visibility = View.INVISIBLE
+        binding.vBackButton.setOnClickListener { findNavController().popBackStack() }
+        binding.vAddButton.visibility = View.INVISIBLE
+        binding.branchNameTextView.text = arguments?.getString(BRANCH_NAME)
 
-        val nameBranch = arguments?.getString(BRANCH_NAME)
-        branchNameTextView.setText(nameBranch)
+        viewModel.getAgentInfo()
+        viewModel.getAgentLimit()
 
-        getPresenter().getAgentLimit(view.context, this) { orgName, limit ->
-            limit?.let {
-                agentTextView.text = orgName?.name ?: "Агент"
-                limitTextView.text = String.format("%,18.2f руб.", it.toDoubleOrNull() ?: "").trim() //.replace(',', ' ')
-            }
-        }
+//        getPresenter().getAgentLimit(view.context, this) { orgName, limit ->
+//            limit?.let {
+//                agentTextView.text = orgName?.name ?: "Агент"
+//                limitTextView.text = String.format("%,18.2f руб.", it.toDoubleOrNull() ?: "").trim() //.replace(',', ' ')
+//            }
+//        }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        Log.d(Constants.LOG_TAG, "LimitFragment -> onActivityCreated")
+
+        viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+            //binding.vProgressLayout.visibility = View.INVISIBLE
+            showExpandableError(it)
+        })
+
+        viewModel.agentInfoLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+            binding.agentTextView.text = it?.name ?: "Агент"
+        })
+
+        viewModel.agentLimitLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+            binding.limitTextView.text = String.format("%,18.2f руб.", it.toDoubleOrNull() ?: "").trim() //.replace(',', ' ')
+        })
     }
 
 }

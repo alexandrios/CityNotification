@@ -3,8 +3,10 @@ package com.chelinvest.notification.data
 import android.content.Context
 import com.chelinvest.notification.api.response.MainResponse
 import com.chelinvest.notification.data.remote.RemoteDataSource
+import com.chelinvest.notification.model.ObjParam
 import com.chelinvest.notification.utils.Constants.FCM_TOKEN
 import retrofit2.Call
+import java.util.HashMap
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -57,6 +59,17 @@ class Repository @Inject constructor(
     fun loadDeliveryBranches(sessionId: String): Call<MainResponse> = remoteDataSource.loadDeliveryBranches(sessionId)
     fun loadAgentInfo(sessionId: String): Call<MainResponse> = remoteDataSource.loadAgentInfo(sessionId)
     fun loadAgentLimit(sessionId: String): Call<MainResponse> = remoteDataSource.loadAgentLimit(sessionId)
+    fun loadDeliverySubscriptionForBranch(sessionId: String, branchShort: String): Call<MainResponse> =
+        remoteDataSource.loadDeliverySubscriptionForBranch(sessionId, branchShort)
+    fun deleteDeliverySubscriptionForBranch(sessionId: String, branchShort: String, subscriptionId: String): Call<MainResponse> =
+        remoteDataSource.deleteDeliverySubscriptionForBranch(sessionId, branchShort, subscriptionId)
+    fun getInputFields(sessionId: String, branchShort: String): Call<MainResponse> = remoteDataSource.getInputFields(sessionId, branchShort)
+    fun createSubscription(sessionId: String, branchShort: String, map: HashMap<String, ObjParam>): Call<MainResponse> =
+        remoteDataSource.createSubscription(sessionId, branchShort, map)
+    fun getFieldValues(sessionId: String, branchShort: String, fieldId: String): Call<MainResponse> =
+        remoteDataSource.getFieldValues(sessionId, branchShort, fieldId)
+
+
 //
 //    fun getChanges(changeId: Int): Call<List<ChangeInfo>> = remoteDataSource.getChanges(changeId)
 //

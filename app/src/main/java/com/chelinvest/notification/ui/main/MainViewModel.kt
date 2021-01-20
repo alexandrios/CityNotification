@@ -3,7 +3,6 @@ package com.chelinvest.notification.ui.main
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import com.chelinvest.notification.Preferences
 import com.chelinvest.notification.data.Repository
 import com.chelinvest.notification.ui.BaseViewModel
 import com.chelinvest.notification.utils.Constants
@@ -25,7 +24,6 @@ class MainViewModel @Inject constructor(
             }
 
             val token = task.result?.token
-            //Preferences.getInstance().saveFCMToken(context, token)
             Log.d(Constants.LOG_TAG, "MainViewModel token=$token")
             repository.setFCMToken(token)
         })

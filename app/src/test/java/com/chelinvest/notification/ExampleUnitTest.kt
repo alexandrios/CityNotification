@@ -1,19 +1,10 @@
 package com.chelinvest.notification
 
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.platform.app.InstrumentationRegistry
-import com.chelinvest.notification.model.ObjParam
-import com.chelinvest.notification.model.session.Session
-import com.chelinvest.notification.ui.login.LoginFragment
-import com.chelinvest.notification.ui.login.LoginPresenter
-import com.chelinvest.notification.ui.main.MainActivity
-import com.chelinvest.notification.ui.subscr.SubscrFragment
-import io.grpc.Context
-import junit.framework.Assert
+import com.chelinvest.notification.ui.fragments.login.LoginFragment
+import com.chelinvest.notification.ui.fragments.subscr.SubscrFragment
 import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
+
 /*import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.mockito.runners.MockitoJUnitRunner*/

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.chelinvest.notification.ui.login.LoginViewModel" />
+            type="com.chelinvest.notification.ui.fragments.login.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

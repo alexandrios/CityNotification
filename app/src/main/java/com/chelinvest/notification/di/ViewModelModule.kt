@@ -2,9 +2,10 @@ package com.chelinvest.notification.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.chelinvest.notification.ui.branch.BranchViewModel
-import com.chelinvest.notification.ui.limit.LimitViewModel
-import com.chelinvest.notification.ui.login.LoginViewModel
+import com.chelinvest.notification.ui.fragments.branch.BranchViewModel
+import com.chelinvest.notification.ui.fragments.limit.LimitViewModel
+import com.chelinvest.notification.ui.fragments.login.LoginViewModel
+import com.chelinvest.notification.ui.fragments.subscr.SubscrViewModel
 import com.chelinvest.notification.ui.main.MainViewModel
 import dagger.Binds
 import dagger.Module
@@ -35,5 +36,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(LimitViewModel::class)
     abstract fun bindLimitViewModel(limitViewModel: LimitViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SubscrViewModel::class)
+    abstract fun bindSubscrViewModel(subscrViewModel: SubscrViewModel): ViewModel
 
 }

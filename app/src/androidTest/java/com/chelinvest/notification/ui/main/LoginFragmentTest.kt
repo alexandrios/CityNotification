@@ -1,35 +1,23 @@
 package com.chelinvest.notification.ui.main
 
-import android.content.Context
 import android.content.Intent
-import android.graphics.Paint
 import android.util.Log
-import androidx.fragment.app.testing.launchFragment
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
-import com.chelinvest.notification.Preferences
 import com.chelinvest.notification.R
 import com.chelinvest.notification.additional.EspressoIdlingResource
 import com.chelinvest.notification.model.ObjAny
-import com.chelinvest.notification.ui.CustomFragment
-import com.chelinvest.notification.ui.login.LoginFragment
-import com.chelinvest.notification.ui.login.LoginPresenter
 import org.hamcrest.Matchers
 import org.junit.runner.RunWith
-import org.mockito.Mockito.mock
 import org.mockito.Mockito.*
-import org.mockito.MockitoAnnotations
 import org.awaitility.Awaitility.await
 import org.junit.*
-import org.mockito.Mock
 import org.mockito.Mockito
 import java.util.concurrent.TimeUnit
 

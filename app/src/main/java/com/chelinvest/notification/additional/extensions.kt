@@ -3,7 +3,6 @@ package com.chelinvest.notification.additional
 import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView

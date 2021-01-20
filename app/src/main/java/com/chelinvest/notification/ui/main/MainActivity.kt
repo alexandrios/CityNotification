@@ -12,8 +12,6 @@ import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
-//class MainActivity : CustomActivity<MainPresenter>() {
-
     private lateinit var viewModel: MainViewModel
 
     @Inject
@@ -22,20 +20,16 @@ class MainActivity : DaggerAppCompatActivity() {
     @Inject
     @JvmField
     var mFirebaseAnalytics: FirebaseAnalytics? = null
+
     @Inject
     @JvmField
     var mInAppMessaging: FirebaseInAppMessaging? = null
-
-    //override fun createPresenter(): MainPresenter = MainPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(LOG_TAG, "MainActivity -> onCreate")
 
         viewModel = injectActivityViewModel(viewModelFactory)
-
-        //val sId = Preferences.getInstance().getSessionId(this)
-        //Log.d(LOG_TAG, "MainActivity sessionId=$sId")
 
         setContentView(R.layout.activity_main)
 
@@ -49,7 +43,6 @@ class MainActivity : DaggerAppCompatActivity() {
         }
 
         // Получить токен устройства для FireBase
-        //getPresenter().getFCMToken(this)
         viewModel.getFCMToken(this)
     }
 

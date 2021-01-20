@@ -1,8 +1,9 @@
 package com.chelinvest.notification.di
 
-import com.chelinvest.notification.ui.branch.BranchFragment
-import com.chelinvest.notification.ui.limit.LimitFragment
-import com.chelinvest.notification.ui.login.LoginFragment
+import com.chelinvest.notification.ui.fragments.branch.BranchFragment
+import com.chelinvest.notification.ui.fragments.limit.LimitFragment
+import com.chelinvest.notification.ui.fragments.login.LoginFragment
+import com.chelinvest.notification.ui.fragments.subscr.SubscrFragment
 import com.chelinvest.notification.ui.main.MainActivity
 import dagger.android.ContributesAndroidInjector
 import dagger.Module
@@ -20,6 +21,9 @@ abstract class MainActivityModule {
 
     @ContributesAndroidInjector
     abstract fun contributeLimitFragment(): LimitFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeSubscrFragment(): SubscrFragment
 
     /*
         @ContributesAndroidInjector

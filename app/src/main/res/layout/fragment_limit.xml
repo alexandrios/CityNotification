@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.chelinvest.notification.ui.limit.LimitViewModel" />
+            type="com.chelinvest.notification.ui.fragments.limit.LimitViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

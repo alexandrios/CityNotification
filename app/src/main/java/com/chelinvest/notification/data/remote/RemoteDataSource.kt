@@ -4,6 +4,7 @@ import android.util.Log
 import com.chelinvest.notification.api.OkRequest
 import com.chelinvest.notification.api.request.*
 import com.chelinvest.notification.api.response.MainResponse
+import com.chelinvest.notification.model.ObjParam
 import com.chelinvest.notification.utils.Constants
 import com.chelinvest.notification.utils.Constants.ENCODING
 import com.chelinvest.notification.utils.Constants.LOG_TAG
@@ -18,6 +19,7 @@ import retrofit2.Call
 import retrofit2.Response
 import java.io.StringWriter
 import java.net.URLEncoder
+import java.util.HashMap
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(private val remoteService: RemoteService) {
@@ -68,4 +70,74 @@ class RemoteDataSource @Inject constructor(private val remoteService: RemoteServ
         return remoteService.loadAgentLimit(requestBody)
     }
 
+    fun loadDeliverySubscriptionForBranch(sessionId: String, branchShort: String): Call<MainResponse> {
+        val request = MainRequest(GetDeliverySubscriptionForBranchRequest().apply {
+            this.session_id = sessionId
+            this.branch_short = branchShort
+        })
+        val requestBody = getRequestBody(request)
+        return remoteService.loadAgentLimit(requestBody)
+    }
+
+    fun deleteDeliverySubscriptionForBranch(sessionId: String, branchShort: String, subscriptionId: String): Call<MainResponse> {
+        val request = MainRequest(DeleteDeliverySubscriptionForBranchRequest().apply {
+            this.session_id = sessionId
+            this.branch_short = branchShort
+            this.subscription_id = subscriptionId
+        })
+        val requestBody = getRequestBody(request)
+        return remoteService.loadAgentLimit(requestBody)
+    }
+
+    fun getInputFields(sessionId: String, branchShort: String): Call<MainResponse> {
+        val request = MainRequest(GetInputFieldsForBranchRequest().apply {
+            this.session_id = sessionId
+            this.branch_short = branchShort
+        })
+        val requestBody = getRequestBody(request)
+        return remoteService.loadAgentLimit(requestBody)
+    }
+
+    fun createSubscription(sessionId: String, branchShort: String, map: HashMap<String, ObjParam>): Call<MainResponse> {
+        val request = MainRequest(CreateDeliverySubscriptionForBranchRequest().apply {
+            this.session_id = sessionId
+            this.branch_short = branchShort
+            /* если @field:ElementArray(name="field_names_list", entry="field_name")
+                this.field_names_list = Array(map.entries.size, {""})
+                this.field_values_list = Array(map.entries.size, {""})
+                var i = 0
+                for (item in map.entries) {
+                    val fieldName = item.key
+                    this.field_names_list!!.set(i, fieldName)
+
+                    val fieldValue = item.value.value
+                    this.field_values_list!!.set(i, fieldValue)
+                    i++
+                }
+            */
+            this.field_names_list = ArrayList()
+            this.field_values_list = ArrayList()
+
+            for (item in map.entries) {
+                val fieldName = item.key
+                (this.field_names_list as ArrayList<String>).add(fieldName)
+
+                val fieldValue = item.value.value
+                (this.field_values_list as ArrayList<String>).add(fieldValue)
+            }
+        })
+        val requestBody = getRequestBody(request)
+
+        return remoteService.loadAgentLimit(requestBody)
+    }
+
+    fun getFieldValues(sessionId: String, branchShort: String, fieldId: String): Call<MainResponse> {
+        val request = MainRequest(GetFieldValuesForFieldRequest().apply {
+            this.session_id = sessionId
+            this.branch_short = branchShort
+            this.field_id = fieldId
+        })
+        val requestBody = getRequestBody(request)
+        return remoteService.loadAgentLimit(requestBody)
+    }
 }

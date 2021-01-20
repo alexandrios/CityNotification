@@ -6,7 +6,8 @@ import org.simpleframework.xml.Root
 import com.chelinvest.notification.api.response.IResponseElement
 import com.chelinvest.notification.api.response.ObjParamV01Response
 
-@Root(name = "obj_subscription_objs", strict = false)
+//@Root(name = "obj_subscription_objs", strict = false)
+@Root(name = "obj_param_objs", strict = false)
 class GetDeliverySubscriptionForBranchResponse : IResponseElement {
 
     @field:Element(name = "id", required = false)

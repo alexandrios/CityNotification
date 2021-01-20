@@ -1,9 +1,9 @@
 package com.chelinvest.notification.data.remote
 
 import android.util.Log
-import com.chelinvest.notification.api.OkRequest
 import com.chelinvest.notification.api.request.*
 import com.chelinvest.notification.api.response.MainResponse
+import com.chelinvest.notification.api.response.MainDeliverySubscriptionResponse
 import com.chelinvest.notification.model.ObjParam
 import com.chelinvest.notification.utils.Constants
 import com.chelinvest.notification.utils.Constants.ENCODING
@@ -16,7 +16,6 @@ import org.simpleframework.xml.Serializer
 import org.simpleframework.xml.core.Persister
 import org.simpleframework.xml.stream.Format
 import retrofit2.Call
-import retrofit2.Response
 import java.io.StringWriter
 import java.net.URLEncoder
 import java.util.HashMap
@@ -70,13 +69,13 @@ class RemoteDataSource @Inject constructor(private val remoteService: RemoteServ
         return remoteService.loadAgentLimit(requestBody)
     }
 
-    fun loadDeliverySubscriptionForBranch(sessionId: String, branchShort: String): Call<MainResponse> {
+    fun getDeliverySubscriptionForBranch(sessionId: String, branchShort: String): Call<MainDeliverySubscriptionResponse> {
         val request = MainRequest(GetDeliverySubscriptionForBranchRequest().apply {
             this.session_id = sessionId
             this.branch_short = branchShort
         })
         val requestBody = getRequestBody(request)
-        return remoteService.loadAgentLimit(requestBody)
+        return remoteService.getDeliverySubscriptionForBranch(requestBody)
     }
 
     fun deleteDeliverySubscriptionForBranch(sessionId: String, branchShort: String, subscriptionId: String): Call<MainResponse> {
@@ -86,7 +85,7 @@ class RemoteDataSource @Inject constructor(private val remoteService: RemoteServ
             this.subscription_id = subscriptionId
         })
         val requestBody = getRequestBody(request)
-        return remoteService.loadAgentLimit(requestBody)
+        return remoteService.deleteDeliverySubscriptionForBranch(requestBody)
     }
 
     fun getInputFields(sessionId: String, branchShort: String): Call<MainResponse> {
@@ -95,10 +94,10 @@ class RemoteDataSource @Inject constructor(private val remoteService: RemoteServ
             this.branch_short = branchShort
         })
         val requestBody = getRequestBody(request)
-        return remoteService.loadAgentLimit(requestBody)
+        return remoteService.getInputFields(requestBody)
     }
 
-    fun createSubscription(sessionId: String, branchShort: String, map: HashMap<String, ObjParam>): Call<MainResponse> {
+    fun createSubscription(sessionId: String, branchShort: String, map: HashMap<String, ObjParam>): Call<MainDeliverySubscriptionResponse> {
         val request = MainRequest(CreateDeliverySubscriptionForBranchRequest().apply {
             this.session_id = sessionId
             this.branch_short = branchShort
@@ -128,7 +127,7 @@ class RemoteDataSource @Inject constructor(private val remoteService: RemoteServ
         })
         val requestBody = getRequestBody(request)
 
-        return remoteService.loadAgentLimit(requestBody)
+        return remoteService.createSubscription(requestBody)
     }
 
     fun getFieldValues(sessionId: String, branchShort: String, fieldId: String): Call<MainResponse> {
@@ -138,6 +137,6 @@ class RemoteDataSource @Inject constructor(private val remoteService: RemoteServ
             this.field_id = fieldId
         })
         val requestBody = getRequestBody(request)
-        return remoteService.loadAgentLimit(requestBody)
+        return remoteService.getFieldValues(requestBody)
     }
 }

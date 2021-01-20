@@ -1,20 +1,17 @@
 package com.chelinvest.notification.ui.fragments.subscr
 
 import android.app.Application
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.chelinvest.notification.Preferences
-import com.chelinvest.notification.additional.resolvedLaunch
 import com.chelinvest.notification.api.response.MainResponse
 import com.chelinvest.notification.api.response.ObjAnyResponse
 import com.chelinvest.notification.api.response.ObjParamResponse
 import com.chelinvest.notification.api.response.mapper.GetDeliverySubscriptionForBranchResponseMapper
 import com.chelinvest.notification.api.response.mapper.ObjAnyResponseMapper
 import com.chelinvest.notification.api.response.mapper.ObjParamResponseMapper
+import com.chelinvest.notification.api.response.MainDeliverySubscriptionResponse
 import com.chelinvest.notification.api.response.obj_param_objs.GetDeliverySubscriptionForBranchResponse
 import com.chelinvest.notification.data.Repository
-import com.chelinvest.notification.interactor.*
 import com.chelinvest.notification.model.DeliveSubscriptionForBranch
 import com.chelinvest.notification.model.ObjAny
 import com.chelinvest.notification.model.ObjParam
@@ -65,14 +62,14 @@ class SubscrViewModel @Inject constructor(
             val objParamObjsList = ArrayList<DeliveSubscriptionForBranch>()
 
             //view.showProgressDialog()
-            repository.loadDeliverySubscriptionForBranch(sessionId, branchShort).enqueue(object : Callback<MainResponse> {
-                override fun onFailure(call: Call<MainResponse>, t: Throwable) {
+            repository.getDeliverySubscriptionForBranch(sessionId, branchShort).enqueue(object : Callback<MainDeliverySubscriptionResponse> {
+                override fun onFailure(call: Call<MainDeliverySubscriptionResponse>, t: Throwable) {
                     Log.d(Constants.LOG_TAG, "SubscrViewModel onFailure: ${t.message}")
                     handleRequestFailure(t)
                     errorLiveEvent.postValue(t.message)
                 }
 
-                override fun onResponse(call: Call<MainResponse>, response: Response<MainResponse>) {
+                override fun onResponse(call: Call<MainDeliverySubscriptionResponse>, response: Response<MainDeliverySubscriptionResponse>) {
                     if (response.isSuccessful) {
                         val result = response.body()
                         Log.d(Constants.LOG_TAG,"SubscrViewModel onResponse: sessionId=${result?.sessionId}")
@@ -206,14 +203,14 @@ class SubscrViewModel @Inject constructor(
         } else {
             val branchShort = repository.getBranchShort() ?: return
             //view.showProgressDialog()
-            repository.createSubscription(sessionId, branchShort, map).enqueue(object : Callback<MainResponse> {
-                override fun onFailure(call: Call<MainResponse>, t: Throwable) {
+            repository.createSubscription(sessionId, branchShort, map).enqueue(object : Callback<MainDeliverySubscriptionResponse> {
+                override fun onFailure(call: Call<MainDeliverySubscriptionResponse>, t: Throwable) {
                     Log.d(Constants.LOG_TAG, "SubscrViewModel createSubscription onFailure: ${t.message}")
                     handleRequestFailure(t)
                     errorLiveEvent.postValue(t.message)
                 }
 
-                override fun onResponse(call: Call<MainResponse>, response: Response<MainResponse>) {
+                override fun onResponse(call: Call<MainDeliverySubscriptionResponse>, response: Response<MainDeliverySubscriptionResponse>) {
                     if (response.isSuccessful) {
                         val result = response.body()
                         Log.d(Constants.LOG_TAG,"SubscrViewModel createSubscription onResponse: sessionId=${result?.sessionId}")

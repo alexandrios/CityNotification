@@ -130,11 +130,11 @@ class SubscrFragment : BaseFragment() {
                 when (press) {
                     0 -> {
                         // Перейти в настройку адресов конкретного агента
-                        moveToTypesForSubscription(this as ISubscrView, elementSubscr.id, elementSubscr.name)
+                        moveToTypesForSubscription(this, elementSubscr.id, elementSubscr.name)
                     }
                     1 -> {
                         // Редактирование подписки (описание, активность)
-                        editSubscription(this as ISubscrView, elementSubscr)
+                        editSubscription(this, elementSubscr)
                     }
                     2 -> {
                         // Удаление подписки
@@ -372,17 +372,17 @@ class SubscrFragment : BaseFragment() {
     }
 
     // Перейти в настройку адресов конкретного агента
-    private fun moveToTypesForSubscription (view: ISubscrView, idSubscription: String, nameSubscription: String) {
+    private fun moveToTypesForSubscription (view: BaseFragment, idSubscription: String, nameSubscription: String) {
         val bundle = AddressFragment.getBundleArguments(idSubscription, nameSubscription)
-        NavHostFragment.findNavController(view as CustomFragment<*>)
+        NavHostFragment.findNavController(view as BaseFragment)
             .navigate(R.id.action_subscrFragment_to_addressFragment, bundle)
     }
 
     // Редактирование подписки (описание, активность)
-    private fun editSubscription(view: ISubscrView, subscrInfo: DeliveSubscriptionForBranch) {
+    private fun editSubscription(view: BaseFragment, subscrInfo: DeliveSubscriptionForBranch) {
         val bundle = Bundle()
         bundle.putSerializable(Constants.SUBSCR_INFO, subscrInfo)
-        NavHostFragment.findNavController(view as CustomFragment<*>)
+        NavHostFragment.findNavController(view as BaseFragment)
             .navigate(R.id.action_subscrFragment_to_editSubscrFragment, bundle)
     }
 }

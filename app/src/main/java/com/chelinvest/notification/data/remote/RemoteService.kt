@@ -1,9 +1,9 @@
 package com.chelinvest.notification.data.remote
 
 import com.chelinvest.notification.api.response.MainResponse
+import com.chelinvest.notification.api.response.MainDeliverySubscriptionResponse
 import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.*
 
 interface RemoteService {
@@ -20,5 +20,19 @@ interface RemoteService {
     @POST("check_agent_limit")
     fun loadAgentLimit(@Body requestBody: RequestBody): Call<MainResponse>
 
+    @POST("get_delivery_subscription_for_branch")
+    fun getDeliverySubscriptionForBranch(@Body requestBody: RequestBody): Call<MainDeliverySubscriptionResponse>
+
+    @POST("delete_delivery_subscription_for_branch")
+    fun deleteDeliverySubscriptionForBranch(@Body requestBody: RequestBody): Call<MainResponse>
+
+    @POST("get_input_fields_for_branch")
+    fun getInputFields(@Body requestBody: RequestBody): Call<MainResponse>
+
+    @POST("create_delivery_subscription_for_branch")
+    fun createSubscription(@Body requestBody: RequestBody): Call<MainDeliverySubscriptionResponse>
+
+    @POST("get_field_values_for_field")
+    fun getFieldValues(@Body requestBody: RequestBody): Call<MainResponse>
 }
 

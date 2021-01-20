@@ -39,7 +39,7 @@ class MainResponse {
 
     @field:ElementListUnion(
             ElementList(inline = true, type = GetDeliveryBranchResponse::class, required = false),
-            ElementList(inline = true, type = GetDeliverySubscriptionForBranchResponse::class, required = false),
+            //ElementList(inline = true, type = GetDeliverySubscriptionForBranchResponse::class, required = false),
             ElementList(inline = true, type = DelivetypeExpResponse::class, required = false),
             ElementList(inline = true, type = DelivetypeExpSortResponse::class, required = false),
             ElementList(inline = true, type = ObjParamResponse::class, required = false),

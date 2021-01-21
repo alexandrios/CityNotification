@@ -12,8 +12,8 @@ import com.chelinvest.notification.databinding.FragmentEditAddressBinding
 import com.chelinvest.notification.di.injectViewModel
 import com.chelinvest.notification.model.DeliveAddrBranch
 import com.chelinvest.notification.model.DelivetypeAddrs
-import com.chelinvest.notification.presentation.screens.address.edit.fragment.PushFragment
-import com.chelinvest.notification.presentation.screens.address.edit.fragment.SmsFragment
+import com.chelinvest.notification.ui.fragments.address.edit.fragment.PushFragment
+import com.chelinvest.notification.ui.fragments.address.edit.fragment.SmsFragment
 import com.chelinvest.notification.ui.BaseFragment
 import com.chelinvest.notification.ui.fragments.address.edit.fragment.EmailFragment
 import com.chelinvest.notification.ui.custom.ModifiedEditText

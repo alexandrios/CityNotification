@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.GravityEnum
 import com.afollestad.materialdialogs.MaterialDialog
-import com.chelinvest.notification.Preferences
 import com.chelinvest.notification.R
 import com.chelinvest.notification.databinding.FragmentSubscrBinding
 import com.chelinvest.notification.di.injectViewModel
@@ -25,7 +24,6 @@ import com.chelinvest.notification.model.DeliveSubscriptionForBranch
 import com.chelinvest.notification.model.ObjAny
 import com.chelinvest.notification.model.ObjParam
 import com.chelinvest.notification.ui.BaseFragment
-import com.chelinvest.notification.ui.CustomFragment
 import com.chelinvest.notification.ui.fragments.address.AddressFragment
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
@@ -100,7 +98,7 @@ class SubscrFragment : BaseFragment() {
         binding.vCheckBox.isChecked = viewModel.activeOnly.value ?: false
 
         // Получить число стартов приложения. Если первый или второй старт, то показать анимацию списка
-        launchCount = Preferences.getInstance().getLaunchCount(view.context)
+        launchCount = viewModel.getLaunchCount()
         launchCount?.let {
             isFirst = it in 1..2
         }

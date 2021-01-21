@@ -45,6 +45,10 @@ class SubscrViewModel @Inject constructor(
         editSaved.value = repository.getChangeSubscrList()
     }
 
+    fun getLaunchCount(): Int {
+        return repository.getLaunchCount()
+    }
+
     // Храним значение CheckBox "Только активные подписки"
     val activeOnly = MutableLiveData<Boolean>()
     fun setActiveOnly(result: Boolean) {

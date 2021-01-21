@@ -1,4 +1,4 @@
-package com.chelinvest.notification.presentation.screens.address.edit.fragment
+package com.chelinvest.notification.ui.fragments.address.edit.fragment
 
 import android.os.Build
 import android.os.Bundle

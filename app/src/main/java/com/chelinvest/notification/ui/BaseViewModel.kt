@@ -34,4 +34,5 @@ abstract class BaseViewModel constructor(
                 requestListener?.onRequestFailure(exception.message!!)
         }
     }
+
 }

@@ -2,10 +2,13 @@ package com.chelinvest.notification.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.chelinvest.notification.ui.fragments.address.AddressViewModel
+import com.chelinvest.notification.ui.fragments.address.edit.EditAddressViewModel
 import com.chelinvest.notification.ui.fragments.branch.BranchViewModel
 import com.chelinvest.notification.ui.fragments.limit.LimitViewModel
 import com.chelinvest.notification.ui.fragments.login.LoginViewModel
 import com.chelinvest.notification.ui.fragments.subscr.SubscrViewModel
+import com.chelinvest.notification.ui.fragments.subscr.edit.EditSubscrViewModel
 import com.chelinvest.notification.ui.main.MainViewModel
 import dagger.Binds
 import dagger.Module
@@ -42,4 +45,18 @@ abstract class ViewModelModule {
     @ViewModelKey(SubscrViewModel::class)
     abstract fun bindSubscrViewModel(subscrViewModel: SubscrViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(EditSubscrViewModel::class)
+    abstract fun bindEditSubscrViewModel(editSubscrViewModel: EditSubscrViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddressViewModel::class)
+    abstract fun bindAddressViewModel(addressViewModel: AddressViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(EditAddressViewModel::class)
+    abstract fun bindeditAddressViewModel(editAddressViewModel: EditAddressViewModel): ViewModel
 }

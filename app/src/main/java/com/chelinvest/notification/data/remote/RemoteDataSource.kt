@@ -139,4 +139,47 @@ class RemoteDataSource @Inject constructor(private val remoteService: RemoteServ
         val requestBody = getRequestBody(request)
         return remoteService.getFieldValues(requestBody)
     }
+
+    fun updateDeliverySubscriptionForBranch(sessionId: String, branchShort: String,
+                                            subscriptionId: String, description: String, isActive: Int): Call<MainDeliverySubscriptionResponse> {
+        val request = MainRequest(UpdateDeliverySubscriptionForBranchRequest().apply {
+            this.session_id = sessionId
+            this.branch_short = branchShort //"AGENT_REDUCTION2LIMIT"
+            this.subscription_id = subscriptionId
+            this.description = description
+            this.is_active = isActive
+        })
+        val requestBody = getRequestBody(request)
+        return remoteService.updateDeliverySubscriptionForBranch(requestBody)
+    }
+
+    fun getDeliveryTypesForSubscription(sessionId: String, branchShort: String, subscriptionId: String): Call<MainResponse> {
+        val request = MainRequest(GetDeliveryTypesForSubscriptionRequest().apply {
+            this.session_id = sessionId
+            this.branch_short = branchShort
+            this.subscription_id = subscriptionId
+        })
+        val requestBody = getRequestBody(request)
+        return remoteService.getDeliveryTypesForSubscription(requestBody)
+    }
+
+    fun setDeliveryAddressForSubscription(sessionId: String, branchShort: String, subscriptionId: String,
+                                          address: String, delivetypeId: String, oldAddress: String?,
+                                          isConfirm: String?, startHour: Int?, finishHour: Int?, timeZone: Int?): Call<MainResponse> {
+        val request = MainRequest(SetDeliveryAddressRequest().apply {
+            this.session_id = sessionId
+            this.branch_short = branchShort
+            this.subscription_id = subscriptionId
+            this.address = address
+            this.delivetype_id = delivetypeId
+            this.old_address = oldAddress
+            this.is_confirm = isConfirm
+            this.start_hour = startHour
+            this.finish_hour = finishHour
+            this.timezone = timeZone
+        })
+        val requestBody = getRequestBody(request)
+        return remoteService.setDeliveryAddressForSubscription(requestBody)
+    }
+
 }

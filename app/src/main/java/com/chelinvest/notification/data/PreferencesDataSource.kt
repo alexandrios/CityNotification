@@ -2,6 +2,12 @@ package com.chelinvest.notification.data
 
 import android.content.SharedPreferences
 import com.chelinvest.notification.utils.Constants
+import com.chelinvest.notification.utils.Constants.BRANCH_SHORT
+import com.chelinvest.notification.utils.Constants.CHANGE_ADDRESS
+import com.chelinvest.notification.utils.Constants.CHANGE_SUBSCR_LIST
+import com.chelinvest.notification.utils.Constants.FCM_TOKEN
+import com.chelinvest.notification.utils.Constants.LAUNCH_COUNT
+import com.chelinvest.notification.utils.Constants.SESSION_ID
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -30,16 +36,22 @@ class PreferencesDataSource @Inject constructor(
         editor.apply()
     }
 
-    fun getSessionId() = getString(Constants.SESSION_ID, "")
-    fun setSessionId(value: String) = putString(Constants.SESSION_ID, value)
+    fun getSessionId() = getString(SESSION_ID, "")
+    fun setSessionId(value: String) = putString(SESSION_ID, value)
 
-    fun getLaunchCount() = getInt(Constants.LAUNCH_COUNT, 0)
-    fun setLaunchCount(value: Int) = putInt(Constants.LAUNCH_COUNT, value)
+    fun getLaunchCount() = getInt(LAUNCH_COUNT, 0)
+    fun setLaunchCount(value: Int) = putInt(LAUNCH_COUNT, value)
 
-    fun getBranchShort() = getString(Constants.BRANCH_SHORT, "")
-    fun setBranchShort(value: String) = putString(Constants.BRANCH_SHORT, value)
+    fun getBranchShort() = getString(BRANCH_SHORT, "")
+    fun setBranchShort(value: String) = putString(BRANCH_SHORT, value)
 
-    fun getFCMToken() = getString(Constants.FCM_TOKEN, "")
-    fun setFCMToken(value: String?) = putString(Constants.FCM_TOKEN, value)
+    fun getFCMToken() = getString(FCM_TOKEN, "")
+    fun setFCMToken(value: String?) = putString(FCM_TOKEN, value)
+
+    fun getChangeSubscrList() = getBoolean(CHANGE_SUBSCR_LIST, false)
+    fun setChangeSubscrList(value: Boolean) = putBoolean(CHANGE_SUBSCR_LIST, value)
+
+    fun getChangeAddress() = getBoolean(CHANGE_ADDRESS, false)
+    fun setChangeAddress(value: Boolean) = putBoolean(CHANGE_ADDRESS, value)
 
 }

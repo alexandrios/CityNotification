@@ -71,5 +71,7 @@ object Constants {
     const val LAUNCH_COUNT = "LAUNCH_COUNT"
     const val BRANCH_SHORT = "BRANCH_SHORT"
     const val FCM_TOKEN = "FCM_TOKEN"
+    const val CHANGE_SUBSCR_LIST = "CHANGE_SUBSCR_LIST"
+    const val CHANGE_ADDRESS = "CHANGE_ADDRESS"
 
 }

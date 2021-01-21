@@ -9,7 +9,6 @@ class DeliveSubscriptionForBranch : Serializable {
     lateinit var value: String
     lateinit var objList: List<ObjParamV01>
 
-    //
     constructor ()
 
     constructor(id: String, name: String, value: String) {
@@ -18,7 +17,6 @@ class DeliveSubscriptionForBranch : Serializable {
         this.value = value
         this.objList = ArrayList()
     }
-    //
 
     override fun toString(): String {
         val result = StringBuilder("")
@@ -29,11 +27,11 @@ class DeliveSubscriptionForBranch : Serializable {
         result.append("; value=")
         result.append(value)
 
-        if (objList.size > 0) {
+        if (objList.isNotEmpty()) {
             result.append("; obj_list={")
-            for (i in 0..objList.size - 1) {
+            for (element in objList) {
                 result.append("(")
-                result.append(objList[i].toString())
+                result.append(element.toString())
                 result.append(")")
             }
             result.append("}")

@@ -1,20 +1,20 @@
 package com.chelinvest.notification.ui.fragments.address.edit
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.chelinvest.notification.R
+import com.chelinvest.notification.databinding.FragmentEditAddressBinding
+import com.chelinvest.notification.di.injectViewModel
 import com.chelinvest.notification.model.DeliveAddrBranch
 import com.chelinvest.notification.model.DelivetypeAddrs
-import com.chelinvest.notification.presentation.screens.address.edit.EditAddressPresenter
 import com.chelinvest.notification.presentation.screens.address.edit.fragment.PushFragment
 import com.chelinvest.notification.presentation.screens.address.edit.fragment.SmsFragment
-import com.chelinvest.notification.ui.CustomFragment
-import com.chelinvest.notification.ui.fragments.address.AddressViewModel
-import com.chelinvest.notification.ui.fragments.address.IAddressView
+import com.chelinvest.notification.ui.BaseFragment
 import com.chelinvest.notification.ui.fragments.address.edit.fragment.EmailFragment
 import com.chelinvest.notification.ui.custom.ModifiedEditText
 import com.chelinvest.notification.utils.Constants.ADDRESS_DATA
@@ -23,18 +23,19 @@ import com.chelinvest.notification.utils.Constants.APP_PUSH_ID
 import com.chelinvest.notification.utils.Constants.DELIVERY_TYPE
 import com.chelinvest.notification.utils.Constants.EMAIL_ID
 import com.chelinvest.notification.utils.Constants.FRAGMENT_TAG
+import com.chelinvest.notification.utils.Constants.LOG_TAG
 import com.chelinvest.notification.utils.Constants.SMS_ID
 import com.chelinvest.notification.utils.Constants.SUBSCRIPTION
 import kotlinx.android.synthetic.main.fragment_edit_address.*
 
-
-class EditAddressFragment : CustomFragment<EditAddressPresenter>(), IAddressView {
+class EditAddressFragment : BaseFragment() {
+        private lateinit var viewModel: EditAddressViewModel
+        private lateinit var binding: FragmentEditAddressBinding
 
     enum class AddEdit {
-        add, edit
+        ADDRESS_ADD,
+        ADDRESS_EDIT
     }
-
-    private val model: AddressViewModel by activityViewModels()
 
     var group: DelivetypeAddrs? = null
     var addressData: DeliveAddrBranch? = null
@@ -49,14 +50,6 @@ class EditAddressFragment : CustomFragment<EditAddressPresenter>(), IAddressView
     var addEditType: AddEdit? = null
 
     companion object {
-        /*
-        fun getStartIntent(context: Context, idSubscription: String, group: DelivetypeAddrs, model: DeliveAddrBranch?): Intent {
-            return Intent(context, EditAddressActivity::class.java)
-                .putExtra(SUBSCRIPTION, idSubscription)
-                .putExtra(DELIVERY_TYPE, group)
-                .putExtra(ADDRESS_MODEL, model)
-        }
-        */
         // Вариант передачи параметров во фрагмент
         fun getBundleArguments(idSubscription: String, group: DelivetypeAddrs, model: DeliveAddrBranch?): Bundle {
             return Bundle().apply {
@@ -67,26 +60,34 @@ class EditAddressFragment : CustomFragment<EditAddressPresenter>(), IAddressView
         }
     }
 
-    override fun createPresenter() = EditAddressPresenter()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Log.d(LOG_TAG, "EditAddressFragment -> onCreate")
+        viewModel = injectViewModel(viewModelFactory)
 
         // Не удалять фрагмент (onDestroy) при пересоздании активити.
         // Важно для сохранения состояния экрана при повороте устройства
         retainInstance = true
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_edit_address, container, false)
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+        return FragmentEditAddressBinding.inflate(inflater, container, false).apply {
+            Log.d(LOG_TAG, "EditAddressFragment -> onCreateView")
+            viewmodel = viewModel
+            binding = this
+        }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d(LOG_TAG, "EditAddressFragment -> onViewCreated")
 
-        vBackButton.setOnClickListener { findNavController().popBackStack() }
+        binding.vBackButton.setOnClickListener { findNavController().popBackStack() }
 
-        saveTextView.setOnClickListener {
+        binding.saveTextView.setOnClickListener {
             setDeliveryAddressForSubscription()
         }
 
@@ -101,7 +102,7 @@ class EditAddressFragment : CustomFragment<EditAddressPresenter>(), IAddressView
         // тип подписки (Email, SMS, Push)
         deliveType = group?.id
         // вызвана activity для редактирования или добавления
-        addEditType = if (addressData == null) AddEdit.add else AddEdit.edit
+        addEditType = if (addressData == null) AddEdit.ADDRESS_ADD else AddEdit.ADDRESS_EDIT
 
         if (addressData != null) {
             oldAddress = addressData!!.address
@@ -134,6 +135,24 @@ class EditAddressFragment : CustomFragment<EditAddressPresenter>(), IAddressView
 
         createFragment()
         callOnShow(FRAGMENT_TAG)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+            showExpandableError(it)
+        })
+
+        viewModel.setDeliveAddressLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+            if (it != "1") {
+                showExpandableError(it)
+            }
+            else {
+                viewModel.setEditSave(true)
+                findNavController().popBackStack()
+            }
+        })
     }
 
     private fun createFragment() {
@@ -173,7 +192,7 @@ class EditAddressFragment : CustomFragment<EditAddressPresenter>(), IAddressView
         childFragmentManager.findFragmentByTag(tag)?.onStart()
     }
 
-    fun checkHourRange(text: String?): Unit? {
+    private fun checkHourRange(text: String?): Unit? {
         val hour = text?.toIntOrNull()
         hour?.let {
             if (it < 0 || it > 23) {
@@ -183,7 +202,7 @@ class EditAddressFragment : CustomFragment<EditAddressPresenter>(), IAddressView
         return null
     }
 
-    fun checkTimeZone(text: String?): Unit? {
+    private fun checkTimeZone(text: String?): Unit? {
         val hour = text?.toIntOrNull()
         hour?.let {
             if (it < -11 || it > 12) {
@@ -196,18 +215,15 @@ class EditAddressFragment : CustomFragment<EditAddressPresenter>(), IAddressView
     // Создать (или привязать существующий) адрес (email, sms, push) к подписке
     private fun setDeliveryAddressForSubscription() {
 
-        var address: String = ""
-        //if (deliveType != PUSH) {
-            val addrEditText = view?.findViewById<ModifiedEditText>(R.id.addressEditText)
-            address = addrEditText?.getText() ?: ""
-        //}
+        var address = ""
+        val addrEditText = view?.findViewById<ModifiedEditText>(R.id.addressEditText)
+        address = addrEditText?.getText() ?: ""
 
         // Проверить корректность адреса
-        if (getPresenter().verifyAddress(view?.context!!, this, deliveType!!, address)) {
+        if (viewModel.verifyAddress(deliveType!!, address)) {
 
             if (hasSendPeriod == "1") {
-                if (!getPresenter().verifyTimeRange(view?.context!!, this,
-                    startHourEditText.getText(), finishHourEditText.getText(), timeZoneEditText.getText())) {
+                if (!viewModel.verifyTimeRange(startHourEditText.getText(), finishHourEditText.getText(), timeZoneEditText.getText())) {
                     return
                 } else {
                     startHour = startHourEditText.getText().toIntOrNull()
@@ -217,25 +233,9 @@ class EditAddressFragment : CustomFragment<EditAddressPresenter>(), IAddressView
             }
 
             // Выполнить команду 1.8. set_delivery_address_for_subscription
-            getPresenter().setDeliveryAddressForSubscription(view?.context!!,this,
-                idSubscription!!, address, deliveType!!, oldAddress, null,
-                startHour, finishHour, timeZone) {
-
-                if (it != "1") {
-                    showExpandableError(it)
-                    //Toast.makeText(this, it, Toast.LENGTH_LONG).show()
-                }
-                else {
-                    model.setEditSave(true)
-                    findNavController().popBackStack()
-                    //val intent = Intent()
-                    //intent.putExtra("SAVED", "YES")
-                    //setResult(RESULT_OK, intent)
-                    //finish()
-                }
-            }
+            viewModel.setDeliveryAddressForSubscription(idSubscription!!, address, deliveType!!, oldAddress,
+                null, startHour, finishHour, timeZone)
         }
     }
-
 
 }

@@ -29,8 +29,11 @@ class Repository @Inject constructor(
     fun getFCMToken() = preferencesDataSource.getFCMToken()
     fun setFCMToken(value: String?) = preferencesDataSource.setFCMToken(value)
 
+    fun getChangeSubscrList() = preferencesDataSource.getChangeSubscrList()
+    fun setChangeSubscrList(value: Boolean) = preferencesDataSource.setChangeSubscrList(value)
 
-
+    fun getChangeAddress() = preferencesDataSource.getChangeAddress()
+    fun setChangeAddress(value: Boolean) = preferencesDataSource.setChangeAddress(value)
 
 
     //
@@ -67,6 +70,16 @@ class Repository @Inject constructor(
         remoteDataSource.createSubscription(sessionId, branchShort, map)
     fun getFieldValues(sessionId: String, branchShort: String, fieldId: String): Call<MainResponse> =
         remoteDataSource.getFieldValues(sessionId, branchShort, fieldId)
+    fun updateDeliverySubscriptionForBranch(sessionId: String, branchShort: String,
+                                            subscriptionId: String, description: String, isActive: Int): Call<MainDeliverySubscriptionResponse> =
+        remoteDataSource.updateDeliverySubscriptionForBranch(sessionId, branchShort, subscriptionId, description, isActive)
+    fun getDeliveryTypesForSubscription(sessionId: String, branchShort: String, subscriptionId: String): Call<MainResponse> =
+        remoteDataSource.getDeliveryTypesForSubscription(sessionId, branchShort, subscriptionId)
+    fun setDeliveryAddressForSubscription(sessionId: String, branchShort: String, subscriptionId: String,
+                                          address: String, delivetypeId: String, oldAddress: String?,
+                                          isConfirm: String?, startHour: Int?, finishHour: Int?, timeZone: Int?): Call<MainResponse> =
+        remoteDataSource.setDeliveryAddressForSubscription(sessionId, branchShort, subscriptionId,
+            address, delivetypeId, oldAddress, isConfirm, startHour, finishHour, timeZone)
 
 
 //

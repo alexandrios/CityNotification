@@ -15,7 +15,7 @@ class EditSubscrPresenter : Presenter() {
     // Выполнить команду 1.7. update_delivery_subscription_for_branch
     fun updateSubscr(context: Context, view: ISubscrView, onUpdateSubscription: (ArrayList<DeliveSubscriptionForBranch>) -> Unit) = resolvedLaunch(block = {
         val activity = (view as EditSubscrFragment)
-        val idSubscr = activity.id
+        val idSubscr = activity.subscrId
 
         val description = activity.descriptEditText.getText()
         val isActive = if (activity.activeSwitch.isChecked) 1 else  0

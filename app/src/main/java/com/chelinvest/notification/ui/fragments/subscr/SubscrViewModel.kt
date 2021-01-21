@@ -17,6 +17,7 @@ import com.chelinvest.notification.model.ObjAny
 import com.chelinvest.notification.model.ObjParam
 import com.chelinvest.notification.ui.BaseViewModel
 import com.chelinvest.notification.utils.Constants
+import com.chelinvest.notification.utils.Constants.LOG_TAG
 import com.chelinvest.notification.utils.SingleLiveEvent
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,8 +38,11 @@ class SubscrViewModel @Inject constructor(
 
     // Признак того, что был изменен элемент списка агентов (в EditSubscrFragment)
     val editSaved = MutableLiveData<Boolean>()
-    fun setEditSave(result: Boolean) {
-        editSaved.value = result
+    fun setEditSave(value: Boolean) {
+        repository.setChangeSubscrList(value)
+    }
+    fun getEditSave() {
+        editSaved.value = repository.getChangeSubscrList()
     }
 
     // Храним значение CheckBox "Только активные подписки"
@@ -50,21 +54,21 @@ class SubscrViewModel @Inject constructor(
     // Получить список подписок: get_delivery_subscription_for_branch
     fun getDeliverySubscriptionsForBranch() {
         val sessionId = repository.getSessionId()
-        Log.d(Constants.LOG_TAG, "SubscrViewModel getDeliverySubscriptionsForBranch sessionId=$sessionId")
+        Log.d(LOG_TAG, "SubscrViewModel getDeliverySubscriptionsForBranch sessionId=$sessionId")
 
         if (sessionId == null) {
             // TODO Текущая сессия прервана. Войдите заново.
             errorLiveEvent.postValue("sessionId is null")
         } else {
             val branchShort = repository.getBranchShort() ?: return
-            Log.d(Constants.LOG_TAG, "SubscrViewModel getDeliverySubscriptionsForBranch branchShort=$branchShort")
+            Log.d(LOG_TAG, "SubscrViewModel getDeliverySubscriptionsForBranch branchShort=$branchShort")
 
             val objParamObjsList = ArrayList<DeliveSubscriptionForBranch>()
 
             //view.showProgressDialog()
             repository.getDeliverySubscriptionForBranch(sessionId, branchShort).enqueue(object : Callback<MainDeliverySubscriptionResponse> {
                 override fun onFailure(call: Call<MainDeliverySubscriptionResponse>, t: Throwable) {
-                    Log.d(Constants.LOG_TAG, "SubscrViewModel onFailure: ${t.message}")
+                    Log.d(LOG_TAG, "SubscrViewModel onFailure: ${t.message}")
                     handleRequestFailure(t)
                     errorLiveEvent.postValue(t.message)
                 }
@@ -72,8 +76,8 @@ class SubscrViewModel @Inject constructor(
                 override fun onResponse(call: Call<MainDeliverySubscriptionResponse>, response: Response<MainDeliverySubscriptionResponse>) {
                     if (response.isSuccessful) {
                         val result = response.body()
-                        Log.d(Constants.LOG_TAG,"SubscrViewModel onResponse: sessionId=${result?.sessionId}")
-                        Log.d(Constants.LOG_TAG,"SubscrViewModel onResponse: errorNote=${result?.errorNote}")
+                        Log.d(LOG_TAG,"SubscrViewModel onResponse: sessionId=${result?.sessionId}")
+                        Log.d(LOG_TAG,"SubscrViewModel onResponse: errorNote=${result?.errorNote}")
 
                         if (result != null) {
                             if (!result.errorNote.isNullOrEmpty()) {
@@ -99,7 +103,7 @@ class SubscrViewModel @Inject constructor(
     // Получить список входящих полей подписки, доступных для уведомления конкретного типа (Начало процедуры создания подписки)
     fun getInputFields() {
         val sessionId = repository.getSessionId()
-        Log.d(Constants.LOG_TAG, "SubscrViewModel getInputFields sessionId=$sessionId")
+        Log.d(LOG_TAG, "SubscrViewModel getInputFields sessionId=$sessionId")
 
         if (sessionId == null) {
             // TODO Текущая сессия прервана. Войдите заново.
@@ -112,7 +116,7 @@ class SubscrViewModel @Inject constructor(
             //view.showProgressDialog()
             repository.getInputFields(sessionId, branchShort).enqueue(object : Callback<MainResponse> {
                 override fun onFailure(call: Call<MainResponse>, t: Throwable) {
-                    Log.d(Constants.LOG_TAG, "SubscrViewModel getInputFields onFailure: ${t.message}")
+                    Log.d(LOG_TAG, "SubscrViewModel getInputFields onFailure: ${t.message}")
                     handleRequestFailure(t)
                     errorLiveEvent.postValue(t.message)
                 }
@@ -120,8 +124,8 @@ class SubscrViewModel @Inject constructor(
                 override fun onResponse(call: Call<MainResponse>, response: Response<MainResponse>) {
                     if (response.isSuccessful) {
                         val result = response.body()
-                        Log.d(Constants.LOG_TAG,"SubscrViewModel getInputFields onResponse: sessionId=${result?.sessionId}")
-                        Log.d(Constants.LOG_TAG,"SubscrViewModel getInputFields onResponse: errorNote=${result?.errorNote}")
+                        Log.d(LOG_TAG,"SubscrViewModel getInputFields onResponse: sessionId=${result?.sessionId}")
+                        Log.d(LOG_TAG,"SubscrViewModel getInputFields onResponse: errorNote=${result?.errorNote}")
 
                         if (result != null) {
                             if (!result.errorNote.isNullOrEmpty()) {
@@ -148,7 +152,7 @@ class SubscrViewModel @Inject constructor(
     fun getFieldValues(idField: String, onGetFieldValue: (ArrayList<ObjParam>) -> Unit) {
         val objParamList = ArrayList<ObjParam>()
         val sessionId = repository.getSessionId()
-        Log.d(Constants.LOG_TAG, "SubscrViewModel getInputFields sessionId=$sessionId")
+        Log.d(LOG_TAG, "SubscrViewModel getInputFields sessionId=$sessionId")
 
         if (sessionId == null) {
             // TODO Текущая сессия прервана. Войдите заново.
@@ -159,7 +163,7 @@ class SubscrViewModel @Inject constructor(
             //view.showProgressDialog()
             repository.getFieldValues(sessionId, branchShort, idField).enqueue(object : Callback<MainResponse> {
                 override fun onFailure(call: Call<MainResponse>, t: Throwable) {
-                    Log.d(Constants.LOG_TAG, "SubscrViewModel getInputFields onFailure: ${t.message}")
+                    Log.d(LOG_TAG, "SubscrViewModel getInputFields onFailure: ${t.message}")
                     handleRequestFailure(t)
                     errorLiveEvent.postValue(t.message)
                 }
@@ -167,8 +171,8 @@ class SubscrViewModel @Inject constructor(
                 override fun onResponse(call: Call<MainResponse>, response: Response<MainResponse>) {
                     if (response.isSuccessful) {
                         val result = response.body()
-                        Log.d(Constants.LOG_TAG,"SubscrViewModel getInputFields onResponse: sessionId=${result?.sessionId}")
-                        Log.d(Constants.LOG_TAG,"SubscrViewModel getInputFields onResponse: errorNote=${result?.errorNote}")
+                        Log.d(LOG_TAG,"SubscrViewModel getInputFields onResponse: sessionId=${result?.sessionId}")
+                        Log.d(LOG_TAG,"SubscrViewModel getInputFields onResponse: errorNote=${result?.errorNote}")
 
                         if (result != null) {
                             if (!result.errorNote.isNullOrEmpty()) {

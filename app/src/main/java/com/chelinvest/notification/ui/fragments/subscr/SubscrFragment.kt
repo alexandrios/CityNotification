@@ -198,7 +198,7 @@ class SubscrFragment : BaseFragment() {
         // Сохранение элемента списка агентов
         viewModel.editSaved.observe(viewLifecycleOwner, Observer<Boolean> {
             if (it) {
-                Log.d(LOG_TAG, "SubscrFragment -> onViewCreated observe = $it")
+                Log.d(LOG_TAG, "SubscrFragment  editSaved.observe = $it")
                 // Обновить список
                 doRequest {}
             }
@@ -208,7 +208,7 @@ class SubscrFragment : BaseFragment() {
             showExpandableError(it)
         })
 
-        // Получение список подписок
+        // Получение списка подписок
         viewModel.deliverySubscriptionsLiveEvent.observeEvent(viewLifecycleOwner, Observer { array ->
             Log.d(LOG_TAG, "SubscrFragment deliverySubscriptionsLiveEvent.observeEvent array.count=${array.count()}")
             mAdapter?.update(
@@ -374,7 +374,7 @@ class SubscrFragment : BaseFragment() {
     // Перейти в настройку адресов конкретного агента
     private fun moveToTypesForSubscription (view: BaseFragment, idSubscription: String, nameSubscription: String) {
         val bundle = AddressFragment.getBundleArguments(idSubscription, nameSubscription)
-        NavHostFragment.findNavController(view as BaseFragment)
+        NavHostFragment.findNavController(view)
             .navigate(R.id.action_subscrFragment_to_addressFragment, bundle)
     }
 
@@ -382,7 +382,13 @@ class SubscrFragment : BaseFragment() {
     private fun editSubscription(view: BaseFragment, subscrInfo: DeliveSubscriptionForBranch) {
         val bundle = Bundle()
         bundle.putSerializable(Constants.SUBSCR_INFO, subscrInfo)
-        NavHostFragment.findNavController(view as BaseFragment)
+        NavHostFragment.findNavController(view)
             .navigate(R.id.action_subscrFragment_to_editSubscrFragment, bundle)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(LOG_TAG, "SubscrFragment -> onResume")
+        viewModel.getEditSave()
     }
 }

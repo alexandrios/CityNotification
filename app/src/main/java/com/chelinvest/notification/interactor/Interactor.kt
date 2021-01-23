@@ -7,7 +7,6 @@ import okhttp3.Call
 import org.simpleframework.xml.Serializer
 import org.simpleframework.xml.core.Persister
 import org.simpleframework.xml.stream.Format
-import com.chelinvest.notification.Preferences
 import com.chelinvest.notification.R
 import com.chelinvest.notification.additional.*
 import com.chelinvest.notification.api.OkRequest

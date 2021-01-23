@@ -10,7 +10,6 @@ import com.chelinvest.notification.model.DeliveAddrBranch
 import com.chelinvest.notification.ui.custom.ModifiedEditText
 import com.chelinvest.notification.utils.Constants.ADDRESS_DATA
 
-
 class EmailFragment : Fragment() {
 
     companion object {
@@ -18,13 +17,6 @@ class EmailFragment : Fragment() {
     }
 
     var addressData: DeliveAddrBranch? = null
-
-    /*
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        model = (context as EditAddressActivity).model
-    }
-    */
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_email, container, false)

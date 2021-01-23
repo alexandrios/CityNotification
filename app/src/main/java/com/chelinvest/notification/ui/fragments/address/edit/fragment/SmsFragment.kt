@@ -10,7 +10,6 @@ import com.chelinvest.notification.model.DeliveAddrBranch
 import com.chelinvest.notification.ui.custom.ModifiedEditText
 import com.chelinvest.notification.utils.Constants.ADDRESS_DATA
 
-
 class SmsFragment : Fragment() {
 
     companion object {

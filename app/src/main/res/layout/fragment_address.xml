@@ -37,11 +37,11 @@
             android:text="short"
             android:textSize="@dimen/subs_titel"/>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/vSwipeRefreshLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+<!--        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
+<!--            android:id="@+id/vSwipeRefreshLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -55,7 +55,7 @@
 
             </FrameLayout>
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+<!--        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 
     </LinearLayout>
 

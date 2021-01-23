@@ -18,6 +18,7 @@ import com.chelinvest.notification.ui.BaseFragment
 import com.chelinvest.notification.ui.fragments.address.edit.fragment.EmailFragment
 import com.chelinvest.notification.ui.custom.ModifiedEditText
 import com.chelinvest.notification.utils.Constants.ADDRESS_DATA
+import com.chelinvest.notification.utils.Constants.ADDRESS_FCM_TOKEN
 import com.chelinvest.notification.utils.Constants.ADDRESS_MODEL
 import com.chelinvest.notification.utils.Constants.APP_PUSH_ID
 import com.chelinvest.notification.utils.Constants.DELIVERY_TYPE
@@ -88,7 +89,8 @@ class EditAddressFragment : BaseFragment() {
         binding.vBackButton.setOnClickListener { findNavController().popBackStack() }
 
         binding.saveTextView.setOnClickListener {
-            setDeliveryAddressForSubscription()
+            viewModel.getTimeZone()
+            //setDeliveryAddressForSubscription()
         }
 
         idSubscription = arguments?.getString(SUBSCRIPTION)
@@ -179,14 +181,16 @@ class EditAddressFragment : BaseFragment() {
                     smsContainer.visibility = View.INVISIBLE
                     pushContainer.visibility = View.VISIBLE
                     val pushFragment = PushFragment.create()
-                    pushFragment.arguments = Bundle().apply { putSerializable(ADDRESS_DATA, addressData) }
+                    pushFragment.arguments = Bundle().apply {
+                        putSerializable(ADDRESS_DATA, addressData)
+                        putSerializable(ADDRESS_FCM_TOKEN, viewModel.getFCMToken())
+                    }
                     replace(R.id.pushContainer, pushFragment, FRAGMENT_TAG)
                 }
             }
             commitNowAllowingStateLoss()
         }
     }
-
 
     private fun callOnShow(tag: String) {
         childFragmentManager.findFragmentByTag(tag)?.onStart()

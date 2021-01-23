@@ -82,7 +82,9 @@
                     app:cet_imeOption="actionDone"
                     app:cet_inputType="number"
                     app:cet_label="@string/edit_start_hour_descr_settings"
-                    app:cet_textSize="16sp" />
+                    app:cet_textSize="16sp" >
+
+                </com.chelinvest.notification.ui.custom.ModifiedEditText>
 
                 <com.chelinvest.notification.ui.custom.ModifiedEditText
                     android:id="@+id/finishHourEditText"

@@ -135,12 +135,12 @@ class AddressFragment : BaseFragment() {
 
         recyclerViewExpandableItemManager!!.attachRecyclerView(mRecyclerView ?: return)
 
-        vSwipeRefreshLayout.setColorSchemeResources(R.color.tangelo)
+/*        vSwipeRefreshLayout.setColorSchemeResources(R.color.tangelo)
         vSwipeRefreshLayout.setOnRefreshListener {
             groupList = emptyList()
             doRequest()
             //vSwipeRefreshLayout.isRefreshing = false
-        }
+        }*/
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

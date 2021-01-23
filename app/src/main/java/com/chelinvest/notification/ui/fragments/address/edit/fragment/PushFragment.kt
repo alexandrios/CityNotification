@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_push.*
-import com.chelinvest.notification.Preferences
 import com.chelinvest.notification.R
 import com.chelinvest.notification.model.DeliveAddrBranch
 import com.chelinvest.notification.utils.Constants.ADDRESS_DATA
-
+import com.chelinvest.notification.utils.Constants.ADDRESS_FCM_TOKEN
 
 class PushFragment : Fragment() {
 
@@ -21,33 +20,6 @@ class PushFragment : Fragment() {
 
     var addressData: DeliveAddrBranch? = null
     var errorMsg: (s: String) -> Unit = {}
-
-    /*
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        model = (context as EditAddressFragment).model
-
-        //errorMsg = { message: String ->
-        //    (context as EditAddressActivity).showExpandableError(message)
-        //}
-        //TODO слабая ссылка сыпется... Пришлось пока сделать try-catch
-        val thisRef = WeakReference(context)
-        // анонимную ф-ю (лямбду) помещаем в переменную
-        errorMsg = { message: String ->
-            val handler = Handler()
-            handler.postDelayed({
-                val that = thisRef.get()
-                if (that != null) {
-                    try {
-                        that.onBackPressed()
-                    }
-                    catch (ex: Exception) {}
-                }
-            }, 3000 )
-            thisRef.get()?.showExpandableError(message)
-        }
-    }
-    */
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_push, container, false)
@@ -61,7 +33,7 @@ class PushFragment : Fragment() {
             addressEditText.setText(addressData!!.address)
             addressTextView.text = Build.DEVICE
         } else {
-            val token = Preferences.getInstance().getFCMToken(view.context)
+            val token = arguments?.getSerializable(ADDRESS_FCM_TOKEN) as String?
             addressEditText.setText(token ?: "")
             addressTextView.text = Build.DEVICE; // + Build.MANUFACTURER + Build.MODEL + Build.PRODUCT + Build.BOARD
 

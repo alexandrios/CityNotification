@@ -15,6 +15,7 @@ import com.chelinvest.notification.utils.SingleLiveEvent
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 import javax.inject.Inject
 
 class EditAddressViewModel @Inject constructor(
@@ -27,6 +28,10 @@ class EditAddressViewModel @Inject constructor(
 
     fun setEditSave(value: Boolean) {
         repository.setChangeAddress(value)
+    }
+
+    fun getFCMToken(): String? {
+        return repository.getFCMToken()
     }
 
     fun verifyAddress(type: String, address: String): Boolean {
@@ -93,14 +98,16 @@ class EditAddressViewModel @Inject constructor(
     }
 
     // Создать (или привязать существующий) адрес (email, sms, push) к подписке
-    fun setDeliveryAddressForSubscription(idSubscription: String,
-                                          address: String,
-                                          idDelivetype: String,
-                                          oldAddress: String?,
-                                          isConfirm: String?,
-                                          startHour: Int?,
-                                          finishHour: Int?,
-                                          timeZone: Int?) {
+    fun setDeliveryAddressForSubscription(
+        idSubscription: String,
+        address: String,
+        idDelivetype: String,
+        oldAddress: String?,
+        isConfirm: String?,
+        startHour: Int?,
+        finishHour: Int?,
+        timeZone: Int?
+    ) {
         val sessionId = repository.getSessionId()
         Log.d(Constants.LOG_TAG, "EditAddressViewModel sessionId=$sessionId")
 
@@ -113,19 +120,30 @@ class EditAddressViewModel @Inject constructor(
 
             var retVal = ""
 
-            repository.setDeliveryAddressForSubscription(sessionId, branchShort, idSubscription,
-                address, idDelivetype, oldAddress, isConfirm, startHour, finishHour, timeZone).enqueue(object : Callback<MainResponse> {
+            repository.setDeliveryAddressForSubscription(
+                sessionId, branchShort, idSubscription,
+                address, idDelivetype, oldAddress, isConfirm, startHour, finishHour, timeZone
+            ).enqueue(object : Callback<MainResponse> {
                 override fun onFailure(call: Call<MainResponse>, t: Throwable) {
                     Log.d(LOG_TAG, "EditAddressViewModel onFailure: ${t.message}")
                     handleRequestFailure(t)
                     errorLiveEvent.postValue(t.message)
                 }
 
-                override fun onResponse(call: Call<MainResponse>, response: Response<MainResponse>) {
+                override fun onResponse(
+                    call: Call<MainResponse>,
+                    response: Response<MainResponse>
+                ) {
                     if (response.isSuccessful) {
                         val result = response.body()
-                        Log.d(LOG_TAG,"EditAddressViewModel onResponse: sessionId=${result?.sessionId}")
-                        Log.d(LOG_TAG,"EditAddressViewModel onResponse: errorNote=${result?.errorNote}")
+                        Log.d(
+                            LOG_TAG,
+                            "EditAddressViewModel onResponse: sessionId=${result?.sessionId}"
+                        )
+                        Log.d(
+                            LOG_TAG,
+                            "EditAddressViewModel onResponse: errorNote=${result?.errorNote}"
+                        )
 
                         if (result != null) {
                             if (!result.errorNote.isNullOrEmpty()) {
@@ -143,6 +161,16 @@ class EditAddressViewModel @Inject constructor(
                     }
                 }
             })
+        }
+    }
+
+    // https://stackoverflow.com/questions/15542063/default-android-time-zone-list/16359137
+    fun getTimeZone() {
+        val ids: Array<String> = TimeZone.getAvailableIDs()
+        Log.d(LOG_TAG, ids.size.toString())
+        for (id in ids) {
+            val d = TimeZone.getTimeZone(id)
+            Log.d(LOG_TAG, "$id | ${d.displayName} | ${d.dstSavings} | ${d.rawOffset}")
         }
     }
 

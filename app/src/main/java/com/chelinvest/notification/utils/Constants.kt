@@ -46,6 +46,7 @@ object Constants {
 
     const val FRAGMENT_TAG = "FRAGMENT_TAG"
     const val ADDRESS_DATA = "ADDRESS_DATA"
+    const val ADDRESS_FCM_TOKEN = "ADDRESS_FCM_TOKEN"
 
     const val LIMIT_VALUE = "LIMIT_VALUE"
 

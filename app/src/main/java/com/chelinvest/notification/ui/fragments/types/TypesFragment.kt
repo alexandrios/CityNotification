@@ -12,7 +12,6 @@ import com.chelinvest.notification.ui.BaseFragment
 import com.chelinvest.notification.utils.Constants
 import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
 
-
 class TypesFragment: BaseFragment() {
     private lateinit var viewModel: TypesViewModel
     private lateinit var binding: FragmentTypesBinding
@@ -20,7 +19,7 @@ class TypesFragment: BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Log.d(Constants.LOG_TAG, "PageFragment -> onCreate")
+        Log.d(Constants.LOG_TAG, "TypesFragment -> onCreate")
         viewModel = injectViewModel(viewModelFactory)
 
         //retainInstance = true
@@ -30,7 +29,7 @@ class TypesFragment: BaseFragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         return FragmentTypesBinding.inflate(inflater, container, false).apply {
-            Log.d(Constants.LOG_TAG, "PageFragment -> onCreateView")
+            Log.d(Constants.LOG_TAG, "TypesFragment -> onCreateView")
             viewmodel = viewModel
             binding = this
         }.root
@@ -38,7 +37,7 @@ class TypesFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(Constants.LOG_TAG, "PageFragment -> onViewCreated")
+        Log.d(Constants.LOG_TAG, "TypesFragment -> onViewCreated")
 
         //TODO кнопка-тест, иллюстрирующая, как можно снова вызвать LoginFragment
         //buttonTest.setOnClickListener {
@@ -64,15 +63,15 @@ class TypesFragment: BaseFragment() {
 //        // addOnPageChangeListener event change the tab on slide
 //        binding.viewPager.addOnPageChangeListener(TabLayoutOnPageChangeListener(binding.tabLayout))
 
-        // TODO хорошо ли это?
-        binding.viewPager.adapter = TypesAdapter(requireActivity().supportFragmentManager)
+
+        binding.viewPager.adapter = TypesAdapter(childFragmentManager)
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.d(Constants.LOG_TAG, "PageFragment -> onActivityCreated")
+        Log.d(Constants.LOG_TAG, "TypesFragment -> onActivityCreated")
 
 //        viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
 //            showExpandableError(it)
@@ -82,11 +81,11 @@ class TypesFragment: BaseFragment() {
 
     override fun onPause() {
         super.onPause()
-        Log.d(Constants.LOG_TAG, "PageFragment -> onPause")
+        Log.d(Constants.LOG_TAG, "TypesFragment -> onPause")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d(Constants.LOG_TAG, "PageFragment -> onDestroyView")
+        Log.d(Constants.LOG_TAG, "TypesFragment -> onDestroyView")
     }
 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewmodel"
             type="com.chelinvest.notification.ui.fragments.login.LoginViewModel" />
@@ -16,16 +17,29 @@
         android:background="@color/recycler_back"
         android:focusableInTouchMode="true">
 
+        <TextView
+            android:id="@+id/titelTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/app_name"
+            android:textColor="?attr/labelTextColor"
+            android:textSize="@dimen/label_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <LinearLayout
             android:id="@+id/vLoginLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="30dp"
             android:background="@color/recycler_back"
             android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titelTextView"
             tools:layout_editor_absoluteX="10dp">
 
             <LinearLayout
@@ -52,7 +66,6 @@
                     android:indeterminate="true" />
 
             </LinearLayout>
-
 
             <com.chelinvest.notification.ui.custom.stylable.CustomTextView
                 android:id="@+id/userTextView"
@@ -110,10 +123,9 @@
                     android:layout_toStartOf="@+id/viewPassImageView"
                     android:hint="@string/login_pass_titel"
                     app:cet_inputType="password" />
-<!--                    android:text="@={viewmodel.passInput}" />-->
+                <!--                    android:text="@={viewmodel.passInput}" />-->
 
             </RelativeLayout>
-
 
             <Button
                 android:id="@+id/loginButton"
@@ -121,25 +133,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/rounded_button"
+                android:background="@color/transparent"
+                android:textColor="@color/colorPrimary"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
                 android:text="@string/login_button"
-                android:textColor="@color/whiteSmoke"
                 android:textSize="16sp" />
-<!--            android:onClick="@{() -> viewmodel.loginBtnClick()}"-->
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <!--include layout="@layout/change_xgate_fragment" /-->
+            <!--            android:onClick="@{() -> viewmodel.loginBtnClick()}"-->
 
         </LinearLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

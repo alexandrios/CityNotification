@@ -1,13 +1,25 @@
 <resources>
-    <string name="app_name">Город: настройка уведомлений</string>
+    <string name="app_name">Уведомления системы Город</string>
+    <string name="branch_titel_text">Виды уведомлений</string>
+    <string name="limit_titel_text">ПАО "Челябинвестбанк"</string>
+
     <string name="app_name_stub">stub: настройка уведомлений</string>
     <string name="xgate_post_login_pass_whereid_request"><![CDATA[<?xml version=\"1.0\" encoding=\"windows-1251\"?><xgate_request><datasource>INV_PLAT</datasource><maxrows>1000</maxrows><login_pass><where_id>-1028</where_id><user>{USER}</user><password>{PASS}</password></login_pass></xgate_request>]]></string>
     <string name="xgate_post_login_pass_request"><![CDATA[<?xml version=\"1.0\" encoding=\"windows-1251\"?><xgate_request><datasource>INV_PLAT</datasource><maxrows>1000</maxrows><login_pass><user>{USER}</user><password>{PASS}</password></login_pass></xgate_request>]]></string>
     <string name="user_mask">{USER}</string>
     <string name="pass_mask">{PASS}</string>
     <string name="login_loading">загрузка данных</string>
-    <string name="login_check_input_user">Укажите логин</string>
-    <string name="login_check_input_pass">Укажите пароль</string>
+
+    <!-- login -->
+    <string name="login_name_titel">Имя пользователя</string>
+    <string name="login_pass_titel">Пароль</string>
+    <string name="login_check_input_user">Введите имя пользователя</string>
+    <string name="login_check_input_pass">Введите пароль</string>
+    <string name="login_button">Войти</string>
+    <string name="login_checking">проверка</string>
+    <string name="login_title">Добро пожаловать!</string>
+    <string name="login_subtitle">Выберите способ входа:</string>
+
 
     <!--Failure messages-->
     <string name="empty_input">Введите слово</string>
@@ -42,14 +54,6 @@
     <string name="overpayment">Переплата</string>
     <string name="are_you_sure">Вы уверены?</string>
 
-    <string name="authorization_required">Требуется повторная авторизация карты</string>
-    <string name="about_authorization_required">Без авторизации информация по данной карте будет ограничена\n\nНомер карты\n%s</string>
-    <string name="session_updated">Сессия обновлена. Пожалуйста, повторите предыдущее действие</string>
-    <string name="authorize">Авторизоваться</string>
-    <string name="skip">Пропустить</string>
-    <string name="enter_password">Введите пароль вашей карты</string>
-    <string name="enter_later">Ввести позже</string>
-    <string name="password">Пароль</string>
 
     <string name="field_necessary_error">Поле обязательно для заполнения</string>
 
@@ -81,36 +85,6 @@
     <string name="payment_error">Не удалось сформировать платеж</string>
     <string name="add_payer_contacts_error">Не удалось добавить контактные данные плательщика</string>
     <string name="esia_version_error">Вход через ЕСИА поддерживается только начиная с Android 4.4</string>
-
-    <!-- splash screen -->
-    <string name="splash_screen_title">Моя Карта</string>
-
-    <!-- tutorial screen -->
-    <string name="tutorial_screen_title">Система \'\'Город\'\'</string>
-    <string name="tutorial_screen_complete">Завершить обучение</string>
-    <string-array name="tutorial_titles">
-        <item>Все услуги в одном месте</item>
-        <item>Быстрая оплата</item>
-        <item>Персонализация</item>
-    </string-array>
-    <string-array name="tutorial_descriptions">
-        <item>Войдите в приложение по своей карте Системы Город, чтобы отслеживать и оплачивать свои услуги в одном месте</item>
-        <item>Быстро и удобно вводите все необходимые данные о платежах и управляйте корзиной с услугами</item>
-        <item>Настраивайте ваши услуги так, как будет удобно вам</item>
-    </string-array>
-
-    <!-- main screen -->
-    <string name="main_screen_my_card">Моя Карта</string>
-    <string name="main_screen_shopping_cart">Корзина</string>
-    <string name="main_screen_profile">Профиль</string>
-
-    <!-- login -->
-    <string name="login_name_titel">Логин</string>
-    <string name="login_pass_titel">Пароль</string>
-    <string name="login_button">Войти</string>
-    <string name="login_checking">проверка</string>
-    <string name="login_title">Добро пожаловать!</string>
-    <string name="login_subtitle">Выберите способ входа:</string>
 
     <!--string name="login_loading">Идет загрузка данных</string-->
     <string name="login_by_card">по Карте</string>

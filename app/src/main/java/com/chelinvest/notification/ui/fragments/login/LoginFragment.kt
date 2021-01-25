@@ -102,7 +102,8 @@ class LoginFragment : BaseFragment() {
             it?.let {
                 Log.d(LOG_TAG, "onActivityCreated sessionLiveEvent")
                 Handler().postDelayed({
-                    findNavController().navigate(R.id.action_loginFragment_to_branchFragment)
+                    //findNavController().navigate(R.id.action_loginFragment_to_branchFragment)
+                    findNavController().navigate(R.id.action_loginFragment_to_pageFragment)
                 }, 500)
             }
         })

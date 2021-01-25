@@ -17,34 +17,62 @@
         android:background="@color/transparent"
         android:focusableInTouchMode="true">
 
-        <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-            android:id="@+id/shortServerNameTextView"
+        <TextView
+            android:id="@+id/titelTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorLightBrown"
-            android:gravity="end"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
             android:padding="8dp"
-            android:text=""
-            android:textColor="@color/text_bright"
-            android:textSize="@dimen/branch_titel"
+            android:text="@string/branch_titel_text"
+            android:textColor="?attr/labelTextColor"
+            android:textSize="@dimen/label_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/limitTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:padding="8dp"
-            android:text="Лимит"
-            android:textSize="@dimen/branch_titel"
-            app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{() -> viewmodel.limitOnClick()}" />
+<!--        <TextView-->
+<!--            android:id="@+id/limitTextView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="start"-->
+<!--            android:onClick="@{() -> viewmodel.limitOnClick()}"-->
+<!--            android:padding="8dp"-->
+<!--            android:text="Лимит"-->
+<!--            android:textSize="@dimen/branch_titel"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/titelTextView"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/branchRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/shortServerNameTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/titelTextView" />
+
+<!--        <com.google.android.material.tabs.TabLayout-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_width="match_parent"-->
+<!--            app:tabGravity="center"-->
+<!--            app:tabIndicatorGravity="bottom"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent">-->
+
+<!--            <com.google.android.material.tabs.TabItem-->
+<!--                android:text="Лимиты"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_width="wrap_content" />-->
+
+<!--            <com.google.android.material.tabs.TabItem-->
+<!--                android:text="Уведомления"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_width="wrap_content" />-->
+
+<!--        </com.google.android.material.tabs.TabLayout>        -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 </layout>

@@ -86,19 +86,21 @@ class BranchFragment : BaseFragment() {
                     bundle.putString(BRANCH_NAME, branch.name)
                     //findNavController().navigate(R.id.action_branchFragment_to_subscrFragment, bundle)
                     // Вариант передачи параметров во фрагмент с использованием статического метода
-                    findNavController().navigate(R.id.action_branchFragment_to_subscrFragment,
+//                    findNavController().navigate(R.id.action_branchFragment_to_subscrFragment,
+//                        SubscrFragment.getBundleArguments(branch.id, branch.name))
+                    findNavController().navigate(R.id.action_pageFragment_to_subscrFragment,
                         SubscrFragment.getBundleArguments(branch.id, branch.name))
                 }
             }
         })
 
-        viewModel.ownLimitsLiveEvent.observeEvent(viewLifecycleOwner, Observer {
-            val bundle = Bundle()
-            //arrayList.add(ObjParam("0", "Просмотр остатка лимита по своему агенту", LIMIT_VALUE))
-            bundle.putString(BRANCH_ID, "0")
-            bundle.putString(BRANCH_NAME, "Просмотр остатка лимита по своему агенту")
-            findNavController().navigate(R.id.action_branchFragment_to_limitFragment, bundle)
-        })
+//        viewModel.ownLimitsLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+//            val bundle = Bundle()
+//            //arrayList.add(ObjParam("0", "Просмотр остатка лимита по своему агенту", LIMIT_VALUE))
+//            bundle.putString(BRANCH_ID, "0")
+//            bundle.putString(BRANCH_NAME, "Просмотр остатка лимита по своему агенту")
+//            //findNavController().navigate(R.id.action_branchFragment_to_limitFragment, bundle)
+//        })
     }
 
 }

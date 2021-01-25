@@ -5,6 +5,7 @@ import com.chelinvest.notification.ui.fragments.address.edit.EditAddressFragment
 import com.chelinvest.notification.ui.fragments.branch.BranchFragment
 import com.chelinvest.notification.ui.fragments.limit.LimitFragment
 import com.chelinvest.notification.ui.fragments.login.LoginFragment
+import com.chelinvest.notification.ui.fragments.page.PageFragment
 import com.chelinvest.notification.ui.fragments.subscr.SubscrFragment
 import com.chelinvest.notification.ui.fragments.subscr.edit.EditSubscrFragment
 import com.chelinvest.notification.ui.main.MainActivity
@@ -36,6 +37,9 @@ abstract class MainActivityModule {
 
     @ContributesAndroidInjector
     abstract fun contributeEditAddressFragment(): EditAddressFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributePageFragment(): PageFragment
 
     /*
         @ContributesAndroidInjector

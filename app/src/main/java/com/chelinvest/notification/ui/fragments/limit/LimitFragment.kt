@@ -43,9 +43,9 @@ class LimitFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d(Constants.LOG_TAG, "LimitFragment -> onViewCreated")
 
-        binding.vBackButton.setOnClickListener { findNavController().popBackStack() }
-        binding.vAddButton.visibility = View.INVISIBLE
-        binding.branchNameTextView.text = arguments?.getString(BRANCH_NAME)
+//        binding.vBackButton.setOnClickListener { findNavController().popBackStack() }
+//        binding.vAddButton.visibility = View.INVISIBLE
+        //binding.branchNameTextView.text = arguments?.getString(BRANCH_NAME)
 
         viewModel.getAgentInfo()
         viewModel.getAgentLimit()

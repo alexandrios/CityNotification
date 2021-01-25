@@ -10,7 +10,7 @@ import com.chelinvest.notification.databinding.FragmentTypesBinding
 import com.chelinvest.notification.di.injectViewModel
 import com.chelinvest.notification.ui.BaseFragment
 import com.chelinvest.notification.utils.Constants
-import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
+import com.google.android.material.tabs.TabLayoutMediator
 
 class TypesFragment: BaseFragment() {
     private lateinit var viewModel: TypesViewModel
@@ -64,19 +64,31 @@ class TypesFragment: BaseFragment() {
 //        binding.viewPager.addOnPageChangeListener(TabLayoutOnPageChangeListener(binding.tabLayout))
 
 
-        binding.viewPager.adapter = TypesAdapter(childFragmentManager)
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
+        // ViewPager using
+        //binding.viewPager.adapter = TypesAdapter(childFragmentManager)
+        //binding.tabLayout.setupWithViewPager(binding.viewPager)
+
+        // ViewPager2 using
+        binding.viewPager.isUserInputEnabled = false // to disable swiping in viewpager2
+        binding.viewPager.adapter = ViewPager2Adapter(this)
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            when (position) {
+                0 -> {
+                    tab.text = "Branches"
+                    tab.setIcon(R.drawable.ic_create_black_24dp)
+                }
+                1 -> {
+                    tab.text = "Limits"
+                    tab.setIcon(R.drawable.ic_create_black_24dp)
+                }
+            }
+        }.attach()
 
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         Log.d(Constants.LOG_TAG, "TypesFragment -> onActivityCreated")
-
-//        viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
-//            showExpandableError(it)
-//        })
-
     }
 
     override fun onPause() {

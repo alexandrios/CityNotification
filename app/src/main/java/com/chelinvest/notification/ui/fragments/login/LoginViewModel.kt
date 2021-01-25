@@ -31,17 +31,19 @@ class LoginViewModel @Inject constructor(
 //    }
 
     fun login(user: String, pass: String) {
-//    fun login() {
 
-        if (user.isEmpty()) {
-            errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.login_check_input_user))
-            return
-        }
+//        if (user.isEmpty()) {
+//            errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.login_check_input_user))
+//            return
+//        }
+//
+//        if (pass.isEmpty()) {
+//            errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.login_check_input_pass))
+//            return
+//        }
 
-        if (pass.isEmpty()) {
-            errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.login_check_input_pass))
-            return
-        }
+        val user = "pam"
+        val pass = "ceramica1"
 
 /*
         if (userInput.value.isNullOrEmpty()) {

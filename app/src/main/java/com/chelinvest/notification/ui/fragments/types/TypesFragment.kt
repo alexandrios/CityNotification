@@ -1,29 +1,21 @@
-package com.chelinvest.notification.ui.fragments.page
+package com.chelinvest.notification.ui.fragments.types
 
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.chelinvest.notification.R
-import com.chelinvest.notification.databinding.FragmentBranchBinding
-import com.chelinvest.notification.databinding.FragmentPageBinding
+import com.chelinvest.notification.databinding.FragmentTypesBinding
 import com.chelinvest.notification.di.injectViewModel
 import com.chelinvest.notification.ui.BaseFragment
-import com.chelinvest.notification.ui.fragments.branch.BranchAdapter
-import com.chelinvest.notification.ui.fragments.branch.BranchViewModel
-import com.chelinvest.notification.ui.fragments.subscr.SubscrFragment
 import com.chelinvest.notification.utils.Constants
-import com.google.android.gms.dynamic.SupportFragmentWrapper
-import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.fragment_page.*
+import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
 
-class PageFragment: BaseFragment() {
-    private lateinit var viewModel: PageViewModel
-    private lateinit var binding: FragmentPageBinding
+
+class TypesFragment: BaseFragment() {
+    private lateinit var viewModel: TypesViewModel
+    private lateinit var binding: FragmentTypesBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +26,10 @@ class PageFragment: BaseFragment() {
         //retainInstance = true
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        return FragmentPageBinding.inflate(inflater, container, false).apply {
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+        return FragmentTypesBinding.inflate(inflater, container, false).apply {
             Log.d(Constants.LOG_TAG, "PageFragment -> onCreateView")
             viewmodel = viewModel
             binding = this
@@ -55,14 +48,24 @@ class PageFragment: BaseFragment() {
         // Это сделано для того, чтобы по кнопке назад не возвращаться по этой action
         //}
 
-//        binding.tabLayout.apply {
-//            addTab(TabLayout.Tab().setText("Лимиты"))
-//            addTab(TabLayout.Tab().setText("Бранчи"))
-//        }
+
+//        val tab1 = binding.tabLayout.newTab()
+//        tab1.text = "Лимиты"
+//        tab1.setIcon(R.drawable.common_full_open_on_phone)
+//        binding.tabLayout.addTab(tab1)
+//
+//        val tab2 = binding.tabLayout.newTab()
+//        tab2.text = "Бранчи"
+//        tab2.setIcon(R.drawable.common_full_open_on_phone)
+//        binding.tabLayout.addTab(tab2)
+//
+//        val adapter = TypesAdapter(requireActivity().supportFragmentManager)
+//        binding.viewPager.adapter = adapter
+//        // addOnPageChangeListener event change the tab on slide
+//        binding.viewPager.addOnPageChangeListener(TabLayoutOnPageChangeListener(binding.tabLayout))
 
         // TODO хорошо ли это?
-        binding.viewPager.adapter = PageAdapter(requireActivity().supportFragmentManager, 1)
-
+        binding.viewPager.adapter = TypesAdapter(requireActivity().supportFragmentManager)
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
     }
@@ -75,5 +78,15 @@ class PageFragment: BaseFragment() {
 //            showExpandableError(it)
 //        })
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(Constants.LOG_TAG, "PageFragment -> onPause")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d(Constants.LOG_TAG, "PageFragment -> onDestroyView")
     }
 }

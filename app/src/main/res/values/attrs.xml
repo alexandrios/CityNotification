@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="labelTextColor" format="color|reference" />
+    <attr name="labelBackgroundColor" format="color|reference" />
+    <attr name="subLabelTextColor" format="color|reference" />
+    <attr name="subLabelBackgroundColor" format="color|reference" />
     
     <declare-styleable name="ServiceIconView">
         <attr name="serviceIconColorInd" format="integer"/>

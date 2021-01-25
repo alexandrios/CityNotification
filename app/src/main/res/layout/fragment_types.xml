@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.chelinvest.notification.ui.fragments.page.PageViewModel" />
+            type="com.chelinvest.notification.ui.fragments.types.TypesViewModel" />
     </data>
 
     <LinearLayout

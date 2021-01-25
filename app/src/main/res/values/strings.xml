@@ -2,6 +2,9 @@
     <string name="app_name">Уведомления системы Город</string>
     <string name="branch_titel_text">Виды уведомлений</string>
     <string name="limit_titel_text">ПАО "Челябинвестбанк"</string>
+    <string name="subscr_titel_text">Подписки на уведомление</string>
+
+    <string name="choose_attr_value">Выберите значение атрибута</string>
 
     <string name="app_name_stub">stub: настройка уведомлений</string>
     <string name="xgate_post_login_pass_whereid_request"><![CDATA[<?xml version=\"1.0\" encoding=\"windows-1251\"?><xgate_request><datasource>INV_PLAT</datasource><maxrows>1000</maxrows><login_pass><where_id>-1028</where_id><user>{USER}</user><password>{PASS}</password></login_pass></xgate_request>]]></string>

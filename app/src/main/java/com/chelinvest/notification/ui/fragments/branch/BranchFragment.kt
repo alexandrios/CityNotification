@@ -14,6 +14,7 @@ import com.chelinvest.notification.databinding.FragmentBranchBinding
 import com.chelinvest.notification.di.injectViewModel
 import com.chelinvest.notification.ui.BaseFragment
 import com.chelinvest.notification.ui.fragments.subscr.SubscrFragment
+import com.chelinvest.notification.utils.Constants
 import com.chelinvest.notification.utils.Constants.BRANCH_ID
 import com.chelinvest.notification.utils.Constants.BRANCH_NAME
 import com.chelinvest.notification.utils.Constants.LOG_TAG
@@ -88,7 +89,7 @@ class BranchFragment : BaseFragment() {
                     // Вариант передачи параметров во фрагмент с использованием статического метода
 //                    findNavController().navigate(R.id.action_branchFragment_to_subscrFragment,
 //                        SubscrFragment.getBundleArguments(branch.id, branch.name))
-                    findNavController().navigate(R.id.action_pageFragment_to_subscrFragment,
+                    findNavController().navigate(R.id.action_typesFragment_to_subscrFragment,
                         SubscrFragment.getBundleArguments(branch.id, branch.name))
                 }
             }
@@ -103,4 +104,13 @@ class BranchFragment : BaseFragment() {
 //        })
     }
 
+    override fun onPause() {
+        super.onPause()
+        Log.d(Constants.LOG_TAG, "BranchFragment -> onPause")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d(Constants.LOG_TAG, "BranchFragment -> onDestroyView")
+    }
 }

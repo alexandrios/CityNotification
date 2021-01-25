@@ -7,7 +7,7 @@ import com.chelinvest.notification.ui.fragments.address.edit.EditAddressViewMode
 import com.chelinvest.notification.ui.fragments.branch.BranchViewModel
 import com.chelinvest.notification.ui.fragments.limit.LimitViewModel
 import com.chelinvest.notification.ui.fragments.login.LoginViewModel
-import com.chelinvest.notification.ui.fragments.page.PageViewModel
+import com.chelinvest.notification.ui.fragments.types.TypesViewModel
 import com.chelinvest.notification.ui.fragments.subscr.SubscrViewModel
 import com.chelinvest.notification.ui.fragments.subscr.edit.EditSubscrViewModel
 import com.chelinvest.notification.ui.main.MainViewModel
@@ -63,6 +63,6 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(PageViewModel::class)
-    abstract fun bindPageViewModel(pageViewModel: PageViewModel): ViewModel
+    @ViewModelKey(TypesViewModel::class)
+    abstract fun bindTypesViewModel(pageViewModel: TypesViewModel): ViewModel
 }

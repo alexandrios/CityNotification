@@ -9,6 +9,9 @@
 
         <!-- custom attributes -->
         <item name="labelTextColor">@color/whiteSmoke</item>
+        <item name="labelBackgroundColor">@color/colorPrimary</item>
+        <item name="subLabelTextColor">@color/sub_label_text</item>
+        <item name="subLabelBackgroundColor">@color/sub_label_background</item>
     </style>
 
     <!-- Dark application theme. -->
@@ -20,7 +23,9 @@
 
         <!-- custom attributes -->
         <item name="labelTextColor">@color/whiteSmoke</item>
-
+        <item name="labelBackgroundColor">@color/colorPrimaryBrown</item>
+        <item name="subLabelTextColor">@color/sub_label_text_dark</item>
+        <item name="subLabelBackgroundColor">@color/sub_label_background_dark</item>
     </style>
 
     <style name="AppTheme.TitleLayout">

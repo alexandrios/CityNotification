@@ -15,34 +15,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/titelTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/labelBackgroundColor"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/subscr_titel_text"
+            android:textColor="?attr/labelTextColor"
+            android:textSize="@dimen/label_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/titelTextView"
             app:layout_constraintBottom_toTopOf="@+id/vTitlePanel"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toStartOf="parent" >
 
-            <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-                android:id="@+id/branchNameTextView"
+            <TextView
+                android:id="@+id/subLabelTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorLightBrown"
+                android:background="?attr/subLabelBackgroundColor"
+                android:textColor="?attr/subLabelTextColor"
+                android:textSize="@dimen/label_text_size"
+                android:text="Уведомление о снижении лимита"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="short"
-                android:textColor="@color/text_bright"
-                android:textSize="@dimen/branch_titel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/buttonTest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Button"
-                android:visibility="gone"
-                tools:ignore="MissingConstraints" />
 
             <CheckBox
                 android:id="@+id/vCheckBox"
@@ -72,26 +80,19 @@
 
         <RelativeLayout
             android:id="@+id/vTitlePanel"
-            style="@style/AppTheme.TitleLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="26dp">
+            android:background="?attr/labelBackgroundColor" >
 
             <ImageView
                 android:id="@+id/vBackButton"
                 style="@style/AppTheme.BackButtonImageView" />
 
-            <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-                android:id="@+id/vTitleTextView"
-                style="@style/AppTheme.TitleTextView"
-                android:visibility="gone" />
-
             <ImageView
                 android:id="@+id/vAddButton"
                 style="@style/AppTheme.AddButtonImageView"
-                android:layout_alignParentEnd="true"
-                android:layout_toStartOf="@+id/vTitleTextView" />
+                android:layout_alignParentEnd="true"  />
 
         </RelativeLayout>
 

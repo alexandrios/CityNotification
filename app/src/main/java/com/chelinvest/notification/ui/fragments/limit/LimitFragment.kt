@@ -76,6 +76,15 @@ class LimitFragment : BaseFragment() {
         })
     }
 
+    override fun onPause() {
+        super.onPause()
+        Log.d(Constants.LOG_TAG, "LimitFragment -> onPause")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d(Constants.LOG_TAG, "LimitFragment -> onDestroyView")
+    }
 }
 
 

@@ -92,7 +92,7 @@ class SubscrFragment : BaseFragment() {
         Log.d(LOG_TAG, "SubscrFragment -> onViewCreated")
 
         // Заголовок фрагмента
-        branchNameTextView.text = arguments?.getString(BRANCH_NAME)
+        binding.subLabelTextView.text = arguments?.getString(BRANCH_NAME)
 
         // Получить значение CheckBox "Только активные подписки" из ViewModel
         binding.vCheckBox.isChecked = viewModel.activeOnly.value ?: false
@@ -297,7 +297,7 @@ class SubscrFragment : BaseFragment() {
         viewModel.getFieldValues(field.id) { objParamList ->
             // Вызвать диалог(и) для выбора агента (или чего-то ещё)
             val contentView = LayoutInflater.from(view?.context!!).inflate(R.layout.dialog_field_values, null)
-            contentView.headerTextView.text = "Выберите значение атрибута '${field.name}'"
+            contentView.headerTextView.text = resources.getString(R.string.choose_attr_value) + " '${field.name}'"
 
             val dialog: MaterialDialog
             dialog = MaterialDialog.Builder(view?.context!!)

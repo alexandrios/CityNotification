@@ -8,6 +8,12 @@
     <color name="colorPrimaryDarkBrown">#442C2E</color>
     <color name="colorLightBrown">#705557</color>
 
+    <color name="sub_label_text">#000000</color>
+    <color name="sub_label_text_dark">#ffffff</color>
+
+    <color name="sub_label_background">#C4C4C4</color>
+    <color name="sub_label_background_dark">#C4C4C4</color>
+
     <color name="fucsia">#ffa1cf</color>
 
     <color name="dialog_back">#FEDBD0</color>

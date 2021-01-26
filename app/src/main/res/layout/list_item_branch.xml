@@ -4,16 +4,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
     android:paddingBottom="8dp" >
 
-        <com.chelinvest.notification.ui.custom.CardItem
+<!--        <com.chelinvest.notification.ui.custom.CardItem-->
+<!--            android:id="@+id/cardItem"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="120dp"-->
+<!--            app:text="Оплатить"-->
+<!--            app:text_size="21sp"-->
+<!--            app:background_drawable="@drawable/background_money_color" />-->
+
+        <TextView
             android:id="@+id/cardItem"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            app:text="Оплатить"
-            app:text_size="21sp"
-            app:background_drawable="@drawable/background_money_color" />
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@drawable/border_bottom_line"
+            android:text="Оплатить"
+            android:textSize="18sp"
+            android:textColor="@color/text" />
 
 </FrameLayout>

@@ -17,7 +17,8 @@
     <color name="menu_active_color">#2D9CDB</color>
     <color name="menu_inactive_color">#C4C4C4</color>
 
-    <color name="login_again_color">#2F80ED</color>
+    <color name="login_again_color_old">#2F80ED</color>
+    <color name="login_again_color">#036CFA</color>
 
 
 

@@ -36,7 +36,7 @@
             android:gravity="start"
             android:onClick="@{() -> viewmodel.loginOnClick()}"
             android:padding="10dp"
-            android:text="@string/login_again_text"
+            android:text="@string/login_button"
             android:textSize="@dimen/login_again_text_size"
             android:textColor="?attr/loginAgainColor"
             app:layout_constraintBottom_toBottomOf="@+id/titelTextView"

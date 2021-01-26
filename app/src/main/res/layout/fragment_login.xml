@@ -113,7 +113,8 @@
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
                 android:text="@string/login_button"
-                android:textSize="16sp" />
+                android:textAllCaps="false"
+                android:textSize="@dimen/login_text_size" />
             <!--            android:onClick="@{() -> viewmodel.loginBtnClick()}"-->
 
             <LinearLayout
@@ -130,13 +131,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/login_checking"
                     android:textColor="@color/black"
-                    android:visibility="gone"
+                    android:layout_marginRight="16dp"
                     android:textSize="12sp" />
 
                 <ProgressBar
-                    android:layout_width="32dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
+                    android:layout_marginBottom="32dp"
                     android:indeterminate="true" />
 <!--                android:layout_marginStart="10dp"-->
 

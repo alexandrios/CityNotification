@@ -14,6 +14,7 @@ import com.chelinvest.notification.di.injectViewModel
 import com.chelinvest.notification.ui.BaseFragment
 import com.chelinvest.notification.utils.Constants
 import com.chelinvest.notification.utils.Constants.BRANCH_NAME
+import java.util.*
 
 class LimitFragment : BaseFragment() {
     private lateinit var viewModel: LimitViewModel
@@ -74,7 +75,8 @@ class LimitFragment : BaseFragment() {
         })
 
         viewModel.agentLimitLiveEvent.observeEvent(viewLifecycleOwner, Observer {
-            binding.limitTextView.text = String.format("%,18.2f руб.", it.toDoubleOrNull() ?: "").trim().replace(',', ' ')
+            binding.limitTextView.text = String.format(Locale.ROOT, "%,18.2f руб.", it.toDoubleOrNull() ?: "")
+                .trim().replace(',', ' ')
         })
 
 //        viewModel.loginAgainLiveEvent.observeEvent(viewLifecycleOwner, Observer {

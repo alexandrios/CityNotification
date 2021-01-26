@@ -124,9 +124,17 @@ dependencies {
 
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     implementation 'com.google.android.material:material:1.2.1'
+
+    // ViewPager
     //implementation 'androidx.viewpager:viewpager:1.0.0'
-    implementation 'androidx.viewpager2:viewpager2:1.1.0-alpha01'
+
+    // ViewPager2
+    //implementation 'androidx.viewpager2:viewpager2:1.1.0-alpha01'
+
+    // BottomNavigationView
     implementation 'com.google.android.material:material:1.2.1'
+
+    implementation 'com.intuit.sdp:sdp-android:1.0.5'
 
     //Dagger
     kapt "com.google.dagger:dagger-compiler:$dagger_version"

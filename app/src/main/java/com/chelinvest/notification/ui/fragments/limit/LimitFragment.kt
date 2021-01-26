@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.chelinvest.notification.R
 import com.chelinvest.notification.databinding.FragmentLimitBinding
 import com.chelinvest.notification.di.injectViewModel
 import com.chelinvest.notification.ui.BaseFragment
@@ -72,8 +74,13 @@ class LimitFragment : BaseFragment() {
         })
 
         viewModel.agentLimitLiveEvent.observeEvent(viewLifecycleOwner, Observer {
-            binding.limitTextView.text = String.format("%,18.2f руб.", it.toDoubleOrNull() ?: "").trim() //.replace(',', ' ')
+            binding.limitTextView.text = String.format("%,18.2f руб.", it.toDoubleOrNull() ?: "").trim().replace(',', ' ')
         })
+
+//        viewModel.loginAgainLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+//            findNavController().navigate(R.id.action_typesFragment_to_loginFragment)
+//                //null, NavOptions.Builder().setPopUpTo(R.id.typesFragment, true).build())
+//        })
     }
 
     override fun onPause() {

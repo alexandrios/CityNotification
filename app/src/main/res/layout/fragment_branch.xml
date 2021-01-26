@@ -17,29 +17,30 @@
         android:background="@color/transparent"
         android:focusableInTouchMode="true">
 
-        <TextView
-            android:id="@+id/titelTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/labelBackgroundColor"
-            android:textColor="?attr/labelTextColor"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="@string/branch_titel_text"
-            android:textSize="@dimen/label_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <TextView-->
+<!--            android:id="@+id/titelTextView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="?attr/labelBackgroundColor"-->
+<!--            android:textColor="?attr/labelTextColor"-->
+<!--            android:gravity="center"-->
+<!--            android:padding="8dp"-->
+<!--            android:text="@string/branch_titel_text"-->
+<!--            android:textSize="@dimen/label_text_size"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
 <!--        <TextView-->
-<!--            android:id="@+id/limitTextView"-->
+<!--            android:id="@+id/loginTextView"-->
 <!--            android:layout_width="wrap_content"-->
 <!--            android:layout_height="wrap_content"-->
 <!--            android:gravity="start"-->
-<!--            android:onClick="@{() -> viewmodel.limitOnClick()}"-->
-<!--            android:padding="8dp"-->
-<!--            android:text="Лимит"-->
-<!--            android:textSize="@dimen/branch_titel"-->
+<!--            android:onClick="@{() -> viewmodel.loginOnClick()}"-->
+<!--            android:padding="10dp"-->
+<!--            android:text="@string/login_again_text"-->
+<!--            android:textSize="@dimen/login_again_text_size"-->
+<!--            android:textColor="?attr/loginAgainColor"-->
 <!--            app:layout_constraintBottom_toBottomOf="@+id/titelTextView"-->
 <!--            app:layout_constraintStart_toStartOf="parent"-->
 <!--            app:layout_constraintTop_toTopOf="parent" />-->
@@ -48,7 +49,7 @@
             android:id="@+id/branchRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/titelTextView" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 <!--        <com.google.android.material.tabs.TabLayout-->
 <!--            android:layout_height="wrap_content"-->

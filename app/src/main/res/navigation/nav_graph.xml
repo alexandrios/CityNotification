@@ -62,6 +62,11 @@
         <action
             android:id="@+id/action_typesFragment_to_subscrFragment"
             app:destination="@id/subscrFragment" />
+        <action
+            android:id="@+id/action_typesFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/typesFragment"
+            app:popUpToInclusive="true" />
 
     </fragment>
 

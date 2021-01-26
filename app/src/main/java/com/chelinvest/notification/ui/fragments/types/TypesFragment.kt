@@ -5,12 +5,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import com.chelinvest.notification.R
 import com.chelinvest.notification.databinding.FragmentTypesBinding
 import com.chelinvest.notification.di.injectViewModel
 import com.chelinvest.notification.ui.BaseFragment
+import com.chelinvest.notification.ui.fragments.branch.BranchFragment
+import com.chelinvest.notification.ui.fragments.limit.LimitFragment
 import com.chelinvest.notification.utils.Constants
-import com.google.android.material.tabs.TabLayoutMediator
+import com.chelinvest.notification.utils.Constants.SELECTED_ITEM
+import com.google.android.material.bottomnavigation.BottomNavigationView
+
 
 class TypesFragment: BaseFragment() {
     private lateinit var viewModel: TypesViewModel
@@ -69,26 +78,77 @@ class TypesFragment: BaseFragment() {
         //binding.tabLayout.setupWithViewPager(binding.viewPager)
 
         // ViewPager2 using
-        binding.viewPager.isUserInputEnabled = false // to disable swiping in viewpager2
-        binding.viewPager.adapter = ViewPager2Adapter(this)
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            when (position) {
-                0 -> {
-                    tab.text = "Branches"
-                    tab.setIcon(R.drawable.ic_create_black_24dp)
-                }
-                1 -> {
-                    tab.text = "Limits"
-                    tab.setIcon(R.drawable.ic_create_black_24dp)
-                }
-            }
-        }.attach()
+//        binding.viewPager.isUserInputEnabled = false // to disable swiping in viewpager2
+//        binding.viewPager.adapter = ViewPager2Adapter(this)
+//        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+//            when (position) {
+//                0 -> {
+//                    tab.text = "Branches"
+//                    tab.setIcon(R.drawable.ic_create_black_24dp)
+//                }
+//                1 -> {
+//                    tab.text = "Limits"
+//                    tab.setIcon(R.drawable.ic_create_black_24dp)
+//                }
+//            }
+//        }.attach()
 
+        binding.bottomNavigation.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
+            val id = menuItem.itemId
+            if (id == R.id.branches) {
+                loadFragment(BranchFragment(), id)
+                return@OnNavigationItemSelectedListener true
+            } else if (id == R.id.limits) {
+                loadFragment(LimitFragment(), id)
+                return@OnNavigationItemSelectedListener true
+            }
+            true
+        })
+
+//        var selectedItem = viewModel.getSelectedItem()
+//        if (selectedItem == 0) selectedItem = R.id.limits
+//        Log.d(Constants.LOG_TAG, "TypesFragment -> selectedItem=$selectedItem")
+//        binding.bottomNavigation.menu.findItem(selectedItem).isChecked = true
+//        when (selectedItem) {
+//            R.id.limits ->  loadFragment(LimitFragment())
+//            else -> loadFragment(BranchFragment())
+//        }
+    }
+
+    private fun loadFragment(fragment: Fragment, id: Int) {
+        binding.titelTextView.text = when (id) {
+            R.id.limits -> resources.getString(R.string.limit_subtitel_text)
+            else -> resources.getString(R.string.branch_titel_text)
+        }
+        val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
+        transaction.replace(R.id.frame_container, fragment)
+        transaction.commit()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         Log.d(Constants.LOG_TAG, "TypesFragment -> onActivityCreated")
+
+        // Получить значение последнего выбранного пункта меню
+        // Это значение сохраняется в onDestroyView()
+//        var selectedItem =
+//            findNavController().getBackStackEntry(R.id.typesFragment).
+//            savedStateHandle.get<Int>(SELECTED_ITEM)
+        var selectedItem = viewModel.getSelectedItem()
+        // Если значение пусто (первый запуск), то присвоить по умолчанию
+        if (selectedItem == 0) selectedItem = R.id.limits
+        Log.d(Constants.LOG_TAG, "TypesFragment -> selectedItem=$selectedItem")
+        binding.bottomNavigation.menu.findItem(selectedItem).isChecked = true
+        // Загрузить сооответствующий фрагмент
+        when (selectedItem) {
+            R.id.limits -> loadFragment(LimitFragment(), selectedItem)
+            else -> loadFragment(BranchFragment(), selectedItem)
+        }
+
+        viewModel.loginAgainLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+            findNavController().navigate(R.id.action_typesFragment_to_loginFragment,
+                null, NavOptions.Builder().setPopUpTo(R.id.typesFragment, true).build())
+        })
     }
 
     override fun onPause() {
@@ -97,7 +157,17 @@ class TypesFragment: BaseFragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         Log.d(Constants.LOG_TAG, "TypesFragment -> onDestroyView")
+
+        // Сохранить значение последнего выбранного пункта меню
+//        findNavController()
+//            .getBackStackEntry(R.id.typesFragment)
+//            .savedStateHandle
+//            .set(SELECTED_ITEM, binding.bottomNavigation.selectedItemId)
+
+        viewModel.setSelectedItem(binding.bottomNavigation.selectedItemId)
+        Log.d(Constants.LOG_TAG, "TypesFragment -> save selectedItem=${binding.bottomNavigation.selectedItemId}")
+        super.onDestroyView()
     }
+
 }

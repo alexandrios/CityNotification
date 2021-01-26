@@ -7,6 +7,7 @@ import com.chelinvest.notification.utils.Constants.CHANGE_ADDRESS
 import com.chelinvest.notification.utils.Constants.CHANGE_SUBSCR_LIST
 import com.chelinvest.notification.utils.Constants.FCM_TOKEN
 import com.chelinvest.notification.utils.Constants.LAUNCH_COUNT
+import com.chelinvest.notification.utils.Constants.SELECTED_ITEM
 import com.chelinvest.notification.utils.Constants.SESSION_ID
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -53,5 +54,8 @@ class PreferencesDataSource @Inject constructor(
 
     fun getChangeAddress() = getBoolean(CHANGE_ADDRESS, false)
     fun setChangeAddress(value: Boolean) = putBoolean(CHANGE_ADDRESS, value)
+
+    fun getSelectedItem() = getInt(SELECTED_ITEM, 0)
+    fun setSelectedItem(value: Int) = putInt(SELECTED_ITEM, value)
 
 }

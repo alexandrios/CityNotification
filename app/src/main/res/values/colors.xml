@@ -14,6 +14,13 @@
     <color name="sub_label_background">#C4C4C4</color>
     <color name="sub_label_background_dark">#C4C4C4</color>
 
+    <color name="menu_active_color">#2D9CDB</color>
+    <color name="menu_inactive_color">#C4C4C4</color>
+
+    <color name="login_again_color">#2F80ED</color>
+
+
+
     <color name="fucsia">#ffa1cf</color>
 
     <color name="dialog_back">#FEDBD0</color>

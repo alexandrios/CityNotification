@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,6 @@ import com.chelinvest.notification.utils.Constants
 import com.chelinvest.notification.utils.Constants.BRANCH_ID
 import com.chelinvest.notification.utils.Constants.BRANCH_NAME
 import com.chelinvest.notification.utils.Constants.LOG_TAG
-
 
 class BranchFragment : BaseFragment() {
     private lateinit var viewModel: BranchViewModel
@@ -82,35 +82,25 @@ class BranchFragment : BaseFragment() {
                     Log.d(LOG_TAG, "branchShort=${branch.value}")
                     viewModel.saveBranchShort(branch.value)
 
-                    val bundle = Bundle()
-                    bundle.putString(BRANCH_ID, branch.id)
-                    bundle.putString(BRANCH_NAME, branch.name)
-                    //findNavController().navigate(R.id.action_branchFragment_to_subscrFragment, bundle)
-                    // Вариант передачи параметров во фрагмент с использованием статического метода
-//                    findNavController().navigate(R.id.action_branchFragment_to_subscrFragment,
-//                        SubscrFragment.getBundleArguments(branch.id, branch.name))
                     findNavController().navigate(R.id.action_typesFragment_to_subscrFragment,
                         SubscrFragment.getBundleArguments(branch.id, branch.name))
                 }
             }
         })
 
-//        viewModel.ownLimitsLiveEvent.observeEvent(viewLifecycleOwner, Observer {
-//            val bundle = Bundle()
-//            //arrayList.add(ObjParam("0", "Просмотр остатка лимита по своему агенту", LIMIT_VALUE))
-//            bundle.putString(BRANCH_ID, "0")
-//            bundle.putString(BRANCH_NAME, "Просмотр остатка лимита по своему агенту")
-//            //findNavController().navigate(R.id.action_branchFragment_to_limitFragment, bundle)
+//        viewModel.loginAgainLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+//            findNavController().navigate(R.id.action_typesFragment_to_loginFragment,
+//                null, NavOptions.Builder().setPopUpTo(R.id.typesFragment, true).build())
 //        })
     }
 
     override fun onPause() {
         super.onPause()
-        Log.d(Constants.LOG_TAG, "BranchFragment -> onPause")
+        Log.d(LOG_TAG, "BranchFragment -> onPause")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d(Constants.LOG_TAG, "BranchFragment -> onDestroyView")
+        Log.d(LOG_TAG, "BranchFragment -> onDestroyView")
     }
 }

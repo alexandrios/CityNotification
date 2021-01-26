@@ -12,6 +12,9 @@
         <item name="labelBackgroundColor">@color/colorPrimary</item>
         <item name="subLabelTextColor">@color/sub_label_text</item>
         <item name="subLabelBackgroundColor">@color/sub_label_background</item>
+        <item name="menuActiveColor">@color/menu_active_color</item>
+        <item name="menuInactiveColor">@color/menu_inactive_color</item>
+        <item name="loginAgainColor">@color/login_again_color</item>
     </style>
 
     <!-- Dark application theme. -->
@@ -26,6 +29,9 @@
         <item name="labelBackgroundColor">@color/colorPrimaryBrown</item>
         <item name="subLabelTextColor">@color/sub_label_text_dark</item>
         <item name="subLabelBackgroundColor">@color/sub_label_background_dark</item>
+        <item name="menuActiveColor">@color/menu_active_color</item>
+        <item name="menuInactiveColor">@color/menu_inactive_color</item>
+        <item name="loginAgainColor">@color/login_again_color</item>
     </style>
 
     <style name="AppTheme.TitleLayout">

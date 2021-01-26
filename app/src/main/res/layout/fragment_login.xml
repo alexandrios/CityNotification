@@ -39,38 +39,13 @@
             android:layout_alignParentBottom="true"
             android:background="@color/recycler_back"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/titelTextView"
-            tools:layout_editor_absoluteX="10dp">
-
-            <LinearLayout
-                android:id="@+id/vProgressLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/login_checking"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-
-                <ProgressBar
-                    android:layout_width="18dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:indeterminate="true" />
-
-            </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/titelTextView" >
 
             <com.chelinvest.notification.ui.custom.stylable.CustomTextView
                 android:id="@+id/userTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:text="@string/login_name_titel"
@@ -140,6 +115,32 @@
                 android:text="@string/login_button"
                 android:textSize="16sp" />
             <!--            android:onClick="@{() -> viewmodel.loginBtnClick()}"-->
+
+            <LinearLayout
+                android:id="@+id/vProgressLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_checking"
+                    android:textColor="@color/black"
+                    android:visibility="gone"
+                    android:textSize="12sp" />
+
+                <ProgressBar
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="32dp"
+                    android:indeterminate="true" />
+<!--                android:layout_marginStart="10dp"-->
+
+            </LinearLayout>
 
         </LinearLayout>
 

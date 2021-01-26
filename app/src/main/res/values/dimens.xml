@@ -8,6 +8,7 @@
     <dimen name="tap_bar_height">52dp</dimen>
     <dimen name="fab_margin">40dp</dimen>
 
+    <dimen name="login_again_text_size">20sp</dimen>
     <dimen name="branch_titel">16sp</dimen>
     <dimen name="subs_titel">16sp</dimen>
     <dimen name="branch_list_item_text_size">20sp</dimen>

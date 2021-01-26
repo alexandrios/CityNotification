@@ -35,6 +35,8 @@ class Repository @Inject constructor(
     fun getChangeAddress() = preferencesDataSource.getChangeAddress()
     fun setChangeAddress(value: Boolean) = preferencesDataSource.setChangeAddress(value)
 
+    fun getSelectedItem() = preferencesDataSource.getSelectedItem()
+    fun setSelectedItem(value: Int) = preferencesDataSource.setSelectedItem(value)
 
     //
 //    // Настройка "Оффлайн-режим"

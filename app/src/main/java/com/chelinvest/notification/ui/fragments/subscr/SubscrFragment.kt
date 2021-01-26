@@ -35,6 +35,7 @@ import com.chelinvest.notification.utils.Constants.BRANCH_ID
 import com.chelinvest.notification.utils.Constants.BRANCH_NAME
 import com.chelinvest.notification.utils.Constants.LOG_TAG
 import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
 
 class SubscrFragment : BaseFragment() {
     private lateinit var viewModel: SubscrViewModel
@@ -246,8 +247,6 @@ class SubscrFragment : BaseFragment() {
             }
         })
 
-//        viewModel.getFieldValuesLiveEvent.observeEvent(viewLifecycleOwner, Observer {
-//        })
     }
 
     // Обновить список

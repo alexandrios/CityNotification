@@ -25,7 +25,7 @@ class BranchViewModel @Inject constructor(
 
     val errorLiveEvent = SingleLiveEvent<String>()
     val branchesLiveEvent = SingleLiveEvent<ArrayList<ObjParam>>()
-    //val ownLimitsLiveEvent = SingleLiveEvent<Nothing>()
+//    val loginAgainLiveEvent = SingleLiveEvent<Nothing>()
 
     fun saveBranchShort(value: String) {
         repository.setBranchShort(value)
@@ -77,8 +77,7 @@ class BranchViewModel @Inject constructor(
         }
     }
 
-//    fun limitOnClick() {
-//        ownLimitsLiveEvent.postValue(null)
+//    fun loginOnClick() {
+//        loginAgainLiveEvent.postValue(null)
 //    }
-
 }

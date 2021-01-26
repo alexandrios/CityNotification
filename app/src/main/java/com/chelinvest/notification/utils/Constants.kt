@@ -75,4 +75,6 @@ object Constants {
     const val CHANGE_SUBSCR_LIST = "CHANGE_SUBSCR_LIST"
     const val CHANGE_ADDRESS = "CHANGE_ADDRESS"
 
+    const val SELECTED_ITEM = "SELECTED_ITEM"
+
 }

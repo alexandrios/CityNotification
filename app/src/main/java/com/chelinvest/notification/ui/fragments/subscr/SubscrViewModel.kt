@@ -35,6 +35,7 @@ class SubscrViewModel @Inject constructor(
     val inputFieldsLiveEvent = SingleLiveEvent<ArrayList<ObjAny>>()
     val createSubscriptionLiveEvent = SingleLiveEvent<String>()
     val getFieldValuesLiveEvent = SingleLiveEvent<ArrayList<ObjParam>>()
+    val loginAgainLiveEvent = SingleLiveEvent<Nothing>()
 
     // Признак того, что был изменен элемент списка агентов (в EditSubscrFragment)
     val editSaved = MutableLiveData<Boolean>()

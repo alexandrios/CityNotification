@@ -10,72 +10,58 @@
             type="com.chelinvest.notification.ui.fragments.address.AddressViewModel" />
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/vParentLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusableInTouchMode="true"
-    android:background="@color/transparent">
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/vParentLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/vTitlePanel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/titleTextView"
             style="@style/AppTheme.TitleTextView"
-            android:id="@+id/subsNameTextView"
-            android:text="short"
-        />
-
-<!--        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-<!--            android:id="@+id/vSwipeRefreshLayout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/addressRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </FrameLayout>
-
-<!--        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/vTitlePanel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        style="@style/AppTheme.TitleLayout" >
+            android:text="Адреса подписки"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/vBackButton"
-            style="@style/AppTheme.BackButtonImageView"/>
-
-        <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-            android:id="@+id/vTitleTextView"
-            style="@style/AppTheme.TitleTextView"/>
+            style="@style/AppTheme.BackButtonImageView"
+            app:layout_constraintBottom_toBottomOf="@+id/titleTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/vAddButton"
             style="@style/AppTheme.AddButtonImageView"
             android:layout_alignParentEnd="true"
-            android:layout_toStartOf="@+id/vTitleTextView" />
+            app:layout_constraintBottom_toBottomOf="@+id/titleTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/subLabelTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/subLabelBackgroundColor"
+            android:padding="4dp"
+            android:text="@string/subscr_subtitle_text"
+            android:textAlignment="center"
+            android:textColor="?attr/subLabelTextColor"
+            android:textSize="@dimen/branch_list_item_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/addressRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="1dp"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/subLabelTextView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

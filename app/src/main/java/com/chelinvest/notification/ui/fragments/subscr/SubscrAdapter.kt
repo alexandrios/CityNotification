@@ -2,15 +2,18 @@ package com.chelinvest.notification.ui.fragments.subscr
 
 //import android.os.Parcel
 //import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import com.chelinvest.notification.R
 import com.chelinvest.notification.model.DeliveSubscriptionForBranch
 import com.chelinvest.notification.model.ObjParamV01
+import com.chelinvest.notification.utils.Constants.LOG_TAG
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.SwipeableItemAdapter
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.SwipeableItemConstants
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultAction
@@ -82,9 +85,10 @@ class SubscrAdapter(
         }
 
         //val holdId = view.findViewById<TextView>(R.id.subscriptIdTextView)
-        val holdName = view.findViewById<TextView>(R.id.subscriptNameTextView)
+        val holdName: TextView = view.findViewById(R.id.subscriptNameTextView)
         //val holdValue = view.findViewById<TextView>(R.id.subscriptValueTextView)
-        val activeImage: ImageView = view.findViewById(R.id.activeImageView)
+//        val activeImage: ImageView = view.findViewById(R.id.activeImageView)
+        val activeSwitch: SwitchCompat = view.findViewById(R.id.activeSwitch)
 
         //val holdV01Id = view.findViewById<TextView>(R.id.v01IdTextView)
         //val holdV01Name = view.findViewById<TextView>(R.id.v01NameTextView)
@@ -139,7 +143,12 @@ class SubscrAdapter(
         //holder.holdId.text = subscripts.get(position).id
         holder.holdName.text = subscripts[position].name
         //holder.holdValue.text = subscripts.get(position).value
-        holder.activeImage.visibility = if (subscripts[position].value == "Y") View.VISIBLE else View.INVISIBLE
+//        holder.activeImage.visibility = if (subscripts[position].value == "Y") View.VISIBLE else View.INVISIBLE
+        holder.activeSwitch.isChecked = subscripts[position].value == "Y"
+
+        holder.activeSwitch.setOnCheckedChangeListener { _, b ->
+            Log.d(LOG_TAG, "$b = ${holder.holdName.text}")
+        }
 
         /*
         if (subscripts.get(position).objList.size > 0) {

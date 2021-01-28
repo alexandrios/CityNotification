@@ -96,7 +96,8 @@ class SubscrFragment : BaseFragment() {
         binding.subLabelTextView.text = arguments?.getString(BRANCH_NAME)
 
         // Получить значение CheckBox "Только активные подписки" из ViewModel
-        binding.vCheckBox.isChecked = viewModel.activeOnly.value ?: false
+//        binding.vCheckBox.isChecked = viewModel.activeOnly.value ?: false
+        binding.onlyActiveSwitch.isChecked = viewModel.activeOnly.value ?: false
 
         // Получить число стартов приложения. Если первый или второй старт, то показать анимацию списка
         launchCount = viewModel.getLaunchCount()
@@ -113,11 +114,12 @@ class SubscrFragment : BaseFragment() {
         binding.vAddButton.setOnClickListener{ startToCreateSubscr() }
 
         // CheckBox "Только активные подписки"
-        binding.vCheckBox.setOnClickListener{
-            viewModel.setActiveOnly(vCheckBox.isChecked)
-            // Обновить список
-            doRequest{}
-        }
+//        binding.vCheckBox.setOnClickListener{
+//            viewModel.setActiveOnly(vCheckBox.isChecked)
+//            // Обновить список
+//            doRequest{}
+//        }
+
 
         //------------------------------------------------------------------
         vRecyclerView = view.findViewById(R.id.subscriptRecyclerView)
@@ -211,7 +213,7 @@ class SubscrFragment : BaseFragment() {
         viewModel.deliverySubscriptionsLiveEvent.observeEvent(viewLifecycleOwner, Observer { array ->
             Log.d(LOG_TAG, "SubscrFragment deliverySubscriptionsLiveEvent.observeEvent array.count=${array.count()}")
             mAdapter?.update(
-                if (vCheckBox.isChecked)  // если только активные - отфильтровать
+                if (binding.onlyActiveSwitch.isChecked)  // если только активные - отфильтровать
                     array.filter {
                         it.value == "Y"
                     } as ArrayList<DeliveSubscriptionForBranch>
@@ -247,6 +249,10 @@ class SubscrFragment : BaseFragment() {
             }
         })
 
+        viewModel.activeOnly.observeEvent(viewLifecycleOwner, Observer {
+            // Обновить список
+            doRequest {}
+        })
     }
 
     // Обновить список

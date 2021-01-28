@@ -16,8 +16,8 @@
         android:layout_height="match_parent">
 
         <TextView
-            style="@style/AppTheme.TitleTextView"
             android:id="@+id/titleTextView"
+            style="@style/AppTheme.TitleTextView"
             android:text="@string/subscr_title_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,69 +38,51 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/loginTextView"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="start"-->
-<!--            android:onClick="@{() -> viewmodel.loginOnClick()}"-->
-<!--            android:padding="10dp"-->
-<!--            android:text="@string/login_again_text"-->
-<!--            android:textSize="@dimen/login_again_text_size"-->
-<!--            android:textColor="?attr/loginAgainColor"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/titleTextView"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <TextView
+            android:id="@+id/subLabelTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/subLabelBackgroundColor"
+            android:padding="4dp"
+            android:text="@string/subscr_subtitle_text"
+            android:textAlignment="center"
+            android:textColor="?attr/subLabelTextColor"
+            android:textSize="@dimen/branch_list_item_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/onlyActiveTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center_vertical"
+            android:text="@string/only_active_subscr"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintEnd_toStartOf="@+id/onlyActiveSwitch"
+            app:layout_constraintTop_toBottomOf="@+id/subLabelTextView" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/onlyActiveSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:gravity="center_vertical|end"
+            android:onCheckedChanged="@{(switch, bool) -> viewmodel.setActiveOnly(bool)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/subLabelTextView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/subscriptRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+            android:layout_marginTop="1dp"
+            android:scrollbars="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" >
-
-            <TextView
-                android:id="@+id/subLabelTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/subLabelBackgroundColor"
-                android:textColor="?attr/subLabelTextColor"
-                android:textSize="@dimen/branch_list_item_text_size"
-                android:text="@string/subscr_subtitle_text"
-                android:padding="4dp"
-                android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-<!--            android:textSize="@dimen/sub_label_text_size"-->
-
-            <CheckBox
-                android:id="@+id/vCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="1dp"
-                android:background="@drawable/border"
-                android:padding="4dp"
-                android:paddingEnd="8dp"
-                android:text="@string/only_active_subscr"
-                android:textColor="@color/colorPrimaryBrown"
-                android:typeface="sans" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/subscriptRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="4dp"
-                android:scrollbars="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </LinearLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/onlyActiveSwitch" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

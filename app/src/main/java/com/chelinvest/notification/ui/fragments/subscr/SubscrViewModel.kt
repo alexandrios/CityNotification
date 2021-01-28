@@ -50,8 +50,8 @@ class SubscrViewModel @Inject constructor(
         return repository.getLaunchCount()
     }
 
-    // Храним значение CheckBox "Только активные подписки"
-    val activeOnly = MutableLiveData<Boolean>()
+    // Храним значение Switch "Только активные подписки"
+    val activeOnly = SingleLiveEvent<Boolean>()
     fun setActiveOnly(result: Boolean) {
         activeOnly.value = result
     }

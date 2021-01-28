@@ -100,7 +100,7 @@ class AddressFragment : BaseFragment() {
 
         idSubscription = arguments?.getString(SUBSCRIPTION_ID) ?: ""
         nameSubscription = arguments?.getString(SUBSCRIPTION_NAME) ?: ""
-        binding.subsNameTextView.text = nameSubscription
+        binding.subLabelTextView.text = nameSubscription
 
         //------------------------------------------------------------------
         mRecyclerView = view.findViewById(R.id.addressRecyclerView)

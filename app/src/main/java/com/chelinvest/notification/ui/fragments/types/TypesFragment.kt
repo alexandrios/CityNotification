@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.TooltipCompat
+import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
@@ -104,6 +106,17 @@ class TypesFragment: BaseFragment() {
             }
             true
         })
+
+        // Убрать ToolTips
+//        binding.bottomNavigation.menu.forEach {
+//            binding.bottomNavigation.findViewById<View>(it.itemId).setOnLongClickListener {
+//                true
+//            }
+//        }
+
+        binding.bottomNavigation.menu.forEach {
+            TooltipCompat.setTooltipText(binding.bottomNavigation.findViewById<View>(it.itemId), null)
+        }
 
 //        var selectedItem = viewModel.getSelectedItem()
 //        if (selectedItem == 0) selectedItem = R.id.limits

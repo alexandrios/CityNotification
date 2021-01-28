@@ -18,10 +18,11 @@
             android:id="@+id/cardItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:background="@drawable/border_bottom_line"
-            android:text="Оплатить"
-            android:textSize="18sp"
+            android:padding="4dp"
+            android:textAlignment="center"
+            android:background="?attr/recyclerItemBackColor"
+            android:text="@string/subscr_subtitle_text"
+            android:textSize="@dimen/branch_list_item_text_size"
             android:textColor="@color/text" />
 
 </FrameLayout>

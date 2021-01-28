@@ -57,7 +57,7 @@
             android:layout_height="0dp"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-            app:layout_constraintBottom_toTopOf="@+id/vTitlePanel"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" >
 
@@ -67,24 +67,25 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/subLabelBackgroundColor"
                 android:textColor="?attr/subLabelTextColor"
-                android:textSize="@dimen/sub_label_text_size"
+                android:textSize="@dimen/branch_list_item_text_size"
                 android:text="@string/subscr_subtitle_text"
-                android:gravity="center"
-                android:padding="2dp"
+                android:padding="4dp"
+                android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+<!--            android:textSize="@dimen/sub_label_text_size"-->
 
             <CheckBox
                 android:id="@+id/vCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="4dp"
+                android:layout_margin="1dp"
                 android:background="@drawable/border"
                 android:padding="4dp"
                 android:paddingEnd="8dp"
-                android:text="Только активные подписки"
+                android:text="@string/only_active_subscr"
                 android:textColor="@color/colorPrimaryBrown"
                 android:typeface="sans" />
 
@@ -92,7 +93,7 @@
                 android:id="@+id/subscriptRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="1dp"
                 android:layout_marginBottom="4dp"
                 android:scrollbars="vertical"
                 app:layout_constraintEnd_toEndOf="parent"

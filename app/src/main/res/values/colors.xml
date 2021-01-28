@@ -11,7 +11,9 @@
     <color name="sub_label_text">#000000</color>
     <color name="sub_label_text_dark">#ffffff</color>
 
-    <color name="sub_label_background">#C4C4C4</color>
+<!--    <color name="sub_label_background">#C4C4C4</color>-->
+<!--    <color name="sub_label_background">#ff7043</color>-->
+    <color name="sub_label_background">@color/light_gray</color>
     <color name="sub_label_background_dark">#C4C4C4</color>
 
 <!--    <color name="menu_active_color">#2D9CDB</color>-->
@@ -25,9 +27,11 @@
     <color name="login_again_color">#ffffff</color>
 
     <color name="recycler_back">#FAEAE7</color>
-    <color name="recycler_item_back">#FAEAE7</color>
+<!--    <color name="recycler_item_back">#FAEAE7</color>-->
+    <color name="recycler_item_back">@color/white</color>
 
-    <color name="background">@color/whiteSmoke</color>
+<!--    <color name="background">@color/whiteSmoke</color>-->
+    <color name="background">@color/light_gray</color>
 
     <color name="fucsia">#ffa1cf</color>
 

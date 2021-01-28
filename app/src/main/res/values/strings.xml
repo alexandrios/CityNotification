@@ -4,9 +4,9 @@
     <string name="limit_title_text">ПАО "Челябинвестбанк"</string>
     <string name="limit_subtitle_text">Остаток лимита</string>
     <string name="subscr_title_text">Подписки на уведомление</string>
-    <string name="subscr_subtitle_text">Уведомление о снижении лимита</string>
+    <string name="subscr_subtitle_text">Уведомление о снижении лимита агента до предельного значения</string>
     <string name="login_again_text">вход</string>
-
+    <string name="only_active_subscr">Только активные подписки</string>
 
     <string name="choose_attr_value">Выберите значение атрибута</string>
     <string name="menu_limits">Лимиты</string>

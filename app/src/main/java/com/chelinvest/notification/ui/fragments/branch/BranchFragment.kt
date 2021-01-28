@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,9 +14,6 @@ import com.chelinvest.notification.databinding.FragmentBranchBinding
 import com.chelinvest.notification.di.injectViewModel
 import com.chelinvest.notification.ui.BaseFragment
 import com.chelinvest.notification.ui.fragments.subscr.SubscrFragment
-import com.chelinvest.notification.utils.Constants
-import com.chelinvest.notification.utils.Constants.BRANCH_ID
-import com.chelinvest.notification.utils.Constants.BRANCH_NAME
 import com.chelinvest.notification.utils.Constants.LOG_TAG
 
 class BranchFragment : BaseFragment() {
@@ -87,11 +83,6 @@ class BranchFragment : BaseFragment() {
                 }
             }
         })
-
-//        viewModel.loginAgainLiveEvent.observeEvent(viewLifecycleOwner, Observer {
-//            findNavController().navigate(R.id.action_typesFragment_to_loginFragment,
-//                null, NavOptions.Builder().setPopUpTo(R.id.typesFragment, true).build())
-//        })
     }
 
     override fun onPause() {

@@ -26,16 +26,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
 
-        <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+        <TextView
+            style="@style/AppTheme.TitleTextView"
             android:id="@+id/subsNameTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:gravity="center"
-            android:background="@color/colorLightBrown"
-            android:textColor="@color/text_bright"
             android:text="short"
-            android:textSize="@dimen/subs_titel"/>
+        />
 
 <!--        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
 <!--            android:id="@+id/vSwipeRefreshLayout"-->

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingBottom="6dp">
+    android:paddingBottom="4dp">
 
     <!-- for getSwipeableContainerView() -->
     <RelativeLayout
@@ -25,7 +25,7 @@
             android:padding="3dp"
             android:scaleType="centerCrop"
             android:src="@drawable/trash_outline_211835"
-            android:tint="@color/tomato" />
+            app:tint="@color/tomato" />
 
         <ImageView
             android:id="@+id/edit_button"
@@ -37,7 +37,7 @@
             android:padding="3dp"
             android:scaleType="centerCrop"
             android:src="@drawable/pen_edit_2199097"
-            android:tint="@color/black" />
+            app:tint="@color/black" />
 
     </RelativeLayout>
 
@@ -52,7 +52,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/recycler_back"
+            android:background="?attr/recyclerItemBackColor"
             android:orientation="vertical"
             android:paddingStart="8dp"
             android:paddingEnd="8dp">
@@ -100,7 +100,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:scaleType="fitCenter"
                             android:src="@drawable/dot_298849"
-                            android:tint="@color/colorPrimaryBrown" />
+                            app:tint="@color/colorPrimaryBrown" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

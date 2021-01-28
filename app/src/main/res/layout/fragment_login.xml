@@ -14,19 +14,13 @@
         android:id="@+id/vParentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/recycler_back"
-        android:focusableInTouchMode="true">
+       android:focusableInTouchMode="true">
 
         <TextView
-            android:id="@+id/titelTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:padding="8dp"
+            style="@style/AppTheme.TitleTextView"
+            android:id="@+id/titleTextView"
             android:text="@string/app_name"
             android:textColor="?attr/labelTextColor"
-            android:textSize="@dimen/label_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,9 +31,8 @@
             android:layout_height="0dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:background="@color/recycler_back"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/titelTextView" >
+            app:layout_constraintTop_toBottomOf="@+id/titleTextView" >
 
             <com.chelinvest.notification.ui.custom.stylable.CustomTextView
                 android:id="@+id/userTextView"
@@ -48,7 +41,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:text="@string/login_name_titel"
+                android:text="@string/login_name_title"
                 android:textColor="@color/black" />
 
             <com.chelinvest.notification.ui.custom.ModifiedEditText
@@ -58,7 +51,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:hint="@string/login_name_titel" />
+                android:hint="@string/login_name_title" />
 
             <com.chelinvest.notification.ui.custom.stylable.CustomTextView
                 android:id="@+id/passTextView"
@@ -67,7 +60,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
-                android:text="@string/login_pass_titel"
+                android:text="@string/login_pass_title"
                 android:textColor="@color/black" />
 
             <RelativeLayout
@@ -96,7 +89,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="8dp"
                     android:layout_toStartOf="@+id/viewPassImageView"
-                    android:hint="@string/login_pass_titel"
+                    android:hint="@string/login_pass_title"
                     app:cet_inputType="password" />
                 <!--                    android:text="@={viewmodel.passInput}" />-->
 

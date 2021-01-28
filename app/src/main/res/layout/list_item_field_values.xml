@@ -12,7 +12,7 @@
         android:id="@+id/vClickableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/recycler_back"
+        android:background="?attr/recyclerItemBackColor"
         android:orientation="horizontal"
         android:padding="4dp">
 
@@ -23,7 +23,7 @@
             android:layout_marginStart="6dp"
             android:layout_marginEnd="10dp"
             android:src="@drawable/card"
-            android:tint="@color/colorPrimaryBrown" />
+            app:tint="@color/colorPrimaryBrown" />
 
         <TextView
             android:id="@+id/subscriptNameTextView"

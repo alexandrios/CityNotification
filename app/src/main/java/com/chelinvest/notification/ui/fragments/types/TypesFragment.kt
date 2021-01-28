@@ -116,9 +116,9 @@ class TypesFragment: BaseFragment() {
     }
 
     private fun loadFragment(fragment: Fragment, id: Int) {
-        binding.titelTextView.text = when (id) {
-            R.id.limits -> resources.getString(R.string.limit_subtitel_text)
-            else -> resources.getString(R.string.branch_titel_text)
+        binding.titleTextView.text = when (id) {
+            R.id.limits -> resources.getString(R.string.limit_subtitle_text)
+            else -> resources.getString(R.string.branch_title_text)
         }
         val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
         transaction.replace(R.id.frame_container, fragment)

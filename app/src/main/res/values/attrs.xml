@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="backgroundColor" format="color|reference" />
     <attr name="labelTextColor" format="color|reference" />
     <attr name="labelBackgroundColor" format="color|reference" />
     <attr name="subLabelTextColor" format="color|reference" />
@@ -7,6 +8,7 @@
     <attr name="menuActiveColor" format="color|reference" />
     <attr name="menuInactiveColor" format="color|reference" />
     <attr name="loginAgainColor" format="color|reference" />
+    <attr name="recyclerItemBackColor" format="color|reference" />
     
     <declare-styleable name="ServiceIconView">
         <attr name="serviceIconColorInd" format="integer"/>

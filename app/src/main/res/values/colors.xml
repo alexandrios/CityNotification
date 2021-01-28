@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#EC6E00</color>
-    <color name="colorPrimaryDark">#EC6E00</color>
+    <color name="colorPrimary">#e65100</color>
+<!--    <color name="colorPrimaryDark">#EC6E00</color>-->
     <color name="colorAccent">#EC6E00</color>
 
     <color name="colorPrimaryBrown">#442C2E</color>
@@ -14,18 +14,24 @@
     <color name="sub_label_background">#C4C4C4</color>
     <color name="sub_label_background_dark">#C4C4C4</color>
 
-    <color name="menu_active_color">#2D9CDB</color>
-    <color name="menu_inactive_color">#C4C4C4</color>
+<!--    <color name="menu_active_color">#2D9CDB</color>-->
+<!--    <color name="menu_inactive_color">#C4C4C4</color>-->
+    <color name="menu_active_color">@color/tangelo</color>
+    <color name="menu_inactive_color">@color/gray</color>
 
-    <color name="login_again_color_old">#2F80ED</color>
-    <color name="login_again_color">#036CFA</color>
 
+<!--    <color name="login_again_color_old">#2F80ED</color>-->
+<!--    <color name="login_again_color">#036CFA</color>-->
+    <color name="login_again_color">#ffffff</color>
 
+    <color name="recycler_back">#FAEAE7</color>
+    <color name="recycler_item_back">#FAEAE7</color>
+
+    <color name="background">@color/whiteSmoke</color>
 
     <color name="fucsia">#ffa1cf</color>
 
     <color name="dialog_back">#FEDBD0</color>
-    <color name="recycler_back">#FAEAE7</color>
     <color name="menu_back">#E65800</color>
 
     <color name="text">#404040</color>
@@ -56,8 +62,6 @@
 
     <color name="phone">#70b545</color>
     <color name="tomato">#D0021B</color>
-
-    <color name="background">@color/whiteSmoke</color>
 
     <color name="dark_gray">#787878</color>
     <color name="divider">#F0F0F0</color>

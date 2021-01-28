@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">Уведомления системы Город</string>
-    <string name="branch_titel_text">Виды уведомлений</string>
-    <string name="limit_titel_text">ПАО "Челябинвестбанк"</string>
-    <string name="limit_subtitel_text">Остаток лимита</string>
-    <string name="subscr_titel_text">Подписки на уведомление</string>
+    <string name="branch_title_text">Виды уведомлений</string>
+    <string name="limit_title_text">ПАО "Челябинвестбанк"</string>
+    <string name="limit_subtitle_text">Остаток лимита</string>
+    <string name="subscr_title_text">Подписки на уведомление</string>
+    <string name="subscr_subtitle_text">Уведомление о снижении лимита</string>
     <string name="login_again_text">вход</string>
 
 
@@ -19,8 +20,8 @@
     <string name="login_loading">загрузка данных</string>
 
     <!-- login -->
-    <string name="login_name_titel">Имя пользователя</string>
-    <string name="login_pass_titel">Пароль</string>
+    <string name="login_name_title">Имя пользователя</string>
+    <string name="login_pass_title">Пароль</string>
     <string name="login_check_input_user">Введите имя пользователя</string>
     <string name="login_check_input_pass">Введите пароль</string>
     <string name="login_button">Войти</string>

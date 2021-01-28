@@ -6,23 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
-import com.chelinvest.notification.R
 import com.chelinvest.notification.databinding.FragmentLimitBinding
 import com.chelinvest.notification.di.injectViewModel
 import com.chelinvest.notification.ui.BaseFragment
 import com.chelinvest.notification.utils.Constants
-import com.chelinvest.notification.utils.Constants.BRANCH_NAME
 import java.util.*
 
 class LimitFragment : BaseFragment() {
     private lateinit var viewModel: LimitViewModel
     private lateinit var binding: FragmentLimitBinding
-
-//    companion object {
-//        fun create() = LimitFragment()
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,19 +38,8 @@ class LimitFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d(Constants.LOG_TAG, "LimitFragment -> onViewCreated")
 
-//        binding.vBackButton.setOnClickListener { findNavController().popBackStack() }
-//        binding.vAddButton.visibility = View.INVISIBLE
-        //binding.branchNameTextView.text = arguments?.getString(BRANCH_NAME)
-
         viewModel.getAgentInfo()
         viewModel.getAgentLimit()
-
-//        getPresenter().getAgentLimit(view.context, this) { orgName, limit ->
-//            limit?.let {
-//                agentTextView.text = orgName?.name ?: "Агент"
-//                limitTextView.text = String.format("%,18.2f руб.", it.toDoubleOrNull() ?: "").trim() //.replace(',', ' ')
-//            }
-//        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -75,14 +56,9 @@ class LimitFragment : BaseFragment() {
         })
 
         viewModel.agentLimitLiveEvent.observeEvent(viewLifecycleOwner, Observer {
-            binding.limitTextView.text = String.format(Locale.ROOT, "%,18.2f руб.", it.toDoubleOrNull() ?: "")
+            binding.limitTextView.text = String.format(Locale.US, "%,18.2f руб.", it.toDoubleOrNull() ?: "")
                 .trim().replace(',', ' ')
         })
-
-//        viewModel.loginAgainLiveEvent.observeEvent(viewLifecycleOwner, Observer {
-//            findNavController().navigate(R.id.action_typesFragment_to_loginFragment)
-//                //null, NavOptions.Builder().setPopUpTo(R.id.typesFragment, true).build())
-//        })
     }
 
     override fun onPause() {

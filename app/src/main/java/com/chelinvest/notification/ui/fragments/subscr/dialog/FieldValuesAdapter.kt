@@ -15,7 +15,7 @@ class FieldValuesAdapter(
 
     open class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         //val holdId = view.findViewById<TextView>(R.id.subscriptIdTextView)
-        val holdName = view.findViewById<TextView>(R.id.subscriptNameTextView)
+        val holdName: TextView = view.findViewById(R.id.subscriptNameTextView)
         //val holdValue = view.findViewById<TextView>(R.id.subscriptValueTextView)
     }
 

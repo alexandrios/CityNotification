@@ -107,16 +107,10 @@ class TypesFragment: BaseFragment() {
             true
         })
 
-        // Убрать ToolTips
+        // Убрать ToolTips [не работает]
 //        binding.bottomNavigation.menu.forEach {
-//            binding.bottomNavigation.findViewById<View>(it.itemId).setOnLongClickListener {
-//                true
-//            }
+//            TooltipCompat.setTooltipText(binding.bottomNavigation.findViewById<View>(it.itemId), null)
 //        }
-
-        binding.bottomNavigation.menu.forEach {
-            TooltipCompat.setTooltipText(binding.bottomNavigation.findViewById<View>(it.itemId), null)
-        }
 
 //        var selectedItem = viewModel.getSelectedItem()
 //        if (selectedItem == 0) selectedItem = R.id.limits
@@ -144,6 +138,7 @@ class TypesFragment: BaseFragment() {
 
         // Получить значение последнего выбранного пункта меню
         // Это значение сохраняется в onDestroyView()
+        // [отказался от этой схемы, так как LoginFragment удаляется из стека, и значение не сохраняется!]
 //        var selectedItem =
 //            findNavController().getBackStackEntry(R.id.typesFragment).
 //            savedStateHandle.get<Int>(SELECTED_ITEM)
@@ -173,6 +168,7 @@ class TypesFragment: BaseFragment() {
         Log.d(Constants.LOG_TAG, "TypesFragment -> onDestroyView")
 
         // Сохранить значение последнего выбранного пункта меню
+        // [отказался от этой схемы, так как LoginFragment удаляется из стека, и значение не сохраняется!]
 //        findNavController()
 //            .getBackStackEntry(R.id.typesFragment)
 //            .savedStateHandle

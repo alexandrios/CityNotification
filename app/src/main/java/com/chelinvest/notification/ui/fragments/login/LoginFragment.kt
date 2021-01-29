@@ -47,7 +47,7 @@ class LoginFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d(LOG_TAG, "LoginFragment -> onViewCreated")
 
-        binding.vProgressLayout.visibility = View.INVISIBLE
+        //binding.vProgressLayout.visibility = View.INVISIBLE
         binding.viewPassImageView.setColorRes(R.color.colorLightBrown)
 
         binding.loginButton.setOnClickListener {
@@ -55,7 +55,8 @@ class LoginFragment : BaseFragment() {
             binding.loginButton.isEnabled = false
 
             hideSoftKeyboard(activity)
-            binding.vProgressLayout.visibility = View.VISIBLE
+            showProgress()
+            //binding.vProgressLayout.visibility = View.VISIBLE
 
             // Запрос на сервер об авторизации пользователя
             viewModel.login(binding.userEditText.getText(), binding.passEditText.getText())
@@ -102,38 +103,18 @@ class LoginFragment : BaseFragment() {
             it?.let {
                 Log.d(LOG_TAG, "onActivityCreated sessionLiveEvent")
                 Handler().postDelayed({
-                    //findNavController().navigate(R.id.action_loginFragment_to_branchFragment)
                     findNavController().navigate(R.id.action_loginFragment_to_typesFragment)
                 }, 500)
             }
         })
 
         viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
-            binding.vProgressLayout.visibility = View.INVISIBLE
+            hideProgress()
+            //binding.vProgressLayout.visibility = View.INVISIBLE
             binding.loginButton.isEnabled = true
             showExpandableError(it)
         })
     }
-
-
-    /*
-        override fun onResume() {
-            super.onResume()
-
-            userEditText.setText("")
-            passEditText.setText("")
-            Log.d("LOGINFRAGMENT", "onResume")
-        }
-
-        override fun showProgressDialog() {
-            vProgressLayout.visibility = View.VISIBLE
-        }
-
-        override fun hideProgressDialog() {
-            vProgressLayout.visibility = View.INVISIBLE
-        }
-    */
-
 }
 
 

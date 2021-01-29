@@ -1,56 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:paddingStart="8dp"
-    android:paddingEnd="8dp"
-    android:paddingBottom="8dp">
+    android:background="@color/transparent"
+    android:paddingBottom="1dp">
 
     <LinearLayout
         android:id="@+id/vClickableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/recyclerItemBackColor"
         android:orientation="horizontal"
-        android:padding="4dp">
-
-        <ImageView
-            android:id="@+id/subscriptImageView"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="6dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/card"
-            app:tint="@color/colorPrimaryBrown" />
+        android:background="?attr/recyclerItemBackColor"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
 
         <TextView
             android:id="@+id/subscriptNameTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="name"
+            android:gravity="center_vertical"
             android:textColor="@color/text_black"
             android:textSize="@dimen/delivery_type_dialog_item_text_size" />
-
-        <TextView
-            android:id="@+id/subscriptIdTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="id"
-            android:textColor="@color/text"
-            android:textSize="10sp"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/subscriptValueTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:text="value"
-            android:textColor="@color/text"
-            android:textSize="10sp"
-            android:visibility="gone" />
 
     </LinearLayout>
 

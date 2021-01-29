@@ -240,11 +240,11 @@ class AddressFragment : BaseFragment() {
     }
 
     /*
-    override fun showProgressDialog() {
+    override fun showProgress() {
         vSwipeRefreshLayout.isRefreshing = true
     }
 
-    override fun hideProgressDialog() {
+    override fun hideProgress() {
         vSwipeRefreshLayout.isRefreshing = false
     }*/
 }

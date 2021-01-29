@@ -50,6 +50,7 @@ class BranchFragment : BaseFragment() {
             // Это сделано для того, чтобы по кнопке назад не возвращаться по этой action
         //}
 
+        showProgress()
         viewModel.getDelivetypeExp()
     }
 
@@ -58,10 +59,12 @@ class BranchFragment : BaseFragment() {
         Log.d(LOG_TAG, "BranchFragment -> onActivityCreated")
 
         viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+            hideProgress()
             showExpandableError(it)
         })
 
         viewModel.branchesLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+            hideProgress()
             Log.d(LOG_TAG, "arrayList.Count=${it.count()}")
             if (it.count() == 0) {
                 // TODO сообщение

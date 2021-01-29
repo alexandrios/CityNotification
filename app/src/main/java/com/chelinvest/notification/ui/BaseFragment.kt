@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.util.Log
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
@@ -57,6 +59,18 @@ abstract class BaseFragment : DaggerFragment(), RequestListener {
                 snackBar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text).maxLines = 3
                 snackBar.show()
             }
+        }
+    }
+
+    fun showProgress() {
+        requireView().findViewById<ViewGroup>(R.id.vProgressLayout)?.let {
+            it.visibility = View.VISIBLE
+        }
+    }
+
+    fun hideProgress() {
+        requireView().findViewById<ViewGroup>(R.id.vProgressLayout)?.let {
+            it.visibility = View.INVISIBLE
         }
     }
 }

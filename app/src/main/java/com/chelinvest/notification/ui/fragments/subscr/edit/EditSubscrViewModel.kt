@@ -45,7 +45,7 @@ class EditSubscrViewModel @Inject constructor(
             Log.d(Constants.LOG_TAG,"EditSubscrViewModel updateSubscr branchShort=$branchShort")
 
             val objParamObjsList = ArrayList<DeliveSubscriptionForBranch>()
-            //view.showProgressDialog()
+            //view.showProgress()
             repository.updateDeliverySubscriptionForBranch(sessionId, branchShort, subscriptionId,
                     description, isActive).enqueue(object : Callback<MainDeliverySubscriptionResponse> {
                 override fun onFailure(call: Call<MainDeliverySubscriptionResponse>, t: Throwable) {

@@ -23,7 +23,6 @@ class LimitViewModel @Inject constructor(
     val errorLiveEvent = SingleLiveEvent<String>()
     val agentInfoLiveEvent = SingleLiveEvent<OrgName>()
     val agentLimitLiveEvent = SingleLiveEvent<String>()
-//    val loginAgainLiveEvent = SingleLiveEvent<Nothing>()
 
     fun getAgentInfo() {
         val sessionId = repository.getSessionId()
@@ -53,7 +52,6 @@ class LimitViewModel @Inject constructor(
 
                             val orgName = GetAgentInfoResponseMapper().map(result.org_name as OrgNameResponse)
                             agentInfoLiveEvent.postValue(orgName)
-                            //view.hideProgressDialog()
                         }
                     }
                 }
@@ -88,7 +86,6 @@ class LimitViewModel @Inject constructor(
                             }
 
                             agentLimitLiveEvent.postValue(result.value)
-                            //view.hideProgressDialog()
                         }
                     }
                 }

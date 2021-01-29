@@ -38,6 +38,7 @@ class LimitFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d(Constants.LOG_TAG, "LimitFragment -> onViewCreated")
 
+        showProgress()
         viewModel.getAgentInfo()
         viewModel.getAgentLimit()
     }
@@ -47,7 +48,7 @@ class LimitFragment : BaseFragment() {
         Log.d(Constants.LOG_TAG, "LimitFragment -> onActivityCreated")
 
         viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
-            //binding.vProgressLayout.visibility = View.INVISIBLE
+            hideProgress()
             showExpandableError(it)
         })
 
@@ -56,6 +57,7 @@ class LimitFragment : BaseFragment() {
         })
 
         viewModel.agentLimitLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+            hideProgress()
             binding.limitTextView.text = String.format(Locale.US, "%,18.2f руб.", it.toDoubleOrNull() ?: "")
                 .trim().replace(',', ' ')
         })
@@ -71,5 +73,3 @@ class LimitFragment : BaseFragment() {
         Log.d(Constants.LOG_TAG, "LimitFragment -> onDestroyView")
     }
 }
-
-

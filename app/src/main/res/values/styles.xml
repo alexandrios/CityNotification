@@ -53,6 +53,19 @@
         <item name="customTypefaceStyle">bold</item>
     </style>
 
+    <style name="AppTheme.TitleDialogTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/labelBackgroundColor</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">?attr/labelTextColor</item>
+        <item name="android:textSize">@dimen/sub_label_text_size</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="customTypefaceStyle">bold</item>
+    </style>
+
     <style name="AppTheme.TitleLayout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">52dp</item>

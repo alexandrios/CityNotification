@@ -2,20 +2,17 @@ package com.chelinvest.notification.ui.fragments.subscr
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialdialogs.GravityEnum
 import com.afollestad.materialdialogs.MaterialDialog
 import com.chelinvest.notification.R
 import com.chelinvest.notification.databinding.FragmentSubscrBinding
@@ -28,14 +25,13 @@ import com.chelinvest.notification.ui.fragments.address.AddressFragment
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
 import kotlinx.android.synthetic.main.dialog_field_values.view.*
-import kotlinx.android.synthetic.main.fragment_subscr.*
 import com.chelinvest.notification.ui.fragments.subscr.dialog.FieldValuesAdapter
 import com.chelinvest.notification.utils.Constants
 import com.chelinvest.notification.utils.Constants.BRANCH_ID
 import com.chelinvest.notification.utils.Constants.BRANCH_NAME
 import com.chelinvest.notification.utils.Constants.LOG_TAG
 import androidx.lifecycle.Observer
-import androidx.navigation.NavOptions
+import com.chelinvest.notification.ui.custom.ModifiedEditText
 
 class SubscrFragment : BaseFragment() {
     private lateinit var viewModel: SubscrViewModel
@@ -44,12 +40,13 @@ class SubscrFragment : BaseFragment() {
     var map = HashMap<String, ObjParam>()
     var index = 0
 
-    private var vRecyclerView: RecyclerView? = null
     private var mLayoutManager: RecyclerView.LayoutManager? = null
     private var mAdapter: SubscrAdapter? = null
 
     private var launchCount: Int? = null
     private var isFirst = false
+
+    private var isGoToLast = false
 
     ///*
     companion object {
@@ -111,7 +108,7 @@ class SubscrFragment : BaseFragment() {
         binding.vBackButton.setOnClickListener { findNavController().popBackStack() }
 
         // Кнопка - вызов диалога создания нового элемента списка (агента)
-        binding.vAddButton.setOnClickListener{ startToCreateSubscr() }
+        binding.vAddButton.setOnClickListener { startToCreateSubscr() }
 
         // CheckBox "Только активные подписки"
 //        binding.vCheckBox.setOnClickListener{
@@ -120,9 +117,7 @@ class SubscrFragment : BaseFragment() {
 //            doRequest{}
 //        }
 
-
         //------------------------------------------------------------------
-        vRecyclerView = view.findViewById(R.id.subscriptRecyclerView)
         mLayoutManager = LinearLayoutManager(view.context)
 
         if (mAdapter == null) {
@@ -167,14 +162,13 @@ class SubscrFragment : BaseFragment() {
                         }
                     }
                     else -> {
-                        //Toast.makeText(view.context, press.toString(), Toast.LENGTH_SHORT).show()
                         showExpandableError(press.toString())
                     }
                 }
             } // адаптер
 
             // Обновить список
-            doRequest {}
+            refreshList()
         }
 
         val animator = RefactoredDefaultItemAnimator()
@@ -183,14 +177,14 @@ class SubscrFragment : BaseFragment() {
         val swipeManager = RecyclerViewSwipeManager()
         val wrapperAdapter = swipeManager.createWrappedAdapter(mAdapter ?: return)
 
-        vRecyclerView?.apply {
+        binding.subscriptRecyclerView.apply {
             layoutManager = mLayoutManager
             this.adapter = wrapperAdapter
             itemAnimator = animator
             setHasFixedSize(false)
         }
 
-        swipeManager.attachRecyclerView(vRecyclerView ?: return)
+        swipeManager.attachRecyclerView(binding.subscriptRecyclerView ?: return)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -201,16 +195,20 @@ class SubscrFragment : BaseFragment() {
             if (it) {
                 Log.d(LOG_TAG, "SubscrFragment  editSaved.observe = $it")
                 // Обновить список
-                doRequest {}
+                refreshList()
             }
         })
 
         viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+            isGoToLast = false
+            hideProgress()
             showExpandableError(it)
+            setEnabledAddButton(true)
         })
 
         // Получение списка подписок
         viewModel.deliverySubscriptionsLiveEvent.observeEvent(viewLifecycleOwner, Observer { array ->
+            hideProgress()
             Log.d(LOG_TAG, "SubscrFragment deliverySubscriptionsLiveEvent.observeEvent array.count=${array.count()}")
             mAdapter?.update(
                 if (binding.onlyActiveSwitch.isChecked)  // если только активные - отфильтровать
@@ -222,19 +220,25 @@ class SubscrFragment : BaseFragment() {
             )
             Log.d(LOG_TAG, "SubscrFragment deliverySubscriptionsLiveEvent.observeEvent")
             mAdapter?.notifyDataSetChanged()
-            //setPosition()
+            if (isGoToLast) {
+                isGoToLast = false
+                // позиционирование на последний элемент списка
+                binding.subscriptRecyclerView.smoothSnapToPosition(mAdapter!!.getElements() - 1)
+            }
+            setEnabledAddButton(true)
         })
 
         // Удаление подписки
         viewModel.deleteDeliverySubscriptionLiveEvent.observeEvent(viewLifecycleOwner, Observer {
             // Обновить список
-            doRequest {}
+            refreshList()
         })
 
         viewModel.inputFieldsLiveEvent.observeEvent(viewLifecycleOwner, Observer {
             if (it.size == 0) {
                 Log.d(LOG_TAG, "SubscrFragment get_input_fields_for_branch вернул пустой массив obj_any")
                 showExpandableError("Список входящих полей для уведомления пуст!")
+                setEnabledAddButton(true)
             } else {
                 // Показать диалоги для всех атрибутов с выбором значения для каждого атрибута
                 showDialogsRecourse(it)
@@ -242,22 +246,27 @@ class SubscrFragment : BaseFragment() {
         })
 
         viewModel.createSubscriptionLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+            isGoToLast = true
             // Обновить список
-            doRequest {
-                // позиционирование на последний элемент списка
-                vRecyclerView?.smoothSnapToPosition(mAdapter!!.getElements() - 1)
-            }
+            refreshList()
         })
 
         viewModel.activeOnly.observeEvent(viewLifecycleOwner, Observer {
             // Обновить список
-            doRequest {}
+            refreshList()
         })
     }
 
+    private fun setEnabledAddButton(value: Boolean) {
+        binding.vAddButton.isEnabled = value
+        //binding.vAddButton.visibility = if (value) View.VISIBLE else View.INVISIBLE
+        if (!value) showProgress() else hideProgress()
+    }
+
     // Обновить список
-    fun doRequest(setPosition : () -> Unit) {
+    private fun refreshList() {
         // Получить список подписок: get_delivery_subscription_for_branch
+        showProgress()
         viewModel.getDeliverySubscriptionsForBranch()
     }
 
@@ -281,6 +290,7 @@ class SubscrFragment : BaseFragment() {
 
     // Начало процедуры создания подписки
     private fun startToCreateSubscr() {
+        setEnabledAddButton(false)
         index = 0
         map.clear()
 
@@ -301,21 +311,28 @@ class SubscrFragment : BaseFragment() {
         // Прочитать значения для текущего поля
         viewModel.getFieldValues(field.id) { objParamList ->
             // Вызвать диалог(и) для выбора агента (или чего-то ещё)
-            val contentView = LayoutInflater.from(view?.context!!).inflate(R.layout.dialog_field_values, null)
-            contentView.headerTextView.text = resources.getString(R.string.choose_attr_value) + " '${field.name}'"
+            val contentView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_field_values, null)
+            contentView.headerTextView.text = String.format(resources.getString(R.string.choose_attr_value), field.name)
 
-            val dialog: MaterialDialog
-            dialog = MaterialDialog.Builder(view?.context!!)
-                .title("Создание подписки")
-                .titleGravity(GravityEnum.CENTER)
+            // get colors of the background from the active theme
+            val typedValue = TypedValue()
+            binding.root.context.theme.resolveAttribute(R.attr.backgroundColor, typedValue, true)
+            val backgroundColor = typedValue.resourceId
+
+            val dialog = MaterialDialog.Builder(requireContext())
+                //.title(resources.getString(R.string.dialog_create_subscr_title))
+                //.titleGravity(GravityEnum.CENTER)
+                .backgroundColor(ContextCompat.getColor(binding.root.context, backgroundColor))
                 .customView(contentView, false)
                 .negativeText(R.string.cancel)
+                .negativeColor(ContextCompat.getColor(binding.root.context, R.color.colorPrimary))
+                .onNegative { _, _ ->  setEnabledAddButton(true)}
                 .build()
 
             val recyclerView: RecyclerView = contentView.findViewById(R.id.valuesRecyclerView)
             recyclerView.layoutManager = LinearLayoutManager(contentView.context)
             recyclerView.adapter = FieldValuesAdapter(objParamList) { selectedElement ->
-                map.put(field.name, selectedElement)
+                map[field.name] = selectedElement
                 dialog.dismiss()
 
                 // Перейти к следующему списку атрибутов
@@ -324,15 +341,12 @@ class SubscrFragment : BaseFragment() {
             }
 
             // Фильтрация
-            val searchEditText = contentView.findViewById<EditText>(R.id.searchEditText)
-            searchEditText.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-                override fun afterTextChanged(s: Editable?) {
-                    val filterText = s.toString()
-                    (recyclerView.adapter as FieldValuesAdapter).updateList(objParamList.filter { it.name.contains(filterText, ignoreCase = true) } as ArrayList<ObjParam>)
-                }
-            })
+            val searchEditText = contentView.findViewById<ModifiedEditText>(R.id.searchEditText)
+            searchEditText.onTextChanged = { str ->
+                (recyclerView.adapter as FieldValuesAdapter).updateList(objParamList.filter {
+                    it.name.contains(str!!, ignoreCase = true)
+                } as ArrayList<ObjParam>)
+            }
 
             dialog.show()
         }

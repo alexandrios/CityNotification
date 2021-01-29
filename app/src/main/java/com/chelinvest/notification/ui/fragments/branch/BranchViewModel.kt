@@ -25,7 +25,6 @@ class BranchViewModel @Inject constructor(
 
     val errorLiveEvent = SingleLiveEvent<String>()
     val branchesLiveEvent = SingleLiveEvent<ArrayList<ObjParam>>()
-//    val loginAgainLiveEvent = SingleLiveEvent<Nothing>()
 
     fun saveBranchShort(value: String) {
         repository.setBranchShort(value)
@@ -39,9 +38,7 @@ class BranchViewModel @Inject constructor(
             // TODO Текущая сессия прервана. Войдите заново.
             errorLiveEvent.postValue("sessionId is null")
         } else {
-            //view.showProgressDialog()
             val objParamList = ArrayList<ObjParam>()
-            //val response = GetDeliveryBranchInteractor.getInstance().loadDeliveryBranches(context, sessionId).await()
             repository.loadDeliveryBranches(sessionId).enqueue(object : Callback<MainResponse> {
                 override fun onFailure(call: Call<MainResponse>, t: Throwable) {
                     Log.d(Constants.LOG_TAG, "BranchViewModel onFailure: ${t.message}")
@@ -69,15 +66,10 @@ class BranchViewModel @Inject constructor(
                             }
 
                             branchesLiveEvent.postValue(objParamList)
-                            //view.hideProgressDialog()
                         }
                     }
                 }
             })
         }
     }
-
-//    fun loginOnClick() {
-//        loginAgainLiveEvent.postValue(null)
-//    }
 }

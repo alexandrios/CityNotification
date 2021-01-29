@@ -3,15 +3,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/backgroundColor"
     android:orientation="vertical">
+
+    <TextView
+        style="@style/AppTheme.TitleDialogTextView"
+        android:id="@+id/titleTextView"
+        android:text="@string/dialog_create_subscr_title"
+        android:textColor="?attr/labelTextColor"/>
 
     <com.chelinvest.notification.ui.custom.stylable.CustomTextView
         android:id="@+id/headerTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_margin="4dp"
+        android:textAlignment="center"
+        android:textSize="12sp"
         android:text="Выберите значение атрибута"
         android:textColor="@color/black" />
 
@@ -20,25 +28,31 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="8dp"
-            android:src="@drawable/search" />
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_finder" />
 
-        <EditText
+        <com.chelinvest.notification.ui.custom.ModifiedEditText
             android:id="@+id/searchEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
-            android:textSize="16sp" />
+            android:layout_marginEnd="8dp"
+            android:textSize="14sp" />
+<!--        <EditText-->
+<!--            android:id="@+id/searchEditText"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="8dp"-->
+<!--            android:layout_marginRight="8dp"-->
+<!--            android:layout_marginBottom="8dp"-->
+<!--            android:textSize="14sp" />-->
     </LinearLayout>
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

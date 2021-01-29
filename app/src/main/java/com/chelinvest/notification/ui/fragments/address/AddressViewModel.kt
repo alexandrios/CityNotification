@@ -54,7 +54,7 @@ class AddressViewModel @Inject constructor(
 
             val objParamObjsList = ArrayList<DelivetypeAddrs>()
 
-            //view.showProgressDialog()
+            //view.showProgress()
             repository.getDeliveryTypesForSubscription(sessionId, branchShort, subscriptionId).enqueue(object : Callback<MainResponse> {
                 override fun onFailure(call: Call<MainResponse>, t: Throwable) {
                     Log.d(LOG_TAG, "SubscrViewModel onFailure: ${t.message}")

@@ -1,14 +1,14 @@
 package com.chelinvest.notification.ui.fragments.subscr
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SwitchCompat
+import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,18 +22,17 @@ import com.chelinvest.notification.model.DeliveSubscriptionForBranch
 import com.chelinvest.notification.model.ObjAny
 import com.chelinvest.notification.model.ObjParam
 import com.chelinvest.notification.ui.BaseFragment
+import com.chelinvest.notification.ui.custom.ModifiedEditText
 import com.chelinvest.notification.ui.fragments.address.AddressFragment
-import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
-import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
-import kotlinx.android.synthetic.main.dialog_field_values.view.*
 import com.chelinvest.notification.ui.fragments.subscr.dialog.FieldValuesAdapter
-import com.chelinvest.notification.utils.Constants
+import com.chelinvest.notification.utils.Constants.AGENT
 import com.chelinvest.notification.utils.Constants.BRANCH_ID
 import com.chelinvest.notification.utils.Constants.BRANCH_NAME
 import com.chelinvest.notification.utils.Constants.LOG_TAG
-import androidx.lifecycle.Observer
-import com.chelinvest.notification.ui.custom.ModifiedEditText
 import com.chelinvest.notification.utils.Constants.SUBSCR_INFO
+import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
+import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
+import kotlinx.android.synthetic.main.dialog_field_values.view.*
 
 class SubscrFragment : BaseFragment() {
     private lateinit var viewModel: SubscrViewModel
@@ -78,8 +77,9 @@ class SubscrFragment : BaseFragment() {
         //}
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
         return FragmentSubscrBinding.inflate(inflater, container, false).apply {
             Log.d(LOG_TAG, "SubscrFragment -> onCreateView")
             viewmodel = viewModel
@@ -95,7 +95,6 @@ class SubscrFragment : BaseFragment() {
         binding.subLabelTextView.text = arguments?.getString(BRANCH_NAME)
 
         // Получить значение CheckBox "Только активные подписки" из ViewModel
-//        binding.vCheckBox.isChecked = viewModel.activeOnly.value ?: false
         binding.onlyActiveSwitch.isChecked = viewModel.activeOnly.value ?: false
 
         // Получить число стартов приложения. Если первый или второй старт, то показать анимацию списка
@@ -104,20 +103,14 @@ class SubscrFragment : BaseFragment() {
             isFirst = it in 1..2
         }
 
-        Log.d(LOG_TAG, if(savedInstanceState == null) "savedInstanceState=null" else "savedInstanceState!=null")
+        Log.d(LOG_TAG,
+            if (savedInstanceState == null) "savedInstanceState=null" else "savedInstanceState!=null")
 
         // Кнопка "Назад"
         binding.vBackButton.setOnClickListener { findNavController().popBackStack() }
 
         // Кнопка - вызов диалога создания нового элемента списка (агента)
         binding.vAddButton.setOnClickListener { startToCreateSubscr() }
-
-        // CheckBox "Только активные подписки"
-//        binding.vCheckBox.setOnClickListener{
-//            viewModel.setActiveOnly(vCheckBox.isChecked)
-//            // Обновить список
-//            doRequest{}
-//        }
 
         //------------------------------------------------------------------
         mLayoutManager = LinearLayoutManager(view.context)
@@ -136,43 +129,11 @@ class SubscrFragment : BaseFragment() {
                     }
                     2 -> {
                         // Удаление подписки
-                        showDialogDelete(view.context, elementSubscr.name + " ?") {
-
-                            // получить позицию списка, на которую позиционировать список в случае удаления элемента
-                            //val nextPos = mAdapter?.getNextId(id)
-
-                            // выполнить операцию удаления
-                            viewModel.delSubscript(id)
-
-                                /*
-                                    // позиционирование на элемент списка с индексом nextPos
-                                    nextPos?.let {
-                                        vRecyclerView?.smoothSnapToPosition(nextPos, LinearSmoothScroller.SNAP_TO_END)
-                                    }
-                                    // Удалить из списка адаптера
-                                    vRecyclerView?.adapter?.notifyItemRemoved(pos)
-                                    vRecyclerView.invalidate()
-                                    vRecyclerView?.adapter?.notifyItemRangeChanged(
-                                        pos,
-                                        elementSubscr.size
-                                    )
-                                    vRecyclerView?.invalidate()
-                                    vRecyclerView?.adapter?.notifyDataSetChanged()
-                                    updateRecyclerView()
-                                */
-                        }
+                        showDeleteDialog(elementSubscr.name, elementSubscr.id)
                     }
                     3 -> {
                         // Нажатие на switch "Подписка активна"
-                        //showDialogChangeActive(view.context, elementSubscr.name + " ?") {
-                            Log.d(LOG_TAG, "${elementSubscr.value} = ${elementSubscr.name}")
-                            // Выполнить команду 1.7. update_delivery_subscription_for_branch
-                            viewModel.updateSubscr(
-                                elementSubscr.id,
-                                elementSubscr.name,
-                                if (elementSubscr.value == "Y") 0 else 1
-                            )
-                        //}
+                        showChangeActiveDialog(elementSubscr)
                     }
                     else -> {
                         showExpandableError(press.toString())
@@ -221,31 +182,30 @@ class SubscrFragment : BaseFragment() {
         })
 
         // Получение списка подписок
-        viewModel.deliverySubscriptionsLiveEvent.observeEvent(viewLifecycleOwner, Observer { array ->
-            hideProgress()
-            Log.d(LOG_TAG, "SubscrFragment deliverySubscriptionsLiveEvent.observeEvent array.count=${array.count()}")
-            mAdapter?.update(
-                if (binding.onlyActiveSwitch.isChecked)  // если только активные - отфильтровать
+        viewModel.deliverySubscriptionsLiveEvent.observeEvent(viewLifecycleOwner,
+            Observer { array ->
+                hideProgress()
+                Log.d(LOG_TAG,
+                    "SubscrFragment deliverySubscriptionsLiveEvent.observeEvent array.count=${array.count()}")
+                mAdapter?.update(if (binding.onlyActiveSwitch.isChecked)  // если только активные - отфильтровать
                     array.filter {
                         it.value == "Y"
                     } as ArrayList<DeliveSubscriptionForBranch>
-                else
-                    array
-            )
+                else array)
 
-            //mAdapter?.notifyDataSetChanged()
-            if (isGoToLast) {
-                isGoToLast = false
-                // позиционирование на последний элемент списка
-                binding.subscriptRecyclerView.smoothSnapToPosition(mAdapter!!.getElements() - 1)
-            }
-            setEnabledAddButton(true)
-        })
+                if (isGoToLast) {
+                    isGoToLast = false
+                    // позиционирование на последний элемент списка
+                    binding.subscriptRecyclerView.smoothSnapToPosition(mAdapter!!.getElements() - 1)
+                }
+                setEnabledAddButton(true)
+            })
 
         // Изменение активности подписки
-        viewModel.activeDeliverySubscriptionsLiveEvent.observeEvent(viewLifecycleOwner, Observer { array ->
-            mAdapter?.changeItemValueById(array[0])
-        })
+        viewModel.activeDeliverySubscriptionsLiveEvent.observeEvent(viewLifecycleOwner,
+            Observer { array ->
+                mAdapter?.changeItemValueById(array[0])
+            })
 
         // Удаление подписки
         viewModel.deleteDeliverySubscriptionLiveEvent.observeEvent(viewLifecycleOwner, Observer {
@@ -257,7 +217,8 @@ class SubscrFragment : BaseFragment() {
         // Список атрибутов для добавления новой подписки
         viewModel.inputFieldsLiveEvent.observeEvent(viewLifecycleOwner, Observer {
             if (it.size == 0) {
-                Log.d(LOG_TAG, "SubscrFragment get_input_fields_for_branch вернул пустой массив obj_any")
+                Log.d(LOG_TAG,
+                    "SubscrFragment get_input_fields_for_branch вернул пустой массив obj_any")
                 showExpandableError("Список входящих полей для уведомления пуст!")
                 setEnabledAddButton(true)
             } else {
@@ -297,39 +258,49 @@ class SubscrFragment : BaseFragment() {
         viewModel.getDeliverySubscriptionsForBranch()
     }
 
-    // Диалог удаления элемента списка
-    private fun showDialogDelete(context: Context, text: String, onPositive: (() -> Unit)) {
-        MaterialDialog.Builder(context)
-            .title(R.string.del_subs)
-            .titleColor(ContextCompat.getColor(context, R.color.tomato))
-            .iconRes(R.drawable.ic_warning_red_24dp)
-            .content(text)
-            .contentColor(ContextCompat.getColor(context, R.color.black))
+    // Диалог смены активности подписки
+    private fun showChangeActiveDialog(element: DeliveSubscriptionForBranch) {
+        val viewDialog = View.inflate(requireContext(), R.layout.dialog_delete_subscr, null)
+        val dialog = MaterialDialog.Builder(requireContext())
+            .customView(viewDialog, false)
             .canceledOnTouchOutside(true)
-            .positiveText(R.string.yes)
-            .negativeText(R.string.no)
-            .onPositive { _, _ ->
-                onPositive()
-            }
+            .cancelListener { mAdapter?.changeItemValueById(element) }
             .build()
-            .show()
+
+        viewDialog.findViewById<TextView>(R.id.textView).text =
+            resources.getString(if (element.value == "Y") R.string.change_deactive_subscr_text else R.string.change_active_subscr_text)
+        viewDialog.findViewById<TextView>(R.id.subTextView).text = element.name
+        viewDialog.findViewById<TextView>(R.id.dialog_yes).setOnClickListener {
+            dialog.dismiss()
+            showProgress()
+            // Выполнить команду 1.7. update_delivery_subscription_for_branch
+            viewModel.updateSubscr(element.id, element.name, if (element.value == "Y") 0 else 1)
+        }
+        viewDialog.findViewById<TextView>(R.id.dialog_no).setOnClickListener {
+            dialog.cancel()
+        }
+        dialog.show()
     }
 
-    private fun showDialogChangeActive(context: Context, text: String, onPositive: (() -> Unit)) {
-        MaterialDialog.Builder(context)
-            .title(R.string.del_subs)
-            .titleColor(ContextCompat.getColor(context, R.color.tomato))
-            .iconRes(R.drawable.ic_warning_red_24dp)
-            .content(text)
-            .contentColor(ContextCompat.getColor(context, R.color.black))
+    // Диалог удаления элемента списка
+    private fun showDeleteDialog(text: String, id: String) {
+        val viewDialog = View.inflate(requireContext(), R.layout.dialog_delete_subscr, null)
+        val dialog = MaterialDialog.Builder(requireContext())
+            .customView(viewDialog, false)
             .canceledOnTouchOutside(true)
-            .positiveText(R.string.yes)
-            .negativeText(R.string.no)
-            .onPositive { _, _ ->
-                onPositive()
-            }
             .build()
-            .show()
+
+        viewDialog.findViewById<TextView>(R.id.subTextView).text = text
+        viewDialog.findViewById<TextView>(R.id.dialog_yes).setOnClickListener {
+            dialog.dismiss()
+            showProgress()
+            // выполнить операцию удаления
+            viewModel.delSubscript(id)
+        }
+        viewDialog.findViewById<TextView>(R.id.dialog_no).setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     // Начало процедуры создания подписки
@@ -345,8 +316,7 @@ class SubscrFragment : BaseFragment() {
     private fun showDialogsRecourse(objAnyList: ArrayList<ObjAny>) {
         // Если все списки атрибутов исчерпаны, выполнить создание подписки, используя map выбранных атрибутов
         if (index > objAnyList.size - 1) {
-            // Создать новую подписку со значениями по умолчанию -> 1.5. create_delivery_subscription_for_branch
-            viewModel.createSubscription(map)
+            showCreateSubscrDialog()
             return
         }
 
@@ -355,8 +325,10 @@ class SubscrFragment : BaseFragment() {
         // Прочитать значения для текущего поля
         viewModel.getFieldValues(field.id) { objParamList ->
             // Вызвать диалог(и) для выбора агента (или чего-то ещё)
-            val contentView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_field_values, null)
-            contentView.headerTextView.text = String.format(resources.getString(R.string.choose_attr_value), field.name)
+            val contentView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_field_values,
+                null)
+            contentView.headerTextView.text = String.format(resources.getString(R.string.choose_attr_value),
+                field.name)
 
             // get colors of the background from the active theme
             val typedValue = TypedValue()
@@ -364,8 +336,6 @@ class SubscrFragment : BaseFragment() {
             val backgroundColor = typedValue.resourceId
 
             val dialog = MaterialDialog.Builder(requireContext())
-                //.title(resources.getString(R.string.dialog_create_subscr_title))
-                //.titleGravity(GravityEnum.CENTER)
                 .backgroundColor(ContextCompat.getColor(binding.root.context, backgroundColor))
                 .customView(contentView, false)
                 .negativeText(R.string.cancel)
@@ -398,8 +368,31 @@ class SubscrFragment : BaseFragment() {
         }
     }
 
+    private fun showCreateSubscrDialog() {
+        val viewDialog = View.inflate(requireContext(), R.layout.dialog_create_subscr, null)
+        val dialog = MaterialDialog.Builder(requireContext())
+            .canceledOnTouchOutside(true)
+            .customView(viewDialog, false)
+            .cancelListener { setEnabledAddButton(true) }
+            .build()
+
+        val text = map[AGENT]
+        viewDialog.findViewById<TextView>(R.id.subTextView).text = text?.name ?: "Выбранный агент"
+        viewDialog.findViewById<TextView>(R.id.dialog_yes).setOnClickListener {
+            dialog.dismiss()
+            showProgress()
+            // Создать новую подписку со значениями по умолчанию -> 1.5. create_delivery_subscription_for_branch
+            viewModel.createSubscription(map)
+        }
+        viewDialog.findViewById<TextView>(R.id.dialog_no).setOnClickListener {
+            dialog.cancel()
+        }
+        dialog.show()
+    }
+
     // Для прокрутки до нужного пункта
-    private fun RecyclerView.smoothSnapToPosition(position: Int, snapMode: Int = LinearSmoothScroller.SNAP_TO_START) {
+    private fun RecyclerView.smoothSnapToPosition(position: Int,
+                                                  snapMode: Int = LinearSmoothScroller.SNAP_TO_START) {
         val smoothScroller = object: LinearSmoothScroller(this.context) {
             override fun getVerticalSnapPreference(): Int {
                 return snapMode
@@ -435,7 +428,9 @@ class SubscrFragment : BaseFragment() {
     }
 
     // Перейти в настройку адресов конкретного агента
-    private fun moveToTypesForSubscription (view: BaseFragment, idSubscription: String, nameSubscription: String) {
+    private fun moveToTypesForSubscription(view: BaseFragment,
+                                           idSubscription: String,
+                                           nameSubscription: String) {
         val bundle = AddressFragment.getBundleArguments(idSubscription, nameSubscription)
         NavHostFragment.findNavController(view)
             .navigate(R.id.action_subscrFragment_to_addressFragment, bundle)

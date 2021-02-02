@@ -15,6 +15,14 @@
     <string name="choose_attr_value">Выберите значение атрибута \'%1$s\'</string>
     <string name="menu_limits">Лимиты</string>
     <string name="menu_branches">Уведомления</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="edit_continue">Продолжить</string>
+    <string name="delete_subscr_text">Удалить подписку?</string>
+    <string name="change_active_subscr_text">Активировать подписку?</string>
+    <string name="change_deactive_subscr_text">Деактивировать подписку?</string>
+    <string name="empty_description_error">Описание подписки не может быть пустым!</string>
+    <string name="create_subscr_text">Создать подписку?</string>
 
 
     <string name="app_name_stub">stub: настройка уведомлений</string>
@@ -50,8 +58,6 @@
 
     <string name="ruble">₽</string>
     <string name="ok">OK</string>
-    <string name="yes">Да</string>
-    <string name="no">Нет</string>
     <string name="warning">Внимание</string>
     <string name="del_subs">Удалить подписку:</string>
     <string name="error">Ошибка</string>

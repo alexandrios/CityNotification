@@ -53,6 +53,7 @@
 
         <!-- android:focusableInTouchMode="true" : to prevent AutoCompleteTextView from receiving focus -->
         <LinearLayout
+            android:id="@+id/valuesLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
@@ -100,6 +101,20 @@
                 android:textSize="12sp" />
 
         </LinearLayout>
+
+        <ProgressBar
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:id="@+id/vProgressLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            android:indeterminateTint="?attr/colorPrimary"
+            android:indeterminateTintMode="src_atop" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

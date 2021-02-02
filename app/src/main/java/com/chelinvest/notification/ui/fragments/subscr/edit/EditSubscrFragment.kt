@@ -1,13 +1,12 @@
 package com.chelinvest.notification.ui.fragments.subscr.edit
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.activityViewModels
+import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
@@ -16,7 +15,6 @@ import com.chelinvest.notification.databinding.FragmentEditSubscrBinding
 import com.chelinvest.notification.di.injectViewModel
 import com.chelinvest.notification.model.DeliveSubscriptionForBranch
 import com.chelinvest.notification.ui.BaseFragment
-import com.chelinvest.notification.ui.fragments.subscr.SubscrViewModel
 import com.chelinvest.notification.utils.Constants.LOG_TAG
 import com.chelinvest.notification.utils.Constants.SUBSCR_INFO
 
@@ -33,6 +31,15 @@ class EditSubscrFragment : BaseFragment() {
 
         Log.d(LOG_TAG, "EditSubscrFragment -> onCreate")
         viewModel = injectViewModel(viewModelFactory)
+
+        // Обработка нажатия на кнопку назад
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            if (isChanged()) {
+                showSaveDialog()
+            } else {
+                findNavController().popBackStack()
+            }
+        }
 
         retainInstance = true
     }
@@ -56,21 +63,14 @@ class EditSubscrFragment : BaseFragment() {
         binding.activeSwitch.isChecked = subscrInfo.value == "Y"
 
         binding.vBackButton.setOnClickListener {
-            Log.wtf(LOG_TAG, "EditSubscrFragment setEditSave(false)")
-
             if (isChanged()) {
-                showSaveDialog(view.context, "text: String") {
-                }
+                showSaveDialog()
             } else {
+                Log.wtf(LOG_TAG, "EditSubscrFragment setEditSave(false)")
                 viewModel.setEditSave(false)
                 findNavController().popBackStack()
             }
         }
-
-//        binding.saveTextView.setOnClickListener {
-//            // Выполнить команду 1.7. update_delivery_subscription_for_branch
-//            viewModel.updateSubscr(subscrId, binding.descriptEditText.getText(), if (binding.activeSwitch.isChecked) 1 else  0)
-//        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -91,26 +91,43 @@ class EditSubscrFragment : BaseFragment() {
         })
     }
 
+    private fun isCorrectDescription(): Boolean = binding.descriptEditText.getText().isNotBlank()
+
+    // Сравнивает поля с их предыдущими значениями. True - если что-то изменилось.
     private fun isChanged(): Boolean {
         return !(oldDescription == binding.descriptEditText.getText() &&
                  oldActive == (if (binding.activeSwitch.isChecked) "Y" else "N"))
     }
 
-    private fun showSaveDialog(context: Context, text: String, onPositive: (() -> Unit)) {
-        MaterialDialog.Builder(context)
-            .title(R.string.edit_subscr_save_question)
-            .titleColor(ContextCompat.getColor(context, R.color.tomato))
-            .iconRes(R.drawable.ic_warning_red_24dp)
-            .content(text)
-            .contentColor(ContextCompat.getColor(context, R.color.black))
+    private fun showSaveDialog() {
+        val viewDialog = View.inflate(requireContext(), R.layout.dialog_edit_subscr, null)
+        val dialog = MaterialDialog.Builder(requireContext())
             .canceledOnTouchOutside(true)
-            .positiveText(R.string.yes)
-            .negativeText(R.string.no)
-            .neutralText(R.string.edit_subscr_continue_choice)
-            .onPositive { _, _ ->
-                onPositive()
-            }
+            .customView(viewDialog, false)
             .build()
-            .show()
+
+        viewDialog.findViewById<TextView>(R.id.dialog_yes).setOnClickListener {
+            dialog.dismiss()
+            if (!isCorrectDescription()) {
+                showExpandableError(resources.getString(R.string.empty_description_error))
+            } else {
+                showProgress()
+                // Выполнить команду 1.7. update_delivery_subscription_for_branch
+                viewModel.updateSubscr(subscrId,
+                    binding.descriptEditText.getText(),
+                    if (binding.activeSwitch.isChecked) 1 else 0)
+            }
+        }
+        viewDialog.findViewById<TextView>(R.id.dialog_no).setOnClickListener {
+            dialog.dismiss()
+            Log.wtf(LOG_TAG, "EditSubscrFragment setEditSave(false)")
+            viewModel.setEditSave(false)
+            findNavController().popBackStack()
+        }
+        viewDialog.findViewById<TextView>(R.id.dialog_edit_continue).setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
+
 }

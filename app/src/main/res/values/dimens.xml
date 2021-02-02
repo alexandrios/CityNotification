@@ -11,6 +11,7 @@
     <dimen name="limit_agent_text_size">@dimen/_16sdp</dimen>
     <dimen name="limit_value_text_size">@dimen/_16sdp</dimen>
     <dimen name="subs_text_size">14sp</dimen>
+    <dimen name="dialog_yes_no_text_size">@dimen/_14sdp</dimen>
 
     <dimen name="delivery_type_dialog_item_text_size">14sp</dimen>
 

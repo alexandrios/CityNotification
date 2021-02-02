@@ -17,6 +17,7 @@
         <item name="menuInactiveColor">@color/menu_inactive_color</item>
         <item name="loginAgainColor">@color/login_again_color</item>
         <item name="recyclerItemBackColor">@color/recycler_item_back</item>
+        <item name="dialogYesNoColor">@color/dialog_yes_no_color</item>
     </style>
 
     <!-- Dark application theme. -->
@@ -36,7 +37,7 @@
         <item name="menuInactiveColor">@color/menu_inactive_color</item>
         <item name="loginAgainColor">@color/login_again_color</item>
         <item name="recyclerItemBackColor">@color/recycler_back</item>
-
+        <item name="dialogYesNoColor">@color/dialog_yes_no_color</item>
     </style>
 
     <!--    Head of the fragments   -->

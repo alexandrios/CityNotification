@@ -9,6 +9,7 @@
     <attr name="menuInactiveColor" format="color|reference" />
     <attr name="loginAgainColor" format="color|reference" />
     <attr name="recyclerItemBackColor" format="color|reference" />
+    <attr name="dialogYesNoColor" format="color|reference" />
     
     <declare-styleable name="ServiceIconView">
         <attr name="serviceIconColorInd" format="integer"/>

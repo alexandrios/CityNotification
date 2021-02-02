@@ -66,6 +66,8 @@ object Constants {
     const val REQUEST_BODY = "request_xml=%s"
     const val BASE_URL = "https://xgate-xml-mob.chelinvest.ru:12345/request/xml/"
 
+    const val AGENT = "AGENT"
+
     //preferences
     const val COMMON_PREFERENCES = "COMMON_PREFERENCES"
     const val SESSION_ID = "SESSION_ID"

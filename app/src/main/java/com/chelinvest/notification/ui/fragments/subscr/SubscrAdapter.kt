@@ -2,6 +2,7 @@ package com.chelinvest.notification.ui.fragments.subscr
 
 //import android.os.Parcel
 //import android.os.Parcelable
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -189,16 +190,6 @@ class SubscrAdapter(
         // Почему-то не работает определитель того, целиком ли показан элемент списка
         layoutManager?.let {
             isFirst = !it.isViewPartiallyVisible(holder.itemView, false, true) && isFirst
-        }
-        */
-
-        /*  // Выделение цветом нового добавленного элемента
-        if (holder.adapterPosition != NO_POSITION) {
-            if (holder.adapterPosition == getItemCount() - 1) {
-            //if (holder.layoutPosition == getElements() - 1) {
-                //holder.containerView.setBackgroundColor(Color.GREEN)
-            holder.holdName.setBackgroundColor(Color.GREEN)
-            }
         }
         */
     }

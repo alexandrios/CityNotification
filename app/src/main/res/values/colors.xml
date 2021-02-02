@@ -21,6 +21,9 @@
     <color name="menu_active_color">@color/tangelo</color>
     <color name="menu_inactive_color">@color/gray</color>
 
+    <color name="dialog_yes_no_color">#2F80ED</color>
+
+
 
 <!--    <color name="login_again_color_old">#2F80ED</color>-->
 <!--    <color name="login_again_color">#036CFA</color>-->

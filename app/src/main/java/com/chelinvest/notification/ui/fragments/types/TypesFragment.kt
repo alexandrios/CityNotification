@@ -5,8 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.TooltipCompat
-import androidx.core.view.forEach
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
@@ -18,10 +17,8 @@ import com.chelinvest.notification.di.injectViewModel
 import com.chelinvest.notification.ui.BaseFragment
 import com.chelinvest.notification.ui.fragments.branch.BranchFragment
 import com.chelinvest.notification.ui.fragments.limit.LimitFragment
-import com.chelinvest.notification.utils.Constants
-import com.chelinvest.notification.utils.Constants.SELECTED_ITEM
+import com.chelinvest.notification.utils.Constants.LOG_TAG
 import com.google.android.material.bottomnavigation.BottomNavigationView
-
 
 class TypesFragment: BaseFragment() {
     private lateinit var viewModel: TypesViewModel
@@ -30,7 +27,7 @@ class TypesFragment: BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Log.d(Constants.LOG_TAG, "TypesFragment -> onCreate")
+        Log.d(LOG_TAG, "TypesFragment -> onCreate")
         viewModel = injectViewModel(viewModelFactory)
 
         //retainInstance = true
@@ -40,7 +37,7 @@ class TypesFragment: BaseFragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         return FragmentTypesBinding.inflate(inflater, container, false).apply {
-            Log.d(Constants.LOG_TAG, "TypesFragment -> onCreateView")
+            Log.d(LOG_TAG, "TypesFragment -> onCreateView")
             viewmodel = viewModel
             binding = this
         }.root
@@ -48,7 +45,7 @@ class TypesFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(Constants.LOG_TAG, "TypesFragment -> onViewCreated")
+        Log.d(LOG_TAG, "TypesFragment -> onViewCreated")
 
         //TODO кнопка-тест, иллюстрирующая, как можно снова вызвать LoginFragment
         //buttonTest.setOnClickListener {
@@ -114,7 +111,7 @@ class TypesFragment: BaseFragment() {
 
 //        var selectedItem = viewModel.getSelectedItem()
 //        if (selectedItem == 0) selectedItem = R.id.limits
-//        Log.d(Constants.LOG_TAG, "TypesFragment -> selectedItem=$selectedItem")
+//        Log.d(LOG_TAG, "TypesFragment -> selectedItem=$selectedItem")
 //        binding.bottomNavigation.menu.findItem(selectedItem).isChecked = true
 //        when (selectedItem) {
 //            R.id.limits ->  loadFragment(LimitFragment())
@@ -134,7 +131,7 @@ class TypesFragment: BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.d(Constants.LOG_TAG, "TypesFragment -> onActivityCreated")
+        Log.d(LOG_TAG, "TypesFragment -> onActivityCreated")
 
         // Получить значение последнего выбранного пункта меню
         // Это значение сохраняется в onDestroyView()
@@ -142,11 +139,19 @@ class TypesFragment: BaseFragment() {
 //        var selectedItem =
 //            findNavController().getBackStackEntry(R.id.typesFragment).
 //            savedStateHandle.get<Int>(SELECTED_ITEM)
+        // TODO: Error
         var selectedItem = viewModel.getSelectedItem()
+        Log.d(LOG_TAG, "TypesFragment -> selectedItem=$selectedItem")
         // Если значение пусто (первый запуск), то присвоить по умолчанию
         if (selectedItem == 0) selectedItem = R.id.limits
-        Log.d(Constants.LOG_TAG, "TypesFragment -> selectedItem=$selectedItem")
-        binding.bottomNavigation.menu.findItem(selectedItem).isChecked = true
+        Log.d(LOG_TAG, "TypesFragment -> selectedItem=$selectedItem")
+        Log.d(LOG_TAG, "TypesFragment -> menu.size=${binding.bottomNavigation.menu.size()}")
+        var menuItem = binding.bottomNavigation.menu.findItem(selectedItem)
+        Log.d(LOG_TAG, "TypesFragment -> menuItem=$menuItem")
+        if (menuItem == null) menuItem = binding.bottomNavigation.menu[0]
+        Log.d(LOG_TAG, "TypesFragment -> menuItem=$menuItem")
+        menuItem.isChecked = true
+        selectedItem = menuItem.itemId
         // Загрузить сооответствующий фрагмент
         when (selectedItem) {
             R.id.limits -> loadFragment(LimitFragment(), selectedItem)
@@ -161,11 +166,11 @@ class TypesFragment: BaseFragment() {
 
     override fun onPause() {
         super.onPause()
-        Log.d(Constants.LOG_TAG, "TypesFragment -> onPause")
+        Log.d(LOG_TAG, "TypesFragment -> onPause")
     }
 
     override fun onDestroyView() {
-        Log.d(Constants.LOG_TAG, "TypesFragment -> onDestroyView")
+        Log.d(LOG_TAG, "TypesFragment -> onDestroyView")
 
         // Сохранить значение последнего выбранного пункта меню
         // [отказался от этой схемы, так как LoginFragment удаляется из стека, и значение не сохраняется!]
@@ -175,7 +180,7 @@ class TypesFragment: BaseFragment() {
 //            .set(SELECTED_ITEM, binding.bottomNavigation.selectedItemId)
 
         viewModel.setSelectedItem(binding.bottomNavigation.selectedItemId)
-        Log.d(Constants.LOG_TAG, "TypesFragment -> save selectedItem=${binding.bottomNavigation.selectedItemId}")
+        Log.d(LOG_TAG, "TypesFragment -> save selectedItem=${binding.bottomNavigation.selectedItemId}")
         super.onDestroyView()
     }
 

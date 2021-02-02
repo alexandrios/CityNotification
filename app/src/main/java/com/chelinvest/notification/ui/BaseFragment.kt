@@ -63,13 +63,15 @@ abstract class BaseFragment : DaggerFragment(), RequestListener {
     }
 
     fun showProgress() {
-        requireView().findViewById<ViewGroup>(R.id.vProgressLayout)?.let {
+        requireView().findViewById<View>(R.id.vProgressLayout)?.let {
+            Log.d(Constants.LOG_TAG, "showProgress")
             it.visibility = View.VISIBLE
         }
     }
 
     fun hideProgress() {
-        requireView().findViewById<ViewGroup>(R.id.vProgressLayout)?.let {
+        requireView().findViewById<View>(R.id.vProgressLayout)?.let {
+            Log.d(Constants.LOG_TAG, "hideProgress")
             it.visibility = View.INVISIBLE
         }
     }

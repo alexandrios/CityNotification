@@ -31,6 +31,7 @@ class SubscrViewModel @Inject constructor(
 
     val errorLiveEvent = SingleLiveEvent<String>()
     val deliverySubscriptionsLiveEvent = SingleLiveEvent<ArrayList<DeliveSubscriptionForBranch>>()
+    val activeDeliverySubscriptionsLiveEvent = SingleLiveEvent<ArrayList<DeliveSubscriptionForBranch>>()
     val deleteDeliverySubscriptionLiveEvent = SingleLiveEvent<String>()
     val inputFieldsLiveEvent = SingleLiveEvent<ArrayList<ObjAny>>()
     val createSubscriptionLiveEvent = SingleLiveEvent<String>()
@@ -80,8 +81,8 @@ class SubscrViewModel @Inject constructor(
                 override fun onResponse(call: Call<MainDeliverySubscriptionResponse>, response: Response<MainDeliverySubscriptionResponse>) {
                     if (response.isSuccessful) {
                         val result = response.body()
-                        Log.d(LOG_TAG,"SubscrViewModel onResponse: sessionId=${result?.sessionId}")
-                        Log.d(LOG_TAG,"SubscrViewModel onResponse: errorNote=${result?.errorNote}")
+                        Log.d(LOG_TAG,"SubscrViewModel getDeliverySubscriptionsForBranch onResponse: sessionId=${result?.sessionId}")
+                        Log.d(LOG_TAG,"SubscrViewModel getDeliverySubscriptionsForBranch onResponse: errorNote=${result?.errorNote}")
 
                         if (result != null) {
                             if (!result.errorNote.isNullOrEmpty()) {
@@ -267,6 +268,52 @@ class SubscrViewModel @Inject constructor(
                             } else {
                                 deleteDeliverySubscriptionLiveEvent.postValue("")
                             }
+                        }
+                    }
+                }
+            })
+        }
+    }
+
+    // Выполнить команду 1.7. update_delivery_subscription_for_branch
+    fun updateSubscr(subscriptionId: String,  description: String, isActive: Int) {
+        val sessionId = repository.getSessionId()
+        Log.d(Constants.LOG_TAG, "SubscrViewModel updateSubscr sessionId=$sessionId")
+
+        if (sessionId == null) {
+            // TODO Текущая сессия прервана. Войдите заново.
+            errorLiveEvent.postValue("sessionId is null")
+        } else {
+            val branchShort = repository.getBranchShort() ?: return
+            Log.d(Constants.LOG_TAG,"SubscrViewModel updateSubscr branchShort=$branchShort")
+
+            val objParamObjsList = ArrayList<DeliveSubscriptionForBranch>()
+            repository.updateDeliverySubscriptionForBranch(sessionId, branchShort, subscriptionId,
+                description, isActive).enqueue(object : Callback<MainDeliverySubscriptionResponse> {
+                override fun onFailure(call: Call<MainDeliverySubscriptionResponse>, t: Throwable) {
+                    Log.d(LOG_TAG, "SubscrViewModel updateSubscr onFailure: ${t.message}")
+                    errorLiveEvent.postValue(t.message)
+                }
+
+                override fun onResponse(call: Call<MainDeliverySubscriptionResponse>, response: Response<MainDeliverySubscriptionResponse>) {
+                    if (response.isSuccessful) {
+                        val result = response.body()
+                        Log.d(LOG_TAG,"SubscrViewModel updateSubscr onResponse: sessionId=${result?.sessionId}")
+                        Log.d(LOG_TAG,"SubscrViewModel updateSubscr onResponse: errorNote=${result?.errorNote}")
+
+                        if (result != null) {
+                            if (!result.errorNote.isNullOrEmpty()) {
+                                errorLiveEvent.postValue(result.errorNote)
+                            }
+
+                            val mapper = GetDeliverySubscriptionForBranchResponseMapper()
+                            result.elements?.forEach { element ->
+                                mapper.map(element as GetDeliverySubscriptionForBranchResponse)?.let { element2 ->
+                                    objParamObjsList.add(element2)
+                                }
+                            }
+
+                            activeDeliverySubscriptionsLiveEvent.postValue(objParamObjsList)
                         }
                     }
                 }

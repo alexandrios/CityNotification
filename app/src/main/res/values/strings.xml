@@ -5,6 +5,10 @@
     <string name="limit_subtitle_text">Остаток лимита</string>
     <string name="subscr_title_text">Подписки на уведомление</string>
     <string name="subscr_subtitle_text">Уведомление о снижении лимита агента до предельного значения</string>
+    <string name="edit_subscr_title_text">Редактирование подписки</string>
+    <string name="edit_subscr_save_question">Сохранить изменения?</string>
+    <string name="edit_subscr_continue_choice">Продолжить редактирование</string>
+    <string name="address_title_text">Адреса подписки</string>
     <string name="login_again_text">вход</string>
     <string name="only_active_subscr">Только активные подписки</string>
     <string name="dialog_create_subscr_title">Создание подписки</string>

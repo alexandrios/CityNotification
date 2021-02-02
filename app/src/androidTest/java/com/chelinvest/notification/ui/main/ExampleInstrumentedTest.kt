@@ -110,10 +110,10 @@ class ExampleInstrumentedTest {
 
         //Thread.sleep(2000)
 
-        val vBack = onView(allOf(withId(R.id.vBackButton),
-            childAtPosition(childAtPosition(withId(R.id.limitParent), 3), 0),
-            isDisplayed()))
-        vBack.perform(click())
+//        val vBack = onView(allOf(withId(R.id.vBackButton),
+//            childAtPosition(childAtPosition(withId(R.id.limitParent), 3), 0),
+//            isDisplayed()))
+//        vBack.perform(click())
         //Thread.sleep(2000)
 
         // Click at the first item

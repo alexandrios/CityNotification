@@ -42,7 +42,7 @@
     <!--    Head of the fragments   -->
     <style name="AppTheme.TitleTextView">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">?attr/labelBackgroundColor</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>

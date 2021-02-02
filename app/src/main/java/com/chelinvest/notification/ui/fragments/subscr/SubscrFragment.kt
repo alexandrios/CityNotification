@@ -7,6 +7,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -32,6 +33,7 @@ import com.chelinvest.notification.utils.Constants.BRANCH_NAME
 import com.chelinvest.notification.utils.Constants.LOG_TAG
 import androidx.lifecycle.Observer
 import com.chelinvest.notification.ui.custom.ModifiedEditText
+import com.chelinvest.notification.utils.Constants.SUBSCR_INFO
 
 class SubscrFragment : BaseFragment() {
     private lateinit var viewModel: SubscrViewModel
@@ -158,8 +160,19 @@ class SubscrFragment : BaseFragment() {
                                     vRecyclerView?.adapter?.notifyDataSetChanged()
                                     updateRecyclerView()
                                 */
-
                         }
+                    }
+                    3 -> {
+                        // Нажатие на switch "Подписка активна"
+                        //showDialogChangeActive(view.context, elementSubscr.name + " ?") {
+                            Log.d(LOG_TAG, "${elementSubscr.value} = ${elementSubscr.name}")
+                            // Выполнить команду 1.7. update_delivery_subscription_for_branch
+                            viewModel.updateSubscr(
+                                elementSubscr.id,
+                                elementSubscr.name,
+                                if (elementSubscr.value == "Y") 0 else 1
+                            )
+                        //}
                     }
                     else -> {
                         showExpandableError(press.toString())
@@ -168,6 +181,7 @@ class SubscrFragment : BaseFragment() {
             } // адаптер
 
             // Обновить список
+            Log.d(LOG_TAG, "mAdapter == null -> refreshList()")
             refreshList()
         }
 
@@ -218,8 +232,8 @@ class SubscrFragment : BaseFragment() {
                 else
                     array
             )
-            Log.d(LOG_TAG, "SubscrFragment deliverySubscriptionsLiveEvent.observeEvent")
-            mAdapter?.notifyDataSetChanged()
+
+            //mAdapter?.notifyDataSetChanged()
             if (isGoToLast) {
                 isGoToLast = false
                 // позиционирование на последний элемент списка
@@ -228,12 +242,19 @@ class SubscrFragment : BaseFragment() {
             setEnabledAddButton(true)
         })
 
+        // Изменение активности подписки
+        viewModel.activeDeliverySubscriptionsLiveEvent.observeEvent(viewLifecycleOwner, Observer { array ->
+            mAdapter?.changeItemValueById(array[0])
+        })
+
         // Удаление подписки
         viewModel.deleteDeliverySubscriptionLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+            Log.d(LOG_TAG, "SubscrFragment deleteDeliverySubscriptionLiveEvent.observeEvent")
             // Обновить список
             refreshList()
         })
 
+        // Список атрибутов для добавления новой подписки
         viewModel.inputFieldsLiveEvent.observeEvent(viewLifecycleOwner, Observer {
             if (it.size == 0) {
                 Log.d(LOG_TAG, "SubscrFragment get_input_fields_for_branch вернул пустой массив obj_any")
@@ -245,19 +266,24 @@ class SubscrFragment : BaseFragment() {
             }
         })
 
+        // Создание новой подписки
         viewModel.createSubscriptionLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+            Log.d(LOG_TAG, "SubscrFragment createSubscriptionLiveEvent.observeEvent")
             isGoToLast = true
             // Обновить список
             refreshList()
         })
 
+        // Показать только активные/все подписки
         viewModel.activeOnly.observeEvent(viewLifecycleOwner, Observer {
+            Log.d(LOG_TAG, "SubscrFragment activeOnly.observeEvent")
             // Обновить список
             refreshList()
         })
     }
 
     private fun setEnabledAddButton(value: Boolean) {
+        Log.d(LOG_TAG, "SubscrFragment setEnabledAddButton($value)")
         binding.vAddButton.isEnabled = value
         //binding.vAddButton.visibility = if (value) View.VISIBLE else View.INVISIBLE
         if (!value) showProgress() else hideProgress()
@@ -265,13 +291,31 @@ class SubscrFragment : BaseFragment() {
 
     // Обновить список
     private fun refreshList() {
-        // Получить список подписок: get_delivery_subscription_for_branch
+        Log.d(LOG_TAG, "refreshList")
         showProgress()
+        // Получить список подписок: get_delivery_subscription_for_branch
         viewModel.getDeliverySubscriptionsForBranch()
     }
 
     // Диалог удаления элемента списка
     private fun showDialogDelete(context: Context, text: String, onPositive: (() -> Unit)) {
+        MaterialDialog.Builder(context)
+            .title(R.string.del_subs)
+            .titleColor(ContextCompat.getColor(context, R.color.tomato))
+            .iconRes(R.drawable.ic_warning_red_24dp)
+            .content(text)
+            .contentColor(ContextCompat.getColor(context, R.color.black))
+            .canceledOnTouchOutside(true)
+            .positiveText(R.string.yes)
+            .negativeText(R.string.no)
+            .onPositive { _, _ ->
+                onPositive()
+            }
+            .build()
+            .show()
+    }
+
+    private fun showDialogChangeActive(context: Context, text: String, onPositive: (() -> Unit)) {
         MaterialDialog.Builder(context)
             .title(R.string.del_subs)
             .titleColor(ContextCompat.getColor(context, R.color.tomato))
@@ -327,6 +371,8 @@ class SubscrFragment : BaseFragment() {
                 .negativeText(R.string.cancel)
                 .negativeColor(ContextCompat.getColor(binding.root.context, R.color.colorPrimary))
                 .onNegative { _, _ ->  setEnabledAddButton(true)}
+                .canceledOnTouchOutside(true)
+                .cancelListener { setEnabledAddButton(true) }
                 .build()
 
             val recyclerView: RecyclerView = contentView.findViewById(R.id.valuesRecyclerView)
@@ -398,7 +444,7 @@ class SubscrFragment : BaseFragment() {
     // Редактирование подписки (описание, активность)
     private fun editSubscription(view: BaseFragment, subscrInfo: DeliveSubscriptionForBranch) {
         val bundle = Bundle()
-        bundle.putSerializable(Constants.SUBSCR_INFO, subscrInfo)
+        bundle.putSerializable(SUBSCR_INFO, subscrInfo)
         NavHostFragment.findNavController(view)
             .navigate(R.id.action_subscrFragment_to_editSubscrFragment, bundle)
     }

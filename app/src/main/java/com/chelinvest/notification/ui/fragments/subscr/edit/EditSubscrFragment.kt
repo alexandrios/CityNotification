@@ -1,13 +1,17 @@
 package com.chelinvest.notification.ui.fragments.subscr.edit
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.afollestad.materialdialogs.MaterialDialog
+import com.chelinvest.notification.R
 import com.chelinvest.notification.databinding.FragmentEditSubscrBinding
 import com.chelinvest.notification.di.injectViewModel
 import com.chelinvest.notification.model.DeliveSubscriptionForBranch
@@ -21,15 +25,8 @@ class EditSubscrFragment : BaseFragment() {
     private lateinit var binding: FragmentEditSubscrBinding
 
     lateinit var subscrId: String
-
-    /*
-    companion object {
-        fun getStartIntent(context: Context, subscrInfo: DeliveSubscriptionForBranch): Intent {
-            return Intent(context, EditSubscrFragment::class.java)
-                .putExtra(SUBSCR_INFO, subscrInfo)
-        }
-    }
-     */
+    lateinit var oldDescription: String
+    lateinit var oldActive: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,19 +50,27 @@ class EditSubscrFragment : BaseFragment() {
         val subscrInfo =  arguments?.getSerializable(SUBSCR_INFO)
         subscrId = (subscrInfo as DeliveSubscriptionForBranch).id
 
+        oldDescription = subscrInfo.name
+        oldActive = subscrInfo.value
         binding.descriptEditText.setText(subscrInfo.name)
         binding.activeSwitch.isChecked = subscrInfo.value == "Y"
 
-        binding.backImageView.setOnClickListener {
+        binding.vBackButton.setOnClickListener {
             Log.wtf(LOG_TAG, "EditSubscrFragment setEditSave(false)")
-            viewModel.setEditSave(false)
-            findNavController().popBackStack()
+
+            if (isChanged()) {
+                showSaveDialog(view.context, "text: String") {
+                }
+            } else {
+                viewModel.setEditSave(false)
+                findNavController().popBackStack()
+            }
         }
 
-        binding.saveTextView.setOnClickListener {
-            // Выполнить команду 1.7. update_delivery_subscription_for_branch
-            viewModel.updateSubscr(subscrId, binding.descriptEditText.getText(), if (binding.activeSwitch.isChecked) 1 else  0)
-        }
+//        binding.saveTextView.setOnClickListener {
+//            // Выполнить команду 1.7. update_delivery_subscription_for_branch
+//            viewModel.updateSubscr(subscrId, binding.descriptEditText.getText(), if (binding.activeSwitch.isChecked) 1 else  0)
+//        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -86,4 +91,26 @@ class EditSubscrFragment : BaseFragment() {
         })
     }
 
+    private fun isChanged(): Boolean {
+        return !(oldDescription == binding.descriptEditText.getText() &&
+                 oldActive == (if (binding.activeSwitch.isChecked) "Y" else "N"))
+    }
+
+    private fun showSaveDialog(context: Context, text: String, onPositive: (() -> Unit)) {
+        MaterialDialog.Builder(context)
+            .title(R.string.edit_subscr_save_question)
+            .titleColor(ContextCompat.getColor(context, R.color.tomato))
+            .iconRes(R.drawable.ic_warning_red_24dp)
+            .content(text)
+            .contentColor(ContextCompat.getColor(context, R.color.black))
+            .canceledOnTouchOutside(true)
+            .positiveText(R.string.yes)
+            .negativeText(R.string.no)
+            .neutralText(R.string.edit_subscr_continue_choice)
+            .onPositive { _, _ ->
+                onPositive()
+            }
+            .build()
+            .show()
+    }
 }

@@ -35,7 +35,7 @@ class SubscrAdapter(
     //, ItemTouchHelperAdapter {
 
     // класс для внутреннего списка. Добавляет свойство pinned - открыто ли меню у элемента
-    private class MyItem(val id: String, val name: String, val value: String, val objList: List<ObjParamV01>) {
+    private class MyItem(val id: String, val name: String, var value: String, val objList: List<ObjParamV01>) {
         var pinned: Boolean = false
     }
 
@@ -62,18 +62,6 @@ class SubscrAdapter(
         setHasStableIds(true)
     }
 
-    @Synchronized
-    fun update(elements: List<DeliveSubscriptionForBranch>) {
-        this.elements.clear()
-        this.elements.addAll(elements)
-
-        // Создать внутренний список
-        subscripts.clear()
-        for (el in elements) {
-            subscripts.add(MyItem(el.id, el.name, el.value, el.objList))
-        }
-    }
-
     open class ViewHolder(view: View) : AbstractSwipeableItemViewHolder(view) {
         // for swiping feature
         val containerView: FrameLayout = view.findViewById(R.id.container)
@@ -84,26 +72,44 @@ class SubscrAdapter(
             return containerView
         }
 
-        //val holdId = view.findViewById<TextView>(R.id.subscriptIdTextView)
         val holdName: TextView = view.findViewById(R.id.subscriptNameTextView)
-        //val holdValue = view.findViewById<TextView>(R.id.subscriptValueTextView)
-//        val activeImage: ImageView = view.findViewById(R.id.activeImageView)
         val activeSwitch: SwitchCompat = view.findViewById(R.id.activeSwitch)
+    }
 
-        //val holdV01Id = view.findViewById<TextView>(R.id.v01IdTextView)
-        //val holdV01Name = view.findViewById<TextView>(R.id.v01NameTextView)
-        //val holdV01Value = view.findViewById<TextView>(R.id.v01ValueTextView)
-        //val holdV01Value01 = view.findViewById<TextView>(R.id.v01Value01TextView)
+    @Synchronized
+    fun update(elements: List<DeliveSubscriptionForBranch>) {
+        this.elements.clear()
+        this.elements.addAll(elements)
+
+        // Создать внутренний список
+        subscripts.clear()
+        for (el in elements) {
+            subscripts.add(MyItem(el.id, el.name, el.value, el.objList))
+        }
+
+        notifyDataSetChanged()
+    }
+
+    // Изменение активности подписки в списке (switch)
+    fun changeItemValueById(element: DeliveSubscriptionForBranch) {
+        for (i in 0 until elements.size) {
+            if (elements[i].id == element.id) {
+                elements[i].value = element.value
+                subscripts[i].value = element.value
+                notifyDataSetChanged()
+                return
+            }
+        }
     }
 
     // для позиционирования в конец списка
-    public fun getElements() = this.elements.size
+    fun getElements() = this.elements.size
 
     // для позиционирования: получение позиции следующего элемента (планировалось: после удаления элемента - не пригодилось)
-    public fun getNextId(id: String): Int? {
+    fun getNextId(id: String): Int? {
         var result: Int? = null
-        for (i: Int in 0..elements.size - 1) {
-            if (elements[i].id.equals(id)) {
+        for (i: Int in 0 until elements.size) {
+            if (elements[i].id == id) {
                 if (i < elements.size - 1) {
                     result = i + 1
                     break
@@ -125,6 +131,8 @@ class SubscrAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int)     {
+        holder.holdName.text = subscripts[position].name
+        holder.activeSwitch.isChecked = subscripts[position].value == "Y"
 
         /*
         Здесь не нужно создавать обработчик нажатий
@@ -138,24 +146,10 @@ class SubscrAdapter(
         holder.editButton.setOnClickListener {
             this.goToSubscription(this.subscripts[position].id, position, 1)
         }
-        */
 
-        //holder.holdId.text = subscripts.get(position).id
-        holder.holdName.text = subscripts[position].name
-        //holder.holdValue.text = subscripts.get(position).value
-//        holder.activeImage.visibility = if (subscripts[position].value == "Y") View.VISIBLE else View.INVISIBLE
-        holder.activeSwitch.isChecked = subscripts[position].value == "Y"
-
-        holder.activeSwitch.setOnCheckedChangeListener { _, b ->
+         holder.activeSwitch.setOnClickListener {
+            val b = (it as SwitchCompat).isChecked
             Log.d(LOG_TAG, "$b = ${holder.holdName.text}")
-        }
-
-        /*
-        if (subscripts.get(position).objList.size > 0) {
-            holder.holdV01Id.text = subscripts.get(position).objList.get(0).id
-            holder.holdV01Name.text = subscripts.get(position).objList.get(0).name
-            holder.holdV01Value.text = subscripts.get(position).objList.get(0).value
-            holder.holdV01Value01.text = subscripts.get(position).objList.get(0).value_01
         }
         */
 
@@ -176,8 +170,8 @@ class SubscrAdapter(
 
         // set swiping properties
         holder.maxLeftSwipeAmount = -0.5f
-        holder.setMaxRightSwipeAmount(0f)
-        holder.setSwipeItemHorizontalSlideAmount(if (subscripts[position].pinned) -0.3f else 0f)
+        holder.maxRightSwipeAmount = 0f
+        holder.swipeItemHorizontalSlideAmount = if (subscripts[position].pinned) -0.3f else 0f
 
         // Or, it can be specified in pixels instead of proportional value.
         /*
@@ -271,7 +265,7 @@ class SubscrAdapter(
 
         // Нажатие на текстовый layout
         itemView.findViewById<LinearLayout>(R.id.textLayout).setOnClickListener {
-            event.invoke(adapterPosition, /*getItemViewType(),*/ 0)
+            event.invoke(adapterPosition, 0)
         }
 
         // Нажатие на иконку edit
@@ -282,6 +276,11 @@ class SubscrAdapter(
         // Нажатие на иконку delete
         itemView.findViewById<ImageView>(R.id.del_button).setOnClickListener {
             event.invoke(adapterPosition, 2)
+        }
+
+        // Нажатие на switch "Подписка активна"
+        itemView.findViewById<SwitchCompat>(R.id.activeSwitch).setOnClickListener {
+            event.invoke(adapterPosition, 3)
         }
 
         return this

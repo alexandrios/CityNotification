@@ -33,6 +33,7 @@ object Constants {
     const val ADD_ADDRESS = "ADD_ADDRESS"
     const val SUBSCRIPTION = "SUBSCRIPTION"
     const val DELIVERY_TYPE = "DELIVERY_TYPE"
+    const val DELIVE_NAME = "DELIVE_NAME"
     const val ADDRESS_MODEL = "ADDRESS_MODEL"
     const val SUBSCR_INFO = "SUBSCR_INFO"
 
@@ -78,5 +79,9 @@ object Constants {
     const val CHANGE_ADDRESS = "CHANGE_ADDRESS"
 
     const val SELECTED_ITEM = "SELECTED_ITEM"
+
+    const val DEFAULT_START_HOUR = "9"
+    const val DEFAULT_FINISH_HOUR = "22"
+    const val DEFAULT_TIME_ZONE = "5"
 
 }

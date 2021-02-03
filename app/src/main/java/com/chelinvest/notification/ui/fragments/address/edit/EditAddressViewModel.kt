@@ -10,7 +10,10 @@ import com.chelinvest.notification.api.response.MainResponse
 import com.chelinvest.notification.data.Repository
 import com.chelinvest.notification.ui.BaseViewModel
 import com.chelinvest.notification.utils.Constants
+import com.chelinvest.notification.utils.Constants.APP_PUSH_ID
+import com.chelinvest.notification.utils.Constants.EMAIL_ID
 import com.chelinvest.notification.utils.Constants.LOG_TAG
+import com.chelinvest.notification.utils.Constants.SMS_ID
 import com.chelinvest.notification.utils.SingleLiveEvent
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,20 +39,20 @@ class EditAddressViewModel @Inject constructor(
 
     fun verifyAddress(type: String, address: String): Boolean {
         when (type) {
-            Constants.EMAIL_ID -> {
+            EMAIL_ID -> {
                 if (!isEmailValid(address)) {
                     //if (!address.contains("@")) {
                     errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.edit_email_verify))
                     return false
                 }
             }
-            Constants.SMS_ID -> {
+            SMS_ID -> {
                 if (!isValidPhoneNumber(address) || !address.contains("+7")) {
                     errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.edit_sms_verify))
                     return false
                 }
             }
-            Constants.APP_PUSH_ID -> {
+            APP_PUSH_ID -> {
                 if (address.isEmpty()) {
                     errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.edit_push_verify))
                     return false

@@ -23,7 +23,10 @@
 
     <color name="dialog_yes_no_color">#2F80ED</color>
 
+    <color name="recycler_group_background">#AAAAAA</color>
+    <color name="recycler_group_background2">#CCCCCC</color>
 
+    <color name="recycler_address_text_color">#2F80ED</color>
 
 <!--    <color name="login_again_color_old">#2F80ED</color>-->
 <!--    <color name="login_again_color">#036CFA</color>-->

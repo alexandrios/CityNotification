@@ -14,9 +14,7 @@ class FieldValuesAdapter(
 ) : RecyclerView.Adapter<FieldValuesAdapter.ViewHolder>() {
 
     open class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        //val holdId = view.findViewById<TextView>(R.id.subscriptIdTextView)
         val holdName: TextView = view.findViewById(R.id.subscriptNameTextView)
-        //val holdValue = view.findViewById<TextView>(R.id.subscriptValueTextView)
     }
 
     fun updateList(list: ArrayList<ObjParam>) {
@@ -29,15 +27,12 @@ class FieldValuesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int)     {
-        //holder.holdId.text = fieldValues[position].id
         holder.holdName.text = fieldValues[position].name
-        //holder.holdValue.text = fieldValues[position].value
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_field_values, parent, false)
 
-        //view.subscriptImageView.
         return ViewHolder(view).listener { pos ->
             onSelected(fieldValues[pos])
         }
@@ -50,5 +45,4 @@ class FieldValuesAdapter(
 
         return this
     }
-
 }

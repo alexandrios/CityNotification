@@ -31,19 +31,10 @@ import kotlinx.android.synthetic.main.fragment_address.*
 class AddressFragment : BaseFragment() {
     private lateinit var viewModel: AddressViewModel
     private lateinit var binding: FragmentAddressBinding
-
-    private val SAVED_STATE_EXPANDABLE_ITEM_MANAGER = "RecyclerViewExpandableItemManager"
-
-    //private var isRefreshing: Boolean = false
     private var groupList: List<DelivetypeAddrs> = emptyList()
     private var delivetypeAddrsList = ArrayList<DelivetypeAddrs>()
-
     private lateinit var idSubscription: String
     private lateinit var nameSubscription: String
-    //private var filter: String = ""
-    //private val expandedIds = HashSet<String>()
-    //private var selectedCardMode = -1
-
     private var mRecyclerView: RecyclerView? = null
     private var mLayoutManager: RecyclerView.LayoutManager? = null
     private var mAdapter: AddressAdapter? = null
@@ -106,10 +97,9 @@ class AddressFragment : BaseFragment() {
         mRecyclerView = view.findViewById(R.id.addressRecyclerView)
         mLayoutManager = LinearLayoutManager(view.context)
 
-        //val eimSavedState = savedInstanceState?.getParcelable<Parcelable>(SAVED_STATE_EXPANDABLE_ITEM_MANAGER)
         val eimSavedState = viewModel.recyclerViewExpandableItemManagerState.value
         recyclerViewExpandableItemManager = RecyclerViewExpandableItemManager(eimSavedState)
-        recyclerViewExpandableItemManager!!.defaultGroupsExpandedState = true
+        recyclerViewExpandableItemManager!!.defaultGroupsExpandedState = false
 
         if (mAdapter == null) {
             mAdapter = AddressAdapter { delivetypeAddrs, deliveAddrBranch ->
@@ -134,13 +124,6 @@ class AddressFragment : BaseFragment() {
         }
 
         recyclerViewExpandableItemManager!!.attachRecyclerView(mRecyclerView ?: return)
-
-/*        vSwipeRefreshLayout.setColorSchemeResources(R.color.tangelo)
-        vSwipeRefreshLayout.setOnRefreshListener {
-            groupList = emptyList()
-            doRequest()
-            //vSwipeRefreshLayout.isRefreshing = false
-        }*/
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -181,8 +164,6 @@ class AddressFragment : BaseFragment() {
 
     // Начало процедуры создания (привязки) адреса
     private fun startToCreateAddress() {
-        // Получить список типов рассылки, доступных для подписки (уведомления)
-        //viewModel.getDelivetypeAddrs2(idSubscription) { delivetypeAddrs ->
         val list = ArrayList<DelivetypeAddrs>()
         list.addAll(delivetypeAddrsList)
 
@@ -217,8 +198,6 @@ class AddressFragment : BaseFragment() {
             recyclerView.layoutManager = LinearLayoutManager(contentView.context)
             recyclerView.adapter = DelivetypeSubscrAdapter(list) { pos ->
                 dialog.dismiss()
-                //Toast.makeText(this, delivetypeAddrs[pos].id + " " + delivetypeAddrs[pos].short_name + " " +
-                //        delivetypeAddrs[pos].has_send_period + ": setDeliveryAddressForSubscription()", Toast.LENGTH_SHORT).show()
 
                 // Перейти в окно добавления адреса
                 val bundle = EditAddressFragment.getBundleArguments(idSubscription,
@@ -226,8 +205,6 @@ class AddressFragment : BaseFragment() {
                     null)
                 findNavController(this).navigate(R.id.action_addressFragment_to_editAddressFragment,
                     bundle)
-                //val intent = EditAddressFragment.getStartIntent(view?.context!!, idSubscription, delivetypeAddrs[pos], null)
-                //this.startActivityForResult(intent, EDITADDRESSACTIVITY_CODE)
             }
 
             dialog.show()
@@ -238,13 +215,4 @@ class AddressFragment : BaseFragment() {
         Log.d(LOG_TAG, "AddressFragment -> onResume")
         viewModel.getEditSave()
     }
-
-    /*
-    override fun showProgress() {
-        vSwipeRefreshLayout.isRefreshing = true
-    }
-
-    override fun hideProgress() {
-        vSwipeRefreshLayout.isRefreshing = false
-    }*/
 }

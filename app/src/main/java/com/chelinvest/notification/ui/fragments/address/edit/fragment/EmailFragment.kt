@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import com.chelinvest.notification.R
 import com.chelinvest.notification.model.DeliveAddrBranch
 import com.chelinvest.notification.ui.custom.ModifiedEditText
+import com.chelinvest.notification.ui.custom.stylable.CustomTextView
 import com.chelinvest.notification.utils.Constants.ADDRESS_DATA
+import com.chelinvest.notification.utils.Constants.DELIVE_NAME
 
 class EmailFragment : Fragment() {
 
@@ -30,6 +32,9 @@ class EmailFragment : Fragment() {
         if (addressData != null) {
             addressEditText.setText(addressData!!.address)
         }
+
+        view.findViewById<CustomTextView>(R.id.addressTextView).text = arguments?.getString(DELIVE_NAME) ?:
+            resources.getString(R.string.edit_email_descr_display)
     }
 
 }

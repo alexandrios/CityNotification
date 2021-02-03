@@ -16,7 +16,6 @@ import com.chelinvest.notification.utils.Constants.APP_PUSH
 import com.chelinvest.notification.utils.Constants.EMAIL
 import com.chelinvest.notification.utils.Constants.SMS
 
-
 class AddressAdapter(
     private val moveToEditAddress: (DelivetypeAddrs, DeliveAddrBranch) -> Unit
 ) : AbstractExpandableItemAdapter<AddressAdapter.GroupViewHolder, AddressAdapter.ChildViewHolder>() {
@@ -66,35 +65,30 @@ class AddressAdapter(
 
     override fun onCheckCanExpandOrCollapseGroup(holder: GroupViewHolder, groupPosition: Int, x: Int, y: Int, expand: Boolean): Boolean = true
 
-
     open inner class GroupViewHolder(itemView: View) : AbstractExpandableItemViewHolder(itemView) {
-        //private val id = itemView.findViewById<TextView>(R.id.idTextView)
         private val name = itemView.findViewById<TextView>(R.id.nameTextView)
-        private val short = itemView.findViewById<TextView>(R.id.shortTextView)
-        private val value = itemView.findViewById<TextView>(R.id.valueTextView)
-        //private val hasSendPeriod = itemView.findViewById<TextView>(R.id.hasSendPeriodTextView)
         private val vImageView = itemView.findViewById<ImageView>(R.id.vImageView)
         private val periodImageView = itemView.findViewById<ImageView>(R.id.periodImageView)
+        private val vExpandedImageView = itemView.findViewById<ImageView>(R.id.vExpandedImageView)
 
         open fun bind(groupPosition: Int) {
             val item: DelivetypeAddrs = elements[groupPosition]
             name.text = item.name
-            short.text = item.short_name
-            value.text = item.value_name
             periodImageView.alpha = if (item.has_send_period == "1") 1.0f else 0.0f
 
             val isCollapsed = expandStateFlags and ExpandableItemConstants.STATE_FLAG_IS_EXPANDED == 0
-            itemView.findViewById<View>(R.id.vExpandedImageView).rotation = if (isCollapsed) 0f else 180f
+            vExpandedImageView.rotation = if (isCollapsed) 0f else 180f
 
             val countTextView = itemView.findViewById<TextView>(R.id.vCountTextView)
             val count = item.address_list.size
             if (count <= 0) {
-                //countTextView.visibility = View.GONE
                 countTextView.visibility = View.VISIBLE
                 countTextView.text = ""
+                vExpandedImageView.visibility = View.INVISIBLE
             } else {
                 countTextView.visibility = View.VISIBLE
                 countTextView.text = if (count < 100) count.toString() else "99"
+                vExpandedImageView.visibility = View.VISIBLE
             }
 
             when (item.short_name) {
@@ -107,21 +101,16 @@ class AddressAdapter(
     }
 
     open inner class ChildViewHolder(itemView: View) : AbstractExpandableItemViewHolder(itemView) {
-        val addrId = itemView.findViewById<TextView>(R.id.addrIdTextView)
-        val addrDeliveTypeId = itemView.findViewById<TextView>(R.id.addrDeliveTypeIdTextView)
-        val addrAddress = itemView.findViewById<TextView>(R.id.addrAddressTextView)
-        val addrIsValid = itemView.findViewById<TextView>(R.id.addrIsValidTextView)
-        val addrIsConfirmed = itemView.findViewById<TextView>(R.id.addrIsConfirmedTextView)
-        val addrStartHour = itemView.findViewById<TextView>(R.id.addrStartHourTextView)
-        val addrFinishHour = itemView.findViewById<TextView>(R.id.addrFinishHourTextView)
-        val addrTimezone = itemView.findViewById<TextView>(R.id.addrTimezoneTextView)
-        val addrPeriod = itemView.findViewById<TextView>(R.id.addrPeriod)
+        private val addrId = itemView.findViewById<TextView>(R.id.addrIdTextView)
+        private val addrDeliveTypeId = itemView.findViewById<TextView>(R.id.addrDeliveTypeIdTextView)
+        private val addrAddress = itemView.findViewById<TextView>(R.id.addrAddressTextView)
+        private val addrIsValid = itemView.findViewById<TextView>(R.id.addrIsValidTextView)
+        private val addrIsConfirmed = itemView.findViewById<TextView>(R.id.addrIsConfirmedTextView)
+        private val addrPeriod = itemView.findViewById<TextView>(R.id.addrPeriod)
 
         open fun bind(groupPosition: Int, childPosition: Int) {
             val item = elements[groupPosition].address_list[childPosition]
             item.apply {
-                //addrId.text = id
-                //addrDeliveTypeId.text = delive_type.id
                 addrId.visibility = View.GONE
                 addrDeliveTypeId.visibility = View.GONE
 
@@ -131,30 +120,13 @@ class AddressAdapter(
                     addrAddress.text = address
                 }
 
-                // Пока что эти атрибуты отключены
-                //addrIsValid.text = is_valid
-                //addrIsConfirmed.text = is_confirmed
                 addrIsValid.visibility = View.GONE
                 addrIsConfirmed.visibility = View.GONE
 
-                // Заменил на addrPeriod
-                addrStartHour.visibility = View.GONE
-                addrFinishHour.visibility = View.GONE
-                addrTimezone.visibility = View.GONE
-
                 if (elements[groupPosition].has_send_period == "1") {
-                    //addrStartHour.visibility = View.VISIBLE
-                    //addrFinishHour.visibility = View.VISIBLE
-                    //addrTimezone.visibility = View.VISIBLE
                     addrPeriod.visibility = View.VISIBLE
-                    //addrStartHour.text = start_hour
-                    //addrFinishHour.text = finish_hour
-                    //addrTimezone.text = timezone
                     addrPeriod.text = formatTimePeriod(start_hour, finish_hour, timezone)
                 } else {
-                    //addrStartHour.visibility = View.GONE
-                    //addrFinishHour.visibility = View.GONE
-                    //addrTimezone.visibility = View.GONE
                     addrPeriod.visibility = View.GONE
                 }
             }

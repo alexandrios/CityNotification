@@ -8,7 +8,10 @@ import androidx.fragment.app.Fragment
 import com.chelinvest.notification.R
 import com.chelinvest.notification.model.DeliveAddrBranch
 import com.chelinvest.notification.ui.custom.ModifiedEditText
+import com.chelinvest.notification.ui.custom.stylable.CustomTextView
+import com.chelinvest.notification.utils.Constants
 import com.chelinvest.notification.utils.Constants.ADDRESS_DATA
+import com.chelinvest.notification.utils.Constants.DELIVE_NAME
 
 class SmsFragment : Fragment() {
 
@@ -32,6 +35,9 @@ class SmsFragment : Fragment() {
         } else {
             addressEditText.setText("+7")
         }
+
+        view.findViewById<CustomTextView>(R.id.addressTextView).text = arguments?.getString(DELIVE_NAME) ?:
+                resources.getString(R.string.edit_sms_descr_display)
     }
 
 }

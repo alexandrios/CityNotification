@@ -16,6 +16,7 @@
         <item name="menuActiveColor">@color/menu_active_color</item>
         <item name="menuInactiveColor">@color/menu_inactive_color</item>
         <item name="loginAgainColor">@color/login_again_color</item>
+        <item name="recyclerGroupBackColor">@color/recycler_group_background2</item>
         <item name="recyclerItemBackColor">@color/recycler_item_back</item>
         <item name="dialogYesNoColor">@color/dialog_yes_no_color</item>
     </style>
@@ -36,6 +37,7 @@
         <item name="menuActiveColor">@color/menu_active_color</item>
         <item name="menuInactiveColor">@color/menu_inactive_color</item>
         <item name="loginAgainColor">@color/login_again_color</item>
+        <item name="recyclerGroupBackColor">@color/recycler_item_back</item>
         <item name="recyclerItemBackColor">@color/recycler_back</item>
         <item name="dialogYesNoColor">@color/dialog_yes_no_color</item>
     </style>

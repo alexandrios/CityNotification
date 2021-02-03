@@ -9,8 +9,11 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_push.*
 import com.chelinvest.notification.R
 import com.chelinvest.notification.model.DeliveAddrBranch
+import com.chelinvest.notification.ui.custom.stylable.CustomTextView
+import com.chelinvest.notification.utils.Constants
 import com.chelinvest.notification.utils.Constants.ADDRESS_DATA
 import com.chelinvest.notification.utils.Constants.ADDRESS_FCM_TOKEN
+import com.chelinvest.notification.utils.Constants.DELIVE_NAME
 
 class PushFragment : Fragment() {
 
@@ -31,17 +34,19 @@ class PushFragment : Fragment() {
 
         if (addressData != null) {
             addressEditText.setText(addressData!!.address)
-            addressTextView.text = Build.DEVICE
+            nameTextView.text = Build.DEVICE
         } else {
             val token = arguments?.getSerializable(ADDRESS_FCM_TOKEN) as String?
             addressEditText.setText(token ?: "")
-            addressTextView.text = Build.DEVICE; // + Build.MANUFACTURER + Build.MODEL + Build.PRODUCT + Build.BOARD
+            nameTextView.text = Build.DEVICE // + Build.MANUFACTURER + Build.MODEL + Build.PRODUCT + Build.BOARD
 
             if (token.isNullOrEmpty()) {
                 // выполнение лямбды с параметром
                 errorMsg("Не удалось получить токен регистрации FCM. Проверьте соединение с Интернетом.")
             }
         }
+
+        addressTextView.text = arguments?.getString(DELIVE_NAME) ?: resources.getString(R.string.edit_push_descr_display)
     }
 
 /* Другие возможные константы класса Build:

@@ -23,6 +23,7 @@
     <string name="change_deactive_subscr_text">Деактивировать подписку?</string>
     <string name="empty_description_error">Описание подписки не может быть пустым!</string>
     <string name="create_subscr_text">Создать подписку?</string>
+    <string name="edit_address_title_text">Редактирование адреса</string>
 
 
     <string name="app_name_stub">stub: настройка уведомлений</string>

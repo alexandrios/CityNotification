@@ -10,6 +10,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+        android:id="@+id/addressTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -31,7 +32,7 @@
         android:visibility="visible"/>
 
     <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-        android:id="@+id/addressTextView"
+        android:id="@+id/nameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -50,12 +51,12 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:cet_imeOption="actionDone"
-        app:cet_inputType="text"
         android:textIsSelectable="true"
         android:focusable="false"
         app:cet_label="@string/edit_push_descr_settings"
         app:cet_textSize="16sp"
+        app:cet_imeOption="actionDone"
+        app:cet_inputType="text"
         android:visibility="gone" />
 
 </LinearLayout>

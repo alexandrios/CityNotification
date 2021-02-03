@@ -34,6 +34,7 @@ class EditSubscrFragment : BaseFragment() {
 
         // Обработка нажатия на кнопку назад
         requireActivity().onBackPressedDispatcher.addCallback(this) {
+            hideKeyboard()
             if (isChanged()) {
                 showSaveDialog()
             } else {

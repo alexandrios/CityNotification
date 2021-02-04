@@ -35,7 +35,6 @@ import com.chelinvest.notification.utils.Constants.LOG_TAG
 import com.chelinvest.notification.utils.Constants.SMS_ID
 import com.chelinvest.notification.utils.Constants.SUBSCRIPTION
 import kotlinx.android.synthetic.main.fragment_edit_address.*
-import kotlinx.android.synthetic.main.fragment_edit_address.view.*
 
 class EditAddressFragment : BaseFragment() {
         private lateinit var viewModel: EditAddressViewModel
@@ -135,6 +134,10 @@ class EditAddressFragment : BaseFragment() {
         deliveName = group?.name
         // для редактирования или добавления
         addEditType = if (addressData == null) AddEdit.ADDRESS_ADD else AddEdit.ADDRESS_EDIT
+        if (addEditType == AddEdit.ADDRESS_ADD)
+            binding.titleTextView.text = resources.getString(R.string.create_notification_title_text)
+        else
+            binding.titleTextView.text = resources.getString(R.string.edit_notification_title_text)
 
         addressData?.let {
             oldAddress = it.address

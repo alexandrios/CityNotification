@@ -9,27 +9,27 @@
     <RelativeLayout
         android:id="@+id/behind_views"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:visibility="visible" >
 
         <ImageView
             android:id="@+id/del_button"
             android:layout_width="36dp"
-            android:layout_height="32dp"
+            android:layout_height="36dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="8dp"
             android:padding="3dp"
             android:scaleType="centerCrop"
             android:src="@drawable/trash_outline_211835"
-            app:tint="@color/white"
-            android:background="@color/tomato" />
+            app:tint="@color/tomato" />
+<!--        android:background="@color/tomato"-->
 
         <ImageView
             android:id="@+id/edit_button"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_centerVertical="true"
             android:layout_marginEnd="16dp"
             android:layout_toStartOf="@+id/del_button"
@@ -45,7 +45,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:foreground="?attr/selectableItemBackground" >
+        android:foreground="?attr/selectableItemBackground"
+        tools:visibility="invisible" >
 
         <LinearLayout
             android:layout_width="match_parent"

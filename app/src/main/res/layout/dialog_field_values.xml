@@ -7,11 +7,23 @@
     android:background="?attr/backgroundColor"
     android:orientation="vertical">
 
+<!--    <TextView-->
+<!--        style="@style/AppTheme.TitleDialogTextView"-->
+<!--        android:id="@+id/titleTextView"-->
+<!--        android:text="@string/dialog_create_subscr_title"-->
+<!--        android:textColor="?attr/labelTextColor"/>-->
     <TextView
-        style="@style/AppTheme.TitleDialogTextView"
         android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/labelBackgroundColor"
+        android:gravity="center"
+        android:maxLines="1"
+        android:padding="8dp"
         android:text="@string/dialog_create_subscr_title"
-        android:textColor="?attr/labelTextColor"/>
+        android:textAlignment="center"
+        android:textColor="?attr/labelTextColor"
+        android:textSize="@dimen/sub_label_text_size" />
 
     <com.chelinvest.notification.ui.custom.stylable.CustomTextView
         android:id="@+id/headerTextView"

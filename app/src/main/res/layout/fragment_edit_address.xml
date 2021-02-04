@@ -40,7 +40,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/edit_address_title_text"
+                    android:text="@string/edit_notification_title_text"
                     android:textAlignment="center"
                     android:textColor="?attr/labelTextColor"
                     android:textSize="@dimen/label_text_size" />
@@ -53,6 +53,36 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+
+        <FrameLayout
+            android:id="@+id/addressMainContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appBar">
+
+            <FrameLayout
+                android:id="@+id/emailContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
+
+            <FrameLayout
+                android:id="@+id/smsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
+
+            <FrameLayout
+                android:id="@+id/pushContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
+
+        </FrameLayout>
+
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
@@ -60,115 +90,80 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBar"
+            app:layout_constraintTop_toBottomOf="@+id/addressMainContainer"
             app:layout_constraintVertical_bias="0.0">
 
             <LinearLayout
+                android:id="@+id/periodLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:scrollbars="vertical">
+                android:orientation="vertical">
 
-                <FrameLayout
-                    android:id="@+id/addressMainContainer"
+                <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="@string/edit_time_period"
+                    android:textColor="@color/darkJungleGreen"
+                    android:textSize="17sp"
+                    app:customTypefaceStyle="bold" />
+
+                <com.chelinvest.notification.ui.custom.ModifiedEditText
+                    android:id="@+id/startHourEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="visible">
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:cet_imeOption="actionDone"
+                    app:cet_inputType="number"
+                    app:cet_label="@string/edit_start_hour_descr_settings"
+                    app:cet_textSize="16sp">
 
-                    <FrameLayout
-                        android:id="@+id/emailContainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="invisible" />
+                </com.chelinvest.notification.ui.custom.ModifiedEditText>
 
-                    <FrameLayout
-                        android:id="@+id/smsContainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="invisible" />
-
-                    <FrameLayout
-                        android:id="@+id/pushContainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="invisible" />
-
-                </FrameLayout>
-
-                <LinearLayout
-                    android:id="@+id/periodLayout"
+                <com.chelinvest.notification.ui.custom.ModifiedEditText
+                    android:id="@+id/finishHourEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:orientation="vertical">
+                    android:layout_marginEnd="16dp"
+                    app:cet_imeOption="actionDone"
+                    app:cet_inputType="number"
+                    app:cet_label="@string/edit_finish_hour_descr_settings"
+                    app:cet_textSize="16sp" />
 
-                    <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:text="@string/edit_time_period"
-                        android:textColor="@color/darkJungleGreen"
-                        android:textSize="17sp"
-                        app:customTypefaceStyle="bold" />
-
-                    <com.chelinvest.notification.ui.custom.ModifiedEditText
-                        android:id="@+id/startHourEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        app:cet_imeOption="actionDone"
-                        app:cet_inputType="number"
-                        app:cet_label="@string/edit_start_hour_descr_settings"
-                        app:cet_textSize="16sp">
-
-                    </com.chelinvest.notification.ui.custom.ModifiedEditText>
-
-                    <com.chelinvest.notification.ui.custom.ModifiedEditText
-                        android:id="@+id/finishHourEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        app:cet_imeOption="actionDone"
-                        app:cet_inputType="number"
-                        app:cet_label="@string/edit_finish_hour_descr_settings"
-                        app:cet_textSize="16sp" />
-
-                    <com.chelinvest.notification.ui.custom.ModifiedEditText
-                        android:id="@+id/timeZoneEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="8dp"
-                        app:cet_imeOption="actionDone"
-                        app:cet_inputType="numberSigned"
-                        app:cet_label="@string/edit_time_zone_descr_settings"
-                        app:cet_textSize="16sp" />
-
-                </LinearLayout>
+                <com.chelinvest.notification.ui.custom.ModifiedEditText
+                    android:id="@+id/timeZoneEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    app:cet_imeOption="actionDone"
+                    app:cet_inputType="numberSigned"
+                    app:cet_label="@string/edit_time_zone_descr_settings"
+                    app:cet_textSize="16sp" />
 
             </LinearLayout>
 
         </ScrollView>
 
         <ProgressBar
-            style="@style/Widget.AppCompat.ProgressBar"
             android:id="@+id/vProgressLayout"
+            style="@style/Widget.AppCompat.ProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="?attr/colorPrimary"
+            android:indeterminateTintMode="src_atop"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:indeterminate="true"
-            android:visibility="invisible"
-            android:indeterminateTint="?attr/colorPrimary"
-            android:indeterminateTintMode="src_atop" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

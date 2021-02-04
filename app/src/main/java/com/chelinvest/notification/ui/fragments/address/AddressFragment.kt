@@ -2,15 +2,16 @@ package com.chelinvest.notification.ui.fragments.address
 
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialdialogs.GravityEnum
 import com.afollestad.materialdialogs.MaterialDialog
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager
@@ -26,7 +27,6 @@ import com.chelinvest.notification.utils.Constants.APP_PUSH
 import com.chelinvest.notification.utils.Constants.LOG_TAG
 import com.chelinvest.notification.utils.Constants.SUBSCRIPTION_ID
 import com.chelinvest.notification.utils.Constants.SUBSCRIPTION_NAME
-import kotlinx.android.synthetic.main.fragment_address.*
 
 class AddressFragment : BaseFragment() {
     private lateinit var viewModel: AddressViewModel
@@ -139,6 +139,7 @@ class AddressFragment : BaseFragment() {
         })
 
         viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+            setEnabledAddButton(true)
             showExpandableError(it)
         })
 
@@ -148,6 +149,7 @@ class AddressFragment : BaseFragment() {
             delivetypeAddrsList.addAll(it)
             mAdapter?.update(it)
             mAdapter?.notifyDataSetChanged()
+            setEnabledAddButton(true)
         })
     }
 
@@ -162,52 +164,67 @@ class AddressFragment : BaseFragment() {
         viewModel.setStateSave(recyclerViewExpandableItemManager?.savedState)
     }
 
+    private fun setEnabledAddButton(value: Boolean) {
+        Log.d(LOG_TAG, "AddressFragment setEnabledAddButton($value)")
+        binding.vAddButton.isEnabled = value
+        if (!value) showProgress() else hideProgress()
+    }
+
     // Начало процедуры создания (привязки) адреса
     private fun startToCreateAddress() {
+        setEnabledAddButton(false)
         val list = ArrayList<DelivetypeAddrs>()
         list.addAll(delivetypeAddrsList)
 
-            var elementAppPush = -1
-            for (i in 0 until list.size) {
-                val address = list[i]
-                if (address.short_name == APP_PUSH) {
-                    if (address.address_list.isNotEmpty()) {
-                        // Уже есть привязанное устройство, значит, убрать APP_PUSH из меню
-                        elementAppPush = i
-                        break
-                    }
+        var elementAppPush = -1
+        for (i in 0 until list.size) {
+            val address = list[i]
+            if (address.short_name == APP_PUSH) {
+                if (address.address_list.isNotEmpty()) {
+                    // Уже есть привязанное устройство, значит, убрать APP_PUSH из меню
+                    elementAppPush = i
+                    break
                 }
             }
-            // Уже есть привязанное устройство, значит, убрать APP_PUSH из меню
-            if (elementAppPush > -1) {
-                list.removeAt(elementAppPush)
-            }
+        }
+        // Уже есть привязанное устройство, значит, убрать APP_PUSH из меню
+        if (elementAppPush > -1) {
+            list.removeAt(elementAppPush)
+        }
 
-            // Вызвать диалог для выбора типа рассылки (EMAIL, SMS, APP_PUSH)
-            val contentView =
-                LayoutInflater.from(view?.context).inflate(R.layout.dialog_delivery_types, null)
-            contentView.headerTextView.text = resources.getString(R.string.choose_notificaion_type)
+        // Вызвать диалог для выбора типа рассылки (EMAIL, SMS, APP_PUSH)
+        val contentView =
+            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_delivery_types, null)
+        contentView.headerTextView.text = resources.getString(R.string.choose_notification_type)
 
-            val dialog: MaterialDialog
-            dialog = MaterialDialog.Builder(view?.context!!)
-                .title(resources.getString(R.string.create_notificaion))
-                .titleGravity(GravityEnum.CENTER).customView(contentView, false)
-                .negativeText(R.string.cancel).build()
+        // get colors of the background from the active theme
+        val typedValue = TypedValue()
+        binding.root.context.theme.resolveAttribute(R.attr.backgroundColor, typedValue, true)
+        val backgroundColor = typedValue.resourceId
 
-            val recyclerView: RecyclerView = contentView.findViewById(R.id.dtRecyclerView)
-            recyclerView.layoutManager = LinearLayoutManager(contentView.context)
-            recyclerView.adapter = DelivetypeSubscrAdapter(list) { pos ->
-                dialog.dismiss()
+        val dialog = MaterialDialog.Builder(requireContext())
+            .backgroundColor(ContextCompat.getColor(binding.root.context, backgroundColor))
+            .customView(contentView, false)
+            .negativeText(R.string.cancel)
+            .negativeColor(ContextCompat.getColor(binding.root.context, R.color.colorPrimary))
+            .onNegative { _, _ ->  setEnabledAddButton(true)}
+            .canceledOnTouchOutside(true)
+            .cancelListener { setEnabledAddButton(true) }
+            .build()
 
-                // Перейти в окно добавления адреса
-                val bundle = EditAddressFragment.getBundleArguments(idSubscription,
-                    list[pos],
-                    null)
-                findNavController(this).navigate(R.id.action_addressFragment_to_editAddressFragment,
-                    bundle)
-            }
+        val recyclerView: RecyclerView = contentView.findViewById(R.id.dtRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(contentView.context)
+        recyclerView.adapter = DelivetypeSubscrAdapter(list) { pos ->
+            dialog.dismiss()
+            // Перейти в окно добавления адреса
+            val bundle = EditAddressFragment.getBundleArguments(idSubscription, list[pos], null)
+            findNavController(this).navigate(
+                R.id.action_addressFragment_to_editAddressFragment,
+                bundle
+            )
+        }
 
-            dialog.show()
+        dialog.show()
     }
 
     override fun onResume() {

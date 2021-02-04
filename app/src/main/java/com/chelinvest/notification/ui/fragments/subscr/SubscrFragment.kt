@@ -103,9 +103,6 @@ class SubscrFragment : BaseFragment() {
             isFirst = it in 1..2
         }
 
-        Log.d(LOG_TAG,
-            if (savedInstanceState == null) "savedInstanceState=null" else "savedInstanceState!=null")
-
         // Кнопка "Назад"
         binding.vBackButton.setOnClickListener { findNavController().popBackStack() }
 
@@ -136,6 +133,7 @@ class SubscrFragment : BaseFragment() {
                         showChangeActiveDialog(elementSubscr)
                     }
                     else -> {
+                        // TODO: not press, but message
                         showExpandableError(press.toString())
                     }
                 }
@@ -176,9 +174,8 @@ class SubscrFragment : BaseFragment() {
 
         viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
             isGoToLast = false
-            hideProgress()
-            showExpandableError(it)
             setEnabledAddButton(true)
+            showExpandableError(it)
         })
 
         // Получение списка подписок
@@ -205,6 +202,7 @@ class SubscrFragment : BaseFragment() {
         viewModel.activeDeliverySubscriptionsLiveEvent.observeEvent(viewLifecycleOwner,
             Observer { array ->
                 mAdapter?.changeItemValueById(array[0])
+                refreshList()
             })
 
         // Удаление подписки
@@ -246,7 +244,6 @@ class SubscrFragment : BaseFragment() {
     private fun setEnabledAddButton(value: Boolean) {
         Log.d(LOG_TAG, "SubscrFragment setEnabledAddButton($value)")
         binding.vAddButton.isEnabled = value
-        //binding.vAddButton.visibility = if (value) View.VISIBLE else View.INVISIBLE
         if (!value) showProgress() else hideProgress()
     }
 

@@ -4,34 +4,35 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:paddingStart="8dp"
-    android:paddingEnd="8dp"
-    android:paddingBottom="8dp">
+    android:paddingStart="1dp"
+    android:paddingEnd="1dp"
+    android:paddingBottom="1dp">
 
     <LinearLayout
         android:id="@+id/vClickableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:background="@drawable/border2"
-        android:orientation="horizontal"
-        android:padding="4dp">
+        android:orientation="horizontal" >
 
         <ImageView
             android:id="@+id/dtsImageView"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="6dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="6dp"
             android:src="@drawable/ic_email"
-            android:tint="@color/colorPrimaryBrown" />
+            app:tint="@color/text" />
 
         <TextView
             android:id="@+id/dtsNameTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="name"
+            android:minLines="2"
+            android:maxLines="2"
+            android:gravity="center_vertical"
             android:textColor="@color/text_black"
             android:textSize="@dimen/delivery_type_dialog_item_text_size" />
 
@@ -48,7 +49,7 @@
             android:id="@+id/dtsShortTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:text="short"
             android:textColor="@color/text"
             android:textSize="@dimen/delivery_type_dialog_item_text_size"
@@ -58,7 +59,7 @@
             android:id="@+id/dtsValueTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:text="value"
             android:textColor="@color/text"
             android:textSize="@dimen/delivery_type_dialog_item_text_size"
@@ -68,7 +69,7 @@
             android:id="@+id/dtsHasSendPeriodTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:text="has_send_period"
             android:textColor="@color/text"
             android:textSize="@dimen/delivery_type_dialog_item_text_size"

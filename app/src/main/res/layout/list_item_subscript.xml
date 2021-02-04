@@ -16,15 +16,16 @@
         <ImageView
             android:id="@+id/del_button"
             android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_height="28dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="8dp"
             android:padding="3dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/trash_outline_211835"
+            android:src="@drawable/ic_garbage_basket"
             app:tint="@color/tomato" />
 <!--        android:background="@color/tomato"-->
+<!--        android:src="@drawable/trash_outline_211835"-->
 
         <ImageView
             android:id="@+id/edit_button"

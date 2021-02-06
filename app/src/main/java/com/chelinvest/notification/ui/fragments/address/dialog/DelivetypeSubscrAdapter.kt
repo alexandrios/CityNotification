@@ -39,7 +39,7 @@ class DelivetypeSubscrAdapter(
         holder.holdImage.setImageResource(
             when (delivetypeAddrs[position].short_name) {
                 EMAIL -> R.drawable.ic_email
-                SMS -> R.drawable.outline_sms_black_18dp
+                SMS -> R.drawable.ic_message
                 APP_PUSH -> R.drawable.ic_phone
                 else -> R.drawable.ic_email
             }

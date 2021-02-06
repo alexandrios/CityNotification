@@ -20,6 +20,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
+import kotlin.math.abs
 
 class EditAddressViewModel @Inject constructor(
     application: Application,
@@ -167,14 +168,32 @@ class EditAddressViewModel @Inject constructor(
         }
     }
 
-    // https://stackoverflow.com/questions/15542063/default-android-time-zone-list/16359137
     fun getTimeZone() {
+        val map = sortedMapOf<String, Int>()
         val ids: Array<String> = TimeZone.getAvailableIDs()
         Log.d(LOG_TAG, ids.size.toString())
         for (id in ids) {
             val d = TimeZone.getTimeZone(id)
-            Log.d(LOG_TAG, "$id | ${d.displayName} | ${d.dstSavings} | ${d.rawOffset}")
+            var region: String = d.getDisplayName(Locale("ru","RU"))
+            // Убрать GMT и Катманду и иже с ним (полчаса, 45 минут...)
+            if (region.substring(0, 3).toUpperCase(Locale.ROOT) != "GMT" &&
+                    d.rawOffset.rem(3600000) == 0) {
+                if (region.contains(", стандартное время")) {
+                    region = region.substring(0, region.length - ", стандартное время".length)
+                }
+                map[region] = d.rawOffset
+            }
         }
+
+        val map2 = map.toList().sortedBy { (_, value) -> value }.toMap()
+        for (pair in map2) {
+            val hours = abs(pair.value) / 3600000
+            val minutes = abs(pair.value / 60000) % 60
+            val sign = if (pair.value >= 0) "+" else "-"
+            val timeZonePretty = String.format("(UTC %s %02d:%02d) %s", sign, hours, minutes, pair.key)
+            Log.d(LOG_TAG, timeZonePretty)
+        }
+        Log.d(LOG_TAG, map2.size.toString())
     }
 
 }

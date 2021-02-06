@@ -93,7 +93,7 @@ class AddressAdapter(
 
             when (item.short_name) {
                 EMAIL -> vImageView.setImageResource(R.drawable.ic_email)
-                SMS -> vImageView.setImageResource(R.drawable.outline_sms_black_18dp)
+                SMS -> vImageView.setImageResource(R.drawable.ic_message)
                 APP_PUSH -> vImageView.setImageResource(R.drawable.ic_phone)
                 else -> vImageView.visibility = View.INVISIBLE
             }

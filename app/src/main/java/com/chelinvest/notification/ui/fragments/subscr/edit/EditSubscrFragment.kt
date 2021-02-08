@@ -60,7 +60,7 @@ class EditSubscrFragment : BaseFragment() {
 
         oldDescription = subscrInfo.name
         oldActive = subscrInfo.value
-        binding.descriptEditText.setText(subscrInfo.name)
+        binding.descriptEditText.setText(subscrInfo.name) //; binding.descrEditText.setText(subscrInfo.name)
         binding.activeSwitch.isChecked = subscrInfo.value == "Y"
 
         binding.vBackButton.setOnClickListener {
@@ -68,6 +68,7 @@ class EditSubscrFragment : BaseFragment() {
                 showSaveDialog()
             } else {
                 Log.wtf(LOG_TAG, "EditSubscrFragment setEditSave(false)")
+                hideKeyboard()
                 viewModel.setEditSave(false)
                 findNavController().popBackStack()
             }
@@ -96,7 +97,7 @@ class EditSubscrFragment : BaseFragment() {
 
     // Сравнивает поля с их предыдущими значениями. True - если что-то изменилось.
     private fun isChanged(): Boolean {
-        return !(oldDescription == binding.descriptEditText.getText() &&
+        return !(oldDescription == binding.descriptEditText.text.toString() &&
                  oldActive == (if (binding.activeSwitch.isChecked) "Y" else "N"))
     }
 
@@ -115,7 +116,7 @@ class EditSubscrFragment : BaseFragment() {
                 showProgress()
                 // Выполнить команду 1.7. update_delivery_subscription_for_branch
                 viewModel.updateSubscr(subscrId,
-                    binding.descriptEditText.getText(),
+                    binding.descriptEditText.text.toString(),
                     if (binding.activeSwitch.isChecked) 1 else 0)
             }
         }

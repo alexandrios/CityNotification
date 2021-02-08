@@ -1,21 +1,22 @@
 package com.chelinvest.notification.data
 
 import android.content.SharedPreferences
-import com.chelinvest.notification.utils.Constants
 import com.chelinvest.notification.utils.Constants.BRANCH_SHORT
 import com.chelinvest.notification.utils.Constants.CHANGE_ADDRESS
 import com.chelinvest.notification.utils.Constants.CHANGE_SUBSCR_LIST
 import com.chelinvest.notification.utils.Constants.FCM_TOKEN
 import com.chelinvest.notification.utils.Constants.LAUNCH_COUNT
+import com.chelinvest.notification.utils.Constants.PREFER_TIME_ZONE
 import com.chelinvest.notification.utils.Constants.SELECTED_ITEM
 import com.chelinvest.notification.utils.Constants.SESSION_ID
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class PreferencesDataSource @Inject constructor(
-    private val preferences: SharedPreferences
-) {
+class PreferencesDataSource @Inject constructor(private val preferences: SharedPreferences) {
 
     fun getInt(key: String?, defValue: Int) = preferences.getInt(key, defValue)
     private fun putInt(key: String?, value: Int) {
@@ -58,4 +59,19 @@ class PreferencesDataSource @Inject constructor(
     fun getSelectedItem() = getInt(SELECTED_ITEM, 0)
     fun setSelectedItem(value: Int) = putInt(SELECTED_ITEM, value)
 
+    fun getPreferTimeZoneMap(): MutableMap<Int, String> {
+        val gson = Gson()
+        val storedMapString = getString(PREFER_TIME_ZONE, "")
+        val type: Type = object : TypeToken<MutableMap<Int, String>>() {}.type
+        var map = mutableMapOf<Int, String>()
+        if (!storedMapString.isNullOrEmpty()) {
+            map = gson.fromJson(storedMapString, type)
+        }
+        return map
+    }
+    fun setPreferTimeZoneMap(map: MutableMap<Int, String>) {
+        val gson = Gson()
+        val storedMapString = gson.toJson(map)
+        putString(PREFER_TIME_ZONE, storedMapString)
+    }
 }

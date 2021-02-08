@@ -10,6 +10,8 @@ import com.chelinvest.notification.databinding.FragmentLimitBinding
 import com.chelinvest.notification.di.injectViewModel
 import com.chelinvest.notification.ui.BaseFragment
 import com.chelinvest.notification.utils.Constants
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.*
 
 class LimitFragment : BaseFragment() {
@@ -39,8 +41,10 @@ class LimitFragment : BaseFragment() {
         Log.d(Constants.LOG_TAG, "LimitFragment -> onViewCreated")
 
         showProgress()
-        viewModel.getAgentInfo()
-        viewModel.getAgentLimit()
+        GlobalScope.launch {
+            viewModel.getAgentInfo()
+        }
+        //viewModel.getAgentLimit()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

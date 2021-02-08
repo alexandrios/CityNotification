@@ -5,6 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.lifecycle.Observer
@@ -15,11 +18,11 @@ import com.chelinvest.notification.databinding.FragmentEditAddressBinding
 import com.chelinvest.notification.di.injectViewModel
 import com.chelinvest.notification.model.DeliveAddrBranch
 import com.chelinvest.notification.model.DelivetypeAddrs
+import com.chelinvest.notification.ui.BaseFragment
+import com.chelinvest.notification.ui.custom.ModifiedEditText
+import com.chelinvest.notification.ui.fragments.address.edit.fragment.EmailFragment
 import com.chelinvest.notification.ui.fragments.address.edit.fragment.PushFragment
 import com.chelinvest.notification.ui.fragments.address.edit.fragment.SmsFragment
-import com.chelinvest.notification.ui.BaseFragment
-import com.chelinvest.notification.ui.fragments.address.edit.fragment.EmailFragment
-import com.chelinvest.notification.ui.custom.ModifiedEditText
 import com.chelinvest.notification.utils.Constants.ADDRESS_DATA
 import com.chelinvest.notification.utils.Constants.ADDRESS_FCM_TOKEN
 import com.chelinvest.notification.utils.Constants.ADDRESS_MODEL
@@ -27,6 +30,7 @@ import com.chelinvest.notification.utils.Constants.APP_PUSH_ID
 import com.chelinvest.notification.utils.Constants.DEFAULT_FINISH_HOUR
 import com.chelinvest.notification.utils.Constants.DEFAULT_START_HOUR
 import com.chelinvest.notification.utils.Constants.DEFAULT_TIME_ZONE
+import com.chelinvest.notification.utils.Constants.DEFAULT_TIME_ZONE_INT
 import com.chelinvest.notification.utils.Constants.DELIVERY_TYPE
 import com.chelinvest.notification.utils.Constants.DELIVE_NAME
 import com.chelinvest.notification.utils.Constants.EMAIL_ID
@@ -35,6 +39,7 @@ import com.chelinvest.notification.utils.Constants.LOG_TAG
 import com.chelinvest.notification.utils.Constants.SMS_ID
 import com.chelinvest.notification.utils.Constants.SUBSCRIPTION
 import kotlinx.android.synthetic.main.fragment_edit_address.*
+
 
 class EditAddressFragment : BaseFragment() {
         private lateinit var viewModel: EditAddressViewModel
@@ -56,6 +61,7 @@ class EditAddressFragment : BaseFragment() {
     private var oldStartHour: String? = null
     private var oldFinishHour: String? = null
     private var oldTimeZone: String? = null
+    private var newTimeZone: String? = null
 
     private var startHour: Int? = null
     private var finishHour: Int? = null
@@ -65,7 +71,9 @@ class EditAddressFragment : BaseFragment() {
 
     companion object {
         // Вариант передачи параметров во фрагмент
-        fun getBundleArguments(idSubscription: String, group: DelivetypeAddrs, model: DeliveAddrBranch?): Bundle {
+        fun getBundleArguments(idSubscription: String,
+                               group: DelivetypeAddrs,
+                               model: DeliveAddrBranch?): Bundle {
             return Bundle().apply {
                 this.putString(SUBSCRIPTION, idSubscription)
                 this.putSerializable(DELIVERY_TYPE, group)
@@ -144,6 +152,7 @@ class EditAddressFragment : BaseFragment() {
             oldStartHour = it.start_hour
             oldFinishHour = it.finish_hour
             oldTimeZone = it.timezone
+            newTimeZone = oldTimeZone
         }
 
         // Спрятать или показать layout для периода отправления
@@ -151,21 +160,56 @@ class EditAddressFragment : BaseFragment() {
             // Если model==null, то предлагаем значения по умолчанию
             startHourEditText.setText(addressData?.start_hour ?: DEFAULT_START_HOUR)
             finishHourEditText.setText(addressData?.finish_hour ?: DEFAULT_FINISH_HOUR)
-            timeZoneEditText.setText(addressData?.timezone ?: DEFAULT_TIME_ZONE)
+//            timeZoneEditText.setText(addressData?.timezone ?: DEFAULT_TIME_ZONE)
 
             periodLayout.visibility = View.VISIBLE
 
             startHourEditText.onTextChanged = { text ->
-                checkHourRange(text)
+                viewModel.checkHourRange(text)
             }
 
             finishHourEditText.onTextChanged = { text ->
-                checkHourRange(text)
+                viewModel.checkHourRange(text)
             }
 
-            timeZoneEditText.onTextChanged = {
-                checkTimeZone(it)
+//            timeZoneEditText.onTextChanged = {
+//                viewModel.checkTimeZone(it)
+//            }
+
+            // Spinner for TimeZone
+            val timeZonesMap = viewModel.getTimeZone()
+            val adapter = ArrayAdapter(requireContext(),
+                android.R.layout.simple_spinner_item,
+                timeZonesMap.keys.toList())
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+            with(binding.timeZoneSpinner) {
+                this.adapter = adapter
+                // заголовок диалога списка
+                prompt = getString(R.string.edit_dialog_timezone_title)
+                // установить указатель списка на нужный элемент
+                setSelection(viewModel.getTimeZonePosition(timeZonesMap, addressData?.timezone?.toIntOrNull() ?: DEFAULT_TIME_ZONE_INT))
+                // listener при выборе элемента списка
+                onItemSelectedListener = object : OnItemSelectedListener {
+                    override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
+                        // position - позиция нажатого элемента
+                        val key = timeZonesMap.keys.toList()[position]
+                        val value = timeZonesMap[key]
+                        val timeZoneHour: Int = value?.div(3600000) ?: DEFAULT_TIME_ZONE_INT
+
+                        // Сохранить предпочтение по часовому поясу
+                        viewModel.setPreferTimeZoneMap(timeZoneHour, key)
+
+                        // Запомнить текущий выбранный часовой пояс
+                        newTimeZone = timeZoneHour.toString()
+                        // Проверить выбранный часовой пояс
+                        viewModel.checkTimeZone(timeZoneHour.toString())
+                    }
+
+                    override fun onNothingSelected(arg0: AdapterView<*>?) {}
+                }
             }
+
         } else {
             periodLayout.visibility = View.INVISIBLE
         }
@@ -185,8 +229,7 @@ class EditAddressFragment : BaseFragment() {
         viewModel.setDeliveAddressLiveEvent.observeEvent(viewLifecycleOwner, Observer {
             if (it != "1") {
                 showExpandableError(it)
-            }
-            else {
+            } else {
                 viewModel.setEditSave(true)
                 findNavController().popBackStack()
             }
@@ -247,10 +290,15 @@ class EditAddressFragment : BaseFragment() {
         if (!result && hasSendPeriod == "1") {
             result = !(oldStartHour == startHourEditText.getText() &&
                         oldFinishHour == finishHourEditText.getText() &&
-                        oldTimeZone == timeZoneEditText.getText())
+                        oldTimeZone == timeZoneString())
         }
 
         return result
+    }
+
+    private fun timeZoneString(): String {
+        //return timeZoneEditText.getText()
+        return newTimeZone ?: DEFAULT_TIME_ZONE
     }
 
     private fun showSaveDialog() {
@@ -278,26 +326,6 @@ class EditAddressFragment : BaseFragment() {
         dialog.show()
     }
 
-    private fun checkHourRange(text: String?): Unit? {
-        val hour = text?.toIntOrNull()
-        hour?.let {
-            if (it < 0 || it > 23) {
-                showExpandableError("Необходимо указать значение в диапазоне от 0 до 23")
-            }
-        }
-        return null
-    }
-
-    private fun checkTimeZone(text: String?): Unit? {
-        val hour = text?.toIntOrNull()
-        hour?.let {
-            if (it < -11 || it > 12) {
-                showExpandableError("Необходимо указать значение в диапазоне от -11 до 12")
-            }
-        }
-        return null
-    }
-
     // Создать (или привязать существующий) адрес (email, sms, push) к подписке
     private fun setDeliveryAddressForSubscription() {
         val addrEditText = view?.findViewById<ModifiedEditText>(R.id.addressEditText)
@@ -307,20 +335,27 @@ class EditAddressFragment : BaseFragment() {
         if (viewModel.verifyAddress(deliveType!!, address)) {
 
             if (hasSendPeriod == "1") {
-                if (!viewModel.verifyTimeRange(startHourEditText.getText(), finishHourEditText.getText(), timeZoneEditText.getText())) {
-                    //TODO error message
+                if (!viewModel.verifyTimeRange(startHourEditText.getText(),
+                        finishHourEditText.getText(),
+                        timeZoneString())) {
                     return
                 } else {
                     startHour = startHourEditText.getText().toIntOrNull()
                     finishHour = finishHourEditText.getText().toIntOrNull()
-                    timeZone = timeZoneEditText.getText().toIntOrNull()
+                    timeZone = timeZoneString().toIntOrNull()
                 }
             }
 
             showProgress()
             // Выполнить команду 1.8. set_delivery_address_for_subscription
-            viewModel.setDeliveryAddressForSubscription(idSubscription!!, address, deliveType!!, oldAddress,
-                null, startHour, finishHour, timeZone)
+            viewModel.setDeliveryAddressForSubscription(idSubscription!!,
+                address,
+                deliveType!!,
+                oldAddress,
+                null,
+                startHour,
+                finishHour,
+                timeZone)
         }
     }
 

@@ -24,7 +24,8 @@
             android:elevation="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:targetApi="lollipop">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -145,7 +146,30 @@
                     app:cet_imeOption="actionDone"
                     app:cet_inputType="numberSigned"
                     app:cet_label="@string/edit_time_zone_descr_settings"
-                    app:cet_textSize="16sp" />
+                    app:cet_textSize="16sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="1dp"
+                    android:text="@string/edit_time_zone_descr_settings"
+                    android:textColor="@color/text"
+                    app:customTypefaceStyle="bold"
+                    android:textSize="10sp" />
+
+                <Spinner
+                    android:id="@+id/timeZoneSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dialog"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp" >
+                </Spinner>
 
             </LinearLayout>
 

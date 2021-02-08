@@ -51,6 +51,9 @@
     <string name="edit_finish_hour_descr_settings">Введите час окончания предпочтительного периода рассылки сообщения</string>
     <string name="edit_time_zone_descr_settings">Введите часовой пояс, по которому рассчитывается период рассылки</string>
     <string name="edit_time_start_more_then_finish_hour">Час начала периода должен быть меньше часа конца периода</string>
+    <string name="edit_time_check_hour_range">Необходимо указать значение в диапазоне от 0 до 23</string>
+    <string name="edit_time_check_timezone_range">Необходимо указать значение в диапазоне от -11 до 12</string>
+    <string name="edit_dialog_timezone_title">Часовой пояс</string>
     <string name="edit_title_panel_save">Сохранить</string>
 
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>

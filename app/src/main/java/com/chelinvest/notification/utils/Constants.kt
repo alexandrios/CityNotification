@@ -77,11 +77,12 @@ object Constants {
     const val FCM_TOKEN = "FCM_TOKEN"
     const val CHANGE_SUBSCR_LIST = "CHANGE_SUBSCR_LIST"
     const val CHANGE_ADDRESS = "CHANGE_ADDRESS"
-
     const val SELECTED_ITEM = "SELECTED_ITEM"
+    const val PREFER_TIME_ZONE = "PREFER_TIME_ZONE"
 
     const val DEFAULT_START_HOUR = "9"
     const val DEFAULT_FINISH_HOUR = "22"
     const val DEFAULT_TIME_ZONE = "5"
+    const val DEFAULT_TIME_ZONE_INT = 5
 
 }

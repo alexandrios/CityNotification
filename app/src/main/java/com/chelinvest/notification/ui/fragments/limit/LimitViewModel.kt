@@ -2,6 +2,7 @@ package com.chelinvest.notification.ui.fragments.limit
 
 import android.app.Application
 import android.util.Log
+import androidx.lifecycle.viewModelScope
 import com.chelinvest.notification.api.response.MainResponse
 import com.chelinvest.notification.api.response.OrgNameResponse
 import com.chelinvest.notification.api.response.mapper.GetAgentInfoResponseMapper
@@ -10,6 +11,8 @@ import com.chelinvest.notification.model.OrgName
 import com.chelinvest.notification.ui.BaseViewModel
 import com.chelinvest.notification.utils.Constants
 import com.chelinvest.notification.utils.SingleLiveEvent
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,7 +27,7 @@ class LimitViewModel @Inject constructor(
     val agentInfoLiveEvent = SingleLiveEvent<OrgName>()
     val agentLimitLiveEvent = SingleLiveEvent<String>()
 
-    fun getAgentInfo() {
+    suspend fun getAgentInfo() {
         val sessionId = repository.getSessionId()
         Log.d("session_id", "LimitViewModel getAgentInfo session_id=$sessionId")
 
@@ -51,7 +54,14 @@ class LimitViewModel @Inject constructor(
                             }
 
                             val orgName = GetAgentInfoResponseMapper().map(result.org_name as OrgNameResponse)
-                            agentInfoLiveEvent.postValue(orgName)
+
+                            viewModelScope.launch {
+                                withContext(viewModelScope.coroutineContext) {
+                                    getAgentLimit()
+                                }
+                                agentInfoLiveEvent.postValue(orgName)
+                            }
+
                         }
                     }
                 }
@@ -92,8 +102,4 @@ class LimitViewModel @Inject constructor(
             })
         }
     }
-
-//    fun loginOnClick() {
-//        loginAgainLiveEvent.postValue(null)
-//    }
 }

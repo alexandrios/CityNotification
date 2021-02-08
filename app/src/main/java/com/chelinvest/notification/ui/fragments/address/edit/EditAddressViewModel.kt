@@ -38,6 +38,14 @@ class EditAddressViewModel @Inject constructor(
         return repository.getFCMToken()
     }
 
+    private fun getPreferTimeZoneMap(hour: Int): String? {
+        return repository.getPreferTimeZone(hour)
+    }
+
+    fun setPreferTimeZoneMap(hour: Int, value: String) {
+        repository.setPreferTimeZone(hour, value)
+    }
+
     fun verifyAddress(type: String, address: String): Boolean {
         when (type) {
             EMAIL_ID -> {
@@ -168,8 +176,27 @@ class EditAddressViewModel @Inject constructor(
         }
     }
 
-    fun getTimeZone() {
-        val map = sortedMapOf<String, Int>()
+    fun checkHourRange(text: String?) {
+        val hour = text?.toIntOrNull()
+        hour?.let {
+            if (it < 0 || it > 23) {
+                errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.edit_time_check_hour_range))
+            }
+        }
+    }
+
+    fun checkTimeZone(text: String?) {
+        val hour = text?.toIntOrNull()
+        hour?.let {
+            if (it < -11 || it > 12) {
+                errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.edit_time_check_timezone_range))
+            }
+        }
+    }
+
+    // Получить Map вида: <"(UTC + 05:00) Екатеринбург", 18000000> часовых поясов
+    fun getTimeZone(): Map<String, Int> {
+        val map = mutableMapOf<String, Int>()
         val ids: Array<String> = TimeZone.getAvailableIDs()
         Log.d(LOG_TAG, ids.size.toString())
         for (id in ids) {
@@ -181,19 +208,38 @@ class EditAddressViewModel @Inject constructor(
                 if (region.contains(", стандартное время")) {
                     region = region.substring(0, region.length - ", стандартное время".length)
                 }
-                map[region] = d.rawOffset
+                val hours = abs(d.rawOffset) / 3600000
+                val minutes = abs(d.rawOffset / 60000) % 60
+                val sign = if (d.rawOffset >= 0) "+" else "-"
+                val timeZonePretty = String.format("(UTC %s %02d:%02d) %s", sign, hours, minutes, region)
+
+                map[timeZonePretty] = d.rawOffset
             }
         }
 
         val map2 = map.toList().sortedBy { (_, value) -> value }.toMap()
+        /*
         for (pair in map2) {
-            val hours = abs(pair.value) / 3600000
-            val minutes = abs(pair.value / 60000) % 60
-            val sign = if (pair.value >= 0) "+" else "-"
-            val timeZonePretty = String.format("(UTC %s %02d:%02d) %s", sign, hours, minutes, pair.key)
-            Log.d(LOG_TAG, timeZonePretty)
-        }
+            Log.d(LOG_TAG, "${pair.value} ${pair.key}")
+        }*/
         Log.d(LOG_TAG, map2.size.toString())
+        return map2
+    }
+
+    // Получить позицию в Map часовых поясов по указанному часу (hour)
+    fun getTimeZonePosition(map: Map<String, Int>, hour: Int): Int {
+        // Поскольку в map может быть несколько строк с одним и тем же часом,
+        // на устройстве храним предпочтения, например +5 = Екатеринбург, +3 = Москва
+        val nameTimeZone = getPreferTimeZoneMap(hour)
+        var position = if (nameTimeZone != null) {
+            // Если есть предпочтения - искать их в списке
+            map.keys.indexOf(nameTimeZone)
+        } else {
+            // Если предпочтений нет - искать первый подходящий в списке
+            map.values.toList().indexOf( hour * 3600000)
+        }
+        if (position == -1) position = 0
+        return position
     }
 
 }

@@ -38,24 +38,20 @@ class Repository @Inject constructor(
     fun getSelectedItem() = preferencesDataSource.getSelectedItem()
     fun setSelectedItem(value: Int) = preferencesDataSource.setSelectedItem(value)
 
-    //
-//    // Настройка "Оффлайн-режим"
-//    //fun setOfflineModeSetting(value: Boolean) = putBoolean(OFFLINE_MODE, value)
-//    //fun getOfflineModeSetting() = getBoolean(OFFLINE_MODE, false)
-//
-//    // Настройка "Сербский алфавит: латиница"
-//    fun setSerbianLatinSetting(value: Boolean) = preferencesDataSource.setSerbianLatinSetting(value)
-//    fun getSerbianLatinSetting() = preferencesDataSource.getSerbianLatinSetting()
-//
-//    // Настройка "Выделять цветом ударение в русских словах"
-//    fun setColorStressSetting(value: Boolean) = preferencesDataSource.setColorStressSetting(value)
-//    fun getColorStressSetting() = preferencesDataSource.getColorStressSetting()
-//
-//    // Настройка цветовой схемы приложения
-//    fun setDarkThemeSetting(value: Boolean) = preferencesDataSource.setDarkThemeSetting(value)
-//    fun getDarkThemeSetting() = preferencesDataSource.getDarkThemeSetting()
-//
-//
+    fun getPreferTimeZone(hour: Int): String? {
+        var result: String? = null
+        val map = preferencesDataSource.getPreferTimeZoneMap()
+        if (map.keys.contains(hour)) {
+            result = map[hour]
+        }
+        return result
+    }
+    fun setPreferTimeZone(hour: Int, value: String) {
+        val map: MutableMap<Int, String> = preferencesDataSource.getPreferTimeZoneMap()
+        map[hour] = value
+        preferencesDataSource.setPreferTimeZoneMap(map)
+    }
+
     /**
      * Remote
      */
@@ -82,20 +78,4 @@ class Repository @Inject constructor(
                                           isConfirm: String?, startHour: Int?, finishHour: Int?, timeZone: Int?): Call<MainResponse> =
         remoteDataSource.setDeliveryAddressForSubscription(sessionId, branchShort, subscriptionId,
             address, delivetypeId, oldAddress, isConfirm, startHour, finishHour, timeZone)
-
-
-//
-//    fun getChanges(changeId: Int): Call<List<ChangeInfo>> = remoteDataSource.getChanges(changeId)
-//
-//    fun postMessage() {
-//        val info = """
-//            Версия SDK: ${Build.VERSION.SDK_INT}
-//            Наименование версии ОС: ${Build.ID}
-//            Устройство: ${Build.DEVICE}
-//            Изготовитель: ${Build.MANUFACTURER}
-//            Модель: ${Build.MODEL}
-//            """.trimIndent()
-//        remoteDataSource.postMessage("1", "Привет разработчикам!", "fake@ugur.com", info)
-//    }
-
 }

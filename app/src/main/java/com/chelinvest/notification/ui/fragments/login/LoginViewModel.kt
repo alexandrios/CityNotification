@@ -1,9 +1,7 @@
 package com.chelinvest.notification.ui.fragments.login
 
 import android.app.Application
-import com.chelinvest.notification.BaseApplication
 import android.util.Log
-import com.chelinvest.notification.R
 import com.chelinvest.notification.api.response.MainResponse
 import com.chelinvest.notification.data.Repository
 import com.chelinvest.notification.model.session.Session
@@ -87,17 +85,10 @@ class LoginViewModel @Inject constructor(
     }
 
     fun getSessionId(session: Session) {
-
         // Сохранить session_id
         repository.setSessionId(session.session_id ?: "")
         val sessionId = repository.getSessionId()
         Log.d(LOG_TAG, "sessionId=$sessionId")
-
-        //if(!session.error_note.isNullOrEmpty()) {
-        //    showExpandableError(session.error_note.toString())
-        //}
-
-        //vProgressLayout.visibility = View.INVISIBLE
 
         if (session.session_id != null) {
 
@@ -110,17 +101,4 @@ class LoginViewModel @Inject constructor(
             sessionLiveEvent.postValue(session)
         }
     }
-
-/*    fun loginByPassword(user: String, pass: String) {
-        resolvedLaunch(
-            block = {
-                val session =
-                    LoginInteractor.getInstance().loginByPasswordAsync(*//*context,*//* user, pass)
-                        .await()
-            },
-            onError = {
-            }
-        )
-    }*/
-
 }

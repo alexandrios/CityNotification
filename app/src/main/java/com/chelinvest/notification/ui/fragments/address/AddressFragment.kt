@@ -154,6 +154,7 @@ class AddressFragment : BaseFragment() {
     }
 
     private fun doRequest() {
+        showProgress()
         // Получить список адресов, привязанных к подписке
         viewModel.getDelivetypeAddrs(idSubscription)
     }

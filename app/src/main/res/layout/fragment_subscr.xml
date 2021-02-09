@@ -10,10 +10,6 @@
             type="com.chelinvest.notification.ui.fragments.subscr.SubscrViewModel" />
     </data>
 
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-
         <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/vParentLayout"
             android:layout_width="match_parent"
@@ -109,7 +105,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/headerLayout"
                 tools:listitem="@layout/list_item_subscript" />
 
-            <!--        style="@style/Widget.AppCompat.ProgressBar"-->
             <ProgressBar
                 android:id="@+id/vProgressLayout"
                 android:layout_width="wrap_content"
@@ -125,18 +120,4 @@
 
         </androidx.constraintlayout.motion.widget.MotionLayout>
 
-<!--        <ProgressBar-->
-<!--            android:id="@+id/vProgressLayout"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:indeterminate="true"-->
-<!--            android:indeterminateTint="?attr/colorPrimary"-->
-<!--            android:indeterminateTintMode="src_atop"-->
-<!--            android:visibility="invisible"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 </layout>

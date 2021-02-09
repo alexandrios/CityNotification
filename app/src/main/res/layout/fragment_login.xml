@@ -57,7 +57,8 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:text="@string/login_name_title"
-                android:textColor="@color/black" />
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/text" />
 
             <com.chelinvest.notification.ui.custom.ModifiedEditText
                 android:id="@+id/userEditText"
@@ -76,7 +77,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
                 android:text="@string/login_pass_title"
-                android:textColor="@color/black" />
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/text" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"

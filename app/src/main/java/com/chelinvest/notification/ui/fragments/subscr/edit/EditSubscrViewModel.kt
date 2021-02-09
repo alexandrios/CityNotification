@@ -26,6 +26,7 @@ class EditSubscrViewModel @Inject constructor(
 
     val errorLiveEvent = SingleLiveEvent<String>()
     val deliverySubscriptionsLiveEvent = SingleLiveEvent<ArrayList<DeliveSubscriptionForBranch>>()
+    val activeLiveEvent = SingleLiveEvent<Boolean>()
 
     // Признак того, что был изменен элемент списка агентов (в EditSubscrFragment)
     fun setEditSave(value: Boolean) {
@@ -78,4 +79,7 @@ class EditSubscrViewModel @Inject constructor(
         }
     }
 
+    fun setActive(value: Boolean) {
+        activeLiveEvent.postValue(value)
+    }
 }

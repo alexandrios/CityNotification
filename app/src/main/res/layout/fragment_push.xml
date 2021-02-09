@@ -16,7 +16,7 @@
         android:layout_margin="16dp"
         android:text="@string/edit_push_descr_display"
         android:textColor="@color/darkJungleGreen"
-        android:textSize="17sp"
+        android:textSize="@dimen/edit_group_title_text_size"
         app:customTypefaceStyle="bold" />
 
     <com.chelinvest.notification.ui.custom.stylable.CustomTextView
@@ -38,7 +38,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="2dp"
-        android:textSize="16sp"
+        android:textSize="@dimen/edit_text_text_size"
         android:lines="1"
         android:textColor="@color/text"
         app:customTypefaceStyle="normal"

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
-        android:textSize="10sp"
+        android:textSize="@dimen/_10sdp"
         android:textColor="@color/text"
         app:customTypefaceStyle="bold"
         android:visibility="gone"/>

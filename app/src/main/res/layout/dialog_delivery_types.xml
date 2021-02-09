@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:textAlignment="center"
-        android:textSize="12sp"
+        android:textSize="@dimen/_12sdp"
         android:text="@string/choose_notification_type"
         android:textColor="@color/black" />
 

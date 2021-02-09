@@ -62,6 +62,9 @@ class EditSubscrFragment : BaseFragment() {
         oldActive = subscrInfo.value
         binding.descriptEditText.setText(subscrInfo.name) //; binding.descrEditText.setText(subscrInfo.name)
         binding.activeSwitch.isChecked = subscrInfo.value == "Y"
+        binding.activeSwitch.text = getString(
+            if(binding.activeSwitch.isChecked) R.string.edit_subscr_active_settings else R.string.edit_subscr_inactive_settings
+        )
 
         binding.vBackButton.setOnClickListener {
             if (isChanged()) {
@@ -91,9 +94,15 @@ class EditSubscrFragment : BaseFragment() {
             }
             findNavController().popBackStack()
         })
+
+        viewModel.activeLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+            binding.activeSwitch.text = getString(
+                if(it) R.string.edit_subscr_active_settings else R.string.edit_subscr_inactive_settings
+            )
+        })
     }
 
-    private fun isCorrectDescription(): Boolean = binding.descriptEditText.getText().isNotBlank()
+    private fun isCorrectDescription(): Boolean = binding.descriptEditText.text.isNotBlank()
 
     // Сравнивает поля с их предыдущими значениями. True - если что-то изменилось.
     private fun isChanged(): Boolean {

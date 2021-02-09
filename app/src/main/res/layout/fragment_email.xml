@@ -16,7 +16,7 @@
         android:layout_margin="16dp"
         android:text="@string/edit_email_descr_display"
         android:textColor="@color/darkJungleGreen"
-        android:textSize="17sp"
+        android:textSize="@dimen/edit_group_title_text_size"
         app:customTypefaceStyle="bold" />
 
     <com.chelinvest.notification.ui.custom.ModifiedEditText
@@ -29,6 +29,6 @@
         app:cet_inputType="email"
         app:cet_imeOption="actionDone"
         app:cet_label="@string/edit_email_descr_settings"
-        app:cet_textSize="16sp" />
+        app:cet_textSize="@dimen/edit_text_text_size" />
 
 </LinearLayout>

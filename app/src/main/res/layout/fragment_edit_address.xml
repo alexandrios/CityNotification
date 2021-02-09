@@ -103,10 +103,13 @@
                 <com.chelinvest.notification.ui.custom.stylable.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
                     android:text="@string/edit_time_period"
                     android:textColor="@color/darkJungleGreen"
-                    android:textSize="17sp"
+                    android:textSize="@dimen/edit_group_title_text_size"
                     app:customTypefaceStyle="bold" />
 
                 <com.chelinvest.notification.ui.custom.ModifiedEditText
@@ -119,7 +122,7 @@
                     app:cet_imeOption="actionDone"
                     app:cet_inputType="number"
                     app:cet_label="@string/edit_start_hour_descr_settings"
-                    app:cet_textSize="16sp">
+                    app:cet_textSize="@dimen/edit_text_text_size">
 
                 </com.chelinvest.notification.ui.custom.ModifiedEditText>
 
@@ -133,7 +136,7 @@
                     app:cet_imeOption="actionDone"
                     app:cet_inputType="number"
                     app:cet_label="@string/edit_finish_hour_descr_settings"
-                    app:cet_textSize="16sp" />
+                    app:cet_textSize="@dimen/edit_text_text_size" />
 
                 <com.chelinvest.notification.ui.custom.ModifiedEditText
                     android:id="@+id/timeZoneEditText"
@@ -159,7 +162,7 @@
                     android:text="@string/edit_time_zone_descr_settings"
                     android:textColor="@color/text"
                     app:customTypefaceStyle="bold"
-                    android:textSize="10sp" />
+                    android:textSize="@dimen/_10sdp" />
 
                 <Spinner
                     android:id="@+id/timeZoneSpinner"

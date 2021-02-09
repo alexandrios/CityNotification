@@ -63,7 +63,7 @@
             android:includeFontPadding="false"
             android:text="2"
             android:textColor="?attr/labelBackgroundColor"
-            android:textSize="18sp" />
+            android:textSize="@dimen/_16sdp" />
 
         <ImageView
             android:id="@+id/vExpandedImageView"

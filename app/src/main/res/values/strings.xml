@@ -34,6 +34,7 @@
 
     <string name="edit_subscr_active_display">Активность подписки</string>
     <string name="edit_subscr_active_settings">Подписка активна</string>
+    <string name="edit_subscr_inactive_settings">Подписка неактивна</string>
 
     <string name="edit_email_descr_display">Email</string>
     <string name="edit_email_descr_settings">Введите адрес электронной почты</string>

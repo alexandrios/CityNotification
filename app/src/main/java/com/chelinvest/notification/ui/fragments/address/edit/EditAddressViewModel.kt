@@ -124,8 +124,7 @@ class EditAddressViewModel @Inject constructor(
         Log.d(Constants.LOG_TAG, "EditAddressViewModel sessionId=$sessionId")
 
         if (sessionId == null) {
-            // TODO Текущая сессия прервана. Войдите заново.
-            errorLiveEvent.postValue("sessionId is null")
+            errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.session_id_is_null))
         } else {
             val branchShort = repository.getBranchShort() ?: return
             Log.d(LOG_TAG, "EditAddressViewModel branchShort=$branchShort")

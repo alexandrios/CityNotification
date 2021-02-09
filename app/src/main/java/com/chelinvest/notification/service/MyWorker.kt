@@ -13,7 +13,7 @@ class MyWorker(appContext: Context, workerParams: WorkerParameters) :
 
     override fun doWork(): ListenableWorker.Result {
         Log.d(LOG_TAG, "Performing long running task in scheduled job")
-        // TODO(developer): add long running task here.
+        //  Add long running task here.
         return ListenableWorker.Result.success()
     }
 }

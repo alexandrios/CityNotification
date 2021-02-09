@@ -42,7 +42,7 @@ class BranchFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d(LOG_TAG, "BranchFragment -> onViewCreated")
 
-        //TODO кнопка-тест, иллюстрирующая, как можно снова вызвать LoginFragment
+        // кнопка-тест, иллюстрирующая, как можно снова вызвать LoginFragment
         //buttonTest.setOnClickListener {
         //    findNavController().navigate(R.id.action_branchFragment_to_loginFragment
         //        ,null, NavOptions.Builder().setPopUpTo(R.id.branchFragment,true).build())
@@ -67,8 +67,7 @@ class BranchFragment : BaseFragment() {
             hideProgress()
             Log.d(LOG_TAG, "arrayList.Count=${it.count()}")
             if (it.count() == 0) {
-                // TODO сообщение
-                showExpandableError("список бранчей пуст")
+                showExpandableError(getString(R.string.branches_list_is_empty))
                 return@Observer
             }
             // связь с адаптером

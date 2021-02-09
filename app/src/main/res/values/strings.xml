@@ -59,13 +59,8 @@
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="fcm_message">FCM Message</string>
 
-
-    <string name="app_name_stub">stub: настройка уведомлений</string>
-    <string name="xgate_post_login_pass_whereid_request"><![CDATA[<?xml version=\"1.0\" encoding=\"windows-1251\"?><xgate_request><datasource>INV_PLAT</datasource><maxrows>1000</maxrows><login_pass><where_id>-1028</where_id><user>{USER}</user><password>{PASS}</password></login_pass></xgate_request>]]></string>
-    <string name="xgate_post_login_pass_request"><![CDATA[<?xml version=\"1.0\" encoding=\"windows-1251\"?><xgate_request><datasource>INV_PLAT</datasource><maxrows>1000</maxrows><login_pass><user>{USER}</user><password>{PASS}</password></login_pass></xgate_request>]]></string>
-    <string name="user_mask">{USER}</string>
-    <string name="pass_mask">{PASS}</string>
-    <string name="login_loading">загрузка данных</string>
+    <string name="session_id_is_null">Текущая сессия прервана. Войдите заново!</string>
+    <string name="branches_list_is_empty">Список типов уведомлений пуст!</string>
 
     <!-- login -->
     <string name="login_name_title">Имя пользователя</string>
@@ -74,32 +69,14 @@
     <string name="login_check_input_pass">Введите пароль</string>
     <string name="login_button">Войти</string>
     <string name="login_checking">проверка</string>
-    <string name="login_title">Добро пожаловать!</string>
-    <string name="login_subtitle">Выберите способ входа:</string>
 
     <!--Failure messages-->
-    <string name="empty_input">Введите слово</string>
     <string name="error_404">Нет соединения, оффлайн режим</string>
     <string name="error_host">Сервер недоступен, оффлайн режим</string>
-    <string name="error_no_word">Слово не найдено</string>
-
-    <string name="data_not_exists_error">Данные не найдены</string>
-    <string name="empty_login_error">Email не может быть пустым</string>
-    <string name="empty_password_error">Минимальная длина пароля - 5 символов</string>
-
-
 
     <!-- errors -->
-    <string name="session_error">Ошибка авторизации</string>
-    <string name="internal_server_error">Ошибка сервера</string>
     <string name="network_error">Проверьте соединение с интернетом</string>
     <string name="unknown_error">Неизвестная ошибка</string>
-    <string name="program_not_found_error">Программа не найдена</string>
-    <string name="invalid_login_or_password_error">Неверный логин или пароль</string>
-    <string name="invalid_card_number_error">Неверный номер карты</string>
-    <string name="enter_password_error">Введите пароль</string>
     <string name="XGATE_error">Неизвестная ошибка. Перезайдите в аккаунт</string>
-    <string name="ORA1_error">Неизвестная ошибка. Перезайдите в аккаунт</string>
-    <string name="ORA2_error">Неизвестная ошибка. Перезайдите в аккаунт</string>
 
 </resources>

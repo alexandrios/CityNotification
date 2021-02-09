@@ -36,7 +36,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // messages. For more see: https://firebase.google.com/docs/cloud-messaging/concept-options
         // [END_EXCLUDE]
 
-        // TODO(developer): Handle FCM messages here.
+        // Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.d(LOG_TAG, "From: ${remoteMessage.from}")
 
@@ -107,7 +107,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      * @param token The new token.
      */
     private fun sendRegistrationToServer(token: String?) {
-        // TODO: Implement this method to send token to your app server.
+        // Implement this method to send token to your app server.
         Log.d(LOG_TAG, "sendRegistrationTokenToServer($token)")
     }
 

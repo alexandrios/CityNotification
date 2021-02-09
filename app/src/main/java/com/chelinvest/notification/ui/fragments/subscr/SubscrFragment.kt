@@ -132,10 +132,6 @@ class SubscrFragment : BaseFragment() {
                         // Нажатие на switch "Подписка активна"
                         showChangeActiveDialog(elementSubscr)
                     }
-                    else -> {
-                        // TODO: not press, but message
-                        showExpandableError(press.toString())
-                    }
                 }
             } // адаптер
 

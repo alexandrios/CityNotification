@@ -310,8 +310,6 @@ class EditAddressFragment : BaseFragment() {
 
         viewDialog.findViewById<TextView>(R.id.dialog_yes).setOnClickListener {
             dialog.dismiss()
-            // TODO:
-            viewModel.getTimeZone()
             setDeliveryAddressForSubscription()
         }
         viewDialog.findViewById<TextView>(R.id.dialog_no).setOnClickListener {
@@ -333,7 +331,6 @@ class EditAddressFragment : BaseFragment() {
 
         // Проверить корректность адреса
         if (viewModel.verifyAddress(deliveType!!, address)) {
-
             if (hasSendPeriod == "1") {
                 if (!viewModel.verifyTimeRange(startHourEditText.getText(),
                         finishHourEditText.getText(),
@@ -348,14 +345,8 @@ class EditAddressFragment : BaseFragment() {
 
             showProgress()
             // Выполнить команду 1.8. set_delivery_address_for_subscription
-            viewModel.setDeliveryAddressForSubscription(idSubscription!!,
-                address,
-                deliveType!!,
-                oldAddress,
-                null,
-                startHour,
-                finishHour,
-                timeZone)
+            viewModel.setDeliveryAddressForSubscription(idSubscription!!, address, deliveType!!, oldAddress,
+                null, startHour, finishHour, timeZone)
         }
     }
 

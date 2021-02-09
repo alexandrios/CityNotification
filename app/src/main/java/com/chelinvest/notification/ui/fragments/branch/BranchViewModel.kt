@@ -2,6 +2,8 @@ package com.chelinvest.notification.ui.fragments.branch
 
 import android.app.Application
 import android.util.Log
+import com.chelinvest.notification.BaseApplication
+import com.chelinvest.notification.R
 import com.chelinvest.notification.api.response.MainResponse
 import com.chelinvest.notification.api.response.ObjParamResponse
 import com.chelinvest.notification.api.response.mapper.ObjParamResponseMapper
@@ -35,8 +37,7 @@ class BranchViewModel @Inject constructor(
         Log.d(Constants.LOG_TAG, "BranchViewModel sessionId=$sessionId")
 
         if (sessionId == null) {
-            // TODO Текущая сессия прервана. Войдите заново.
-            errorLiveEvent.postValue("sessionId is null")
+            errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.session_id_is_null))
         } else {
             val objParamList = ArrayList<ObjParam>()
             repository.loadDeliveryBranches(sessionId).enqueue(object : Callback<MainResponse> {

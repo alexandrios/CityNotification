@@ -146,7 +146,7 @@ class DialogListTest {
 
         // Скроллинг списка
         onView(withId(R.id.valuesRecyclerView)).check(matches(isDisplayed()))
-        //TODO there may not be such a position - 15
+        //there may not be such a position - 15
         onView(withId(R.id.valuesRecyclerView))
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(15))
 

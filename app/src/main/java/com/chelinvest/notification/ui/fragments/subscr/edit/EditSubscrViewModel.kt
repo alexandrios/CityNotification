@@ -3,6 +3,8 @@ package com.chelinvest.notification.ui.fragments.subscr.edit
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.chelinvest.notification.BaseApplication
+import com.chelinvest.notification.R
 import com.chelinvest.notification.api.response.MainDeliverySubscriptionResponse
 import com.chelinvest.notification.api.response.MainResponse
 import com.chelinvest.notification.api.response.mapper.GetDeliverySubscriptionForBranchResponseMapper
@@ -26,10 +28,8 @@ class EditSubscrViewModel @Inject constructor(
     val deliverySubscriptionsLiveEvent = SingleLiveEvent<ArrayList<DeliveSubscriptionForBranch>>()
 
     // Признак того, что был изменен элемент списка агентов (в EditSubscrFragment)
-    //val editSaved = MutableLiveData<Boolean>()
     fun setEditSave(value: Boolean) {
         repository.setChangeSubscrList(value)
-        //editSaved.value = value
     }
 
     // Выполнить команду 1.7. update_delivery_subscription_for_branch
@@ -38,8 +38,7 @@ class EditSubscrViewModel @Inject constructor(
         Log.d(Constants.LOG_TAG, "EditSubscrViewModel updateSubscr sessionId=$sessionId")
 
         if (sessionId == null) {
-            // TODO Текущая сессия прервана. Войдите заново.
-            errorLiveEvent.postValue("sessionId is null")
+            errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.session_id_is_null))
         } else {
             val branchShort = repository.getBranchShort() ?: return
             Log.d(Constants.LOG_TAG,"EditSubscrViewModel updateSubscr branchShort=$branchShort")

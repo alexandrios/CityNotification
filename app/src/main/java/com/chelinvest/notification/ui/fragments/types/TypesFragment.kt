@@ -47,14 +47,13 @@ class TypesFragment: BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d(LOG_TAG, "TypesFragment -> onViewCreated")
 
-        //TODO кнопка-тест, иллюстрирующая, как можно снова вызвать LoginFragment
+        // кнопка-тест, иллюстрирующая, как можно снова вызвать LoginFragment
         //buttonTest.setOnClickListener {
         //    findNavController().navigate(R.id.action_branchFragment_to_loginFragment
         //        ,null, NavOptions.Builder().setPopUpTo(R.id.branchFragment,true).build())
         // это можно настроить в дизайнере в nav_graph.xml для action_branchFragment_to_loginFragment -> Pop Behavior: PopUpTo, PopUpToInclusive
         // Это сделано для того, чтобы по кнопке назад не возвращаться по этой action
         //}
-
 
 //        val tab1 = binding.tabLayout.newTab()
 //        tab1.text = "Лимиты"
@@ -139,7 +138,6 @@ class TypesFragment: BaseFragment() {
 //        var selectedItem =
 //            findNavController().getBackStackEntry(R.id.typesFragment).
 //            savedStateHandle.get<Int>(SELECTED_ITEM)
-        // TODO: Error
         var selectedItem = viewModel.getSelectedItem()
         Log.d(LOG_TAG, "TypesFragment -> selectedItem=$selectedItem")
         // Если значение пусто (первый запуск), то присвоить по умолчанию

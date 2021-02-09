@@ -16,8 +16,6 @@ abstract class BaseViewModel constructor(
 
     fun handleRequestFailure(exception: Throwable) {
         when (exception) {
-           is JsonSyntaxException ->
-               requestListener?.onRequestFailure(getApplication<BaseApplication>().resources.getString(R.string.error_no_word))
            is HttpException -> {
                 when (exception.code()) {
                     404 -> requestListener?.onRequestFailure(getApplication<BaseApplication>().resources.getString(R.string.error_404), true)

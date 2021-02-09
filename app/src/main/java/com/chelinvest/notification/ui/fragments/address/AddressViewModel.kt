@@ -4,6 +4,8 @@ import android.app.Application
 import android.os.Parcelable
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.chelinvest.notification.BaseApplication
+import com.chelinvest.notification.R
 import com.chelinvest.notification.api.response.DelivetypeAddrsResponse
 import com.chelinvest.notification.api.response.MainResponse
 import com.chelinvest.notification.api.response.mapper.DelivetypeAddrsResponseMapper
@@ -45,8 +47,7 @@ class AddressViewModel @Inject constructor(
         Log.d(LOG_TAG, "AddressViewModel getDelivetypeAddrs sessionId=$sessionId")
 
         if (sessionId == null) {
-            // TODO Текущая сессия прервана. Войдите заново.
-            errorLiveEvent.postValue("sessionId is null")
+            errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.session_id_is_null))
         } else {
             val branchShort = repository.getBranchShort() ?: return
             Log.d(LOG_TAG,
@@ -91,5 +92,4 @@ class AddressViewModel @Inject constructor(
             })
         }
     }
-
 }

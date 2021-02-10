@@ -117,6 +117,13 @@ class EditAddressFragment : BaseFragment() {
         }.root
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("HOUR_START", binding.startHourEditText.getText())
+        outState.putString("HOUR_FINISH", binding.finishHourEditText.getText())
+        Log.d(LOG_TAG, "EditAddressFragment -> onSaveInstanceState: $outState")
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(LOG_TAG, "EditAddressFragment -> onViewCreated")
@@ -163,12 +170,17 @@ class EditAddressFragment : BaseFragment() {
 
         // Спрятать или показать layout для периода отправления
         if (hasSendPeriod == "1") {
-            // Если model==null, то предлагаем значения по умолчанию
-            binding.startHourEditText.setText(addressData?.start_hour ?: DEFAULT_START_HOUR)
-            Log.d(LOG_TAG, "startHourEditText = ${binding.startHourEditText.getText()}")
-            binding.finishHourEditText.setText(addressData?.finish_hour ?: DEFAULT_FINISH_HOUR)
-            Log.d(LOG_TAG, "finishHourEditText = ${binding.finishHourEditText.getText()}")
-//            timeZoneEditText.setText(addressData?.timezone ?: DEFAULT_TIME_ZONE)
+            Log.d(LOG_TAG, "EditAddressFragment -> onViewCreated: savedInstanceState = $savedInstanceState")
+            if (savedInstanceState == null) {
+                // Если model==null, то предлагаем значения по умолчанию
+                binding.startHourEditText.setText(addressData?.start_hour ?: DEFAULT_START_HOUR)
+                Log.d(LOG_TAG, "startHourEditText = ${binding.startHourEditText.getText()}")
+                binding.finishHourEditText.setText(addressData?.finish_hour ?: DEFAULT_FINISH_HOUR)
+                Log.d(LOG_TAG, "finishHourEditText = ${binding.finishHourEditText.getText()}")
+            } else {
+                binding.startHourEditText.setText(savedInstanceState.getString("HOUR_START") ?: "1")
+                binding.finishHourEditText.setText(savedInstanceState.getString("HOUR_FINISH") ?: "2")
+            }
 
             binding.periodLayout.visibility = View.VISIBLE
 
@@ -377,5 +389,4 @@ class EditAddressFragment : BaseFragment() {
             )
         }
     }
-
 }

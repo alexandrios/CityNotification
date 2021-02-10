@@ -71,9 +71,11 @@ class EditAddressFragment : BaseFragment() {
 
     companion object {
         // Вариант передачи параметров во фрагмент
-        fun getBundleArguments(idSubscription: String,
-                               group: DelivetypeAddrs,
-                               model: DeliveAddrBranch?): Bundle {
+        fun getBundleArguments(
+            idSubscription: String,
+            group: DelivetypeAddrs,
+            model: DeliveAddrBranch?
+        ): Bundle {
             return Bundle().apply {
                 this.putString(SUBSCRIPTION, idSubscription)
                 this.putSerializable(DELIVERY_TYPE, group)
@@ -90,7 +92,7 @@ class EditAddressFragment : BaseFragment() {
 
         // Не удалять фрагмент (onDestroy) при пересоздании активити.
         // Важно для сохранения состояния экрана при повороте устройства
-        retainInstance = true
+        //retainInstance = true
 
         // Обработка нажатия на кнопку назад
         requireActivity().onBackPressedDispatcher.addCallback(this) {
@@ -103,9 +105,11 @@ class EditAddressFragment : BaseFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         return FragmentEditAddressBinding.inflate(inflater, container, false).apply {
             Log.d(LOG_TAG, "EditAddressFragment -> onCreateView")
             viewmodel = viewModel
@@ -116,6 +120,7 @@ class EditAddressFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(LOG_TAG, "EditAddressFragment -> onViewCreated")
+        Log.d(LOG_TAG, "EditAddressFragment -> arguments: $arguments")
 
         binding.vBackButton.setOnClickListener {
             hideKeyboard()
@@ -133,6 +138,7 @@ class EditAddressFragment : BaseFragment() {
         group = arguments?.getSerializable(DELIVERY_TYPE) as DelivetypeAddrs
         // информация о адресе подписки или null
         addressData = arguments?.getSerializable(ADDRESS_MODEL) as DeliveAddrBranch?
+        Log.d(LOG_TAG, "EditAddressFragment -> addressData: ${addressData?.address} ${addressData?.start_hour} ${addressData?.finish_hour}")
 
         // указывать ли для подписки период отправления
         hasSendPeriod = group?.has_send_period
@@ -158,17 +164,19 @@ class EditAddressFragment : BaseFragment() {
         // Спрятать или показать layout для периода отправления
         if (hasSendPeriod == "1") {
             // Если model==null, то предлагаем значения по умолчанию
-            startHourEditText.setText(addressData?.start_hour ?: DEFAULT_START_HOUR)
-            finishHourEditText.setText(addressData?.finish_hour ?: DEFAULT_FINISH_HOUR)
+            binding.startHourEditText.setText(addressData?.start_hour ?: DEFAULT_START_HOUR)
+            Log.d(LOG_TAG, "startHourEditText = ${binding.startHourEditText.getText()}")
+            binding.finishHourEditText.setText(addressData?.finish_hour ?: DEFAULT_FINISH_HOUR)
+            Log.d(LOG_TAG, "finishHourEditText = ${binding.finishHourEditText.getText()}")
 //            timeZoneEditText.setText(addressData?.timezone ?: DEFAULT_TIME_ZONE)
 
-            periodLayout.visibility = View.VISIBLE
+            binding.periodLayout.visibility = View.VISIBLE
 
-            startHourEditText.onTextChanged = { text ->
+            binding.startHourEditText.onTextChanged = { text ->
                 viewModel.checkHourRange(text)
             }
 
-            finishHourEditText.onTextChanged = { text ->
+            binding.finishHourEditText.onTextChanged = { text ->
                 viewModel.checkHourRange(text)
             }
 
@@ -178,21 +186,36 @@ class EditAddressFragment : BaseFragment() {
 
             // Spinner for TimeZone
             val timeZonesMap = viewModel.getTimeZone()
-            val adapter = ArrayAdapter(requireContext(),
-                android.R.layout.simple_spinner_item,
-                timeZonesMap.keys.toList())
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            //adapter.setDropDownViewResource(R.layout.spinner_item)
+//            val adapter = ArrayAdapter(
+//                requireContext(),
+//                android.R.layout.simple_spinner_item,
+//                timeZonesMap.keys.toList()
+//            )
+            //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            val adapter = ArrayAdapter(
+                requireContext(), R.layout.spinner_row, R.id.timeZoneTextView, timeZonesMap.keys.toList()
+            )
 
             with(binding.timeZoneSpinner) {
                 this.adapter = adapter
                 // заголовок диалога списка
-                prompt = getString(R.string.edit_dialog_timezone_title)
+                //prompt = getString(R.string.edit_dialog_timezone_title)
+                //setPromptId(R.string.edit_dialog_timezone_title)
                 // установить указатель списка на нужный элемент
-                setSelection(viewModel.getTimeZonePosition(timeZonesMap, addressData?.timezone?.toIntOrNull() ?: DEFAULT_TIME_ZONE_INT))
+                setSelection(
+                    viewModel.getTimeZonePosition(
+                        timeZonesMap,
+                        addressData?.timezone?.toIntOrNull() ?: DEFAULT_TIME_ZONE_INT
+                    )
+                )
                 // listener при выборе элемента списка
                 onItemSelectedListener = object : OnItemSelectedListener {
-                    override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
                         // position - позиция нажатого элемента
                         val key = timeZonesMap.keys.toList()[position]
                         val value = timeZonesMap[key]
@@ -222,12 +245,12 @@ class EditAddressFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+        viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, {
             hideProgress()
             showExpandableError(it)
         })
 
-        viewModel.setDeliveAddressLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+        viewModel.setDeliveAddressLiveEvent.observeEvent(viewLifecycleOwner, {
             if (it != "1") {
                 showExpandableError(it)
             } else {
@@ -333,9 +356,11 @@ class EditAddressFragment : BaseFragment() {
         // Проверить корректность адреса
         if (viewModel.verifyAddress(deliveType!!, address)) {
             if (hasSendPeriod == "1") {
-                if (!viewModel.verifyTimeRange(startHourEditText.getText(),
+                if (!viewModel.verifyTimeRange(
+                        startHourEditText.getText(),
                         finishHourEditText.getText(),
-                        timeZoneString())) {
+                        timeZoneString()
+                    )) {
                     return
                 } else {
                     startHour = startHourEditText.getText().toIntOrNull()
@@ -346,8 +371,10 @@ class EditAddressFragment : BaseFragment() {
 
             showProgress()
             // Выполнить команду 1.8. set_delivery_address_for_subscription
-            viewModel.setDeliveryAddressForSubscription(idSubscription!!, address, deliveType!!, oldAddress,
-                null, startHour, finishHour, timeZone)
+            viewModel.setDeliveryAddressForSubscription(
+                idSubscription!!, address, deliveType!!, oldAddress,
+                null, startHour, finishHour, timeZone
+            )
         }
     }
 

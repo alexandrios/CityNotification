@@ -197,6 +197,11 @@ class EditAddressViewModel @Inject constructor(
     fun getTimeZone(): Map<String, Int> {
         val map = mutableMapOf<String, Int>()
         val ids: Array<String> = TimeZone.getAvailableIDs()
+
+        val defaultTimeZone = TimeZone.getDefault()
+        val defaultHour = defaultTimeZone.rawOffset % 3600000
+        Log.d(LOG_TAG, "defaultHour=$defaultHour")
+
         Log.d(LOG_TAG, ids.size.toString())
         for (id in ids) {
             val d = TimeZone.getTimeZone(id)

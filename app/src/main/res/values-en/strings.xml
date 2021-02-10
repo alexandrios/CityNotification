@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">City system notifications</string>
+    <string name="branch_title_text">Types of notifications</string>
+    <string name="limit_title_text">PJSC "Chelyabinvestbank"</string>
+    <string name="limit_subtitle_text">Remaining limit</string>
+    <string name="subscr_title_text">Notification subscriptions</string>
+    <string name="subscr_subtitle_text">Notification of reducing the agent\'s limit to the limit</string>
+    <string name="edit_subscr_title_text">Editing a subscription</string>
+    <string name="edit_subscr_save_question">Save changes?</string>
+    <string name="edit_subscr_continue_choice">Continue editing</string>
+    <string name="address_title_text">Notifications</string>
+    <string name="login_again_text">entrance</string>
+    <string name="only_active_subscr">Active subscriptions only</string>
+    <string name="dialog_create_subscr_title">Create a subscription</string>
+    <string name="choose_attr_value">Select an attribute value \'%1$s\':</string>
+    <string name="menu_limits">Limits</string>
+    <string name="menu_branches">Notifications</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="ruble">₽</string>
+    <string name="cancel">Cancellation</string>
+    <string name="edit_continue">Proceed</string>
+    <string name="delete_subscr_text">Delete subscription?</string>
+    <string name="change_active_subscr_text">Activate subscription?</string>
+    <string name="change_deactive_subscr_text">Deactivate subscription?</string>
+    <string name="empty_description_error">Subscription description cannot be empty!</string>
+    <string name="create_subscr_text">Create a subscription?</string>
+    <string name="edit_notification_title_text">Editing a notification</string>
+    <string name="create_notification_title_text">Create notification</string>
+    <string name="choose_notification_type">Select the type of notification:</string>
+
+    <string name="edit_subscr_descr_display">Subscription Description</string>
+    <string name="edit_subscr_descr_settings">Enter a description for your subscription</string>
+
+    <string name="edit_subscr_active_display">Subscription activity</string>
+    <string name="edit_subscr_active_settings">Subscription is active</string>
+    <string name="edit_subscr_inactive_settings">Subscription is inactive</string>
+
+    <string name="edit_email_descr_display">Email</string>
+    <string name="edit_email_descr_settings">Please enter Email</string>
+    <string name="edit_email_verify">You must enter a correct Email</string>
+    <string name="edit_sms_descr_display">SMS</string>
+    <string name="edit_sms_descr_settings">Enter your phone number in the format +79999999999</string>
+    <string name="edit_sms_verify">You must provide the correct phone number</string>
+    <string name="edit_push_descr_display">APP_PUSH</string>
+    <string name="edit_push_descr_settings">FCM registration token for device</string>
+    <string name="edit_push_descr_settings_name">Device name</string>
+    <string name="edit_push_verify">FCM registration token for device not defined</string>
+
+    <string name="edit_time_period">Preferred period for sending messages</string>
+    <string name="edit_start_hour_descr_settings">Enter the start hour of the preferred mailing period</string>
+    <string name="edit_finish_hour_descr_settings">Enter the end hour of the preferred mailing period</string>
+    <string name="edit_time_zone_descr_settings">Enter the time zone by which the distribution period is calculated</string>
+    <string name="edit_time_start_more_then_finish_hour">The hour of the beginning of the period must be less than the hour of the end of the period</string>
+    <string name="edit_time_check_hour_range">You must specify a value in the range from 0 to 23</string>
+    <string name="edit_time_check_timezone_range">You must specify a value in the range from -11 to 12</string>
+    <string name="edit_dialog_timezone_title">Timezone</string>
+    <string name="edit_title_panel_save">Save</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="fcm_message">FCM Message</string>
+
+    <string name="session_id_is_null">The current session has been aborted. Login again!</string>
+    <string name="branches_list_is_empty">The list of notification types is empty!</string>
+
+    <!-- login -->
+    <string name="login_name_title">Username</string>
+    <string name="login_pass_title">Password</string>
+    <string name="login_check_input_user">Enter username</string>
+    <string name="login_check_input_pass">enter password</string>
+    <string name="login_button">Enter</string>
+    <string name="login_checking">check</string>
+
+    <!--Failure messages-->
+    <string name="error_404">No connection, offline mode</string>
+    <string name="error_host">Server unavailable, offline mode</string>
+
+    <!-- errors -->
+    <string name="network_error">Check your internet connection</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="XGATE_error">Unknown error. Sign in to your account</string>
+</resources>

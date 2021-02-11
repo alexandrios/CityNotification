@@ -91,8 +91,18 @@ class EditAddressViewModel @Inject constructor(
             return false
         }
 
+        if (startH < 0 || startH > 23) {
+            errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.edit_time_check_hour_range))
+            return false
+        }
+
         if (finishH == null) {
             errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.edit_finish_hour_descr_settings))
+            return false
+        }
+
+        if (finishH < 0 || finishH > 23) {
+            errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.edit_time_check_hour_range))
             return false
         }
 

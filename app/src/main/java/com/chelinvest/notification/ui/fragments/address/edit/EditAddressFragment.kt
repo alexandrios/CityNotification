@@ -26,6 +26,7 @@ import com.chelinvest.notification.ui.fragments.address.edit.fragment.SmsFragmen
 import com.chelinvest.notification.utils.Constants.ADDRESS_DATA
 import com.chelinvest.notification.utils.Constants.ADDRESS_FCM_TOKEN
 import com.chelinvest.notification.utils.Constants.ADDRESS_MODEL
+import com.chelinvest.notification.utils.Constants.ADDRESS_TEXT
 import com.chelinvest.notification.utils.Constants.APP_PUSH_ID
 import com.chelinvest.notification.utils.Constants.DEFAULT_FINISH_HOUR
 import com.chelinvest.notification.utils.Constants.DEFAULT_START_HOUR
@@ -33,13 +34,15 @@ import com.chelinvest.notification.utils.Constants.DEFAULT_TIME_ZONE
 import com.chelinvest.notification.utils.Constants.DEFAULT_TIME_ZONE_INT
 import com.chelinvest.notification.utils.Constants.DELIVERY_TYPE
 import com.chelinvest.notification.utils.Constants.DELIVE_NAME
+import com.chelinvest.notification.utils.Constants.EDIT_TEXT
 import com.chelinvest.notification.utils.Constants.EMAIL_ID
 import com.chelinvest.notification.utils.Constants.FRAGMENT_TAG
+import com.chelinvest.notification.utils.Constants.HOUR_FINISH
+import com.chelinvest.notification.utils.Constants.HOUR_START
 import com.chelinvest.notification.utils.Constants.LOG_TAG
 import com.chelinvest.notification.utils.Constants.SMS_ID
 import com.chelinvest.notification.utils.Constants.SUBSCRIPTION
 import kotlinx.android.synthetic.main.fragment_edit_address.*
-
 
 class EditAddressFragment : BaseFragment() {
         private lateinit var viewModel: EditAddressViewModel
@@ -119,15 +122,16 @@ class EditAddressFragment : BaseFragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString("HOUR_START", binding.startHourEditText.getText().toString())
-        outState.putString("HOUR_FINISH", binding.finishHourEditText.getText().toString())
+        outState.putString(ADDRESS_TEXT, view?.findViewById<EditText>(R.id.addressEditText)?.text.toString())
+        outState.putString(HOUR_START, binding.startHourEditText.text.toString())
+        outState.putString(HOUR_FINISH, binding.finishHourEditText.text.toString())
         Log.d(LOG_TAG, "EditAddressFragment -> onSaveInstanceState: $outState")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         Log.d(LOG_TAG, "EditAddressFragment -> onViewCreated")
         Log.d(LOG_TAG, "EditAddressFragment -> arguments: $arguments")
+        super.onViewCreated(view, savedInstanceState)
 
         binding.vBackButton.setOnClickListener {
             hideKeyboard()
@@ -170,17 +174,18 @@ class EditAddressFragment : BaseFragment() {
 
         // Спрятать или показать layout для периода отправления
         if (hasSendPeriod == "1") {
+            // Проверить, есть ли сохранённые данные перед пересозданием фрагмента
             Log.d(LOG_TAG, "EditAddressFragment -> onViewCreated: savedInstanceState = $savedInstanceState")
-            if (savedInstanceState == null) {
+            if (savedInstanceState != null) {
+                binding.startHourEditText.setText(savedInstanceState.getString(HOUR_START) ?: (addressData?.start_hour ?: DEFAULT_START_HOUR))
+                binding.finishHourEditText.setText(savedInstanceState.getString(HOUR_FINISH) ?: (addressData?.finish_hour ?: DEFAULT_FINISH_HOUR))
+            } else {
                 // Если model==null, то предлагаем значения по умолчанию
                 binding.startHourEditText.setText(addressData?.start_hour ?: DEFAULT_START_HOUR)
-                Log.d(LOG_TAG, "startHourEditText = ${binding.startHourEditText.getText()}")
                 binding.finishHourEditText.setText(addressData?.finish_hour ?: DEFAULT_FINISH_HOUR)
-                Log.d(LOG_TAG, "finishHourEditText = ${binding.finishHourEditText.getText()}")
-            } else {
-                binding.startHourEditText.setText(savedInstanceState.getString("HOUR_START") ?: "1")
-                binding.finishHourEditText.setText(savedInstanceState.getString("HOUR_FINISH") ?: "2")
             }
+            Log.d(LOG_TAG, "startHourEditText = ${binding.startHourEditText.text}")
+            Log.d(LOG_TAG, "finishHourEditText = ${binding.finishHourEditText.text}")
 
             binding.periodLayout.visibility = View.VISIBLE
 
@@ -246,7 +251,7 @@ class EditAddressFragment : BaseFragment() {
             periodLayout.visibility = View.INVISIBLE
         }
 
-        createFragment()
+        createFragment(savedInstanceState)
         callOnShow(FRAGMENT_TAG)
     }
 
@@ -268,7 +273,7 @@ class EditAddressFragment : BaseFragment() {
         })
     }
 
-    private fun createFragment() {
+    private fun createFragment(savedInstanceState: Bundle?) {
         childFragmentManager.beginTransaction().apply {
             when (deliveType) {
                 EMAIL_ID -> {
@@ -279,6 +284,9 @@ class EditAddressFragment : BaseFragment() {
                     eMailFragment.arguments = Bundle().apply {
                         putSerializable(ADDRESS_DATA, addressData)
                         putString(DELIVE_NAME, deliveName)
+                        if (savedInstanceState != null) {
+                            putString(EDIT_TEXT, savedInstanceState.getString(ADDRESS_TEXT))
+                        }
                     }
                     replace(R.id.emailContainer, eMailFragment, FRAGMENT_TAG)
                 }
@@ -290,6 +298,9 @@ class EditAddressFragment : BaseFragment() {
                     smsFragment.arguments = Bundle().apply {
                         putSerializable(ADDRESS_DATA, addressData)
                         putString(DELIVE_NAME, deliveName)
+                        if (savedInstanceState != null) {
+                            putString(EDIT_TEXT, savedInstanceState.getString(ADDRESS_TEXT))
+                        }
                     }
                     replace(R.id.smsContainer, smsFragment, FRAGMENT_TAG)
                 }
@@ -316,12 +327,12 @@ class EditAddressFragment : BaseFragment() {
 
     // Сравнивает поля с их предыдущими значениями. True - если что-то изменилось.
     private fun isChanged(): Boolean {
-        val address = view?.findViewById<EditText>(R.id.addressEditText)?.getText() ?: ""
+        val address = view?.findViewById<EditText>(R.id.addressEditText)?.text ?: ""
         var result = oldAddress != address
 
         if (!result && hasSendPeriod == "1") {
-            result = !(oldStartHour == startHourEditText.getText().toString() &&
-                        oldFinishHour == finishHourEditText.getText().toString() &&
+            result = !(oldStartHour == startHourEditText.text.toString() &&
+                        oldFinishHour == finishHourEditText.text.toString() &&
                         oldTimeZone == timeZoneString())
         }
 
@@ -329,7 +340,6 @@ class EditAddressFragment : BaseFragment() {
     }
 
     private fun timeZoneString(): String {
-        //return timeZoneEditText.getText()
         return newTimeZone ?: DEFAULT_TIME_ZONE
     }
 
@@ -364,6 +374,7 @@ class EditAddressFragment : BaseFragment() {
         // Проверить корректность адреса
         if (viewModel.verifyAddress(deliveType!!, address)) {
             if (hasSendPeriod == "1") {
+                //if (viewModel.checkHourRange(startHourEditText.text.toString()))
                 if (!viewModel.verifyTimeRange(
                         startHourEditText.text.toString(),
                         finishHourEditText.text.toString(),

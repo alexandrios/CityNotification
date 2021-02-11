@@ -23,14 +23,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class TypesFragment: BaseFragment() {
     private lateinit var viewModel: TypesViewModel
     private lateinit var binding: FragmentTypesBinding
+    private var curMenuId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
         Log.d(LOG_TAG, "TypesFragment -> onCreate")
+        super.onCreate(savedInstanceState)
         viewModel = injectViewModel(viewModelFactory)
-
-        //retainInstance = true
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -93,12 +91,15 @@ class TypesFragment: BaseFragment() {
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
             val id = menuItem.itemId
-            if (id == R.id.branches) {
-                loadFragment(BranchFragment(), id)
-                return@OnNavigationItemSelectedListener true
-            } else if (id == R.id.limits) {
-                loadFragment(LimitFragment(), id)
-                return@OnNavigationItemSelectedListener true
+            if (curMenuId != id) {
+                curMenuId = id
+                if (id == R.id.branches) {
+                    loadFragment(BranchFragment(), id)
+                    return@OnNavigationItemSelectedListener true
+                } else if (id == R.id.limits) {
+                    loadFragment(LimitFragment(), id)
+                    return@OnNavigationItemSelectedListener true
+                }
             }
             true
         })
@@ -129,8 +130,8 @@ class TypesFragment: BaseFragment() {
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         Log.d(LOG_TAG, "TypesFragment -> onActivityCreated")
+        super.onActivityCreated(savedInstanceState)
 
         // Получить значение последнего выбранного пункта меню
         // Это значение сохраняется в onDestroyView()
@@ -142,14 +143,17 @@ class TypesFragment: BaseFragment() {
         Log.d(LOG_TAG, "TypesFragment -> selectedItem=$selectedItem")
         // Если значение пусто (первый запуск), то присвоить по умолчанию
         if (selectedItem == 0) selectedItem = R.id.limits
-        Log.d(LOG_TAG, "TypesFragment -> selectedItem=$selectedItem")
+                Log.d(LOG_TAG, "TypesFragment -> selectedItem=$selectedItem")
         Log.d(LOG_TAG, "TypesFragment -> menu.size=${binding.bottomNavigation.menu.size()}")
+
         var menuItem = binding.bottomNavigation.menu.findItem(selectedItem)
         Log.d(LOG_TAG, "TypesFragment -> menuItem=$menuItem")
         if (menuItem == null) menuItem = binding.bottomNavigation.menu[0]
         Log.d(LOG_TAG, "TypesFragment -> menuItem=$menuItem")
+
         menuItem.isChecked = true
         selectedItem = menuItem.itemId
+        curMenuId = selectedItem
         // Загрузить сооответствующий фрагмент
         when (selectedItem) {
             R.id.limits -> loadFragment(LimitFragment(), selectedItem)

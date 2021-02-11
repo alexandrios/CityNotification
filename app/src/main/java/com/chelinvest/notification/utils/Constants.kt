@@ -84,5 +84,12 @@ object Constants {
     const val DEFAULT_FINISH_HOUR = "22"
     const val DEFAULT_TIME_ZONE = "5"
     const val DEFAULT_TIME_ZONE_INT = 5
+    const val DEFAULT_SMS = "+7"
+    const val DEFAULT_EMAIL = ""
+
+    const val ADDRESS_TEXT = "ADDRESS_TEXT"
+    const val HOUR_START = "HOUR_START"
+    const val HOUR_FINISH = "HOUR_FINISH"
+    const val EDIT_TEXT = "EDIT_TEXT"
 
 }

@@ -10,7 +10,9 @@ import com.chelinvest.notification.R
 import com.chelinvest.notification.model.DeliveAddrBranch
 import com.chelinvest.notification.ui.custom.stylable.CustomTextView
 import com.chelinvest.notification.utils.Constants.ADDRESS_DATA
+import com.chelinvest.notification.utils.Constants.DEFAULT_SMS
 import com.chelinvest.notification.utils.Constants.DELIVE_NAME
+import com.chelinvest.notification.utils.Constants.EDIT_TEXT
 
 class SmsFragment : Fragment() {
 
@@ -19,6 +21,7 @@ class SmsFragment : Fragment() {
     }
 
     var addressData: DeliveAddrBranch? = null
+    var editText: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_sms, container, false)
@@ -27,16 +30,17 @@ class SmsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         addressData = arguments?.getSerializable(ADDRESS_DATA) as DeliveAddrBranch?
+        editText = arguments?.getString(EDIT_TEXT)
 
         val addressEditText = view.findViewById<EditText>(R.id.addressEditText)
-        if (addressData != null) {
-            addressEditText.setText(addressData!!.address)
+
+        if (editText != null) {
+            addressEditText.setText(editText)
         } else {
-            addressEditText.setText("+7")
+            // Если model==null, то предлагаем значения по умолчанию
+            addressEditText.setText(addressData?.address ?: DEFAULT_SMS)
         }
 
-        view.findViewById<CustomTextView>(R.id.addressTextView).text = arguments?.getString(DELIVE_NAME) ?:
-                resources.getString(R.string.edit_sms_descr_display)
+        view.findViewById<CustomTextView>(R.id.addressTextView).text = arguments?.getString(DELIVE_NAME) ?: resources.getString(R.string.edit_sms_descr_display)
     }
-
 }

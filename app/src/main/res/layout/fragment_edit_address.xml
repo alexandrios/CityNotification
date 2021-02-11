@@ -133,11 +133,6 @@
                     android:textSize="@dimen/edit_text_text_size"
                     android:background="@drawable/bg_modified_edit_text"
                     android:inputType="number" />
-<!--                    app:cet_imeOption="actionDone"-->
-<!--                    app:cet_inputType="number"-->
-<!--                    app:cet_label="@string/edit_start_hour_descr_settings"-->
-<!--                    app:cet_textSize="@dimen/edit_text_text_size"/>-->
-
 
                 <TextView
                     android:layout_width="match_parent"
@@ -159,10 +154,6 @@
                     android:textSize="@dimen/edit_text_text_size"
                     android:background="@drawable/bg_modified_edit_text"
                     android:inputType="number" />
-<!--                    app:cet_imeOption="actionDone"-->
-<!--                    app:cet_inputType="number"-->
-<!--                    app:cet_label="@string/edit_finish_hour_descr_settings"-->
-<!--                    app:cet_textSize="@dimen/edit_text_text_size" />-->
 
                 <TextView
                     android:layout_width="match_parent"

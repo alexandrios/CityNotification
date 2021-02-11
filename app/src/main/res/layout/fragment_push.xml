@@ -44,7 +44,7 @@
         app:customTypefaceStyle="normal"
         android:visibility="visible"/>
 
-    <com.chelinvest.notification.ui.custom.ModifiedEditText
+    <EditText
         android:id="@+id/addressEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,10 +53,10 @@
         android:layout_marginEnd="16dp"
         android:textIsSelectable="true"
         android:focusable="false"
-        app:cet_label="@string/edit_push_descr_settings"
-        app:cet_textSize="16sp"
-        app:cet_imeOption="actionDone"
-        app:cet_inputType="text"
         android:visibility="gone" />
+<!--        app:cet_label="@string/edit_push_descr_settings"-->
+<!--        app:cet_textSize="16sp"-->
+<!--        app:cet_imeOption="actionDone"-->
+<!--        app:cet_inputType="text"-->
 
 </LinearLayout>

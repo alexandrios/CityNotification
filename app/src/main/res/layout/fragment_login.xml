@@ -49,7 +49,7 @@
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/appBar" >
 
-            <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+            <TextView
                 android:id="@+id/userTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,16 +60,18 @@
                 android:textSize="@dimen/_14sdp"
                 android:textColor="@color/text" />
 
-            <com.chelinvest.notification.ui.custom.ModifiedEditText
+            <EditText
                 android:id="@+id/userEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:hint="@string/login_name_title" />
+                android:textSize="@dimen/edit_text_text_size"
+                android:background="@drawable/bg_modified_edit_text"
+                android:inputType="text" />
 
-            <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+            <TextView
                 android:id="@+id/passTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,19 +98,21 @@
                     android:padding="3dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_eye"
-                    app:tint="@color/black" />
+                    app:tint="@color/black"
+                    tools:tint="@color/colorPrimary"
+                    tools:alpha="1.0" />
 
-                <com.chelinvest.notification.ui.custom.ModifiedEditText
+                <EditText
                     android:id="@+id/passEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="8dp"
+                    android:textSize="@dimen/edit_text_text_size"
                     android:layout_toStartOf="@+id/viewPassImageView"
-                    android:hint="@string/login_pass_title"
-                    app:cet_inputType="password" />
-                <!--                    android:text="@={viewmodel.passInput}" />-->
+                    android:background="@drawable/bg_modified_edit_text"
+                    android:inputType="textPassword" />
 
             </RelativeLayout>
 

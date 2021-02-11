@@ -8,9 +8,10 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.addCallback
-import androidx.lifecycle.Observer
+import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.chelinvest.notification.R
@@ -19,7 +20,6 @@ import com.chelinvest.notification.di.injectViewModel
 import com.chelinvest.notification.model.DeliveAddrBranch
 import com.chelinvest.notification.model.DelivetypeAddrs
 import com.chelinvest.notification.ui.BaseFragment
-import com.chelinvest.notification.ui.custom.ModifiedEditText
 import com.chelinvest.notification.ui.fragments.address.edit.fragment.EmailFragment
 import com.chelinvest.notification.ui.fragments.address.edit.fragment.PushFragment
 import com.chelinvest.notification.ui.fragments.address.edit.fragment.SmsFragment
@@ -119,8 +119,8 @@ class EditAddressFragment : BaseFragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString("HOUR_START", binding.startHourEditText.getText())
-        outState.putString("HOUR_FINISH", binding.finishHourEditText.getText())
+        outState.putString("HOUR_START", binding.startHourEditText.getText().toString())
+        outState.putString("HOUR_FINISH", binding.finishHourEditText.getText().toString())
         Log.d(LOG_TAG, "EditAddressFragment -> onSaveInstanceState: $outState")
     }
 
@@ -184,17 +184,13 @@ class EditAddressFragment : BaseFragment() {
 
             binding.periodLayout.visibility = View.VISIBLE
 
-            binding.startHourEditText.onTextChanged = { text ->
-                viewModel.checkHourRange(text)
+            binding.startHourEditText.doOnTextChanged { text, _, _, _ ->
+                viewModel.checkHourRange(text.toString())
             }
 
-            binding.finishHourEditText.onTextChanged = { text ->
-                viewModel.checkHourRange(text)
+            binding.finishHourEditText.doOnTextChanged { text, _, _, _ ->
+                viewModel.checkHourRange(text.toString())
             }
-
-//            timeZoneEditText.onTextChanged = {
-//                viewModel.checkTimeZone(it)
-//            }
 
             // Spinner for TimeZone
             val timeZonesMap = viewModel.getTimeZone()
@@ -320,12 +316,12 @@ class EditAddressFragment : BaseFragment() {
 
     // Сравнивает поля с их предыдущими значениями. True - если что-то изменилось.
     private fun isChanged(): Boolean {
-        val address = view?.findViewById<ModifiedEditText>(R.id.addressEditText)?.getText() ?: ""
+        val address = view?.findViewById<EditText>(R.id.addressEditText)?.getText() ?: ""
         var result = oldAddress != address
 
         if (!result && hasSendPeriod == "1") {
-            result = !(oldStartHour == startHourEditText.getText() &&
-                        oldFinishHour == finishHourEditText.getText() &&
+            result = !(oldStartHour == startHourEditText.getText().toString() &&
+                        oldFinishHour == finishHourEditText.getText().toString() &&
                         oldTimeZone == timeZoneString())
         }
 
@@ -362,21 +358,21 @@ class EditAddressFragment : BaseFragment() {
 
     // Создать (или привязать существующий) адрес (email, sms, push) к подписке
     private fun setDeliveryAddressForSubscription() {
-        val addrEditText = view?.findViewById<ModifiedEditText>(R.id.addressEditText)
-        val address = addrEditText?.getText() ?: ""
+        val addrEditText = view?.findViewById<EditText>(R.id.addressEditText)
+        val address = addrEditText?.text.toString()
 
         // Проверить корректность адреса
         if (viewModel.verifyAddress(deliveType!!, address)) {
             if (hasSendPeriod == "1") {
                 if (!viewModel.verifyTimeRange(
-                        startHourEditText.getText(),
-                        finishHourEditText.getText(),
+                        startHourEditText.text.toString(),
+                        finishHourEditText.text.toString(),
                         timeZoneString()
                     )) {
                     return
                 } else {
-                    startHour = startHourEditText.getText().toIntOrNull()
-                    finishHour = finishHourEditText.getText().toIntOrNull()
+                    startHour = startHourEditText.text.toString().toIntOrNull()
+                    finishHour = finishHourEditText.text.toString().toIntOrNull()
                     timeZone = timeZoneString().toIntOrNull()
                 }
             }

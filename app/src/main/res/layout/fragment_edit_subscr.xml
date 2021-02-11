@@ -89,23 +89,13 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:inputType="textMultiLine"
-                android:maxLines="10"
-                android:background="@color/white"
+                android:maxLines="4"
+                android:background="@drawable/bg_modified_edit_text"
                 android:textSize="@dimen/edit_text_text_size"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:paddingTop="6dp"
                 android:paddingBottom="6dp" />
-
-<!--            <com.chelinvest.notification.ui.custom.ModifiedEditText-->
-<!--                android:id="@+id/descriptEditText"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="16dp"-->
-<!--                android:layout_marginEnd="16dp"-->
-<!--                app:cet_imeOption="actionDone"-->
-<!--                app:cet_label="@string/edit_subscr_descr_settings"-->
-<!--                app:cet_textSize="16sp" />-->
 
             <com.chelinvest.notification.ui.custom.stylable.CustomTextView
                 android:layout_width="wrap_content"

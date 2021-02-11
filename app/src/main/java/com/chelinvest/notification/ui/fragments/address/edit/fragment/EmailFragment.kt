@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.chelinvest.notification.R
 import com.chelinvest.notification.model.DeliveAddrBranch
-import com.chelinvest.notification.ui.custom.ModifiedEditText
 import com.chelinvest.notification.ui.custom.stylable.CustomTextView
 import com.chelinvest.notification.utils.Constants.ADDRESS_DATA
 import com.chelinvest.notification.utils.Constants.DELIVE_NAME
@@ -28,7 +28,7 @@ class EmailFragment : Fragment() {
 
         addressData = arguments?.getSerializable(ADDRESS_DATA) as DeliveAddrBranch?
 
-        val addressEditText = view.findViewById<ModifiedEditText>(R.id.addressEditText)
+        val addressEditText = view.findViewById<EditText>(R.id.addressEditText)
         if (addressData != null) {
             addressEditText.setText(addressData!!.address)
         }

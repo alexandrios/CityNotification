@@ -52,17 +52,17 @@ class LoginFragment : BaseFragment() {
             showProgress()
 
             // Запрос на сервер об авторизации пользователя
-            viewModel.login(binding.userEditText.getText(), binding.passEditText.getText())
+            viewModel.login(binding.userEditText.text.toString(), binding.passEditText.text.toString())
         }
 
         // Для просмотра набранного пароля
         (binding.viewPassImageView as View).setOnTouchListener(object : View.OnTouchListener {
             override fun onTouch(p0: View?, event: MotionEvent?): Boolean {
                 if (event?.action == MotionEvent.ACTION_DOWN) {
-                    binding.passEditText.getEditText().inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    binding.passEditText.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
                     binding.viewPassImageView.alpha = 1.0f
                 } else if (event?.action == MotionEvent.ACTION_UP) {
-                    binding.passEditText.getEditText().inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    binding.passEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
                     binding.viewPassImageView.alpha = 0.4f
                 }
                 return true

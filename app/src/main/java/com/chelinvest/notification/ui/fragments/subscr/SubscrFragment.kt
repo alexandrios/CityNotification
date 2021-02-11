@@ -6,8 +6,10 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -22,7 +24,6 @@ import com.chelinvest.notification.model.DeliveSubscriptionForBranch
 import com.chelinvest.notification.model.ObjAny
 import com.chelinvest.notification.model.ObjParam
 import com.chelinvest.notification.ui.BaseFragment
-import com.chelinvest.notification.ui.custom.ModifiedEditText
 import com.chelinvest.notification.ui.fragments.address.AddressFragment
 import com.chelinvest.notification.ui.fragments.subscr.dialog.FieldValuesAdapter
 import com.chelinvest.notification.utils.Constants.AGENT
@@ -318,10 +319,8 @@ class SubscrFragment : BaseFragment() {
         // Прочитать значения для текущего поля
         viewModel.getFieldValues(field.id) { objParamList ->
             // Вызвать диалог(и) для выбора агента (или чего-то ещё)
-            val contentView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_field_values,
-                null)
-            contentView.headerTextView.text = String.format(resources.getString(R.string.choose_attr_value),
-                field.name)
+            val contentView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_field_values, null)
+            contentView.headerTextView.text = String.format(resources.getString(R.string.choose_attr_value), field.name)
 
             // get colors of the background from the active theme
             val typedValue = TypedValue()
@@ -350,10 +349,15 @@ class SubscrFragment : BaseFragment() {
             }
 
             // Фильтрация
-            val searchEditText = contentView.findViewById<ModifiedEditText>(R.id.searchEditText)
-            searchEditText.onTextChanged = { str ->
+            val searchEditText = contentView.findViewById<EditText>(R.id.searchEditText)
+//            searchEditText.onTextChanged = { str ->
+//                (recyclerView.adapter as FieldValuesAdapter).updateList(objParamList.filter {
+//                    it.name.contains(str!!, ignoreCase = true)
+//                } as ArrayList<ObjParam>)
+//            }
+            searchEditText.doOnTextChanged { text, start, before, count ->
                 (recyclerView.adapter as FieldValuesAdapter).updateList(objParamList.filter {
-                    it.name.contains(str!!, ignoreCase = true)
+                    it.name.contains(text!!, ignoreCase = true)
                 } as ArrayList<ObjParam>)
             }
 

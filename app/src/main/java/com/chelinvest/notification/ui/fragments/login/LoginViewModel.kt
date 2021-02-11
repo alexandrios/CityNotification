@@ -2,6 +2,8 @@ package com.chelinvest.notification.ui.fragments.login
 
 import android.app.Application
 import android.util.Log
+import com.chelinvest.notification.BaseApplication
+import com.chelinvest.notification.R
 import com.chelinvest.notification.api.response.MainResponse
 import com.chelinvest.notification.data.Repository
 import com.chelinvest.notification.model.session.Session
@@ -23,22 +25,18 @@ class LoginViewModel @Inject constructor(
 
 //    val userInput = MutableLiveData<String>()
 //    val passInput = MutableLiveData<String>()
-//    val startNavigateToBranch = SingleLiveEvent<Nothing>()
-
-//    fun loginBtnClick() {
-//    }
 
     fun login(user: String, pass: String) {
 
-//        if (user.isEmpty()) {
-//            errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.login_check_input_user))
-//            return
-//        }
-//
-//        if (pass.isEmpty()) {
-//            errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.login_check_input_pass))
-//            return
-//        }
+        if (user.isEmpty()) {
+            errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.login_check_input_user))
+            return
+        }
+
+        if (pass.isEmpty()) {
+            errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.login_check_input_pass))
+            return
+        }
 
         val user = "pam"
         val pass = "ceramica1"

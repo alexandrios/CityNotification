@@ -26,8 +26,8 @@ class MainActivity : DaggerAppCompatActivity() {
     var mInAppMessaging: FirebaseInAppMessaging? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         Log.d(LOG_TAG, "MainActivity -> onCreate")
+        super.onCreate(savedInstanceState)
 
         viewModel = injectActivityViewModel(viewModelFactory)
 
@@ -47,8 +47,13 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
     override fun onResume() {
-        super.onResume()
         Log.d(LOG_TAG, "MainActivity onResume")
+        super.onResume()
+    }
+
+    override fun onDestroy() {
+        Log.d(LOG_TAG, "MainActivity onDestroy")
+        super.onDestroy()
     }
 
 }

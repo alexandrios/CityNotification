@@ -5,6 +5,7 @@ import android.os.Handler
 import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
@@ -21,34 +22,27 @@ class LoginFragment : BaseFragment() {
     private lateinit var viewModel: LoginViewModel
     private lateinit var binding: FragmentLoginBinding
 
-    var passVisible = false
+    //var passVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
         Log.d(LOG_TAG, "LoginFragment -> onCreate")
+        super.onCreate(savedInstanceState)
         viewModel = injectViewModel(viewModelFactory)
-
-        // Не удалять фрагмент (onDestroy) при пересоздании активити.
-        // Важно для сохранения состояния экрана при повороте устройства
-        //retainInstance = true
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        Log.d(LOG_TAG, "LoginFragment -> onCreateView")
         return FragmentLoginBinding.inflate(inflater, container, false).apply {
-            Log.d(LOG_TAG, "LoginFragment -> onCreateView")
             viewmodel = viewModel
             binding = this
         }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         Log.d(LOG_TAG, "LoginFragment -> onViewCreated")
+        super.onViewCreated(view, savedInstanceState)
 
-        //binding.vProgressLayout.visibility = View.INVISIBLE
-        binding.viewPassImageView.setColorRes(R.color.colorLightBrown)
+        binding.viewPassImageView.setColorRes(R.color.colorPrimary)
 
         binding.loginButton.setOnClickListener {
             // Предотвращение повторного нажатия на кнопку
@@ -56,28 +50,39 @@ class LoginFragment : BaseFragment() {
 
             hideSoftKeyboard(activity)
             showProgress()
-            //binding.vProgressLayout.visibility = View.VISIBLE
 
             // Запрос на сервер об авторизации пользователя
             viewModel.login(binding.userEditText.getText(), binding.passEditText.getText())
-            //viewModel.login("pam", "ceramica1")
-            //viewModel.login()
-            //viewModel.loginByPassword("pam", "ceramica1")
         }
 
-        binding.viewPassImageView.setOnClickListener {
-            if (!passVisible) {
-                binding.passEditText.getEditText().inputType =
-                    InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                binding.viewPassImageView.alpha = 1.0f
-            } else {
-                binding.passEditText.getEditText().inputType =
-                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                binding.viewPassImageView.alpha = 0.4f
+        // Для просмотра набранного пароля
+        (binding.viewPassImageView as View).setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(p0: View?, event: MotionEvent?): Boolean {
+                if (event?.action == MotionEvent.ACTION_DOWN) {
+                    binding.passEditText.getEditText().inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    binding.viewPassImageView.alpha = 1.0f
+                } else if (event?.action == MotionEvent.ACTION_UP) {
+                    binding.passEditText.getEditText().inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    binding.viewPassImageView.alpha = 0.4f
+                }
+                return true
             }
-            passVisible = !passVisible
-            binding.passEditText.getEditText().setSelection(binding.passEditText.getEditText().length());
-        }
+        })
+
+          // Старый вариант просмотра пароля
+//        binding.viewPassImageView.setOnClickListener {
+//            if (!passVisible) {
+//                binding.passEditText.getEditText().inputType =
+//                    InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+//                binding.viewPassImageView.alpha = 1.0f
+//            } else {
+//                binding.passEditText.getEditText().inputType =
+//                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+//                binding.viewPassImageView.alpha = 0.4f
+//            }
+//            passVisible = !passVisible
+//            binding.passEditText.getEditText().setSelection(binding.passEditText.getEditText().length());
+//        }
 
         binding.passEditText.setOnFocusChangeListener { _, b ->
             if (!b) {
@@ -87,12 +92,12 @@ class LoginFragment : BaseFragment() {
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         Log.d(LOG_TAG, "LoginFragment -> onActivityCreated")
+        super.onActivityCreated(savedInstanceState)
 
         viewModel.sessionLiveEvent.observeEvent(viewLifecycleOwner, Observer {
 
-            binding.vProgressLayout.visibility = View.INVISIBLE
+            hideProgress()
             binding.loginButton.isEnabled = true
 
             if(!it.error_note.isNullOrEmpty()) {
@@ -110,10 +115,14 @@ class LoginFragment : BaseFragment() {
 
         viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
             hideProgress()
-            //binding.vProgressLayout.visibility = View.INVISIBLE
             binding.loginButton.isEnabled = true
             showExpandableError(it)
         })
+    }
+
+    override fun onDestroy() {
+        Log.d(LOG_TAG, "LoginFragment -> onDestroy")
+        super.onDestroy()
     }
 }
 

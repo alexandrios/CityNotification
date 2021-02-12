@@ -38,13 +38,9 @@ class LoginViewModel @Inject constructor(
             return
         }
 
-        val user = "pam"
-        val pass = "ceramica1"
-
-/*
+        /*
         if (userInput.value.isNullOrEmpty()) {
             errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.login_check_input_user))
-            //errorLiveEvent.postValue(Resources.getSystem().getString(R.string.login_check_input_user))
             return
         }
 
@@ -52,7 +48,7 @@ class LoginViewModel @Inject constructor(
             errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.login_check_input_pass))
             return
         }
-*/
+        */
 
         //repository.getSession(userInput.value!!, passInput.value!!).enqueue(object : Callback<MainResponse> {
         repository.getSession(user, pass).enqueue(object : Callback<MainResponse> {

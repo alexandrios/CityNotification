@@ -326,7 +326,7 @@ class EditAddressFragment : BaseFragment() {
 
     // Сравнивает поля с их предыдущими значениями. True - если что-то изменилось.
     private fun isChanged(): Boolean {
-        val address = view?.findViewById<EditText>(R.id.addressEditText)?.text ?: ""
+        val address = requireView().findViewById<EditText>(R.id.addressEditText)?.text.toString()
         var result = oldAddress != address
 
         if (!result && hasSendPeriod == "1") {
@@ -334,7 +334,6 @@ class EditAddressFragment : BaseFragment() {
                         oldFinishHour == binding.finishHourEditText.text.toString() &&
                         oldTimeZone == timeZoneString())
         }
-
         return result
     }
 

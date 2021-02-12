@@ -22,8 +22,6 @@ class LoginFragment : BaseFragment() {
     private lateinit var viewModel: LoginViewModel
     private lateinit var binding: FragmentLoginBinding
 
-    //var passVisible = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(LOG_TAG, "LoginFragment -> onCreate")
         super.onCreate(savedInstanceState)

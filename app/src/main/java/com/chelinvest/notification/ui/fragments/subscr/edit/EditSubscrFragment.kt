@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.addCallback
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.chelinvest.notification.R
@@ -22,8 +21,8 @@ class EditSubscrFragment : BaseFragment() {
     private lateinit var viewModel: EditSubscrViewModel
     private lateinit var binding: FragmentEditSubscrBinding
 
-    lateinit var subscrId: String
-    lateinit var oldDescription: String
+    private lateinit var subscrId: String
+    private lateinit var oldDescription: String
     lateinit var oldActive: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,12 +80,12 @@ class EditSubscrFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+        viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, {
             showExpandableError(it)
         })
 
         // Получение списка подписок
-        viewModel.deliverySubscriptionsLiveEvent.observeEvent(viewLifecycleOwner, Observer { list ->
+        viewModel.deliverySubscriptionsLiveEvent.observeEvent(viewLifecycleOwner, { list ->
             Log.wtf(LOG_TAG, "EditSubscrFragment list.size=${list.size}")
             if (list.size > 0) {
                 Log.wtf(LOG_TAG, "EditSubscrFragment setEditSave(true)")
@@ -95,7 +94,7 @@ class EditSubscrFragment : BaseFragment() {
             findNavController().popBackStack()
         })
 
-        viewModel.activeLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+        viewModel.activeLiveEvent.observeEvent(viewLifecycleOwner, {
             binding.activeSwitch.text = getString(
                 if(it) R.string.edit_subscr_active_settings else R.string.edit_subscr_inactive_settings
             )

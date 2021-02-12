@@ -6,8 +6,8 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandableItemManager
-import kotlinx.android.synthetic.main.dialog_field_values.view.*
 import com.chelinvest.notification.R
 import com.chelinvest.notification.databinding.FragmentAddressBinding
 import com.chelinvest.notification.di.injectViewModel
@@ -31,7 +30,6 @@ import com.chelinvest.notification.utils.Constants.SUBSCRIPTION_NAME
 class AddressFragment : BaseFragment() {
     private lateinit var viewModel: AddressViewModel
     private lateinit var binding: FragmentAddressBinding
-    private var groupList: List<DelivetypeAddrs> = emptyList()
     private var delivetypeAddrsList = ArrayList<DelivetypeAddrs>()
     private lateinit var idSubscription: String
     private lateinit var nameSubscription: String
@@ -77,7 +75,7 @@ class AddressFragment : BaseFragment() {
         Log.d(LOG_TAG, "AddressFragment -> onViewCreated")
 
         // Наблюдатель за изменением LiveData editSaved (сохранение адреса)
-        viewModel.editSaved.observe(viewLifecycleOwner, androidx.lifecycle.Observer<Boolean> {
+        viewModel.editSaved.observe(viewLifecycleOwner, {
             if (it) {
                 Log.d(LOG_TAG, "AddressFragment editSaved observe = $it")
                 // Обновить список
@@ -130,7 +128,7 @@ class AddressFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
 
         // Сохранение элемента списка агентов
-        viewModel.editSaved.observe(viewLifecycleOwner, Observer<Boolean> {
+        viewModel.editSaved.observe(viewLifecycleOwner, {
             if (it) {
                 Log.d(LOG_TAG, "AddressFragment editSaved.observe = $it")
                 // Обновить список
@@ -138,13 +136,13 @@ class AddressFragment : BaseFragment() {
             }
         })
 
-        viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+        viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, {
             setEnabledAddButton(true)
             showExpandableError(it)
         })
 
         // Получение списка подписок
-        viewModel.delivetypeAddrsLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+        viewModel.delivetypeAddrsLiveEvent.observeEvent(viewLifecycleOwner, {
             delivetypeAddrsList.clear()
             delivetypeAddrsList.addAll(it)
             mAdapter?.update(it)
@@ -194,9 +192,8 @@ class AddressFragment : BaseFragment() {
         }
 
         // Вызвать диалог для выбора типа рассылки (EMAIL, SMS, APP_PUSH)
-        val contentView =
-            LayoutInflater.from(requireContext()).inflate(R.layout.dialog_delivery_types, null)
-        contentView.headerTextView.text = resources.getString(R.string.choose_notification_type)
+        val contentView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_delivery_types, null)
+        contentView.findViewById<TextView>(R.id.headerTextView).text = resources.getString(R.string.choose_notification_type)
 
         // get colors of the background from the active theme
         val typedValue = TypedValue()

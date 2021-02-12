@@ -80,7 +80,7 @@ class AddressViewModel @Inject constructor(
                             val mapper = DelivetypeAddrsResponseMapper()
 
                             result.elements?.forEach { element ->
-                                mapper.map(token, element as DelivetypeAddrsResponse)?.let { element2 ->
+                                mapper.map(token, element as DelivetypeAddrsResponse).let { element2 ->
                                     objParamObjsList.add(element2)
                                 }
                             }

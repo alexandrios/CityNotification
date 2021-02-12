@@ -18,11 +18,9 @@ object Constants {
     //const val URL_XGATE_MOBILE_INNER = "http://192.168.10.169:12345"  // Vasily Dobry
     //https://xgate-xml-mob.chelinvest.ru:12345/request/xml  // Vasily Dobry. The latest url
 
-    const val URL_XGATE_MOBILE_OUTER =
-        "https://xgate-xml-mob.chelinvest.ru:2843/xgate-mob-test/process-post"
+    const val URL_XGATE_MOBILE_OUTER = "https://xgate-xml-mob.chelinvest.ru:2843/xgate-mob-test/process-post"
     const val RELEASE_SERVER_URL = "https://xgate-xml-mob.chelinvest.ru:2843/xgate-mob/process-post"
-    const val TEST_SERVER_URL =
-        "https://xgate-xml-mob.chelinvest.ru:2843/xgate-mob-test/process-post"
+    const val TEST_SERVER_URL = "https://xgate-xml-mob.chelinvest.ru:2843/xgate-mob-test/process-post"
 
 
     const val SUBSCRIPTION_ID = "SUBSCRIPTION_ID"
@@ -50,11 +48,6 @@ object Constants {
     const val ADDRESS_FCM_TOKEN = "ADDRESS_FCM_TOKEN"
 
     const val LIMIT_VALUE = "LIMIT_VALUE"
-
-    // parameter requestCode in the startActivityForResult(intent, requestCode)
-    const val EDITSUBSCRACTIVITY_CODE = 2
-    const val ADDRESSACTIVITY_CODE = 3
-    const val EDITADDRESSACTIVITY_CODE = 4
 
     const val GROUP_LOGOS_DIRECTORY_NAME = "GroupLogos"
     const val SERVICE_LOGOS_DIRECTORY_NAME = "ServiceLogos"
@@ -91,5 +84,4 @@ object Constants {
     const val HOUR_START = "HOUR_START"
     const val HOUR_FINISH = "HOUR_FINISH"
     const val EDIT_TEXT = "EDIT_TEXT"
-
 }

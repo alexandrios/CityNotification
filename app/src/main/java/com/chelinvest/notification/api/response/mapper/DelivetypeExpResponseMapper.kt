@@ -7,7 +7,7 @@ import com.chelinvest.notification.model.ObjParam
 
 class DelivetypeExpResponseMapper {
 
-    fun map(from: DelivetypeExpResponse): DelivetypeExp? {
+    fun map(from: DelivetypeExpResponse): DelivetypeExp {
 
         val objParam = DelivetypeExp()
         objParam.id = from.id ?: ""
@@ -20,7 +20,7 @@ class DelivetypeExpResponseMapper {
         val mapper = ObjParamResponseMapper()
         val objList = ArrayList<ObjParam>()
         from.value_list?.forEach { response ->
-            mapper.map(response as ObjParamResponse)?.let { objParam ->
+            mapper.map(response).let { objParam ->
                 objList.add(objParam)
             }
         }

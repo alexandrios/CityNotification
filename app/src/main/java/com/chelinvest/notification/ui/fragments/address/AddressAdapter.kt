@@ -115,7 +115,7 @@ class AddressAdapter(
                 addrDeliveTypeId.visibility = View.GONE
 
                 if (elements[groupPosition].short_name == APP_PUSH) {
-                    addrAddress.text = formatAPP_PUSHAddress(address)
+                    addrAddress.text = formatappPushaddress(address)
                 } else {
                     addrAddress.text = address
                 }
@@ -142,7 +142,7 @@ class AddressAdapter(
             return "с $startHour по $finishHour (UTC${if(timezone.toInt() >= 0) "+$timezone" else timezone})"
         }
 
-        private fun formatAPP_PUSHAddress(address: String): String {
+        private fun formatappPushaddress(address: String): String {
             //return String.format("%s ... %s", address.substring(0, 5), address.substring(address.length - 5))
             return Build.DEVICE
         }

@@ -8,7 +8,7 @@ import com.chelinvest.notification.model.ObjParamObjs
 // из GetDeliveryBranchInteractor.loadDeliveryBranchesWithAllows
 class GetDeliveryBranchResponseMapper {
 
-    fun map(from: GetDeliveryBranchResponse): ObjParamObjs? {
+    fun map(from: GetDeliveryBranchResponse): ObjParamObjs {
         val objParamObjs = ObjParamObjs()
         objParamObjs.id = from.id ?: ""
         objParamObjs.name = from.name ?: ""
@@ -17,7 +17,7 @@ class GetDeliveryBranchResponseMapper {
         val mapper = DelivetypeExpResponseMapper()
         val objList = ArrayList<IObjList>()
         from.objList?.forEach { response ->
-            mapper.map(response)?.let { objParam ->
+            mapper.map(response).let { objParam ->
                 objList.add(objParam)
             }
         }

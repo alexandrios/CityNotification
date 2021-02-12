@@ -18,7 +18,7 @@ import javax.inject.Singleton
 @Singleton
 class PreferencesDataSource @Inject constructor(private val preferences: SharedPreferences) {
 
-    fun getInt(key: String?, defValue: Int) = preferences.getInt(key, defValue)
+    private fun getInt(key: String?, defValue: Int) = preferences.getInt(key, defValue)
     private fun putInt(key: String?, value: Int) {
         val editor = preferences.edit()
         editor.putInt(key, value)

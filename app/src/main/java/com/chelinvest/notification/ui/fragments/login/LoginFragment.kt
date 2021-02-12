@@ -113,7 +113,7 @@ class LoginFragment : BaseFragment() {
             }
         })
 
-        viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+        viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, {
             hideProgress()
             binding.loginButton.isEnabled = true
             showExpandableError(it)

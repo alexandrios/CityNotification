@@ -77,7 +77,7 @@ class OkRequest private constructor() {
     ): OkResponse {
         val body = String.format(REQUEST_BODY, URLEncoder.encode(query, ENCODING))
 
-        val request = okhttp3.Request.Builder()
+        val request = Request.Builder()
                 .url(serverUrl)
                 .post(RequestBody.create(mediaType, body))
                 .build()
@@ -95,7 +95,7 @@ class OkRequest private constructor() {
     }
 
     fun get(url: String): OkResponse {
-        val request = okhttp3.Request.Builder()
+        val request = Request.Builder()
                 .url(url)
                 .get()
                 .build()
@@ -115,11 +115,9 @@ class OkRequest private constructor() {
         val trustManagerFactory: TrustManagerFactory =
             TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm())
         trustManagerFactory.init(null as KeyStore?)
-        val trustManagers: Array<TrustManager> = trustManagerFactory.getTrustManagers()
+        val trustManagers: Array<TrustManager> = trustManagerFactory.trustManagers
         check(!(trustManagers.size != 1 || trustManagers[0] !is X509TrustManager)) {
-            "Unexpected default trust managers:" + Arrays.toString(
-                trustManagers
-            )
+            "Unexpected default trust managers:" + trustManagers.contentToString()
         }
         val trustManager: X509TrustManager = trustManagers[0] as X509TrustManager
         val sslContext = SSLContext.getInstance("SSL")

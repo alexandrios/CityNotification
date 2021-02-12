@@ -42,7 +42,6 @@ import com.chelinvest.notification.utils.Constants.HOUR_START
 import com.chelinvest.notification.utils.Constants.LOG_TAG
 import com.chelinvest.notification.utils.Constants.SMS_ID
 import com.chelinvest.notification.utils.Constants.SUBSCRIPTION
-import kotlinx.android.synthetic.main.fragment_edit_address.*
 
 class EditAddressFragment : BaseFragment() {
         private lateinit var viewModel: EditAddressViewModel
@@ -53,8 +52,8 @@ class EditAddressFragment : BaseFragment() {
         ADDRESS_EDIT
     }
 
-    var group: DelivetypeAddrs? = null
-    var addressData: DeliveAddrBranch? = null
+    private var group: DelivetypeAddrs? = null
+    private var addressData: DeliveAddrBranch? = null
     private var idSubscription: String? = null
     private var hasSendPeriod: String? = null
     private var deliveType: String? = null
@@ -70,7 +69,7 @@ class EditAddressFragment : BaseFragment() {
     private var finishHour: Int? = null
     private var timeZone: Int? = null
 
-    var addEditType: AddEdit? = null
+    private var addEditType: AddEdit? = null
 
     companion object {
         // Вариант передачи параметров во фрагмент
@@ -248,7 +247,7 @@ class EditAddressFragment : BaseFragment() {
             }
 
         } else {
-            periodLayout.visibility = View.INVISIBLE
+            binding.periodLayout.visibility = View.INVISIBLE
         }
 
         createFragment(savedInstanceState)
@@ -277,9 +276,9 @@ class EditAddressFragment : BaseFragment() {
         childFragmentManager.beginTransaction().apply {
             when (deliveType) {
                 EMAIL_ID -> {
-                    emailContainer.visibility = View.VISIBLE
-                    smsContainer.visibility = View.INVISIBLE
-                    pushContainer.visibility = View.INVISIBLE
+                    binding.emailContainer.visibility = View.VISIBLE
+                    binding.smsContainer.visibility = View.INVISIBLE
+                    binding.pushContainer.visibility = View.INVISIBLE
                     val eMailFragment = EmailFragment.create()
                     eMailFragment.arguments = Bundle().apply {
                         putSerializable(ADDRESS_DATA, addressData)
@@ -291,9 +290,9 @@ class EditAddressFragment : BaseFragment() {
                     replace(R.id.emailContainer, eMailFragment, FRAGMENT_TAG)
                 }
                 SMS_ID -> {
-                    emailContainer.visibility = View.INVISIBLE
-                    smsContainer.visibility = View.VISIBLE
-                    pushContainer.visibility = View.INVISIBLE
+                    binding.emailContainer.visibility = View.INVISIBLE
+                    binding.smsContainer.visibility = View.VISIBLE
+                    binding.pushContainer.visibility = View.INVISIBLE
                     val smsFragment = SmsFragment.create()
                     smsFragment.arguments = Bundle().apply {
                         putSerializable(ADDRESS_DATA, addressData)
@@ -305,9 +304,9 @@ class EditAddressFragment : BaseFragment() {
                     replace(R.id.smsContainer, smsFragment, FRAGMENT_TAG)
                 }
                 APP_PUSH_ID -> {
-                    emailContainer.visibility = View.INVISIBLE
-                    smsContainer.visibility = View.INVISIBLE
-                    pushContainer.visibility = View.VISIBLE
+                    binding.emailContainer.visibility = View.INVISIBLE
+                    binding.smsContainer.visibility = View.INVISIBLE
+                    binding.pushContainer.visibility = View.VISIBLE
                     val pushFragment = PushFragment.create()
                     pushFragment.arguments = Bundle().apply {
                         putSerializable(ADDRESS_DATA, addressData)
@@ -331,8 +330,8 @@ class EditAddressFragment : BaseFragment() {
         var result = oldAddress != address
 
         if (!result && hasSendPeriod == "1") {
-            result = !(oldStartHour == startHourEditText.text.toString() &&
-                        oldFinishHour == finishHourEditText.text.toString() &&
+            result = !(oldStartHour == binding.startHourEditText.text.toString() &&
+                        oldFinishHour == binding.finishHourEditText.text.toString() &&
                         oldTimeZone == timeZoneString())
         }
 
@@ -376,14 +375,14 @@ class EditAddressFragment : BaseFragment() {
             if (hasSendPeriod == "1") {
                 //if (viewModel.checkHourRange(startHourEditText.text.toString()))
                 if (!viewModel.verifyTimeRange(
-                        startHourEditText.text.toString(),
-                        finishHourEditText.text.toString(),
+                        binding.startHourEditText.text.toString(),
+                        binding.finishHourEditText.text.toString(),
                         timeZoneString()
                     )) {
                     return
                 } else {
-                    startHour = startHourEditText.text.toString().toIntOrNull()
-                    finishHour = finishHourEditText.text.toString().toIntOrNull()
+                    startHour = binding.startHourEditText.text.toString().toIntOrNull()
+                    finishHour = binding.finishHourEditText.text.toString().toIntOrNull()
                     timeZone = timeZoneString().toIntOrNull()
                 }
             }

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.chelinvest.notification.R
@@ -160,7 +159,7 @@ class TypesFragment: BaseFragment() {
             else -> loadFragment(BranchFragment(), selectedItem)
         }
 
-        viewModel.loginAgainLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+        viewModel.loginAgainLiveEvent.observeEvent(viewLifecycleOwner, {
             findNavController().navigate(R.id.action_typesFragment_to_loginFragment,
                 null, NavOptions.Builder().setPopUpTo(R.id.typesFragment, true).build())
         })

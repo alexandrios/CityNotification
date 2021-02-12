@@ -1,9 +1,5 @@
 package com.chelinvest.notification.ui.fragments.subscr
 
-//import android.os.Parcel
-//import android.os.Parcelable
-import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import com.chelinvest.notification.R
 import com.chelinvest.notification.model.DeliveSubscriptionForBranch
 import com.chelinvest.notification.model.ObjParamV01
-import com.chelinvest.notification.utils.Constants.LOG_TAG
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.SwipeableItemAdapter
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.SwipeableItemConstants
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultAction
@@ -23,7 +18,6 @@ import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultAct
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractSwipeableItemViewHolder
 import org.joda.time.DateTime
 import kotlin.random.Random
-
 
 class SubscrAdapter(
     private var isFirst: Boolean,
@@ -419,9 +413,9 @@ class SubscrAdapter(
         }
         */
         if (type == SwipeableItemConstants.DRAWABLE_SWIPE_NEUTRAL_BACKGROUND) {
-            holder.behindView.setVisibility(View.GONE)
+            holder.behindView.visibility = View.GONE
         } else {
-            holder.behindView.setVisibility(View.VISIBLE)
+            holder.behindView.visibility = View.VISIBLE
         }
     }
 

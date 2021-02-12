@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_push.*
 import com.chelinvest.notification.R
 import com.chelinvest.notification.model.DeliveAddrBranch
-import com.chelinvest.notification.ui.custom.stylable.CustomTextView
-import com.chelinvest.notification.utils.Constants
 import com.chelinvest.notification.utils.Constants.ADDRESS_DATA
 import com.chelinvest.notification.utils.Constants.ADDRESS_FCM_TOKEN
 import com.chelinvest.notification.utils.Constants.DELIVE_NAME
@@ -21,7 +20,7 @@ class PushFragment : Fragment() {
         fun create() = PushFragment()
     }
 
-    var addressData: DeliveAddrBranch? = null
+    private var addressData: DeliveAddrBranch? = null
     var errorMsg: (s: String) -> Unit = {}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -33,12 +32,12 @@ class PushFragment : Fragment() {
         addressData = arguments?.getSerializable(ADDRESS_DATA) as DeliveAddrBranch?
 
         if (addressData != null) {
-            addressEditText.setText(addressData!!.address)
-            nameTextView.text = Build.DEVICE
+            view.findViewById<EditText>(R.id.addressEditText).setText(addressData!!.address)
+            view.findViewById<TextView>(R.id.nameTextView).text = Build.DEVICE
         } else {
             val token = arguments?.getSerializable(ADDRESS_FCM_TOKEN) as String?
-            addressEditText.setText(token ?: "")
-            nameTextView.text = Build.DEVICE // + Build.MANUFACTURER + Build.MODEL + Build.PRODUCT + Build.BOARD
+            view.findViewById<EditText>(R.id.addressEditText).setText(token ?: "")
+            view.findViewById<TextView>(R.id.nameTextView).text = Build.DEVICE // + Build.MANUFACTURER + Build.MODEL + Build.PRODUCT + Build.BOARD
 
             if (token.isNullOrEmpty()) {
                 // выполнение лямбды с параметром
@@ -46,7 +45,7 @@ class PushFragment : Fragment() {
             }
         }
 
-        addressTextView.text = arguments?.getString(DELIVE_NAME) ?: resources.getString(R.string.edit_push_descr_display)
+        view.findViewById<TextView>(R.id.addressTextView).text = arguments?.getString(DELIVE_NAME) ?: resources.getString(R.string.edit_push_descr_display)
     }
 
 /* Другие возможные константы класса Build:

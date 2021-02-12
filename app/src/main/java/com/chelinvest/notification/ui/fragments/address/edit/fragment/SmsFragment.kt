@@ -20,8 +20,8 @@ class SmsFragment : Fragment() {
         fun create() = SmsFragment()
     }
 
-    var addressData: DeliveAddrBranch? = null
-    var editText: String? = null
+    private var addressData: DeliveAddrBranch? = null
+    private var editText: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_sms, container, false)

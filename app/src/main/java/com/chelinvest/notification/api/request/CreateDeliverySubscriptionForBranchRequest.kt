@@ -3,7 +3,6 @@ package com.chelinvest.notification.api.request
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.Root
-import com.chelinvest.notification.api.request.IRequestElement
 
 @Root(name = "create_delivery_subscription_for_branch")
 class CreateDeliverySubscriptionForBranchRequest : IRequestElement {

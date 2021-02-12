@@ -1,7 +1,9 @@
 package com.chelinvest.notification
 
+import android.view.View
 import com.chelinvest.notification.ui.fragments.login.LoginFragment
 import com.chelinvest.notification.ui.fragments.subscr.SubscrFragment
+import kotlinx.android.synthetic.main.fragment_login.*
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -27,10 +29,10 @@ class ExampleUnitTest {
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
 
-        val loginFragment: LoginFragment = LoginFragment()
-        assertFalse("Must be false", loginFragment.passVisible)
+        val loginFragment = LoginFragment()
+        assertFalse("Must be false", loginFragment.passEditText.visibility == View.VISIBLE)
 
-        val subscrFragment: SubscrFragment = SubscrFragment()
+        val subscrFragment = SubscrFragment()
         assertTrue("Must be 0", subscrFragment.index == 0)
         assertTrue("Must be java.util.HashMap",
             subscrFragment.map::class.qualifiedName == "java.util.HashMap")

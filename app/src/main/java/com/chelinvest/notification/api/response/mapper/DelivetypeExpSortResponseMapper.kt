@@ -7,7 +7,7 @@ import com.chelinvest.notification.model.ObjParam
 
 class DelivetypeExpSortResponseMapper {
 
-    fun map(from: DelivetypeExpSortResponse): DelivetypeExpSort? {
+    fun map(from: DelivetypeExpSortResponse): DelivetypeExpSort {
 
         val objParam = DelivetypeExpSort()
         objParam.id = from.id ?: ""
@@ -21,7 +21,7 @@ class DelivetypeExpSortResponseMapper {
         val mapper = ObjParamResponseMapper()
         val objList = ArrayList<ObjParam>()
         from.value_list?.forEach { response ->
-            mapper.map(response as ObjParamResponse)?.let { objParam ->
+            mapper.map(response).let { objParam ->
                 objList.add(objParam)
             }
         }
@@ -29,5 +29,4 @@ class DelivetypeExpSortResponseMapper {
 
         return objParam
     }
-
 }

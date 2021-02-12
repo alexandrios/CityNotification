@@ -10,7 +10,6 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,7 +32,6 @@ import com.chelinvest.notification.utils.Constants.LOG_TAG
 import com.chelinvest.notification.utils.Constants.SUBSCR_INFO
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager
-import kotlinx.android.synthetic.main.dialog_field_values.view.*
 
 class SubscrFragment : BaseFragment() {
     private lateinit var viewModel: SubscrViewModel
@@ -115,7 +113,7 @@ class SubscrFragment : BaseFragment() {
 
         if (mAdapter == null) {
             Log.d(LOG_TAG, "SubscrFragment -> onViewCreated new mAdapter")
-            mAdapter = SubscrAdapter(isFirst) { elementSubscr, id, pos, press ->
+            mAdapter = SubscrAdapter(isFirst) { elementSubscr, _, _, press ->
                 when (press) {
                     0 -> {
                         // Перейти в настройку адресов конкретного агента
@@ -154,14 +152,14 @@ class SubscrFragment : BaseFragment() {
             setHasFixedSize(false)
         }
 
-        swipeManager.attachRecyclerView(binding.subscriptRecyclerView ?: return)
+        swipeManager.attachRecyclerView(binding.subscriptRecyclerView)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         // Сохранение элемента списка агентов
-        viewModel.editSaved.observe(viewLifecycleOwner, Observer<Boolean> {
+        viewModel.editSaved.observe(viewLifecycleOwner, {
             if (it) {
                 Log.d(LOG_TAG, "SubscrFragment  editSaved.observe = $it")
                 // Обновить список
@@ -169,48 +167,46 @@ class SubscrFragment : BaseFragment() {
             }
         })
 
-        viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+        viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, {
             isGoToLast = false
             setEnabledAddButton(true)
             showExpandableError(it)
         })
 
         // Получение списка подписок
-        viewModel.deliverySubscriptionsLiveEvent.observeEvent(viewLifecycleOwner,
-            Observer { array ->
-                hideProgress()
-                Log.d(LOG_TAG,
-                    "SubscrFragment deliverySubscriptionsLiveEvent.observeEvent array.count=${array.count()}")
-                mAdapter?.update(if (binding.onlyActiveSwitch.isChecked)  // если только активные - отфильтровать
-                    array.filter {
-                        it.value == "Y"
-                    } as ArrayList<DeliveSubscriptionForBranch>
-                else array)
+        viewModel.deliverySubscriptionsLiveEvent.observeEvent(viewLifecycleOwner, { array ->
+            hideProgress()
+            Log.d(LOG_TAG,
+                "SubscrFragment deliverySubscriptionsLiveEvent.observeEvent array.count=${array.count()}")
+            mAdapter?.update(if (binding.onlyActiveSwitch.isChecked)  // если только активные - отфильтровать
+                array.filter {
+                    it.value == "Y"
+                } as ArrayList<DeliveSubscriptionForBranch>
+            else array)
 
-                if (isGoToLast) {
-                    isGoToLast = false
-                    // позиционирование на последний элемент списка
-                    binding.subscriptRecyclerView.smoothSnapToPosition(mAdapter!!.getElements() - 1)
-                }
-                setEnabledAddButton(true)
-            })
+            if (isGoToLast) {
+                isGoToLast = false
+                // позиционирование на последний элемент списка
+                binding.subscriptRecyclerView.smoothSnapToPosition(mAdapter!!.getElements() - 1)
+            }
+            setEnabledAddButton(true)
+        })
 
         // Изменение активности подписки
-        viewModel.activeDeliverySubscriptionsLiveEvent.observeEvent(viewLifecycleOwner,
-            Observer { array ->
-                mAdapter?.changeItemValueById(array[0])
-                refreshList()
-            })
+        viewModel.activeDeliverySubscriptionsLiveEvent.observeEvent(viewLifecycleOwner, { array ->
+            mAdapter?.changeItemValueById(array[0])
+            refreshList()
+        })
 
         // Удаление подписки
-        viewModel.deleteDeliverySubscriptionLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+        viewModel.deleteDeliverySubscriptionLiveEvent.observeEvent(viewLifecycleOwner, {
             Log.d(LOG_TAG, "SubscrFragment deleteDeliverySubscriptionLiveEvent.observeEvent")
             // Обновить список
             refreshList()
         })
 
         // Список атрибутов для добавления новой подписки
-        viewModel.inputFieldsLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+        viewModel.inputFieldsLiveEvent.observeEvent(viewLifecycleOwner, {
             if (it.size == 0) {
                 Log.d(LOG_TAG,
                     "SubscrFragment get_input_fields_for_branch вернул пустой массив obj_any")
@@ -223,7 +219,7 @@ class SubscrFragment : BaseFragment() {
         })
 
         // Создание новой подписки
-        viewModel.createSubscriptionLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+        viewModel.createSubscriptionLiveEvent.observeEvent(viewLifecycleOwner, {
             Log.d(LOG_TAG, "SubscrFragment createSubscriptionLiveEvent.observeEvent")
             isGoToLast = true
             // Обновить список
@@ -231,7 +227,7 @@ class SubscrFragment : BaseFragment() {
         })
 
         // Показать только активные/все подписки
-        viewModel.activeOnly.observeEvent(viewLifecycleOwner, Observer {
+        viewModel.activeOnly.observeEvent(viewLifecycleOwner, {
             Log.d(LOG_TAG, "SubscrFragment activeOnly.observeEvent")
             // Обновить список
             refreshList()
@@ -320,7 +316,7 @@ class SubscrFragment : BaseFragment() {
         viewModel.getFieldValues(field.id) { objParamList ->
             // Вызвать диалог(и) для выбора агента (или чего-то ещё)
             val contentView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_field_values, null)
-            contentView.headerTextView.text = String.format(resources.getString(R.string.choose_attr_value), field.name)
+            contentView.findViewById<TextView>(R.id.headerTextView).text = String.format(resources.getString(R.string.choose_attr_value), field.name)
 
             // get colors of the background from the active theme
             val typedValue = TypedValue()
@@ -355,7 +351,7 @@ class SubscrFragment : BaseFragment() {
 //                    it.name.contains(str!!, ignoreCase = true)
 //                } as ArrayList<ObjParam>)
 //            }
-            searchEditText.doOnTextChanged { text, start, before, count ->
+            searchEditText.doOnTextChanged { text, _, _, _ ->
                 (recyclerView.adapter as FieldValuesAdapter).updateList(objParamList.filter {
                     it.name.contains(text!!, ignoreCase = true)
                 } as ArrayList<ObjParam>)

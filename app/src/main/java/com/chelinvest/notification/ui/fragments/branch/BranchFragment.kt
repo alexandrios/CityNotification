@@ -58,7 +58,7 @@ class BranchFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         Log.d(LOG_TAG, "BranchFragment -> onActivityCreated")
 
-        viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+        viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, {
             hideProgress()
             showExpandableError(it)
         })

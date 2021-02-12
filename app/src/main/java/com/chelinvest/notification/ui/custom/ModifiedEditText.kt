@@ -96,7 +96,7 @@ open class ModifiedEditText : FrameLayout {
             }
         }
 
-        editText.setOnFocusChangeListener { v, hasFocus ->
+        editText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus && error != null)
                 error = null
         }

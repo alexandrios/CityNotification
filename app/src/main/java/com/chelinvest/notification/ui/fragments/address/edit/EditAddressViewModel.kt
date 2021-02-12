@@ -9,7 +9,6 @@ import com.chelinvest.notification.additional.isEmailValid
 import com.chelinvest.notification.api.response.MainResponse
 import com.chelinvest.notification.data.Repository
 import com.chelinvest.notification.ui.BaseViewModel
-import com.chelinvest.notification.utils.Constants
 import com.chelinvest.notification.utils.Constants.APP_PUSH_ID
 import com.chelinvest.notification.utils.Constants.EMAIL_ID
 import com.chelinvest.notification.utils.Constants.LOG_TAG
@@ -131,15 +130,13 @@ class EditAddressViewModel @Inject constructor(
         timeZone: Int?
     ) {
         val sessionId = repository.getSessionId()
-        Log.d(Constants.LOG_TAG, "EditAddressViewModel sessionId=$sessionId")
+        Log.d(LOG_TAG, "EditAddressViewModel sessionId=$sessionId")
 
         if (sessionId == null) {
             errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.session_id_is_null))
         } else {
             val branchShort = repository.getBranchShort() ?: return
             Log.d(LOG_TAG, "EditAddressViewModel branchShort=$branchShort")
-
-            var retVal = ""
 
             repository.setDeliveryAddressForSubscription(
                 sessionId, branchShort, idSubscription,
@@ -171,7 +168,7 @@ class EditAddressViewModel @Inject constructor(
                                 errorLiveEvent.postValue(result.errorNote)
                             }
 
-                            retVal = if (result.result?.toInt() == 1) {  // 1 – выполнен успешно
+                            val retVal = if (result.result?.toInt() == 1) {  // 1 – выполнен успешно
                                 "1"
                             } else {                              // 0 – выполнен с ошибкой
                                 result.errorNote ?: "0"

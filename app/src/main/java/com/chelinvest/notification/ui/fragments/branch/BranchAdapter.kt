@@ -7,9 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.chelinvest.notification.R
 import com.chelinvest.notification.model.ObjParam
-import com.chelinvest.notification.ui.custom.CardItem
-import com.chelinvest.notification.utils.Constants.LIMIT_VALUE
-import kotlinx.android.synthetic.main.card_item_layout.view.*
 
 class BranchAdapter(private val branches: ArrayList<ObjParam>,
                     val onBranchClick: (ObjParam) -> Unit
@@ -21,8 +18,8 @@ class BranchAdapter(private val branches: ArrayList<ObjParam>,
         //val holdName = view.findViewById<TextView>(R.id.branchNameTextView)
         //val holdValue = view.findViewById<TextView>(R.id.branchValueTextView)
         //val clickableLayout = view.findViewById<View>(R.id.)
-        val clickableLayout: TextView = view.findViewById<TextView>(R.id.cardItem)
-        val cardItem: TextView = view.findViewById<TextView>(R.id.cardItem)
+        val clickableLayout: TextView = view.findViewById(R.id.cardItem)
+        val cardItem: TextView = view.findViewById(R.id.cardItem)
     }
 
     override fun getItemCount(): Int {

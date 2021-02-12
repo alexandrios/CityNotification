@@ -5,7 +5,6 @@ import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.ElementListUnion
 import org.simpleframework.xml.Root
 import com.chelinvest.notification.api.response.obj_param_objs.GetDeliveryBranchResponse
-import com.chelinvest.notification.api.response.obj_param_objs.GetDeliverySubscriptionForBranchResponse
 
 @Root(name = "xgate_result", strict = false)
 class MainResponse {

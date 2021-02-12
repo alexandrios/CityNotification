@@ -25,11 +25,11 @@ class DelivetypeAddrs: Serializable {
         result.append("; has_send_period=")
         result.append(has_send_period)
 
-        if (value_list.size > 0) {
+        if (value_list.isNotEmpty()) {
             result.append("; value_list={")
-            for (i in 0..value_list.size - 1) {
+            for (element in value_list) {
                 result.append("(")
-                result.append(value_list[i].toString())
+                result.append(element.toString())
                 result.append(")")
             }
             result.append("}")

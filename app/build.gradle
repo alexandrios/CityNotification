@@ -1,7 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-//apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'com.google.gms.google-services'
@@ -86,19 +84,19 @@ android {
         unitTests.returnDefaultValues = true
     }
 
-    android.applicationVariants.all { variant ->
+    applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = archivesBaseName; //applicationId;
-            outputFileName += "-" + android.defaultConfig.versionName;
-/*
+            outputFileName = archivesBaseName //applicationId
+            outputFileName += "-" + android.defaultConfig.versionName
+            /*
             if (variant.productFlavors[0].name.equals("stub")) {
                 outputFileName += "-stub";
             }
-*/
+            */
             if (variant.buildType.name == "release") {
-                outputFileName += ".apk";
+                outputFileName += ".apk"
             } else {
-                outputFileName += "-debug.apk";
+                outputFileName += "-debug.apk"
             }
         }
     }
@@ -175,7 +173,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:18.0.2'
     implementation 'com.google.firebase:firebase-iid:21.0.1'
 
-
     implementation 'com.android.support:multidex:1.0.3'
 
     implementation "com.afollestad.material-dialogs:core:$material_dialogs_version"
@@ -217,7 +214,6 @@ dependencies {
     testImplementation "org.mockito:mockito-core:$mockito_version"
     testImplementation "org.mockito:mockito-inline:$mockito_version"
     androidTestImplementation "org.mockito:mockito-android:$mockito_version"
-
 
     androidTestImplementation 'org.awaitility:awaitility:3.0.0'
 }

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.chelinvest.notification.R
 import com.chelinvest.notification.di.injectActivityViewModel
 import com.chelinvest.notification.utils.Constants.LOG_TAG
-import com.google.firebase.analytics.FirebaseAnalytics
+//import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.inappmessaging.FirebaseInAppMessaging
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
@@ -17,9 +17,9 @@ class MainActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    @Inject
-    @JvmField
-    var mFirebaseAnalytics: FirebaseAnalytics? = null
+//    @Inject
+//    @JvmField
+//    var mFirebaseAnalytics: FirebaseAnalytics? = null
 
     @Inject
     @JvmField

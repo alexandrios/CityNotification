@@ -61,7 +61,7 @@ class BranchViewModel @Inject constructor(
                             val mapper = ObjParamResponseMapper()
 
                             result.elements?.forEach { element ->
-                                mapper.map(element as ObjParamResponse)?.let { element2 ->
+                                mapper.map(element as ObjParamResponse).let { element2 ->
                                     objParamList.add(element2)
                                 }
                             }

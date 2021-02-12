@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.chelinvest.notification.BaseApplication
 import com.chelinvest.notification.R
-import com.google.gson.JsonSyntaxException
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -12,7 +11,7 @@ import java.net.UnknownHostException
 abstract class BaseViewModel constructor(
     application: Application
 ) : AndroidViewModel(application) {
-    var requestListener: RequestListener? = null
+    private var requestListener: RequestListener? = null
 
     fun handleRequestFailure(exception: Throwable) {
         when (exception) {

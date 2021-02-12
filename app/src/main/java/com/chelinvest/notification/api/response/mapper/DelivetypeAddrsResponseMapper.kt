@@ -6,7 +6,7 @@ import com.chelinvest.notification.utils.Constants.APP_PUSH
 
 class DelivetypeAddrsResponseMapper {
 
-    fun map(token: String, from: DelivetypeAddrsResponse): DelivetypeAddrs? {
+    fun map(token: String, from: DelivetypeAddrsResponse): DelivetypeAddrs {
 
         val objParam = DelivetypeAddrs()
         objParam.id = from.id ?: ""
@@ -18,7 +18,7 @@ class DelivetypeAddrsResponseMapper {
         val mapper = ObjParamResponseMapper()
         val objList = ArrayList<ObjParam>()
         from.value_list?.forEach { response ->
-            mapper.map(response)?.let { objParam ->
+            mapper.map(response).let { objParam ->
                 objList.add(objParam)
             }
         }

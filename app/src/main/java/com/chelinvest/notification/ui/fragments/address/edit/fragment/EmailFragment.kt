@@ -20,7 +20,7 @@ class EmailFragment : Fragment() {
         fun create() = EmailFragment()
     }
 
-    var addressData: DeliveAddrBranch? = null
+    private var addressData: DeliveAddrBranch? = null
     var editText: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =

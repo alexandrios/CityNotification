@@ -5,7 +5,7 @@ import com.chelinvest.notification.model.OrgName
 
 class GetAgentInfoResponseMapper {
 
-    fun map(from: OrgNameResponse): OrgName? {
+    fun map(from: OrgNameResponse): OrgName {
 
         val orgName = OrgName()
         orgName.id = from.id

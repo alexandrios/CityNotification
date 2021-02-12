@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import com.chelinvest.notification.databinding.FragmentLimitBinding
 import com.chelinvest.notification.di.injectViewModel
 import com.chelinvest.notification.ui.BaseFragment
@@ -51,16 +50,16 @@ class LimitFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         Log.d(Constants.LOG_TAG, "LimitFragment -> onActivityCreated")
 
-        viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+        viewModel.errorLiveEvent.observeEvent(viewLifecycleOwner, {
             hideProgress()
             showExpandableError(it)
         })
 
-        viewModel.agentInfoLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+        viewModel.agentInfoLiveEvent.observeEvent(viewLifecycleOwner, {
             binding.agentTextView.text = it?.name ?: "Агент"
         })
 
-        viewModel.agentLimitLiveEvent.observeEvent(viewLifecycleOwner, Observer {
+        viewModel.agentLimitLiveEvent.observeEvent(viewLifecycleOwner, {
             hideProgress()
             binding.limitTextView.text = String.format(Locale.US, "%,18.2f руб.", it.toDoubleOrNull() ?: "")
                 .trim().replace(',', ' ')

@@ -2,11 +2,9 @@ package com.chelinvest.notification.ui.fragments.subscr.edit
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import com.chelinvest.notification.BaseApplication
 import com.chelinvest.notification.R
 import com.chelinvest.notification.api.response.MainDeliverySubscriptionResponse
-import com.chelinvest.notification.api.response.MainResponse
 import com.chelinvest.notification.api.response.mapper.GetDeliverySubscriptionForBranchResponseMapper
 import com.chelinvest.notification.api.response.obj_param_objs.GetDeliverySubscriptionForBranchResponse
 import com.chelinvest.notification.data.Repository
@@ -66,9 +64,10 @@ class EditSubscrViewModel @Inject constructor(
 
                             val mapper = GetDeliverySubscriptionForBranchResponseMapper()
                             result.elements?.forEach { element ->
-                                mapper.map(element as GetDeliverySubscriptionForBranchResponse)?.let { element2 ->
-                                    objParamObjsList.add(element2)
-                                }
+                                mapper.map(element as GetDeliverySubscriptionForBranchResponse)
+                                    .let { element2 ->
+                                        objParamObjsList.add(element2)
+                                    }
                             }
 
                             deliverySubscriptionsLiveEvent.postValue(objParamObjsList)

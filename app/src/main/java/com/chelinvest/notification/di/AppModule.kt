@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import com.chelinvest.notification.data.remote.RemoteService
 import com.chelinvest.notification.utils.Constants
 import com.chelinvest.notification.utils.Constants.COMMON_PREFERENCES
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.inappmessaging.FirebaseInAppMessaging
 import dagger.Module
 import dagger.Provides
@@ -53,7 +52,7 @@ class AppModule {
     @Singleton
     fun provideInAppMessage(): FirebaseInAppMessaging = FirebaseInAppMessaging.getInstance()
 
-    @Provides
-    @Singleton
-    fun provideFirebaseAnalytics(application: Application): FirebaseAnalytics = FirebaseAnalytics.getInstance(application)
+//    @Provides
+//    @Singleton
+//    fun provideFirebaseAnalytics(application: Application): FirebaseAnalytics = FirebaseAnalytics.getInstance(application)
 }

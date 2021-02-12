@@ -18,7 +18,6 @@ import com.chelinvest.notification.model.DeliveSubscriptionForBranch
 import com.chelinvest.notification.model.ObjAny
 import com.chelinvest.notification.model.ObjParam
 import com.chelinvest.notification.ui.BaseViewModel
-import com.chelinvest.notification.utils.Constants
 import com.chelinvest.notification.utils.Constants.LOG_TAG
 import com.chelinvest.notification.utils.SingleLiveEvent
 import retrofit2.Call
@@ -91,9 +90,10 @@ class SubscrViewModel @Inject constructor(
                             val mapper = GetDeliverySubscriptionForBranchResponseMapper()
 
                             result.elements?.forEach { element ->
-                                mapper.map(element as GetDeliverySubscriptionForBranchResponse)?.let { element2 ->
-                                    objParamObjsList.add(element2)
-                                }
+                                mapper.map(element as GetDeliverySubscriptionForBranchResponse)
+                                    .let { element2 ->
+                                        objParamObjsList.add(element2)
+                                    }
                             }
 
                             deliverySubscriptionsLiveEvent.postValue(objParamObjsList)
@@ -137,7 +137,7 @@ class SubscrViewModel @Inject constructor(
                             val mapper = ObjAnyResponseMapper()
 
                             result.elements?.forEach { element ->
-                                mapper.map(element as ObjAnyResponse)?.let { element2 ->
+                                mapper.map(element as ObjAnyResponse).let { element2 ->
                                     objAnyList.add(element2)
                                 }
                             }
@@ -183,7 +183,7 @@ class SubscrViewModel @Inject constructor(
                             val mapper = ObjParamResponseMapper()
 
                             result.elements?.forEach { element ->
-                                mapper.map(element as ObjParamResponse)?.let { element2 ->
+                                mapper.map(element as ObjParamResponse).let { element2 ->
                                     objParamList.add(element2)
                                 }
                             }
@@ -269,13 +269,13 @@ class SubscrViewModel @Inject constructor(
     // Выполнить команду 1.7. update_delivery_subscription_for_branch
     fun updateSubscr(subscriptionId: String,  description: String, isActive: Int) {
         val sessionId = repository.getSessionId()
-        Log.d(Constants.LOG_TAG, "SubscrViewModel updateSubscr sessionId=$sessionId")
+        Log.d(LOG_TAG, "SubscrViewModel updateSubscr sessionId=$sessionId")
 
         if (sessionId == null) {
             errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.session_id_is_null))
         } else {
             val branchShort = repository.getBranchShort() ?: return
-            Log.d(Constants.LOG_TAG,"SubscrViewModel updateSubscr branchShort=$branchShort")
+            Log.d(LOG_TAG,"SubscrViewModel updateSubscr branchShort=$branchShort")
 
             val objParamObjsList = ArrayList<DeliveSubscriptionForBranch>()
             repository.updateDeliverySubscriptionForBranch(sessionId, branchShort, subscriptionId,
@@ -298,9 +298,10 @@ class SubscrViewModel @Inject constructor(
 
                             val mapper = GetDeliverySubscriptionForBranchResponseMapper()
                             result.elements?.forEach { element ->
-                                mapper.map(element as GetDeliverySubscriptionForBranchResponse)?.let { element2 ->
-                                    objParamObjsList.add(element2)
-                                }
+                                mapper.map(element as GetDeliverySubscriptionForBranchResponse)
+                                    .let { element2 ->
+                                        objParamObjsList.add(element2)
+                                    }
                             }
 
                             activeDeliverySubscriptionsLiveEvent.postValue(objParamObjsList)

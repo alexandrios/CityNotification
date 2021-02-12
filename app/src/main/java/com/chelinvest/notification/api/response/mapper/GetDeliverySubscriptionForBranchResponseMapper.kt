@@ -7,7 +7,7 @@ import com.chelinvest.notification.model.ObjParamV01
 
 class GetDeliverySubscriptionForBranchResponseMapper {
 
-    fun map(from: GetDeliverySubscriptionForBranchResponse): DeliveSubscriptionForBranch? {
+    fun map(from: GetDeliverySubscriptionForBranchResponse): DeliveSubscriptionForBranch {
         val objParamObjs = DeliveSubscriptionForBranch()
         objParamObjs.id = from.id ?: ""
         objParamObjs.name = from.name ?: ""
@@ -16,7 +16,7 @@ class GetDeliverySubscriptionForBranchResponseMapper {
         val mapper = ObjParamV01ResponseMapper()
         val objList = ArrayList<ObjParamV01>()
         from.objList?.forEach { response ->
-            mapper.map(response as ObjParamV01Response)?.let { objParam ->
+            mapper.map(response).let { objParam ->
                 objList.add(objParam)
             }
         }

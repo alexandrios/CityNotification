@@ -2,6 +2,7 @@ package com.chelinvest.notification.utils
 
 object Constants {
 
+/*
     // --- XGate ---
     const val URL_XGATE_MOBILE_STUB = "url-xgate-mobile-stub"
     const val URL_XGATE_MOBILE_INNER_JEV =
@@ -21,7 +22,7 @@ object Constants {
     const val URL_XGATE_MOBILE_OUTER = "https://xgate-xml-mob.chelinvest.ru:2843/xgate-mob-test/process-post"
     const val RELEASE_SERVER_URL = "https://xgate-xml-mob.chelinvest.ru:2843/xgate-mob/process-post"
     const val TEST_SERVER_URL = "https://xgate-xml-mob.chelinvest.ru:2843/xgate-mob-test/process-post"
-
+*/
 
     const val SUBSCRIPTION_ID = "SUBSCRIPTION_ID"
     const val SUBSCRIPTION_NAME = "SUBSCRIPTION_NAME"

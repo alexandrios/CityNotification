@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.chelinvest.notification.data.remote.RemoteService
-import com.chelinvest.notification.utils.Constants
+import com.chelinvest.notification.utils.Constants.BASE_URL
 import com.chelinvest.notification.utils.Constants.COMMON_PREFERENCES
 import com.google.firebase.inappmessaging.FirebaseInAppMessaging
 import dagger.Module
@@ -15,7 +15,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import javax.inject.Singleton
-
 
 @Module
 class AppModule {
@@ -34,7 +33,7 @@ class AppModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(Constants.BASE_URL)
+            .baseUrl(BASE_URL)
             .addConverterFactory(SimpleXmlConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             //.addConverterFactory(TikXmlConverterFactory.create())

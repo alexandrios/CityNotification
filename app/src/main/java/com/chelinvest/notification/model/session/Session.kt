@@ -9,23 +9,15 @@ import java.io.Serializable
 import java.lang.StringBuilder
 import java.nio.charset.Charset
 
-class Session() : Serializable {
-
-    constructor(xml: String) : this() {
-        if (!xml.isEmpty()) {
-            parsing(xml)
-        }
-    }
-
-    var datasource: String? = null
-    var row_num: String? = null
-    var session_id: String? = null
-    var class_name: String? = null
-    var org_id: String? = null
-    var org_name: String? = null
+class Session (
+    private var datasource: String? = null,
+    private var row_num: String? = null,
+    var session_id: String? = null,
+    private var class_name: String? = null,
+    private var org_id: String? = null,
+    private var org_name: String? = null,
     var error_note: String? = null
-
-    init {}
+) : Serializable {
 
     /**
      * Инициализация объекта Session из XML
@@ -34,7 +26,7 @@ class Session() : Serializable {
 
         val inputStream: InputStream = stringToInputStream(xml)
         val parserFactory : XmlPullParserFactory = XmlPullParserFactory.newInstance()
-        val parser: XmlPullParser = parserFactory.newPullParser();
+        val parser: XmlPullParser = parserFactory.newPullParser()
         parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
         parser.setInput(inputStream, null)
 
@@ -53,21 +45,29 @@ class Session() : Serializable {
                     text = parser.text
                 }
                 XmlPullParser.END_TAG -> {
-                    if (tag.equals(startTag)) {
-                        if (tag.equals("datasource", ignoreCase = true)) {
-                            datasource = text
-                        } else if (tag.equals("row_num", ignoreCase = true)) {
-                            row_num = text
-                        } else if (tag.equals("session_id", ignoreCase = true)) {
-                            session_id = text
-                        } else if (tag.equals("class_name", ignoreCase = true)) {
-                            class_name = text
-                        } else if (tag.equals("id", ignoreCase = true)) {
-                            org_id = text
-                        } else if (tag.equals("name", ignoreCase = true)) {
-                            org_name = text
-                        } else if (tag.equals("error_note", ignoreCase = true)) {
-                            error_note = text
+                    if (tag == startTag) {
+                        when {
+                            tag.equals("datasource", ignoreCase = true) -> {
+                                datasource = text
+                            }
+                            tag.equals("row_num", ignoreCase = true) -> {
+                                row_num = text
+                            }
+                            tag.equals("session_id", ignoreCase = true) -> {
+                                session_id = text
+                            }
+                            tag.equals("class_name", ignoreCase = true) -> {
+                                class_name = text
+                            }
+                            tag.equals("id", ignoreCase = true) -> {
+                                org_id = text
+                            }
+                            tag.equals("name", ignoreCase = true) -> {
+                                org_name = text
+                            }
+                            tag.equals("error_note", ignoreCase = true) -> {
+                                error_note = text
+                            }
                         }
                     }
                 }
@@ -78,17 +78,15 @@ class Session() : Serializable {
         }
     }
 
-    // Пpeoбpaзyem cтpoky вo вхoднoй пoтok
+    // Пpeoбpaзyem cтpoкy вo вхoднoй пoтoк
     private fun stringToInputStream(s: String): InputStream {
-
-        val inputStream: InputStream = ByteArrayInputStream(s.toByteArray(Charset.forName("windows-1251")))
-        return inputStream
+        return ByteArrayInputStream(s.toByteArray(Charset.forName("windows-1251")))
     }
 
     /**
      * Инициализация объекта Session из объекта MainResponse
      */
-    fun setResponse(response: MainResponse): Unit {
+    fun setResponse(response: MainResponse) {
         datasource = response.dataSource
         row_num = response.rowNum.toString()
         session_id = response.sessionId
@@ -99,7 +97,7 @@ class Session() : Serializable {
     }
 
     override fun toString(): String {
-        val str: StringBuilder = StringBuilder()
+        val str = StringBuilder()
         str.append("DATASOURCE=$datasource\n")
         str.append("ROW_NUM=$row_num\n")
         str.append("SESSION_ID=$session_id\n")

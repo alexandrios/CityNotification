@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray"
+    android:paddingBottom="1dp" >
+
+    <TextView
+        style="?android:attr/spinnerDropDownItemStyle"
+        android:id="@+id/timeZoneTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_14sdp"
+        android:gravity="start"
+        android:background="?attr/recyclerItemBackColor"
+        android:textColor="@color/text"
+        android:padding="5dp" />
+
+</LinearLayout>

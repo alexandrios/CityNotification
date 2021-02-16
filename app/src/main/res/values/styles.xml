@@ -1,11 +1,72 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorLightBrown</item>
+
+        <!-- custom attributes -->
+        <item name="backgroundColor">@color/background</item>
+        <item name="labelTextColor">@color/white</item>
+        <item name="labelBackgroundColor">@color/colorPrimary</item>
+        <item name="subLabelTextColor">@color/sub_label_text</item>
+        <item name="subLabelBackgroundColor">@color/sub_label_background</item>
+        <item name="menuActiveColor">@color/menu_active_color</item>
+        <item name="menuInactiveColor">@color/menu_inactive_color</item>
+        <item name="loginAgainColor">@color/login_again_color</item>
+        <item name="recyclerGroupBackColor">@color/recycler_group_background2</item>
+        <item name="recyclerItemBackColor">@color/recycler_item_back</item>
+        <item name="dialogYesNoColor">@color/dialog_yes_no_color</item>
+    </style>
+
+    <!-- Dark application theme. -->
+    <style name="AppThemeDark" parent="Theme.AppCompat.Light.NoActionBar" >
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimaryBrown</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkBrown</item>
         <item name="colorAccent">@color/colorLightBrown</item>
+
+        <!-- custom attributes -->
+        <item name="backgroundColor">@color/background</item>
+        <item name="labelTextColor">@color/whiteSmoke</item>
+        <item name="labelBackgroundColor">@color/colorPrimaryBrown</item>
+        <item name="subLabelTextColor">@color/sub_label_text_dark</item>
+        <item name="subLabelBackgroundColor">@color/sub_label_background_dark</item>
+        <item name="menuActiveColor">@color/menu_active_color</item>
+        <item name="menuInactiveColor">@color/menu_inactive_color</item>
+        <item name="loginAgainColor">@color/login_again_color</item>
+        <item name="recyclerGroupBackColor">@color/recycler_item_back</item>
+        <item name="recyclerItemBackColor">@color/recycler_back</item>
+        <item name="dialogYesNoColor">@color/dialog_yes_no_color</item>
+    </style>
+
+    <!--    Head of the fragments   -->
+    <style name="AppTheme.TitleTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">?attr/labelBackgroundColor</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">?attr/labelTextColor</item>
+        <item name="android:textSize">@dimen/label_text_size</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:maxLines">2</item>
+        <item name="customTypefaceStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.TitleDialogTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/labelBackgroundColor</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">?attr/labelTextColor</item>
+        <item name="android:textSize">@dimen/sub_label_text_size</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="customTypefaceStyle">bold</item>
     </style>
 
     <style name="AppTheme.TitleLayout">
@@ -27,22 +88,6 @@
         <item name="android:padding">3dp</item>
         <item name="android:src">@drawable/ic_back</item>
         <item name="android:scaleType">centerCrop</item>
-    </style>
-
-    <style name="AppTheme.TitleTextView">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_centerInParent">true</item>
-        <item name="android:layout_marginStart">50dp</item>
-        <item name="android:layout_marginLeft">50dp</item>
-        <item name="android:layout_marginEnd">50dp</item>
-        <item name="android:layout_marginRight">50dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">17sp</item>
-        <item name="customTypefaceStyle">bold</item>
     </style>
 
     <style name="AppTheme.AddButtonImageView">

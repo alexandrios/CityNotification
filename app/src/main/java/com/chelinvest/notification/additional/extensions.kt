@@ -3,7 +3,6 @@ package com.chelinvest.notification.additional
 import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
@@ -11,6 +10,8 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import com.chelinvest.notification.R
+import com.chelinvest.notification.utils.Constants.GROUP_LOGOS_DIRECTORY_NAME
+import com.chelinvest.notification.utils.Constants.SERVICE_LOGOS_DIRECTORY_NAME
 import java.io.File
 import java.util.*
 

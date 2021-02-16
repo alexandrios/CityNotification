@@ -1,12 +1,9 @@
 package com.chelinvest.notification.api.request
 
 import org.simpleframework.xml.*
-import com.chelinvest.notification.api.request.SetDeliveryAddressRequest
-import com.chelinvest.notification.api.request.UpdateDeliverySubscriptionForBranchRequest
 
 // Документация по SimpleXml
 // http://simple.sourceforge.net/download/stream/doc/javadoc/
-
 
 @Root(name = "tns:xgate_request")
 @NamespaceList(

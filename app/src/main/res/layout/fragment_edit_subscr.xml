@@ -1,82 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/vParentLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- android:focusableInTouchMode="true" : to prevent AutoCompleteTextView from receiving focus -->
-    <LinearLayout
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.chelinvest.notification.ui.fragments.subscr.edit.EditSubscrViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/vParentLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="vertical"
-        android:focusableInTouchMode="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="@string/edit_subscr_descr_display"
-            android:textColor="@color/darkJungleGreen"
-            android:textSize="17sp"
-            app:customTypefaceStyle="bold" />
-
-        <com.chelinvest.notification.ui.custom.ModifiedEditText
-            android:id="@+id/descriptEditText"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:cet_imeOption="actionDone"
-            app:cet_label="@string/edit_subscr_descr_settings"
-            app:cet_textSize="16sp" />
+            android:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/vBackButton"
+                    style="@style/AppTheme.BackButtonImageView" />
+
+                <TextView
+                    android:id="@+id/titleTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/edit_subscr_title_text"
+                    android:textAlignment="center"
+                    android:textColor="?attr/labelTextColor"
+                    android:textSize="@dimen/label_text_size" />
+
+                <ImageView
+                    android:id="@+id/vBackButton2"
+                    style="@style/AppTheme.BackButtonImageView"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!-- android:focusableInTouchMode="true" : to prevent AutoCompleteTextView from receiving focus -->
+        <LinearLayout
+            android:id="@+id/valuesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBar">
+
+            <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/edit_subscr_descr_display"
+                android:textColor="@color/darkJungleGreen"
+                android:textSize="@dimen/edit_group_title_text_size"
+                app:customTypefaceStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="1dp"
+                android:text="@string/edit_subscr_descr_settings"
+                android:textColor="@color/text"
+                app:customTypefaceStyle="bold"
+                android:textSize="@dimen/_10sdp" />
+
+            <EditText
+                android:id="@+id/descriptEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:inputType="textMultiLine"
+                android:maxLines="4"
+                android:background="@drawable/bg_modified_edit_text"
+                android:textSize="@dimen/edit_text_text_size"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp" />
+
+            <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/edit_subscr_active_display"
+                android:textColor="@color/darkJungleGreen"
+                android:textSize="@dimen/edit_group_title_text_size"
+                app:customTypefaceStyle="bold" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/activeSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:switchPadding="40dp"
+                android:onCheckedChanged="@{(switch, bool) -> viewmodel.setActive(bool)}"
+                android:text="@string/edit_subscr_active_settings"
+                android:textSize="@dimen/edit_switch_text_size" />
+
+        </LinearLayout>
+
+        <ProgressBar
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:id="@+id/vProgressLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="@string/edit_subscr_active_display"
-            android:textColor="@color/darkJungleGreen"
-            android:textSize="17sp"
-            app:customTypefaceStyle="bold" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            android:indeterminateTint="?attr/colorPrimary"
+            android:indeterminateTintMode="src_atop" />
 
-        <Switch
-            android:id="@+id/activeSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:textSize="12sp"
-            android:switchPadding="40dp"
-            android:text="@string/edit_subscr_active_settings" />
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/vTitlePanel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        style="@style/AppTheme.TitleLayout" >
-
-        <ImageView
-            android:id="@+id/backImageView"
-            style="@style/AppTheme.BackButtonImageView"/>
-
-        <TextView
-            android:id="@+id/saveTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Сохранить"
-            style="@style/AppTheme.TitleTextView"/>
-    </RelativeLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

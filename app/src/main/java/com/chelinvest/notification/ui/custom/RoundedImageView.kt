@@ -10,9 +10,9 @@ import com.chelinvest.notification.R
 
 class RoundedImageView : AppCompatImageView {
 
-    constructor(context: Context?) : super(context) { init(null) }
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) { init(attrs) }
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) { init(attrs) }
+    constructor(context: Context) : super(context) { init(null) }
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) { init(attrs) }
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) { init(attrs) }
 
     private val radius = FloatArray(8)
     private val path = Path()

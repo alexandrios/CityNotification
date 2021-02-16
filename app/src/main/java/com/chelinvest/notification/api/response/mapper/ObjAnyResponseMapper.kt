@@ -5,7 +5,7 @@ import com.chelinvest.notification.model.ObjAny
 
 class ObjAnyResponseMapper {
 
-    fun map(from: ObjAnyResponse): ObjAny? {
+    fun map(from: ObjAnyResponse): ObjAny {
 
         val objAny = ObjAny()
         objAny.id = from.id ?: ""

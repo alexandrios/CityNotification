@@ -1,30 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/vParentLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusableInTouchMode="true"
-    android:background="@color/transparent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-        android:id="@+id/shortServerNameTextView"
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.chelinvest.notification.ui.fragments.branch.BranchViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/vParentLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:padding="8dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/colorLightBrown"
-        android:textColor="@color/text_bright"
-        android:text=""
-        android:textSize="@dimen/branch_titel"/>
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        android:focusableInTouchMode="true">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/branchRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/shortServerNameTextView" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/branchRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ProgressBar
+            android:id="@+id/vProgressLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:indeterminateTint="?attr/colorPrimary"
+            android:indeterminateTintMode="src_atop" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

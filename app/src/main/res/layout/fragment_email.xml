@@ -10,24 +10,34 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+        android:id="@+id/addressTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="@string/edit_email_descr_display"
         android:textColor="@color/darkJungleGreen"
-        android:textSize="17sp"
+        android:textSize="@dimen/edit_group_title_text_size"
         app:customTypefaceStyle="bold" />
 
-    <com.chelinvest.notification.ui.custom.ModifiedEditText
+    <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="1dp"
+        android:text="@string/edit_email_descr_settings"
+        android:textColor="@color/text"
+        app:customTypefaceStyle="bold"
+        android:textSize="@dimen/_10sdp" />
+
+    <EditText
         android:id="@+id/addressEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:inputType="textEmailAddress"
-        app:cet_inputType="email"
-        app:cet_imeOption="actionDone"
-        app:cet_label="@string/edit_email_descr_settings"
-        app:cet_textSize="16sp" />
+        android:textSize="@dimen/edit_text_text_size"
+        android:background="@drawable/bg_modified_edit_text"
+        android:inputType="textEmailAddress" />
 
 </LinearLayout>

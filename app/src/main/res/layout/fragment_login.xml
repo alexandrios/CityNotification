@@ -1,134 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/vParentLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusableInTouchMode="true"
-    android:background="@color/recycler_back" >
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:id="@+id/vLoginLayout"
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.chelinvest.notification.ui.fragments.login.LoginViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/vParentLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="30dp"
-        android:background="@color/recycler_back"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="10dp">
+        android:layout_height="match_parent"
+       android:focusableInTouchMode="true">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/AppTheme.TitleTextView"
+                    android:id="@+id/titleTextView"
+                    android:text="@string/app_name"
+                    android:textColor="?attr/labelTextColor" />
+
+            </LinearLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
-            android:id="@+id/vProgressLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:id="@+id/vLoginLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/appBar" >
 
             <TextView
+                android:id="@+id/userTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:text="@string/login_name_title"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/text" />
+
+            <EditText
+                android:id="@+id/userEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:textSize="@dimen/edit_text_text_size"
+                android:background="@drawable/bg_modified_edit_text"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/passTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:text="@string/login_pass_title"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/text" />
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login_checking"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:layout_marginTop="8dp">
 
-            <ProgressBar
-                android:layout_width="18dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:indeterminate="true" />
+                <ImageView
+                    android:id="@+id/viewPassImageView"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="16dp"
+                    android:alpha="0.4"
+                    android:padding="3dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_eye"
+                    app:tint="@color/black"
+                    tools:tint="@color/colorPrimary"
+                    tools:alpha="1.0" />
+
+                <EditText
+                    android:id="@+id/passEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:textSize="@dimen/edit_text_text_size"
+                    android:layout_toStartOf="@+id/viewPassImageView"
+                    android:background="@drawable/bg_modified_edit_text"
+                    android:inputType="textPassword" />
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:background="@color/transparent"
+                android:textColor="@color/colorPrimary"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:text="@string/login_button"
+                android:textAllCaps="false"
+                android:textSize="@dimen/login_text_size" />
+            <!--            android:onClick="@{() -> viewmodel.loginBtnClick()}"-->
 
         </LinearLayout>
 
-
-        <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-            android:id="@+id/userTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:text="@string/login_name_titel"
-            android:textColor="@color/black" />
-
-        <com.chelinvest.notification.ui.custom.ModifiedEditText
-            android:id="@+id/userEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:hint="@string/login_name_titel" />
-
-        <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-            android:id="@+id/passTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp"
-            android:text="@string/login_pass_titel"
-            android:textColor="@color/black" />
-
-        <RelativeLayout
+        <ProgressBar
+            android:id="@+id/vProgressLayout"
+            style="@style/Widget.AppCompat.ProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+            android:indeterminate="true"
+            android:indeterminateTint="?attr/colorPrimary"
+            android:indeterminateTintMode="src_atop"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/viewPassImageView"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerInParent="true"
-                android:layout_marginEnd="16dp"
-                android:alpha="0.4"
-                android:padding="3dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_password_eye"
-                android:tint="@color/black" />
-
-            <com.chelinvest.notification.ui.custom.ModifiedEditText
-                android:id="@+id/passEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_toStartOf="@+id/viewPassImageView"
-                android:hint="password"
-                app:cet_inputType="password" />
-
-        </RelativeLayout>
-
-
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:background="@drawable/rounded_button"
-            android:text="@string/login_button"
-            android:textColor="@color/whiteSmoke"
-            android:textSize="16sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <!--include layout="@layout/change_xgate_fragment" /-->
-
-    </LinearLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

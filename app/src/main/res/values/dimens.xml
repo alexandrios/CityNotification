@@ -1,19 +1,21 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-
-    <dimen name="tap_bar_height">52dp</dimen>
-
-    <dimen name="fab_margin">40dp</dimen>
-
-    <dimen name="branch_titel">16sp</dimen>
-    <dimen name="subs_titel">16sp</dimen>
-    <dimen name="branch_list_item_text_size">20sp</dimen>
-    <dimen name="subs_text_size">14sp</dimen>
-    <dimen name="delivery_type_dialog_item_text_size">16sp</dimen>
-    <dimen name="address_list_group_item_text_size">14sp</dimen>
-    <dimen name="address_list_child_item_text_size">14sp</dimen>
+    <dimen name="label_text_size">@dimen/_16sdp</dimen>
+    <dimen name="sub_label_text_size">@dimen/_14sdp</dimen>
+    <dimen name="login_text_size">@dimen/_16sdp</dimen>
+    <dimen name="login_again_text_size">@dimen/_12sdp</dimen>
+    <dimen name="branch_title">@dimen/_16sdp</dimen>
+    <dimen name="subs_title">@dimen/_16sdp</dimen>
+    <dimen name="branch_list_item_text_size">@dimen/_16sdp</dimen>
+    <dimen name="limit_agent_text_size">@dimen/_16sdp</dimen>
+    <dimen name="limit_value_text_size">@dimen/_16sdp</dimen>
+    <dimen name="subs_text_size">@dimen/_14sdp</dimen>
+    <dimen name="dialog_yes_no_text_size">@dimen/_14sdp</dimen>
+    <dimen name="delivery_type_dialog_item_text_size">@dimen/_14sdp</dimen>
+    <dimen name="address_list_group_item_text_size">@dimen/_14sdp</dimen>
+    <dimen name="address_list_child_item_text_size">@dimen/_14sdp</dimen>
+    <dimen name="edit_text_text_size">@dimen/_14sdp</dimen>
+    <dimen name="edit_switch_text_size">@dimen/_12sdp</dimen>
+    <dimen name="edit_group_title_text_size">@dimen/_16sdp</dimen>
 
     <dimen name="menu_item_corner_radius">8dp</dimen>
     <dimen name="menu_item_elevation">4dp</dimen>

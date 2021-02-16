@@ -1,91 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/vParentLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/vTitlePanel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <data>
 
-        <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-            android:id="@+id/branchNameTextView"
+        <variable
+            name="viewmodel"
+            type="com.chelinvest.notification.ui.fragments.subscr.SubscrViewModel" />
+    </data>
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/vParentLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorLightBrown"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="short"
-            android:textColor="@color/text_bright"
-            android:textSize="@dimen/branch_titel"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            app:layoutDescription="@xml/fragment_subscr_scene">
 
-        <Button
-            android:id="@+id/buttonTest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            android:visibility="gone"
-            tools:ignore="MissingConstraints" />
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="4dp">
 
-        <CheckBox
-            android:id="@+id/vCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_margin="4dp"
-            android:padding="4dp"
-            android:paddingEnd="8dp"
-            android:text="Только активные подписки"
-            android:background="@drawable/border"
-            android:typeface="sans"
-            android:textColor="@color/colorPrimaryBrown" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:gravity="center_vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/subscriptRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:scrollbars="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/vBackButton"
+                        style="@style/AppTheme.BackButtonImageView" />
 
-    </LinearLayout>
+                    <TextView
+                        android:id="@+id/titleTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/subscr_title_text"
+                        android:textAlignment="center"
+                        android:textColor="?attr/labelTextColor"
+                        android:textSize="@dimen/label_text_size" />
 
-    <RelativeLayout
-        android:id="@+id/vTitlePanel"
-        style="@style/AppTheme.TitleLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="26dp">
+                    <ImageView
+                        android:id="@+id/vAddButton"
+                        style="@style/AppTheme.AddButtonImageView" />
 
-        <ImageView
-            android:id="@+id/vBackButton"
-            style="@style/AppTheme.BackButtonImageView" />
+                </LinearLayout>
+            </com.google.android.material.appbar.AppBarLayout>
 
-        <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-            android:id="@+id/vTitleTextView"
-            style="@style/AppTheme.TitleTextView"
-            android:visibility="gone" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/headerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/appBar">
 
-        <ImageView
-            android:id="@+id/vAddButton"
-            style="@style/AppTheme.AddButtonImageView"
-            android:layout_alignParentEnd="true"
-            android:layout_toStartOf="@+id/vTitleTextView" />
+                <TextView
+                    android:id="@+id/subLabelTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/subLabelBackgroundColor"
+                    android:padding="4dp"
+                    android:text="@string/subscr_subtitle_text"
+                    android:textAlignment="center"
+                    android:textColor="?attr/subLabelTextColor"
+                    android:textSize="@dimen/branch_list_item_text_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/onlyActiveTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/only_active_subscr"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toStartOf="@+id/onlyActiveSwitch"
+                    app:layout_constraintTop_toBottomOf="@+id/subLabelTextView" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/onlyActiveSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center_vertical|end"
+                    android:onCheckedChanged="@{(switch, bool) -> viewmodel.setActiveOnly(bool)}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/subLabelTextView" />
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/subscriptRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="1dp"
+                android:scrollbars="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/headerLayout"
+                tools:listitem="@layout/list_item_subscript" />
+
+            <ProgressBar
+                android:id="@+id/vProgressLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:indeterminateTint="?attr/colorPrimary"
+                android:indeterminateTintMode="src_atop"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+</layout>

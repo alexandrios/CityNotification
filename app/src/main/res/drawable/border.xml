@@ -6,7 +6,7 @@
                 android:width="1dp"
                 android:height="1dp"
                 android:color="@color/colorPrimaryBrown" />
-            <solid android:color="@color/white" />
+            <solid android:color="?attr/subLabelBackgroundColor" />
             <padding
                 android:bottom="1dp"
                 android:left="1dp"

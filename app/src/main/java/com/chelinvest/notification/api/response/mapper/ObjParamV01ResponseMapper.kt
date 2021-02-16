@@ -5,7 +5,7 @@ import com.chelinvest.notification.model.ObjParamV01
 
 class ObjParamV01ResponseMapper {
 
-    fun map(from: ObjParamV01Response): ObjParamV01? {
+    fun map(from: ObjParamV01Response): ObjParamV01 {
 
         val objParam = ObjParamV01()
         objParam.id = from.id ?: ""

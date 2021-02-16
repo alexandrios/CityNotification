@@ -6,7 +6,8 @@ import org.simpleframework.xml.Root
 import com.chelinvest.notification.api.response.DelivetypeExpResponse
 import com.chelinvest.notification.api.response.IResponseElement
 
-@Root(name = "obj_delivetype_objs", strict = false)
+//@Root(name = "obj_delivetype_objs", strict = false)
+@Root(name = "obj_param_objs", strict = false)
 class GetDeliveryBranchResponse : IResponseElement {
 
     @field:Element(name = "id", required = false)

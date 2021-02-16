@@ -3,15 +3,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/backgroundColor"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/labelBackgroundColor"
+        android:gravity="center"
+        android:maxLines="1"
+        android:padding="8dp"
+        android:text="@string/dialog_create_subscr_title"
+        android:textAlignment="center"
+        android:textColor="?attr/labelTextColor"
+        android:textSize="@dimen/sub_label_text_size" />
 
     <com.chelinvest.notification.ui.custom.stylable.CustomTextView
         android:id="@+id/headerTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_margin="4dp"
+        android:textAlignment="center"
+        android:textSize="@dimen/_12sdp"
         android:text="Выберите значение атрибута"
         android:textColor="@color/black" />
 
@@ -20,25 +35,25 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="8dp"
-            android:src="@drawable/search" />
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_finder" />
 
         <EditText
             android:id="@+id/searchEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
-            android:textSize="16sp" />
+            android:layout_marginEnd="8dp"
+            android:textSize="@dimen/edit_text_text_size"
+            android:background="@drawable/bg_modified_edit_text" />
+
     </LinearLayout>
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

@@ -18,11 +18,11 @@ class ObjParamObjs : Serializable {
         result.append("; value=")
         result.append(value)
 
-        if (objList.size > 0) {
+        if (objList.isNotEmpty()) {
             result.append("; obj_list={")
-            for (i in 0..objList.size - 1) {
+            for (element in objList) {
                 result.append("(")
-                result.append(objList[i].toString())
+                result.append(element.toString())
                 result.append(")")
             }
             result.append("}")

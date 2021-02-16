@@ -10,12 +10,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+        android:id="@+id/addressTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="@string/edit_push_descr_display"
         android:textColor="@color/darkJungleGreen"
-        android:textSize="17sp"
+        android:textSize="@dimen/edit_group_title_text_size"
         app:customTypefaceStyle="bold" />
 
     <com.chelinvest.notification.ui.custom.stylable.CustomTextView
@@ -24,38 +25,38 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="2dp"
-        android:textSize="10sp"
+        android:textSize="@dimen/_10sdp"
         android:textColor="@color/text"
         android:text="@string/edit_push_descr_settings_name"
         app:customTypefaceStyle="bold"
         android:visibility="visible"/>
 
     <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-        android:id="@+id/addressTextView"
+        android:id="@+id/nameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="2dp"
-        android:textSize="16sp"
+        android:textSize="@dimen/edit_text_text_size"
         android:lines="1"
         android:textColor="@color/text"
         app:customTypefaceStyle="normal"
         android:visibility="visible"/>
 
-    <com.chelinvest.notification.ui.custom.ModifiedEditText
+    <EditText
         android:id="@+id/addressEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:cet_imeOption="actionDone"
-        app:cet_inputType="text"
         android:textIsSelectable="true"
         android:focusable="false"
-        app:cet_label="@string/edit_push_descr_settings"
-        app:cet_textSize="16sp"
         android:visibility="gone" />
+<!--        app:cet_label="@string/edit_push_descr_settings"-->
+<!--        app:cet_textSize="16sp"-->
+<!--        app:cet_imeOption="actionDone"-->
+<!--        app:cet_inputType="text"-->
 
 </LinearLayout>

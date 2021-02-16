@@ -23,7 +23,7 @@ class CardItem: FrameLayout {
     constructor(context: Context?, attrs: AttributeSet?) : super(context!!, attrs) { init(attrs) }
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context!!, attrs, defStyleAttr) { init(attrs) }
 
-    fun setIsSelected(isSelected: Boolean) {
+    private fun setIsSelected(isSelected: Boolean) {
         if (isSelected) {
             textView?.setTextColor(selectedColor)
             iconImageView?.setColorFilter(selectedColor)
@@ -59,7 +59,7 @@ class CardItem: FrameLayout {
                     typedArray.getResourceId(R.styleable.CardItem_icon_drawable, 0)
                 val textSize =
                     typedArray.getDimensionPixelSize(R.styleable.CardItem_text_size, 0)
-                textView?.setText(text)
+                textView?.text = text
                 if (textSize > 0) textView?.setTextSize(
                     TypedValue.COMPLEX_UNIT_PX,
                     textSize.toFloat()

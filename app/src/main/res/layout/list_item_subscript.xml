@@ -4,40 +4,40 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingBottom="6dp">
+    android:paddingBottom="1dp">
 
-    <!-- for getSwipeableContainerView() -->
     <RelativeLayout
         android:id="@+id/behind_views"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:visibility="gone"
-        tools:visibility="visible">
+        android:visibility="visible" >
 
         <ImageView
             android:id="@+id/del_button"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentRight="true"
+            android:layout_width="36dp"
+            android:layout_height="28dp"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             android:padding="3dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/trash_outline_211835"
-            android:tint="@color/tomato" />
+            android:src="@drawable/ic_garbage_basket"
+            app:tint="@color/tomato" />
+<!--        android:background="@color/tomato"-->
+<!--        android:src="@drawable/trash_outline_211835"-->
 
         <ImageView
             android:id="@+id/edit_button"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_centerVertical="true"
-            android:layout_marginRight="16dp"
-            android:layout_toLeftOf="@+id/del_button"
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@+id/del_button"
             android:padding="3dp"
             android:scaleType="centerCrop"
             android:src="@drawable/pen_edit_2199097"
-            android:tint="@color/black" />
+            app:tint="@color/black" />
 
     </RelativeLayout>
 
@@ -47,12 +47,12 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:foreground="?attr/selectableItemBackground"
-        tools:visibility="invisible">
+        tools:visibility="invisible" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/recycler_back"
+            android:background="?attr/recyclerItemBackColor"
             android:orientation="vertical"
             android:paddingStart="8dp"
             android:paddingEnd="8dp">
@@ -86,10 +86,18 @@
                             android:textSize="@dimen/subs_text_size"
                             android:layout_marginEnd="8dp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/activeImageView"
+                            app:layout_constraintEnd_toStartOf="@+id/activeSwitch"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintHorizontal_bias="0"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/activeSwitch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
 
                         <ImageView
                             android:id="@+id/activeImageView"
@@ -100,7 +108,8 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:scaleType="fitCenter"
                             android:src="@drawable/dot_298849"
-                            android:tint="@color/colorPrimaryBrown" />
+                            app:tint="@color/colorPrimaryBrown"
+                            android:visibility="invisible" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

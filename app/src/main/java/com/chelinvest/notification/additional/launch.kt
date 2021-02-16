@@ -3,7 +3,6 @@ package com.chelinvest.notification.additional
 import android.accounts.NetworkErrorException
 import com.chelinvest.notification.exception.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.produce
 import java.io.IOException
 import java.lang.IllegalArgumentException
 import java.net.ConnectException

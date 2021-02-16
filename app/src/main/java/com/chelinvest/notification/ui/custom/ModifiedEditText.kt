@@ -2,6 +2,8 @@ package com.chelinvest.notification.ui.custom
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Bundle
+import android.os.Parcelable
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -23,14 +25,18 @@ open class ModifiedEditText : FrameLayout {
         NEXT
     }
 
-    constructor(context: Context?) : super(context!!) { init(null) }
+    constructor(context: Context) : super(context) { init(null) }
     constructor(context: Context?, attrs: AttributeSet?) : super(context!!, attrs) { init(attrs) }
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context!!, attrs, defStyleAttr) { init(attrs) }
+    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context!!,
+        attrs,
+        defStyleAttr) { init(attrs) }
 
     var onTextChanged: ((text: String?) -> Unit)? = null
 
     private fun init(attrs: AttributeSet?) {
-        val view = LayoutInflater.from(context).inflate(R.layout.view_modified_edit_text, this, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.view_modified_edit_text,
+            this,
+            false)
         addView(view)
 
         val editText = view.findViewById<EditText>(R.id.vEditText)
@@ -38,12 +44,15 @@ open class ModifiedEditText : FrameLayout {
         if (attrs != null) {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomEditText, 0, 0)
             try {
-                val isNecessary = typedArray.getBoolean(R.styleable.CustomEditText_cet_isNecessary, false)
-                val paddingStart = typedArray.getDimension(R.styleable.CustomEditText_cet_paddingStart, -1f).toInt()
+                val isNecessary = typedArray.getBoolean(R.styleable.CustomEditText_cet_isNecessary,
+                    false)
+                val paddingStart = typedArray.getDimension(R.styleable.CustomEditText_cet_paddingStart,
+                    -1f).toInt()
                 val hint = typedArray.getString(R.styleable.CustomEditText_cet_hint)
                 val text = typedArray.getString(R.styleable.CustomEditText_cet_text)
                 val textSize = if (typedArray.hasValue(R.styleable.CustomEditText_cet_textSize))
-                    typedArray.getDimensionPixelSize(R.styleable.CustomEditText_cet_textSize, context.pxFromDp(12f).toInt()).toFloat()
+                    typedArray.getDimensionPixelSize(R.styleable.CustomEditText_cet_textSize,
+                        context.pxFromDp(12f).toInt()).toFloat()
                 else
                     null
                 val textColor = if (typedArray.hasValue(R.styleable.CustomEditText_cet_textColor))
@@ -54,13 +63,17 @@ open class ModifiedEditText : FrameLayout {
                     typedArray.getColor(R.styleable.CustomEditText_cet_hintTextColor, Color.BLACK)
                 else
                     null
-                val imeOption = ImeOption.values()[typedArray.getInt(R.styleable.CustomEditText_cet_imeOption, 0) % ImeOption.values().size]
+                val imeOption = ImeOption.values()[typedArray.getInt(R.styleable.CustomEditText_cet_imeOption,
+                    0) % ImeOption.values().size]
                 val inputType = typedArray.getInt(R.styleable.CustomEditText_cet_inputType, 0) % 7
                 val label = typedArray.getString(R.styleable.CustomEditText_cet_label)
                 description = typedArray.getString(R.styleable.CustomEditText_cet_description)
 
                 if (paddingStart >= 0)
-                    editText.setPadding(paddingStart, editText.paddingTop, editText.paddingRight, editText.paddingBottom)
+                    editText.setPadding(paddingStart,
+                        editText.paddingTop,
+                        editText.paddingRight,
+                        editText.paddingBottom)
                 editText.hint = hint
                 editText.setText(text)
                 if (textSize != null)
@@ -96,11 +109,11 @@ open class ModifiedEditText : FrameLayout {
             }
         }
 
-        editText.setOnFocusChangeListener { v, hasFocus ->
+        editText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus && error != null)
                 error = null
         }
-        editText.addTextChangedListener(object: TextWatcher {
+        editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
@@ -157,4 +170,24 @@ open class ModifiedEditText : FrameLayout {
         }
     }
 
+    override fun onSaveInstanceState(): Parcelable? {
+        val bundle = Bundle()
+        bundle.putParcelable(SUPER_STATE, super.onSaveInstanceState())
+        bundle.putString(EDIT_TEXT, findViewById<EditText>(R.id.vEditText).text.toString())
+        return bundle
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        var superState = state
+        if (state is Bundle) {
+            findViewById<EditText>(R.id.vEditText).setText(state.getString(EDIT_TEXT))
+            superState = state.getParcelable(SUPER_STATE)
+        }
+        super.onRestoreInstanceState(superState)
+    }
+
+    companion object {
+        const val SUPER_STATE = "SUPER_STATE"
+        const val EDIT_TEXT = "EDIT_TEXT"
+    }
 }

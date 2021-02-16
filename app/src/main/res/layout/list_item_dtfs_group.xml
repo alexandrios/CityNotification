@@ -1,104 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/whiteSmoke"/>
+        android:background="?attr/recyclerItemBackColor" />
 
-        <RelativeLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="4dp"
+        android:background="?attr/recyclerGroupBackColor"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/vImageView"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="6dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_email"
+            app:tint="@color/text" />
+
+        <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+            android:id="@+id/nameTextView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dp" >
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="name"
+            android:minLines="2"
+            android:maxLines="2"
+            android:textColor="@color/text"
+            android:textSize="@dimen/address_list_group_item_text_size"
+            app:customTypefaceStyle="bold" />
 
-            <ImageView
-                android:id="@+id/vImageView"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="6dp"
-                android:src="@drawable/ic_email"
-                android:tint="@color/colorPrimaryBrown" />
+        <ImageView
+            android:id="@+id/periodImageView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_period"
+            app:tint="@color/text" />
 
-            <ImageView
-                android:id="@+id/periodImageView"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="10dp"
-                android:layout_toStartOf="@id/vCountTextView"
-                android:src="@drawable/ic_period"
-                android:tint="@color/dark_gray" />
+        <com.chelinvest.notification.ui.custom.stylable.CustomTextView
+            android:id="@+id/vCountTextView"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="2"
+            android:textColor="?attr/labelBackgroundColor"
+            android:textSize="@dimen/_16sdp" />
 
-            <ImageView
-                android:id="@+id/vExpandedImageView"
-                android:layout_width="16dp"
-                android:layout_height="14dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/expand"
-                android:tint="@color/dark_gray"
-                android:scaleType="fitXY" />
-
-            <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-                android:id="@+id/vCountTextView"
-                android:layout_width="20dp"
-                android:layout_height="14dp"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@id/vExpandedImageView"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/bg_service_binding_button"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:textColor="@color/tangelo"
-                android:textSize="12sp" />
-
-            <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-                android:id="@+id/shortTextView"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/vImageView"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/text"
-                android:text="short"
-                android:textSize="@dimen/address_list_group_item_text_size"/>
-
-            <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-                android:id="@+id/valueTextView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_toEndOf="@id/shortTextView"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:textColor="@color/text"
-                android:text="v"
-                android:textSize="@dimen/address_list_group_item_text_size"/>
-
-            <com.chelinvest.notification.ui.custom.stylable.CustomTextView
-                android:id="@+id/nameTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@id/periodImageView"
-                android:layout_toEndOf="@id/shortTextView"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:textColor="@color/text"
-                app:customTypefaceStyle="bold"
-                android:textSize="@dimen/address_list_group_item_text_size"
-                android:text="name" />
-
-
-
-
-        </RelativeLayout>
+        <ImageView
+            android:id="@+id/vExpandedImageView"
+            android:layout_width="20dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="4dp"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:scaleType="fitXY"
+            android:src="@drawable/expand"
+            app:tint="@color/text" />
 
     </LinearLayout>
+</LinearLayout>

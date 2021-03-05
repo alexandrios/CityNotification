@@ -42,6 +42,7 @@ import com.chelinvest.notification.utils.Constants.HOUR_START
 import com.chelinvest.notification.utils.Constants.LOG_TAG
 import com.chelinvest.notification.utils.Constants.SMS_ID
 import com.chelinvest.notification.utils.Constants.SUBSCRIPTION
+import com.google.android.material.slider.RangeSlider
 
 class EditAddressFragment : BaseFragment() {
         private lateinit var viewModel: EditAddressViewModel
@@ -122,8 +123,11 @@ class EditAddressFragment : BaseFragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(ADDRESS_TEXT, view?.findViewById<EditText>(R.id.addressEditText)?.text.toString())
-        outState.putString(HOUR_START, binding.startHourEditText.text.toString())
-        outState.putString(HOUR_FINISH, binding.finishHourEditText.text.toString())
+        //outState.putString(HOUR_START, binding.startHourEditText.text.toString())
+        //outState.putString(HOUR_FINISH, binding.finishHourEditText.text.toString())
+        outState.putString(HOUR_START, binding.timeRangeSlider.values[0].toString())
+        outState.putString(HOUR_FINISH, binding.timeRangeSlider.values[0].toString())
+
         Log.d(LOG_TAG, "EditAddressFragment -> onSaveInstanceState: $outState")
     }
 
@@ -175,25 +179,38 @@ class EditAddressFragment : BaseFragment() {
         if (hasSendPeriod == "1") {
             // Проверить, есть ли сохранённые данные перед пересозданием фрагмента
             Log.d(LOG_TAG, "EditAddressFragment -> onViewCreated: savedInstanceState = $savedInstanceState")
+            val sHStart: String
+            val sHFinish: String
             if (savedInstanceState != null) {
-                binding.startHourEditText.setText(savedInstanceState.getString(HOUR_START) ?: (addressData?.start_hour ?: DEFAULT_START_HOUR))
-                binding.finishHourEditText.setText(savedInstanceState.getString(HOUR_FINISH) ?: (addressData?.finish_hour ?: DEFAULT_FINISH_HOUR))
+                sHStart = savedInstanceState.getString(HOUR_START) ?: (addressData?.start_hour ?: DEFAULT_START_HOUR)
+                sHFinish = savedInstanceState.getString(HOUR_FINISH) ?: (addressData?.finish_hour ?: DEFAULT_FINISH_HOUR)
+                //binding.startHourEditText.setText(savedInstanceState.getString(HOUR_START) ?: (addressData?.start_hour ?: DEFAULT_START_HOUR))
+                //binding.finishHourEditText.setText(savedInstanceState.getString(HOUR_FINISH) ?: (addressData?.finish_hour ?: DEFAULT_FINISH_HOUR))
             } else {
                 // Если model==null, то предлагаем значения по умолчанию
-                binding.startHourEditText.setText(addressData?.start_hour ?: DEFAULT_START_HOUR)
-                binding.finishHourEditText.setText(addressData?.finish_hour ?: DEFAULT_FINISH_HOUR)
+                sHStart = addressData?.start_hour ?: DEFAULT_START_HOUR
+                sHFinish = addressData?.finish_hour ?: DEFAULT_FINISH_HOUR
+                //binding.startHourEditText.setText(addressData?.start_hour ?: DEFAULT_START_HOUR)
+                //binding.finishHourEditText.setText(addressData?.finish_hour ?: DEFAULT_FINISH_HOUR)
             }
-            Log.d(LOG_TAG, "startHourEditText = ${binding.startHourEditText.text}")
-            Log.d(LOG_TAG, "finishHourEditText = ${binding.finishHourEditText.text}")
+            binding.timeRangeSlider.setValues(sHStart.toFloat(), sHFinish.toFloat())
+            setPeriodTextView(binding.timeRangeSlider.values)
+            //Log.d(LOG_TAG, "startHourEditText = ${binding.startHourEditText.text}")
+            //Log.d(LOG_TAG, "finishHourEditText = ${binding.finishHourEditText.text}")
 
             binding.periodLayout.visibility = View.VISIBLE
 
-            binding.startHourEditText.doOnTextChanged { text, _, _, _ ->
-                viewModel.checkHourRange(text.toString())
-            }
+            //binding.startHourEditText.doOnTextChanged { text, _, _, _ ->
+            //    viewModel.checkHourRange(text.toString())
+            //}
 
-            binding.finishHourEditText.doOnTextChanged { text, _, _, _ ->
-                viewModel.checkHourRange(text.toString())
+            //binding.finishHourEditText.doOnTextChanged { text, _, _, _ ->
+            //    viewModel.checkHourRange(text.toString())
+            //}
+
+            binding.timeRangeSlider.addOnChangeListener { slider, value, fromUser ->
+                Log.d(LOG_TAG, "timeRangeSlider: value=$value, fromUser=$fromUser, start=${slider.values[0]}, end = ${slider.values[1]}")
+                setPeriodTextView(slider.values)
             }
 
             // Spinner for TimeZone
@@ -272,6 +289,15 @@ class EditAddressFragment : BaseFragment() {
         })
     }
 
+    private fun setPeriodTextView(values: List<Float>) {
+        binding.periodTextView.text = String.format("%s: %s %d %s %d",
+            resources.getString(R.string.edit_period_slider_descr_settings),
+            resources.getString(R.string.edit_period_from),
+            values[0].toInt(),
+            resources.getString(R.string.edit_period_to),
+            values[1].toInt())
+    }
+
     private fun createFragment(savedInstanceState: Bundle?) {
         childFragmentManager.beginTransaction().apply {
             when (deliveType) {
@@ -329,11 +355,17 @@ class EditAddressFragment : BaseFragment() {
         val address = requireView().findViewById<EditText>(R.id.addressEditText)?.text.toString()
         var result = oldAddress != address
 
+//        if (!result && hasSendPeriod == "1") {
+//            result = !(oldStartHour == binding.startHourEditText.text.toString() &&
+//                        oldFinishHour == binding.finishHourEditText.text.toString() &&
+//                        oldTimeZone == timeZoneString())
+//        }
         if (!result && hasSendPeriod == "1") {
-            result = !(oldStartHour == binding.startHourEditText.text.toString() &&
-                        oldFinishHour == binding.finishHourEditText.text.toString() &&
-                        oldTimeZone == timeZoneString())
+            result = !(oldStartHour?.toInt() == binding.timeRangeSlider.values[0].toInt() &&
+                    oldFinishHour?.toInt() == binding.timeRangeSlider.values[1].toInt() &&
+                    oldTimeZone == timeZoneString())
         }
+
         return result
     }
 
@@ -374,14 +406,16 @@ class EditAddressFragment : BaseFragment() {
             if (hasSendPeriod == "1") {
                 //if (viewModel.checkHourRange(startHourEditText.text.toString()))
                 if (!viewModel.verifyTimeRange(
-                        binding.startHourEditText.text.toString(),
-                        binding.finishHourEditText.text.toString(),
+                        //binding.startHourEditText.text.toString(),
+                        //binding.finishHourEditText.text.toString(),
                         timeZoneString()
                     )) {
                     return
                 } else {
-                    startHour = binding.startHourEditText.text.toString().toIntOrNull()
-                    finishHour = binding.finishHourEditText.text.toString().toIntOrNull()
+                    //startHour = binding.startHourEditText.text.toString().toIntOrNull()
+                    //finishHour = binding.finishHourEditText.text.toString().toIntOrNull()
+                    startHour = binding.timeRangeSlider.values[0].toInt()
+                    finishHour = binding.timeRangeSlider.values[1].toInt()
                     timeZone = timeZoneString().toIntOrNull()
                 }
             }

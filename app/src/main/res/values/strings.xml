@@ -50,7 +50,11 @@
     <string name="edit_time_period">Предпочтительный период рассылки сообщений</string>
     <string name="edit_start_hour_descr_settings">Введите час начала предпочтительного периода рассылки сообщения</string>
     <string name="edit_finish_hour_descr_settings">Введите час окончания предпочтительного периода рассылки сообщения</string>
-    <string name="edit_time_zone_descr_settings">Введите часовой пояс, по которому рассчитывается период рассылки</string>
+    <string name="edit_period_hours_descr_settings">Выберите период рассылки сообщения</string>
+    <string name="edit_period_slider_descr_settings">Период рассылки</string>
+    <string name="edit_period_from">с</string>
+    <string name="edit_period_to">по</string>
+    <string name="edit_time_zone_descr_settings">Выберите часовой пояс, по которому рассчитывается период рассылки</string>
     <string name="edit_time_start_more_then_finish_hour">Час начала периода должен быть меньше часа конца периода</string>
     <string name="edit_time_check_hour_range">Необходимо указать значение в диапазоне от 0 до 23</string>
     <string name="edit_time_check_timezone_range">Необходимо указать значение в диапазоне от -11 до 12</string>

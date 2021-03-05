@@ -79,12 +79,17 @@ class EditAddressViewModel @Inject constructor(
         }
     }
 
-    fun verifyTimeRange(startHour: String, finishHour: String, timeZone: String): Boolean {
+    fun verifyTimeRange(/*startHour: String, finishHour: String,*/ timeZone: String): Boolean {
 
-        val startH = startHour.toIntOrNull()
-        val finishH = finishHour.toIntOrNull()
+        //val startH = startHour.toIntOrNull()
+        //val finishH = finishHour.toIntOrNull()
         val timeZ = timeZone.toIntOrNull()
 
+        if (timeZ == null) {
+            errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.edit_time_zone_descr_settings))
+            return false
+        }
+        /*
         if (startH == null) {
             errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.edit_start_hour_descr_settings))
             return false
@@ -105,16 +110,11 @@ class EditAddressViewModel @Inject constructor(
             return false
         }
 
-        if (timeZ == null) {
-            errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.edit_time_zone_descr_settings))
-            return false
-        }
-
         if (startH >= finishH) {
             errorLiveEvent.postValue(getApplication<BaseApplication>().getString(R.string.edit_time_start_more_then_finish_hour))
             return false
         }
-
+        */
         return true
     }
 

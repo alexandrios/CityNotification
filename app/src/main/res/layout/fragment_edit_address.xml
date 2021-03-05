@@ -118,10 +118,34 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="1dp"
-                    android:text="@string/edit_start_hour_descr_settings"
+                    android:text="@string/edit_period_hours_descr_settings"
                     android:textColor="@color/text"
                     app:customTypefaceStyle="bold"
                     android:textSize="@dimen/_10sdp" />
+
+                <com.google.android.material.slider.RangeSlider
+                    android:id="@+id/timeRangeSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/edit_period_hours_descr_settings"
+                    android:stepSize="1"
+                    android:valueFrom="0"
+                    android:valueTo="23" />
+<!--                    app:values="@array/double_slider_values"/>-->
+
+                <TextView
+                    android:id="@+id/periodTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="1dp"
+                    android:text="@string/edit_period_slider_descr_settings"
+                    android:textColor="@color/text"
+                    app:customTypefaceStyle="bold"
+                    android:textSize="@dimen/_14sdp" />
 
                 <EditText
                     android:id="@+id/startHourEditText"
@@ -131,6 +155,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:textSize="@dimen/edit_text_text_size"
+                    android:visibility="gone"
                     android:background="@drawable/bg_modified_edit_text"
                     android:inputType="number" />
 
@@ -142,6 +167,7 @@
                     android:layout_marginBottom="1dp"
                     android:text="@string/edit_finish_hour_descr_settings"
                     android:textColor="@color/text"
+                    android:visibility="gone"
                     app:customTypefaceStyle="bold"
                     android:textSize="@dimen/_10sdp" />
 
@@ -152,6 +178,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:textSize="@dimen/edit_text_text_size"
+                    android:visibility="gone"
                     android:background="@drawable/bg_modified_edit_text"
                     android:inputType="number" />
 

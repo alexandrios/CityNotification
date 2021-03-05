@@ -38,7 +38,7 @@ class AddressViewModel @Inject constructor(
 
     val recyclerViewExpandableItemManagerState = MutableLiveData<Parcelable?>()
     fun setStateSave(result: Parcelable?) {
-        recyclerViewExpandableItemManagerState.value = result
+        recyclerViewExpandableItemManagerState.value = result!!
     }
 
     // Получить список адресов, привязанных к подписке

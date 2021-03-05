@@ -51,7 +51,11 @@
     <string name="edit_time_period">Preferred period for sending messages</string>
     <string name="edit_start_hour_descr_settings">Enter the start hour of the preferred mailing period</string>
     <string name="edit_finish_hour_descr_settings">Enter the end hour of the preferred mailing period</string>
-    <string name="edit_time_zone_descr_settings">Enter the time zone by which the distribution period is calculated</string>
+    <string name="edit_period_hours_descr_settings">Select the period for sending the message</string>
+    <string name="edit_period_slider_descr_settings">Period</string>
+    <string name="edit_period_from">from</string>
+    <string name="edit_period_to">to</string>
+    <string name="edit_time_zone_descr_settings">Select the time zone by which the distribution period is calculated</string>
     <string name="edit_time_start_more_then_finish_hour">The hour of the beginning of the period must be less than the hour of the end of the period</string>
     <string name="edit_time_check_hour_range">You must specify a value in the range from 0 to 23</string>
     <string name="edit_time_check_timezone_range">You must specify a value in the range from -11 to 12</string>

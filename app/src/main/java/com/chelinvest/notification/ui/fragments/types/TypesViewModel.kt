@@ -22,6 +22,6 @@ class TypesViewModel @Inject constructor(
     }
 
     fun loginOnClick() {
-        loginAgainLiveEvent.postValue(null)
+        loginAgainLiveEvent.call()
     }
 }

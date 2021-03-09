@@ -106,7 +106,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="24dp"
                     android:text="@string/edit_time_period"
                     android:textColor="@color/darkJungleGreen"
                     android:textSize="@dimen/edit_group_title_text_size"
@@ -123,17 +123,44 @@
                     app:customTypefaceStyle="bold"
                     android:textSize="@dimen/_10sdp" />
 
-                <com.google.android.material.slider.RangeSlider
-                    android:id="@+id/timeRangeSlider"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:contentDescription="@string/edit_period_hours_descr_settings"
-                    android:stepSize="1"
-                    android:valueFrom="0"
-                    android:valueTo="23" />
-<!--                    app:values="@array/double_slider_values"/>-->
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/text"
+                        android:textSize="@dimen/_10sdp"
+                        android:text="0" />
+
+                    <com.google.android.material.slider.RangeSlider
+                        android:id="@+id/timeRangeSlider"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="2"
+                        android:stepSize="1"
+                        android:valueFrom="0"
+                        android:valueTo="23" />
+                    <!--                android:contentDescription="@string/edit_period_hours_descr_settings"-->
+                    <!--                app:values="@array/double_slider_values"/>-->
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/text"
+                        android:textSize="@dimen/_10sdp"
+                        android:text="23" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/periodTextView"
@@ -145,7 +172,7 @@
                     android:text="@string/edit_period_slider_descr_settings"
                     android:textColor="@color/text"
                     app:customTypefaceStyle="bold"
-                    android:textSize="@dimen/_14sdp" />
+                    android:textSize="@dimen/_12sdp" />
 
                 <EditText
                     android:id="@+id/startHourEditText"
@@ -186,7 +213,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="1dp"
                     android:text="@string/edit_time_zone_descr_settings"

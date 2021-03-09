@@ -290,12 +290,13 @@ class EditAddressFragment : BaseFragment() {
     }
 
     private fun setPeriodTextView(values: List<Float>) {
-        binding.periodTextView.text = String.format("%s: %s %d %s %d",
+        binding.periodTextView.text = String.format("%s: %s %d %s %d %s",
             resources.getString(R.string.edit_period_slider_descr_settings),
             resources.getString(R.string.edit_period_from),
             values[0].toInt(),
             resources.getString(R.string.edit_period_to),
-            values[1].toInt())
+            values[1].toInt(),
+            resources.getString(R.string.edit_period_hours))
     }
 
     private fun createFragment(savedInstanceState: Bundle?) {

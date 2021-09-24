@@ -2,28 +2,6 @@ package com.chelinvest.notification.utils
 
 object Constants {
 
-/*
-    // --- XGate ---
-    const val URL_XGATE_MOBILE_STUB = "url-xgate-mobile-stub"
-    const val URL_XGATE_MOBILE_INNER_JEV =
-        "https://xgate-xml-mob.chelinvest.ru:2843/xgate-mob-test/process-post"
-    const val URL_XGATE_MOBILE_INNER_DVV = "https://xgate-xml-mob.chelinvest.ru:12345/request/xml"
-    //const val URL_XGATE_MOBILE_INNER_DVV = "https://xgate-xml-mob.chelinvest.ru:7843/request/xml" // ссылка на рабочий шлюз
-
-    const val URL_XGATE_MOBILE_INNER =
-        //"https://xgate-xml-mob.chelinvest.ru:12345/request/xml"  // Vasily Dobry. The latest url
-        "https://xgate-xml-mob.chelinvest.ru:2843/xgate-mob-test/process-post"
-    //  "https://xgate-xml-mob.chelinvest.ru:2843/xgate-mob/process-post"
-
-    //const val URL_XGATE_MOBILE_INNER = "http://grepka:12345"        // Vasily Dobry
-    //const val URL_XGATE_MOBILE_INNER = "http://192.168.10.169:12345"  // Vasily Dobry
-    //https://xgate-xml-mob.chelinvest.ru:12345/request/xml  // Vasily Dobry. The latest url
-
-    const val URL_XGATE_MOBILE_OUTER = "https://xgate-xml-mob.chelinvest.ru:2843/xgate-mob-test/process-post"
-    const val RELEASE_SERVER_URL = "https://xgate-xml-mob.chelinvest.ru:2843/xgate-mob/process-post"
-    const val TEST_SERVER_URL = "https://xgate-xml-mob.chelinvest.ru:2843/xgate-mob-test/process-post"
-*/
-
     const val SUBSCRIPTION_ID = "SUBSCRIPTION_ID"
     const val SUBSCRIPTION_NAME = "SUBSCRIPTION_NAME"
     const val BRANCH_ID = "BRANCH_ID"
